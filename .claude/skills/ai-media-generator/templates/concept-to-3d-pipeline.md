@@ -79,12 +79,25 @@ style and tag "(inferred)"):
 Then compress the 7 axes into ONE dense phrase (~20-40 words, 5-8 high-signal
 descriptors). That phrase is the asset's [SPEC]. Print it under the asset's table row.
 
+STEP 1.8 — DERIVE STYLE BIBLE (once per reference image; keeps every asset on the
+concept's art style instead of the model's default, more-refined prior)
+Extract a 5-line project style bible that ALL asset prompts must carry:
+  - TRADITION/ERA — the specific cultural art/sculpture lineage, AND what it is NOT
+  - STYLIZATION LEVEL — refined vs archaic/eroded; what to avoid (clean ZBrush, museum-refined)
+  - PROPORTION LANGUAGE — squat/heavy vs elegant/slender, head/hand scale
+  - SURFACE/WEATHERING — erosion, chips, patina, faded polychrome pigment remnants
+  - MOOD/FINISH — palette + painterly vs clean render
+The style bible controls FORM/DESIGN/WEATHERING only — it does NOT re-introduce
+dramatic lighting; keep the de-lit neutral lighting from the killers rule.
+
 STEP 2 — AUTO-GENERATE PROMPTS
-For EVERY asset, output a block with ready-to-paste prompts using the template for
-its category. Replace every [asset SPEC] slot with that asset's full [SPEC] phrase
-from STEP 1.5 — never the bare name; the dense spec is what makes extraction and 3D
-accurate. Keep code blocks clean (no commentary inside). Output prompts in English;
-keep cultural nouns precise.
+For EVERY asset, output a block with ready-to-paste prompts using the template for its
+category. Prepend the STYLE BIBLE to every prompt, and replace every [asset SPEC] slot
+with that asset's full [SPEC] phrase from STEP 1.5 — never the bare name. If the concept
+image is available, also pass an asset crop as a style/proportion reference ("same object
+from the concept — match its sculpting style, proportion, archaism, weathering; change
+only view + lighting"). Keep code blocks clean. Output prompts in English; keep cultural
+nouns precise.
 
 == If [A] HERO PROP ==
   CLEAN PLATE (run in Nano Banana Pro / Seedream):
@@ -127,6 +140,7 @@ RULES
 - Never invent objects not in the image; for hidden parts, infer from visible style and tag "(inferred)".
 - Every prompt must carry the asset's full [SPEC] (7-axis dense phrase), not the bare name.
 - For material/color, describe the TRUE de-lit albedo (not the scene-lit tint); if ambiguous, list 2 candidates + confidence.
+- Every prompt carries the STYLE BIBLE; style drift (wrong culture/era, over-refinement, wrong proportion, lost weathering) is a failure even if color and geometry are right.
 - Preserve each asset's real design, material, color, proportions.
 - One object per generated image; if a scene has >5 objects, batch them 3-4 at a time.
 ```
@@ -226,6 +240,49 @@ color to match ref 2. Even neutral light, de-lit matte albedo.
 1. **先去戲劇光再描述** ── 心裡把 god-ray / 彩色光拔掉,描 albedo。
 2. **低信心就先問人** ── SPEC 標 (low) 的材質,生圖前先跟使用者確認一句,比事後重做省。
 3. **存材質參考庫** ── 青銅/玉/漆木/砂岩各備 1 張真實照,辨識存疑就丟 ref 2 鎖死。
+
+---
+
+## 畫風 / 樣式漂移 → STYLE LOCK ★
+
+顏色/材質修對後,最常見的下一個落差是 **畫風與樣式跑掉** ── 生成件技術上乾淨,但「不像同一個美術方向」:文化傳統漂移(中式石窟→日式仁王/印度神廟)、精緻度漂移(古樸風化→乾淨 ZBrush 高模)、比例漂移(矮壯→修長)、失去斑駁彩繪與筆觸。
+
+**根因:** ① 模型套訓練先驗(講「守護神像」給最常見最精緻版);② turnaround 的「clean 3D reference」字眼推向乾淨渲染;③ prompt 只描述物件、沒鎖**美術方向**;④ 抽單件時丟掉概念圖這個風格錨。
+
+### 修法 1 — STYLE BIBLE(從概念圖萃取一次,貼進每個 prompt)
+```
+STYLE BIBLE (append to EVERY asset prompt):
+- TRADITION/ERA: [e.g. 5-6th c. Chinese Buddhist cave-grotto (Yungang/Longmen/Dunhuang)];
+  NOT [e.g. Japanese Nio/Myo-o], NOT [e.g. Indian/Gandhara temple].
+- STYLIZATION: [e.g. archaic, primitive, monumental, eroded] game-concept sculpt;
+  NOT clean modern 3D render, NOT crisp ZBrush hard-surface, NOT museum-refined.
+- PROPORTION: [e.g. squat, heavy, broad, large head and hands].
+- SURFACE: [e.g. eroded stone / patinated bronze, chipped edges, faded polychrome
+  pigment remnants — mineral blue / vermilion / gold in the recesses].
+- MOOD: [e.g. painterly concept surfacing, muted atmospheric earth palette].
+```
+
+### 修法 2 — 用概念圖當風格參考圖(最強)
+把概念圖裁到該物件當 ref,連同 prompt 一起送:
+```
+Ref = the asset cropped from the original concept. This is the SAME object from the
+concept. Match its sculpting style, proportion, archaism and weathering EXACTLY;
+change only the viewing angle and the lighting (to clean de-lit neutral). Do not
+refine, re-stylize, or modernize the design.
+```
+> 文字鎖風格弱,**圖鎖風格強**。Seedream `the style/proportion of ref 1` + NBP 多圖一致性,把畫風咬住。
+
+### 修法 3 — 反漂移負面句
+對著你看到的漂移方向寫否定:`NOT Japanese Nio style` / `NOT clean ZBrush detail` /
+`less refined, more eroded and archaic` / `squatter and heavier proportions` /
+`keep remnant polychrome pigment`。
+
+### 重要分界:風格 ≠ 打光
+STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇打光加回來 ── turnaround 仍維持 de-lit 中性光(否則又踩 4 大殺手)。
+
+### 風格自檢(每件出圖後比對概念圖,四項都對才過)
+☐ 文化/年代傳統一致(沒跑成別國別代)　☐ 精緻度一致(沒被過度精修/3D 化)
+☐ 比例語言一致(矮壯/修長對得上)　☐ 斑駁/彩繪/筆觸質感一致
 
 ---
 
