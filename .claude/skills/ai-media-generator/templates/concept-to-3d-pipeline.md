@@ -60,22 +60,39 @@ Output Section 1 as a table:
   | # | asset name | category A/B/C | instance count | occlusion note (hidden parts
   to reconstruct?) | view count |
 
+STEP 1.5 — PER-ASSET VISUAL SPEC (precision pass — run for EVERY asset; this is what
+makes each object's description accurate instead of generic)
+Observe the reference and write a dense visual spec across these 7 axes (one concrete
+clause each, only from what is visible; for occluded parts infer from the visible
+style and tag "(inferred)"):
+  1. FORM & SCALE — silhouette, proportion, real-world size estimate
+  2. PARTS — structural sub-components, so 3D rebuilds the real structure
+  3. MATERIAL & FINISH — exact material + surface finish (e.g. patinated cast bronze,
+     lacquered wood, weathered painted sandstone)
+  4. COLOR — precise colors incl. variation, gilding, staining
+  5. ORNAMENT / SURFACE DETAIL — carvings, motifs, relief, inscriptions, patterns
+  6. AGE / WEAR STATE — chips, cracks, moss, soot, dust, verdigris, repairs
+  7. SIGNATURE FEATURE — the 1-2 details that uniquely identify THIS object
+Then compress the 7 axes into ONE dense phrase (~20-40 words, 5-8 high-signal
+descriptors). That phrase is the asset's [SPEC]. Print it under the asset's table row.
+
 STEP 2 — AUTO-GENERATE PROMPTS
 For EVERY asset, output a block with ready-to-paste prompts using the template for
-its category. Fill all [brackets] with that asset's real design/material/color from
-the image. Keep code blocks clean (no commentary inside). Output prompts in English;
+its category. Replace every [asset SPEC] slot with that asset's full [SPEC] phrase
+from STEP 1.5 — never the bare name; the dense spec is what makes extraction and 3D
+accurate. Keep code blocks clean (no commentary inside). Output prompts in English;
 keep cultural nouns precise.
 
 == If [A] HERO PROP ==
   CLEAN PLATE (run in Nano Banana Pro / Seedream):
-  "Using the reference, extract and isolate the [asset]. Re-render as a single
+  "Using the reference, extract and isolate the [asset SPEC]. Re-render as a single
    3D-asset plate: pure neutral grey #808080 background, centered, fully visible;
    even soft studio light, NO cast shadow, NO rim light, NO god rays, NO color spill;
    de-lit matte so albedo is readable; orthographic front, no perspective, no DoF
    blur; preserve exact design, material, color, proportions; reconstruct any hidden
    or cropped parts. Single object only."
   4-VIEW TURNAROUND (run in Nano Banana Pro):
-  "Orthographic turnaround of the [asset], 4 views in one horizontal row on pure
+  "Orthographic turnaround of the [asset SPEC], 4 views in one horizontal row on pure
    white: FRONT | LEFT SIDE | BACK | 3/4. Identical scale, alignment and height;
    the SAME object in every view with consistent design/material/color/detail; even
    flat light, no shadow, no perspective; de-lit matte; 3D-modeling reference style."
@@ -85,7 +102,7 @@ keep cultural nouns precise.
 == If [B] SCENE MODULE ==
   CLEAN PLATE: (same clean-plate prompt as [A])
   2-VIEW (run in Nano Banana Pro):
-  "Orthographic two-view of the [asset] on pure white: FRONT | 3/4. Same object,
+  "Orthographic two-view of the [asset SPEC] on pure white: FRONT | 3/4. Same object,
    identical scale, even flat light, no shadow, no perspective, de-lit matte,
    reconstruct hidden parts."
   3D: Tripo 3.0 or Hunyuan3D 2.5, multi-view, texture high. If it is a low-relief
@@ -93,7 +110,7 @@ keep cultural nouns precise.
 
 == If [C] REUSABLE/TILEABLE MODULE ==
   If tile/surface (floor, wall, ground):
-  "Top-down orthographic flat texture tile of [asset]: perfectly SEAMLESS and
+  "Top-down orthographic flat texture tile of [asset SPEC]: perfectly SEAMLESS and
    TILEABLE on all 4 edges, square 1:1, shot straight from directly above, zero
    perspective, even diffuse light, NO directional shadow, NO baked highlight, scale
    matches a 1m x 1m module, flat de-lit albedo suitable as a PBR base color map."
@@ -104,7 +121,8 @@ keep cultural nouns precise.
    grid size so pieces snap together.
 
 RULES
-- Never invent objects not in the image.
+- Never invent objects not in the image; for hidden parts, infer from visible style and tag "(inferred)".
+- Every prompt must carry the asset's full [SPEC] (7-axis dense phrase), not the bare name.
 - Preserve each asset's real design, material, color, proportions.
 - One object per generated image; if a scene has >5 objects, batch them 3-4 at a time.
 ```
@@ -114,8 +132,9 @@ RULES
 ## 手動填空模板(只想處理單一物件時,不跑 Master Prompt 也能用)
 
 ### Template A — 英雄道具(4 視圖)
-1. **去背攤平**(NBP/Seedream):把上方 `[A] CLEAN PLATE` 的 `[asset]` 換成物件名。
-2. **4 視圖**(NBP):把 `[A] 4-VIEW TURNAROUND` 的 `[asset]` 換掉。
+0. **先寫 7 軸 SPEC**(見下節「精確描述」)── 這段精確描述才是要填的內容,不是只填名字。
+1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[asset SPEC]` 換成那段 SPEC。
+2. **4 視圖**(NBP):同一段 SPEC 套進 `[A] 4-VIEW TURNAROUND` 的 `[asset SPEC]`。
 3. **3D**：Rodin Gen-2 → 上傳 4 視圖 → PBR + quad remesh + high poly。
 
 ### Template B — 場景模組物件(2 視圖)
@@ -127,6 +146,31 @@ RULES
 - 平面類(地/牆) → `[C] tile/surface` 平拍 → **轉 PBR 材質**(別生 mesh)。
 - 立體重複件(燭台/柱) → 走 A 的 4 視圖做 1 個 → 場景內陣列複製。
 - **統一 grid 尺寸**(如 1m×1m),才能像積木拼。
+
+---
+
+## 精確描述 (Per-Asset Visual Spec) — 7 軸 rubric ★
+
+工作流的「精準」全靠這一步:**每個物件先寫 7 軸 SPEC,再把 SPEC(不是名字)填進提示詞。** 每次都套同一份 rubric,描述就穩定精準、不漏細節 ── 這就是「讓每次每個物件的描述更精準」的機制。
+
+| 軸 | 問什麼 | 例(青銅香爐) |
+|---|---|---|
+| 1 FORM & SCALE | 輪廓·比例·真實尺寸 | 三足圓鼎,矮胖,約 40cm 高 |
+| 2 PARTS | 結構零件拆解 | 爐身 + 雙立耳 + 拱形鏤空蓋 + 三獸足 |
+| 3 MATERIAL & FINISH | 材質 + 表面處理 | 鑄造青銅,霧面 |
+| 4 COLOR | 精確顏色含變化 | 青黑底,凹處銅綠 verdigris,耳緣磨亮露金 |
+| 5 ORNAMENT | 雕飾·紋樣·銘文 | 腹部饕餮獸面浮雕,蓋頂蟠龍鈕 |
+| 6 AGE / WEAR | 損耗狀態 | 香灰積垢,足部氧化斑,一處缺角 (inferred) |
+| 7 SIGNATURE | 唯一識別特徵 | 蟠龍蓋鈕 + 饕餮獸面 |
+
+**壓成一句 [SPEC](就是要填進提示詞的東西):**
+> *a squat three-legged bronze ding censer ~40cm tall, twin upright loop handles, pierced domed lid with a coiled-dragon finial, taotie beast-mask relief on the belly, three beast-claw legs; matte cast bronze, blue-black patina with verdigris in the recesses and rubbed-gold highlights on the rims, soot-stained, oxidized feet.*
+
+把這段塞進 CLEAN PLATE / 4-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
+
+**精準度自檢(每個 SPEC 過一遍,四項都過才送):**
+☐ 7 軸都有具體值(沒有空軸)　☐ 顏色含「變化/磨損」不只一個平色
+☐ 講出 1-2 個唯一特徵(SIGNATURE)　☐ 遮擋/推測處標了 (inferred)
 
 ---
 
