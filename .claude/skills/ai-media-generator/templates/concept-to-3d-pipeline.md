@@ -67,9 +67,12 @@ clause each, only from what is visible; for occluded parts infer from the visibl
 style and tag "(inferred)"):
   1. FORM & SCALE — silhouette, proportion, real-world size estimate
   2. PARTS — structural sub-components, so 3D rebuilds the real structure
-  3. MATERIAL & FINISH — exact material + surface finish (e.g. patinated cast bronze,
-     lacquered wood, weathered painted sandstone)
-  4. COLOR — precise colors incl. variation, gilding, staining
+  3. MATERIAL & FINISH — the TRUE material + surface finish (de-lit: what it is
+     actually made of, NOT how the scene light tints it). If the concept lighting
+     makes it ambiguous, list the top 2 candidates with confidence high/med/low.
+  4. COLOR — the TRUE albedo color under neutral light (mentally remove the scene's
+     god-rays / colored light / shadow), incl. variation, gilding, staining. If the
+     lit look differs a lot, add it separately as "lit: ...".
   5. ORNAMENT / SURFACE DETAIL — carvings, motifs, relief, inscriptions, patterns
   6. AGE / WEAR STATE — chips, cracks, moss, soot, dust, verdigris, repairs
   7. SIGNATURE FEATURE — the 1-2 details that uniquely identify THIS object
@@ -123,6 +126,7 @@ keep cultural nouns precise.
 RULES
 - Never invent objects not in the image; for hidden parts, infer from visible style and tag "(inferred)".
 - Every prompt must carry the asset's full [SPEC] (7-axis dense phrase), not the bare name.
+- For material/color, describe the TRUE de-lit albedo (not the scene-lit tint); if ambiguous, list 2 candidates + confidence.
 - Preserve each asset's real design, material, color, proportions.
 - One object per generated image; if a scene has >5 objects, batch them 3-4 at a time.
 ```
@@ -168,9 +172,60 @@ RULES
 
 把這段塞進 CLEAN PLATE / 4-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
 
-**精準度自檢(每個 SPEC 過一遍,四項都過才送):**
+**精準度自檢(每個 SPEC 過一遍,五項都過才送):**
 ☐ 7 軸都有具體值(沒有空軸)　☐ 顏色含「變化/磨損」不只一個平色
 ☐ 講出 1-2 個唯一特徵(SIGNATURE)　☐ 遮擋/推測處標了 (inferred)
+☐ 材質/顏色標的是 TRUE albedo(不是被場景光染的色);低信心有列 2 個候選
+
+---
+
+## 顏色 / 材質辨識錯誤 → 修正機制 ★
+
+**會錯的根因:** 8 成的顏色/材質誤判來自「概念圖的戲劇打光」騙了 AI ── 洞窟綠光、god-ray 橘光、紅幡反光,把石頭染成綠、把青銅染成金。所以 STEP 1.5 已要求標 **TRUE albedo + 低信心列 2 候選**,從源頭減少誤判。若還是辨識錯,照下面修,**不要整條重跑**。
+
+**先判斷:錯在哪一段 → 用哪個修法(越早改越省):**
+
+| 發現錯誤時 | 用修法 | 成本 |
+|---|---|---|
+| 還沒生圖(只有 SPEC) | 路徑 1:改 SPEC | 最低 |
+| 圖生了、3D 還沒 | 路徑 2:image edit 改材質保幾何 | 低 |
+| 3D 已生 | 路徑 3:retexture(不重生 geometry) | 中 |
+
+### 路徑 1 — 改 SPEC(還沒生圖,首選)
+只改材質/顏色軸,其他軸不動,重出該物件 SPEC + 提示詞:
+```
+For asset [name], the material/color was misidentified. Correct it: TRUE material =
+[correct material], TRUE albedo color = [correct color]. Keep all other SPEC axes
+(form, parts, ornament, wear, signature) unchanged. Re-output the [SPEC] phrase and
+regenerate this asset's CLEAN PLATE and multi-view prompts only.
+```
+
+### 路徑 2 — 已生圖:只改材質、保幾何(NBP / Seedream / Flux Kontext)
+**純文字版:**
+```
+Edit this asset plate. Keep the geometry, silhouette, proportions, ornament and
+orientation EXACTLY unchanged. Change ONLY the surface material and color: re-render
+as [correct material, e.g. dark patinated bronze with verdigris in the recesses],
+TRUE albedo under even neutral light, de-lit matte, no colored light spill. Do not
+alter shape, parts, or detail.
+```
+**附材質參考圖版(最可靠):**
+```
+Ref 1: the asset plate.  Ref 2: a material swatch / photo of [correct material].
+Apply the material from ref 2 onto the object in ref 1. Strictly preserve ref 1's
+geometry, silhouette, ornament and proportions; change only surface material and
+color to match ref 2. Even neutral light, de-lit matte albedo.
+```
+> 給一張**真實材質照片**當 ref 2,是顏色/材質修正最穩的做法(Seedream `the material from ref N` + `strictly preserve`;NBP 多圖 blend;Flux Kontext 改材質)。
+
+### 路徑 3 — 已生 3D:retexture(別重生 geometry)
+- Rodin / Tripo / Meshy:用 **re-texture / texture-prompt** 重貼,或直接餵路徑 2 修好的正確 albedo 圖當貼圖來源;幾何不動。
+- 或進 Blender / Substance 換材質球 ── 高模幾何保留,只換 PBR。
+
+### 防錯小招(下次更不容易辨識錯)
+1. **先去戲劇光再描述** ── 心裡把 god-ray / 彩色光拔掉,描 albedo。
+2. **低信心就先問人** ── SPEC 標 (low) 的材質,生圖前先跟使用者確認一句,比事後重做省。
+3. **存材質參考庫** ── 青銅/玉/漆木/砂岩各備 1 張真實照,辨識存疑就丟 ref 2 鎖死。
 
 ---
 
