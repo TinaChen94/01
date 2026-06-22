@@ -76,7 +76,10 @@ style and tag "(inferred)"):
   5. ORNAMENT / SURFACE DETAIL — carvings, motifs, relief, inscriptions, patterns
   6. AGE / WEAR STATE — chips, cracks, moss, soot, dust, verdigris, repairs
   7. SIGNATURE FEATURE — the 1-2 details that uniquely identify THIS object
-Then compress the 7 axes into ONE dense phrase (~20-40 words, 5-8 high-signal
+  8. POSE & GESTURE (figures / creatures / characters only) — limb-by-limb position
+     (each arm, hand, leg, head tilt), asymmetry, gesture/mudra; tag occluded limbs
+     "(inferred)"; if the 2D pose reads ambiguously, note 2 readings + confidence.
+Then compress the axes (incl. pose for figures) into ONE dense phrase (~20-40 words, 5-8 high-signal
 descriptors). That phrase is the asset's [SPEC]. Print it under the asset's table row.
 
 STEP 1.8 — DERIVE STYLE BIBLE (once per reference image; keeps every asset on the
@@ -138,7 +141,8 @@ nouns precise.
 
 RULES
 - Never invent objects not in the image; for hidden parts, infer from visible style and tag "(inferred)".
-- Every prompt must carry the asset's full [SPEC] (7-axis dense phrase), not the bare name.
+- Every prompt must carry the asset's full [SPEC] (dense 7-8-axis phrase), not the bare name.
+- For figures/creatures, the SPEC must lock POSE limb-by-limb; pose/form drift is a failure even if color and style are right.
 - For material/color, describe the TRUE de-lit albedo (not the scene-lit tint); if ambiguous, list 2 candidates + confidence.
 - Every prompt carries the STYLE BIBLE; style drift (wrong culture/era, over-refinement, wrong proportion, lost weathering) is a failure even if color and geometry are right.
 - Preserve each asset's real design, material, color, proportions.
@@ -167,7 +171,7 @@ RULES
 
 ---
 
-## 精確描述 (Per-Asset Visual Spec) — 7 軸 rubric ★
+## 精確描述 (Per-Asset Visual Spec) — 7 軸 + 姿勢 rubric ★
 
 工作流的「精準」全靠這一步:**每個物件先寫 7 軸 SPEC,再把 SPEC(不是名字)填進提示詞。** 每次都套同一份 rubric,描述就穩定精準、不漏細節 ── 這就是「讓每次每個物件的描述更精準」的機制。
 
@@ -180,16 +184,69 @@ RULES
 | 5 ORNAMENT | 雕飾·紋樣·銘文 | 腹部饕餮獸面浮雕,蓋頂蟠龍鈕 |
 | 6 AGE / WEAR | 損耗狀態 | 香灰積垢,足部氧化斑,一處缺角 (inferred) |
 | 7 SIGNATURE | 唯一識別特徵 | 蟠龍蓋鈕 + 饕餮獸面 |
+| 8 POSE & GESTURE(人形/生物才填) | 逐肢位置·不對稱·手印 | 香爐非人形→免;守護神例:右臂抬起前伸、左手按膝、正坐 |
 
 **壓成一句 [SPEC](就是要填進提示詞的東西):**
 > *a squat three-legged bronze ding censer ~40cm tall, twin upright loop handles, pierced domed lid with a coiled-dragon finial, taotie beast-mask relief on the belly, three beast-claw legs; matte cast bronze, blue-black patina with verdigris in the recesses and rubbed-gold highlights on the rims, soot-stained, oxidized feet.*
 
 把這段塞進 CLEAN PLATE / 4-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
 
-**精準度自檢(每個 SPEC 過一遍,五項都過才送):**
+**精準度自檢(每個 SPEC 過一遍,六項都過才送):**
 ☐ 7 軸都有具體值(沒有空軸)　☐ 顏色含「變化/磨損」不只一個平色
 ☐ 講出 1-2 個唯一特徵(SIGNATURE)　☐ 遮擋/推測處標了 (inferred)
 ☐ 材質/顏色標的是 TRUE albedo(不是被場景光染的色);低信心有列 2 個候選
+☐ 人形/生物有填 POSE 軸(逐肢);2D 歧義姿勢有標信心
+
+---
+
+## 辨識錯誤修正 — 先講順序(組合錯誤必看)★
+
+物件常常**姿勢 + 造型 + 顏色 + 材質一起錯**(像守護神那次)。修的順序很重要,順序錯會重工:
+
+> **① 先鎖姿勢/造型(幾何)→ ② 再鎖顏色/材質(表面)→ ③ 最後鎖畫風(美術方向)。**
+
+因為材質編輯預設「幾何不動」── 你若先修好顏色再改姿勢,顏色得重來。**幾何永遠先修。** 三段各有專節:姿勢/造型(下方)、顏色/材質、畫風(STYLE LOCK)。
+
+---
+
+## 姿勢 / 造型辨識錯誤 → 修正機制 ★
+
+**會錯的根因:** ① 遮擋 ── 概念圖把下半身/手臂藏住(守護神下半身被供桌擋),AI 用猜的;② 透視前縮 ── 2D 壓縮讓 AI 誤判肢體位置;③ 2D 歧義 ── 一隻抬起的手在 3D 有多種解;④ 模型先驗 ── 給「典型對稱姿」(雙手放膝)取代特定不對稱姿;⑤ 單視圖 ── 只有正面時,側/背姿是 AI 編的。
+
+> **顏色/材質錯好修(改表面、保幾何);姿勢/造型錯難修(要動幾何)。** 分開處理,大動作優先丟 3D。
+
+| 情況 | 修法 | 為何 |
+|---|---|---|
+| 還沒生圖 / 姿勢中度偏 | 路徑 A:改 SPEC 的 POSE 軸逐肢重鎖,重生 | 文字逐肢鎖死 |
+| 姿勢/造型明顯錯、要精準 | 路徑 B:給**姿勢參考圖**(最強) | 圖鎖姿勢 >> 文字 |
+| 已生 3D / 大幅改姿 | 路徑 C:在 3D 裡 rig + 重擺 | 3D 擺姿比 2D 可靠太多 |
+
+### 路徑 A — 改 SPEC 的 POSE 軸,逐肢重鎖(重生)
+```
+For asset [name], the pose/silhouette was misread. Lock the pose EXACTLY, limb by limb:
+head [e.g. tilted slightly down]; right arm [raised, extended forward at shoulder height,
+open palm, fingers spread]; left arm [low, resting on left knee]; legs [seated, knees
+apart, left foot forward]; overall silhouette [squat and broad]. Keep material, ornament
+and identity unchanged. Regenerate the turnaround.
+```
+
+### 路徑 B — 姿勢參考圖(最強)
+給一張「正確姿勢」參考 ── 概念圖裁切、擺好姿的人偶/3D mannequin 截圖、甚至手繪火柴人標手臂位置:
+```
+Ref 1 = the asset (keep its design, material, ornament).
+Ref 2 = pose reference (a posed figure / mannequin / stick-figure sketch).
+Re-render the object from ref 1 in the EXACT pose and silhouette of ref 2. Keep ref 1's
+design and material; take ONLY the pose / limb positions from ref 2. De-lit neutral light.
+```
+> 連火柴人草圖都有效 ── pose 是「空間關係」,圖比文字精準太多。
+
+### 路徑 C — 已生 3D:在 3D 裡重擺姿(大動作首選)
+- 大幅改姿(抬手、換坐站、轉頭)→ 模型 **rig 起來在 Blender 擺**,或 sculpt 微調。比讓 2D 模型「移動一隻手臂」(常崩)穩定可控太多。
+- 訣竅:**生模時就用中性/對稱姿(T/A-pose 或正坐)**,複雜姿勢留到 3D ── 一開始別逼 AI 生難姿,後面更好控。
+
+### 造型 / 比例錯(silhouette / proportion / 缺件)
+- 缺件(漏頭光環)、比例錯(太修長)→ 屬幾何:走路徑 A(補進 FORM/PARTS 軸 + 概念圖當 ref)或 3D 補雕。
+- 這類也吃下方 STYLE LOCK 的「概念圖當風格參考圖」修法。
 
 ---
 
