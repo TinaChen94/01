@@ -22,7 +22,7 @@
 
 | 類別 | 定義 | 視圖數 | 3D 走向 |
 |---|---|---|---|
-| **[A] 英雄道具** 單件精修·3視圖重建 | 小~中、唯一、細節吃重、會被特寫 | **4 視圖** | 高模 + PBR,Rodin 多圖 |
+| **[A] 英雄道具** 單件精修·3視圖重建 | 小~中、唯一、細節吃重、會被特寫 | **3 視圖**(前/側/背) | 高模 + PBR,Rodin 多圖 |
 | **[B] 場景模組物件** | 大型/結構性、定義空間、唯一或少量、中景看 | 2 視圖 | 中模,Tripo/Hunyuan |
 | **[C] 可複用可拼模組** | 重複 ≥3 次 **或** 格狀/可平鋪(地磚/牆段/階梯/柱/燭台陣列) | **1 正交平拍** | 低模 **或 PBR 材質**,模數化拼接 |
 
@@ -46,7 +46,7 @@ exact generation prompts for each asset, ready to paste into image + 3D tools.
 
 STEP 1 — INVENTORY & CLASSIFY
 List every distinct physical object in the image. Classify each into exactly one:
-  [A] HERO PROP — small/medium, unique, detail-critical, seen up close. 4-view + high-poly.
+  [A] HERO PROP — small/medium, unique, detail-critical, seen up close. 3-view + high-poly.
   [B] SCENE MODULE — large/structural set piece defining the space, unique/low-count,
       medium distance. 2 views.
   [C] REUSABLE/TILEABLE MODULE — repeats >=3x OR is grid/tile-like (floor, wall,
@@ -103,27 +103,33 @@ only view + lighting"). Keep code blocks clean. Output prompts in English; keep 
 nouns precise.
 
 == If [A] HERO PROP ==
-  CLEAN PLATE (run in Nano Banana Pro / Seedream):
-  "Using the reference, extract and isolate the [asset SPEC]. Re-render as a single
-   3D-asset plate: pure neutral grey #808080 background, centered, fully visible;
-   even soft studio light, NO cast shadow, NO rim light, NO god rays, NO color spill;
-   de-lit matte so albedo is readable; orthographic front, no perspective, no DoF
-   blur; preserve exact design, material, color, proportions; reconstruct any hidden
-   or cropped parts. Single object only."
-  4-VIEW TURNAROUND (run in Nano Banana Pro):
-  "Orthographic turnaround of the [asset SPEC], 4 views in one horizontal row on pure
-   white: FRONT | LEFT SIDE | BACK | 3/4. Identical scale, alignment and height;
-   the SAME object in every view with consistent design/material/color/detail; even
-   flat light, no shadow, no perspective; de-lit matte; 3D-modeling reference style."
-  3D: Rodin Gen-2, multi-image input (feed all 4 views), PBR on, quad/remesh on,
+  CLEAN PLATE (run in Nano Banana Pro / Seedream) — single hero detail plate:
+  "From the attached concept art, extract ONLY the [asset SPEC]. Re-render as one
+   complete, isolated object, centered and fully visible, front orthographic view, on a
+   flat neutral grey #808080 seamless background. Perfectly even diffuse studio lighting,
+   NO cast shadows, NO rim light, NO scene elements. Plausibly reconstruct [name the
+   occluded regions, e.g. the lower base, the back, anything hidden behind X]. Preserve
+   exact design and materials: [key design anchors from the SPEC]. Maximum sculptural
+   detail. High-resolution clean reference plate for image-to-3D."
+  3-VIEW TURNTABLE (run in Nano Banana Pro) — multiview-to-3D reference:
+  "The [asset SPEC] from the reference, as a 3-VIEW orthographic turntable in ONE image:
+   front | left side | back, three equal panels left to right. IDENTICAL object in all
+   three panels — same geometry, proportions, materials, height and centering. Flat even
+   diffuse lighting, neutral grey #808080 background, NO shadows, strictly orthographic
+   (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset
+   reference for multiview-to-3D."
+  (Strongly asymmetric asset? add a 4th panel: 3/4 view.)
+  3D: Rodin Gen-2, multi-image input (feed the 3 panels), PBR on, quad/remesh on,
    high poly. Alt: Tripo 3.0 multi-view.
 
 == If [B] SCENE MODULE ==
   CLEAN PLATE: (same clean-plate prompt as [A])
-  2-VIEW (run in Nano Banana Pro):
-  "Orthographic two-view of the [asset SPEC] on pure white: FRONT | 3/4. Same object,
-   identical scale, even flat light, no shadow, no perspective, de-lit matte,
-   reconstruct hidden parts."
+  2-3 VIEW TURNTABLE (run in Nano Banana Pro):
+  "The [asset SPEC] from the reference, as an orthographic turntable in ONE image:
+   front | 3/4 [| back if asymmetric], equal panels left to right. IDENTICAL object in
+   all panels — same geometry, proportions, materials, height and centering. Flat even
+   diffuse lighting, neutral grey #808080 background, NO shadows, strictly orthographic.
+   Maximum sculptural detail, reconstruct occluded areas. Asset reference for multiview-to-3D."
   3D: Tripo 3.0 or Hunyuan3D 2.5, multi-view, texture high. If it is a low-relief
    panel, also export a height/displacement pass.
 
@@ -134,7 +140,7 @@ nouns precise.
    perspective, even diffuse light, NO directional shadow, NO baked highlight, scale
    matches a 1m x 1m module, flat de-lit albedo suitable as a PBR base color map."
   If discrete repeating object (candlestick, pillar, pot):
-  Use the [A] 4-view turnaround prompt, then instance/duplicate in-scene.
+  Use the [A] 3-view turntable prompt, then instance/duplicate in-scene.
   3D: flat surfaces -> convert to PBR material (base + normal + height), no mesh;
    discrete objects -> Tripo single/multi-view, assemble a modular kit at a unified
    grid size so pieces snap together.
@@ -153,11 +159,11 @@ RULES
 
 ## 手動填空模板(只想處理單一物件時,不跑 Master Prompt 也能用)
 
-### Template A — 英雄道具(4 視圖)
+### Template A — 英雄道具(3 視圖)
 0. **先寫 7 軸 SPEC**(見下節「精確描述」)── 這段精確描述才是要填的內容,不是只填名字。
 1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[asset SPEC]` 換成那段 SPEC。
-2. **4 視圖**(NBP):同一段 SPEC 套進 `[A] 4-VIEW TURNAROUND` 的 `[asset SPEC]`。
-3. **3D**：Rodin Gen-2 → 上傳 4 視圖 → PBR + quad remesh + high poly。
+2. **3 視圖**(NBP):同一段 SPEC 套進 `[A] 3-VIEW TURNTABLE` 的 `[asset SPEC]`。
+3. **3D**：Rodin Gen-2 → 上傳 3 視圖 → PBR + quad remesh + high poly。
 
 ### Template B — 場景模組物件(2 視圖)
 1. 去背攤平(同 A 的 CLEAN PLATE)。
@@ -166,7 +172,7 @@ RULES
 
 ### Template C — 可複用可拼模組(1 平拍)
 - 平面類(地/牆) → `[C] tile/surface` 平拍 → **轉 PBR 材質**(別生 mesh)。
-- 立體重複件(燭台/柱) → 走 A 的 4 視圖做 1 個 → 場景內陣列複製。
+- 立體重複件(燭台/柱) → 走 A 的 3 視圖做 1 個 → 場景內陣列複製。
 - **統一 grid 尺寸**(如 1m×1m),才能像積木拼。
 
 ---
@@ -189,7 +195,7 @@ RULES
 **壓成一句 [SPEC](就是要填進提示詞的東西):**
 > *a squat three-legged bronze ding censer ~40cm tall, twin upright loop handles, pierced domed lid with a coiled-dragon finial, taotie beast-mask relief on the belly, three beast-claw legs; matte cast bronze, blue-black patina with verdigris in the recesses and rubbed-gold highlights on the rims, soot-stained, oxidized feet.*
 
-把這段塞進 CLEAN PLATE / 4-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
+把這段塞進 CLEAN PLATE / 3-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
 
 **精準度自檢(每個 SPEC 過一遍,六項都過才送):**
 ☐ 7 軸都有具體值(沒有空軸)　☐ 顏色含「變化/磨損」不只一個平色
@@ -345,8 +351,9 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 ## 通用品質金句 +「4 大殺手」
 
-**金句(每張去背攤平圖都要有):**
-`pure neutral grey #808080 / white background` · `even flat studio light` · `de-lit matte, readable albedo` · `orthographic, no perspective` · `single object, fully visible` · `reconstruct hidden parts` · `preserve exact design/material/color`
+**金句(驗證過的標準,每張都要有):**
+`flat neutral grey #808080 seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `strictly orthographic, no perspective` · `one complete isolated object, centered, fully visible` · `plausibly reconstruct [具體遮擋處:base / back / hidden-behind-X]` · `preserve exact design & materials: [SPEC 錨點]` · `maximum sculptural detail` · `clean reference plate for image-to-3D`
+**多視圖加:**`3-VIEW turntable in ONE image: front | left side | back, three equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
 
 **進 3D 前必殺的 4 個東西(出現任一 = 3D 必爛):**
 1. ❌ 投影 / cast shadow　2. ❌ rim light / god rays / 邊緣光
@@ -358,9 +365,9 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 | 類別 | 輸入 | 工具 + 設定 | 輸出 |
 |---|---|---|---|
-| [A] 英雄件 | 4 視圖 | **Rodin Gen-2** multi-image,PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
+| [A] 英雄件 | 3 視圖(前/側/背) | **Rodin Gen-2** multi-image,PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
 | [B] 場景件 | 單件+2 視 | **Tripo 3.0 / Hunyuan3D 2.5** multi-view,texture 高 | 中模+貼圖 |
-| [C]-立體 | 4 視圖×1 | Tripo 單/多視 → 模數化 kit | 低模可拼件 |
+| [C]-立體 | 3 視圖×1 | Tripo 單/多視 → 模數化 kit | 低模可拼件 |
 | [C]-平面 | top-down 平拍 | **轉 PBR 材質**(base+normal+height),不生 mesh | 可無限平鋪 |
 
 ---
