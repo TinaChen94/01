@@ -102,6 +102,15 @@ Prompt 寫完問自己：
 
 4 題都過 → 送。缺一題回去改。
 
+### concept→3D / 三視圖重建 / 拆概念圖（image-grounded 鐵律）
+
+**任務只要是「從一張既有圖（概念圖/截圖/照片）抽出物件、轉正交、做三視圖/turnaround、image-to-3D」→ 絕不用 text-to-image 憑文字重述物件。**
+
+- ❌ 反模式：把物件翻成一段「文字設計描述」再從零生成 → 文字有損 + 模型用先驗補完 → **造型必漂移**。
+- ✅ 正解：**image-grounded extract**（Nano Banana Pro / Flux Kontext / Seedream 餵原圖）。文字只寫「呈現規格」（視角 + **明確否定來源相機** + 背景 + 平光 + 用途），**物件長相交給圖**。
+- 一致性錨 = 原圖 +（出完一視後）把該 render 也加進 reference + **固定 seed**，不是綁文字描述。
+- 完整 SOP + 勝利模板 + checklist → [references/concept-to-3d.md](references/concept-to-3d.md)
+
 ## 核心原則
 
 1. **先問清楚「要什麼」，再決定「用哪個」**。同一個想法送到不同模型，prompt 寫法完全不同。先釐清：
@@ -151,6 +160,8 @@ Prompt 寫完問自己：
 - Flux 1.1 Pro / Kontext → [references/flux.md](references/flux.md)
 - Ideogram 3 → [references/ideogram.md](references/ideogram.md)
 - Stable Diffusion 3.5 / SDXL → [references/stable-diffusion.md](references/stable-diffusion.md)
+
+> **🧱 拆概念圖 / concept→3D / 三視圖重建 / image-to-3D reference plate → 必讀 [references/concept-to-3d.md](references/concept-to-3d.md)**（image-grounded extract SOP + 正交三視勝利模板 + 一致性協議）。**禁止用純文字重述物件。**
 
 **音樂 (Music)**
 - Suno v5.5（Personas 已改名 Voices） → [references/suno.md](references/suno.md)
