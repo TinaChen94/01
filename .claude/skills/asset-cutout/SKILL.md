@@ -120,6 +120,17 @@ Using the attached concept art as style reference, extract ONLY the <主體>:
 <關鍵特徵 3-5 個>. [STYLE]. [BG].
 ```
 
+**1.2b — 正交正視參考板(image-to-3D 用,✅ 實測 2026-06-23 / A1 陵墓)**
+```text
+# Nano Banana Pro / Seedream — 上傳概念圖
+From the attached concept art, extract ONLY the [PROP]. Re-render as one complete,
+isolated object, centered and fully visible, front orthographic view, on a flat
+neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting,
+NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail.
+High-resolution clean reference plate for image-to-3D.
+```
+> 換 `[PROP]` 即可套任何資產;產出乾淨正視板,直接餵 image-to-3D / concept-to-3D pipeline。要多視圖再接 §4 `[ORTHO]` turnaround。實戰紀錄見 `docs/asset-cases/A1-mausoleum.md`。
+
 ---
 
 ## 6. 透明 ↔ 純色互轉(棋盤格其實不是圖)
