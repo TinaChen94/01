@@ -2,6 +2,24 @@
 
 **用途：** 丟「任一張」參考圖 / concept art，自動產出 ① 資產清單(分 3 類) ② 每個物件各自對應的去背 / 多視圖 / 3D 提示詞。給遊戲/影視/3D 列印的高模生成前置。
 
+---
+
+## ✅ 主模板 — 每次都用這兩個(複製即用)★
+
+**怎麼用:** 把 `[PROP]` 換成要提取的物件名(例:`bronze tripod incense burner`),附上概念圖,先跑 ① 再跑 ②。**就這兩段,不要加別的字。** 出圖偏了,才看下面〈🧭 一頁速查〉對症修。
+
+**① 單件提取(front plate)**
+```
+From the attached concept art, extract ONLY the [PROP]. Re-render as one complete, isolated object, centered and fully visible, front orthographic view, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
+```
+
+**② 三視圖(3-view turntable)**
+```
+The [PROP] from the reference, as a 3-VIEW orthographic turntable in ONE image: front | left side | back, three equal panels left to right. IDENTICAL object in all three panels — same geometry, proportions, materials, height and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset reference for multiview-to-3D.
+```
+
+> **這是預設、且唯一要記的兩段。** 下面的 Master Prompt(自動盤點)、SPEC、修正層全是**選配** ── 只有「一次跑很多物件想自動化」或「出圖偏了要對症修」才往下看。平常就這兩段、換 `[PROP]`、完事。
+
 **核心心法：** 沒有真正的「一鍵」。圖上那種乾淨拆解圖是 4 段管線的產物 ──
 `①盤點分類 → ②單件去背攤平 → ③正交多視圖 → ④影像轉3D`。
 ②③ 做得乾不乾淨，直接決定 ④ 成敗。最大殺手是把「概念圖的戲劇打光版」直接丟進 3D AI(god rays / 紅光 / 景深會被烤進貼圖)。所以拆分階段的第一要務是 **去戲劇光、攤平、去背、補全遮擋**。
@@ -58,9 +76,9 @@
 
 ---
 
-## ★ 主控生成器 Master Prompt(核心:貼這段 + 任一參考圖到視覺 LLM)
+## 主控生成器 Master Prompt(進階 / 批次 — 一次處理整張圖的很多物件才用)
 
-> 輸出 = 清單表格 + 每個物件的「可直接複製」提示詞。這就是「放任一張圖都能自動出清單與對應 prompt」的引擎。
+> **只做幾件?用最上面的〈✅ 主模板〉就好,別跑這個。** 這個是「一張圖很多物件、想自動分類 + 批次出 prompt」時才用的引擎,輸出 = 清單表格 + 每物件可複製提示詞。它走兩段式(PASS 1 極簡 → 偏了才修),但**單件提取請優先用主模板,最不會偏**。
 
 ```
 ROLE: You are a senior 3D art director + technical artist running a concept-to-3D
