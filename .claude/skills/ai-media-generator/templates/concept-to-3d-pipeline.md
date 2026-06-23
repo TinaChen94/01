@@ -4,25 +4,31 @@
 
 ---
 
-## ✅ 主模板 — 個別物件兩步驟(先 front 確認 → 再 4 視圖)★
+## ✅ 主模板 — 個別物件三步驟(front 確認 → 4 視圖 → 3/4 視圖)★
 
-**逐物件、分兩步、別跳步:**
+**逐物件、依序做、別跳步:**
 1. **STEP 1 先出 front** ── 換 `[PROP]`、附概念圖,只跑 ① front plate。先別碰視圖。
-2. **確認** ── 比對原圖:造型/材質/比例對不對、乾不乾淨?**不對 → 看下面〈🧭 一頁速查〉修到對,先別生視圖。**
-3. **STEP 2 確認後才出 4 視圖** ── 拿**確認過的 front 圖**當參考跑 ②(不是再丟概念圖),一致性最好。
+2. **確認** ── 比對原圖:造型/材質/比例對不對、乾不乾淨?**不對 → 看下面〈🧭 一頁速查〉修到對,先別往下。**
+3. **STEP 2 出 4 視圖** ── 拿**確認過的 front 圖**當參考跑 ②(orthographic 多視圖,餵 multiview-to-3D)。
+4. **STEP 3 出 3/4 視圖** ── 一樣拿確認過的 front 當參考跑 ③(單張立體 hero,餵 single-image-to-3D)。
 
-**① FRONT(先做這個,確認再下一步)**
+**① FRONT(先做這個,確認再往下)**
 ```
 From the attached concept art, extract ONLY the [PROP]. Re-render as one complete, isolated object, centered and fully visible, front orthographic view, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
 ```
 
-**② 4 視圖(front 確認 OK 後才做;附上確認過的 front 當參考)**
+**② 4 視圖(orthographic 多視圖;front 確認後,附確認過的 front)**
 ```
 The [PROP] from the confirmed front plate, as a 4-VIEW orthographic turntable in ONE image: front | left side | right side | back, four equal panels left to right. IDENTICAL object in all four panels — same geometry, proportions, materials, height and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset reference for multiview-to-3D.
 ```
 
-> **為什麼分兩步:** front 是基準。先把 front 鎖對,4 視圖才不會把錯誤放大成四面;front 沒過就別生視圖(省時省幣)。
-> **要 3 視圖?** 把 ② 的 `right side` 拿掉、`4-VIEW…four`→`3-VIEW…three` 即可。Master Prompt / SPEC / 修正層都是選配。
+**③ 3/4 視圖(單張立體 hero,給 3D AI 生成;附確認過的 front)**
+```
+The [PROP] from the confirmed front plate, as a single 3/4 hero view for image-to-3D generation: rotated ~35° to show the front and one side, tilted ~25° from above to reveal the top surfaces. One complete, isolated object, centered and fully visible, on a flat neutral grey (#808080) seamless background. Even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements, near-orthographic (no wide-angle distortion). SAME geometry, proportions and materials as the front plate. Maximum sculptural detail, reconstruct all occluded areas. High-resolution single-image reference for image-to-3D generation.
+```
+
+> **三組各有用途:** ① front 鎖基準 → ② 4 視圖餵**多視圖**轉 3D(Rodin/Tripo 多圖)→ ③ 3/4 餵**單圖**轉 3D(露出體積/深度,平面正視圖給不了的立體線索,3D AI 更會抓形)。
+> **要 3 視圖?** ② 把 `right side` 拿掉、`four`→`three` 即可。Master Prompt / SPEC / 修正層都是選配。
 
 **核心心法：** 沒有真正的「一鍵」。圖上那種乾淨拆解圖是 4 段管線的產物 ──
 `①盤點分類 → ②單件去背攤平 → ③正交多視圖 → ④影像轉3D`。
@@ -167,8 +173,15 @@ reference. Keep code blocks clean. Output prompts in English; keep cultural noun
    and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO
    shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct
    all occluded areas. Asset reference for multiview-to-3D."
-  3D: Rodin Gen-2, multi-image input (feed the 4 panels), PBR on, quad/remesh on,
-   high poly. Alt: Tripo 3.0 multi-view.
+  3/4 HERO VIEW (run after the front is confirmed) — single-image-to-3D:
+  "The [PROP] from the confirmed front plate, as a single 3/4 hero view for image-to-3D:
+   rotated ~35° to show front + one side, tilted ~25° from above to reveal the top.
+   Isolated, centered, fully visible, flat neutral grey (#808080) seamless background,
+   even diffuse light, NO shadows, NO rim light, near-orthographic (no wide-angle
+   distortion). SAME geometry, proportions, materials as the front. Maximum sculptural
+   detail, reconstruct occluded areas. Single-image reference for image-to-3D generation."
+  3D: multi-view → Rodin Gen-2 / Tripo 3.0 (feed the 4 panels); OR single-image → feed
+   the 3/4 hero to Tripo / Meshy / Hunyuan3D. PBR on, quad/remesh on, high poly.
 
 == If [B] SCENE MODULE ==
   CLEAN PLATE: (same clean-plate prompt as [A])
@@ -209,12 +222,12 @@ RULES
 
 > **★ 兩段式原則:第一次極簡(只填道具名 [PROP],讓原圖當依據)→ 偏了才加修正層(SPEC/風格/姿勢/材質鎖)。** 第一次塞太多文字 = 模型照文字重畫 = 偏離原圖。
 
-### Template A — 英雄道具(兩步:先 front → 確認 → 4 視圖)
+### Template A — 英雄道具(三步:front → 確認 → 4 視圖 + 3/4)
 1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[PROP]` 換成**道具名**(只填名字,別塞 SPEC),先出 front。
-2. **確認 front** ── 對了再下一步;不對先修(見〈🧭 一頁速查〉)。
-3. **4 視圖**(NBP):拿確認過的 front 當參考,跑 `[A] 4-VIEW TURNTABLE`。
+2. **確認 front** ── 對了再往下;不對先修(見〈🧭 一頁速查〉)。
+3. **4 視圖 + 3/4**(NBP):拿確認過的 front 當參考,跑 `[A] 4-VIEW TURNTABLE` 與 `[A] 3/4 HERO VIEW`。
 4. **偏了才修**:結果跑掉 → 修正層(SPEC 錨點 / STYLE BIBLE / 鎖姿勢/材質,見下方各節)。
-5. **3D**:Rodin Gen-2 → 上傳 4 視圖 → PBR + quad remesh + high poly。
+5. **3D**:多視圖→Rodin;單圖(3/4)→Tripo/Meshy/Hunyuan → 高模 PBR。
 
 ### Template B — 場景模組物件(2 視圖)
 1. 去背攤平(同 A 的 CLEAN PLATE)。
@@ -405,6 +418,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 **金句(驗證過的標準,每張都要有):**
 `From the attached concept art, extract ONLY the [PROP]` · `one complete, isolated object, centered and fully visible` · `front orthographic view` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
 **多視圖加(front 確認後):**`4-VIEW turntable in ONE image: front | left side | right side | back, four equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
+**3/4 立體 hero 加(給單圖轉 3D):**`single 3/4 hero view for image-to-3D` · `rotated ~35°, tilted ~25° from above` · `near-orthographic (no wide-angle distortion)` · `same geometry / proportions / materials as the front`
 
 **進 3D 前必殺的 4 個東西(出現任一 = 3D 必爛):**
 1. ❌ 投影 / cast shadow　2. ❌ rim light / god rays / 邊緣光
@@ -416,7 +430,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 | 類別 | 輸入 | 工具 + 設定 | 輸出 |
 |---|---|---|---|
-| [A] 英雄件 | 4 視圖(前/左/右/背) | **Rodin Gen-2** multi-image,PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
+| [A] 英雄件 | 4 視圖 + 3/4 hero | **Rodin Gen-2** 多圖 / **Tripo·Meshy** 單圖(3/4),PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
 | [B] 場景件 | 單件+2 視 | **Tripo 3.0 / Hunyuan3D 2.5** multi-view,texture 高 | 中模+貼圖 |
 | [C]-立體 | 4 視圖×1 | Tripo 單/多視 → 模數化 kit | 低模可拼件 |
 | [C]-平面 | top-down 平拍 | **轉 PBR 材質**(base+normal+height),不生 mesh | 可無限平鋪 |
