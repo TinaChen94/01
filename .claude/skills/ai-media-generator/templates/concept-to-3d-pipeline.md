@@ -15,7 +15,7 @@
 
 **① FRONT(先做這個,確認再往下)**
 ```
-From the attached concept art, extract ONLY the [PROP]. Re-render as one complete, isolated object, centered and fully visible, front orthographic view, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
+From the attached concept art, extract ONLY the [PROP] and re-orient it to a true head-on FRONT orthographic view — camera perpendicular to the front, at eye level, the object facing the viewer directly; IGNORE the concept's camera angle and perspective (do NOT copy a low-angle, tilted or 3/4 view). Re-render as one complete, isolated object, centered and fully visible, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
 ```
 
 **② 4 視圖(orthographic 多視圖;front 確認後,附確認過的 front)**
@@ -53,6 +53,7 @@ The [PROP] from the confirmed front plate, as a single 45-degree front-side angl
 
 | 你看到的症狀 | 跳這節 / 怎麼修 |
 |---|---|
+| **front 不是正面**:沿用概念圖角度(低角/3-4/傾斜) | **FRONT 加強制重定向**:`re-orient to true head-on FRONT, eye level, facing viewer, IGNORE the concept's camera angle`(已內建 ①) |
 | 物件被「重畫」、不像原圖、自己長出細節 | **退回 PASS 1**:prompt 砍到只剩 `[PROP]`,別塞 SPEC/風格 |
 | 抽不乾淨:背景殘留、混進別的物件 | PASS 1 加 `extract ONLY the [PROP]` + `NO scene elements` |
 | 顏色/材質不對(被光染、材質認錯) | →**§顏色 / 材質辨識錯誤 → 修正機制** |
@@ -168,8 +169,10 @@ reference. Keep code blocks clean. Output prompts in English; keep cultural noun
 
 == If [A] HERO PROP ==
   CLEAN PLATE (run in Nano Banana Pro / Seedream) — single hero detail plate:
-  "From the attached concept art, extract ONLY the [PROP]. Re-render as one complete,
-   isolated object, centered and fully visible, front orthographic view, on a flat
+  "From the attached concept art, extract ONLY the [PROP] and re-orient it to a true
+   head-on FRONT orthographic view — camera perpendicular, eye level, facing the viewer
+   directly; IGNORE the concept's camera angle and perspective (no low-angle/tilted/3-4).
+   Re-render as one complete, isolated object, centered and fully visible, on a flat
    neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting,
    NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail.
    High-resolution clean reference plate for image-to-3D."
@@ -430,7 +433,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 ## 通用品質金句 +「4 大殺手」
 
 **金句(驗證過的標準,每張都要有):**
-`From the attached concept art, extract ONLY the [PROP]` · `one complete, isolated object, centered and fully visible` · `front orthographic view` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
+`From the attached concept art, extract ONLY the [PROP]` · `re-orient to true head-on FRONT — eye level, facing viewer, IGNORE the concept's camera angle` · `one complete, isolated object, centered and fully visible` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
 **多視圖加(front 確認後):**`4-VIEW turntable in ONE image: front | left side | right side | back, four equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
 **3/4 立體 hero 加(給單圖轉 3D):**`single 3/4 hero view for image-to-3D` · `rotated ~35°, tilted ~25° from above` · `near-orthographic (no wide-angle distortion)` · `same geometry / proportions / materials as the front`
 **45° 等角加(零變形單圖轉 3D):**`single 45-degree front-side angle` · `true 45-degree isometric projection (45° azimuth, ~30° downward tilt)` · `parallel projection, no perspective distortion, no vanishing point, centered`
