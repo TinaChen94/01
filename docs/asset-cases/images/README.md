@@ -2,4 +2,6 @@
 
 把對話/生成平台裡的成品圖另存到這個資料夾,檔名對齊各 case 紀錄裡引用的名稱。
 
-例:`mausoleum-orange-extract.png`、`mausoleum-front-ortho.png`(見 `../A1-mausoleum.md`)
+例:
+- `mausoleum-orange-extract.png`、`mausoleum-front-ortho.png`(見 `../A1-mausoleum.md`)
+- `cobblestone-path-tile.png`、`mossy-ground-tile.png`(見 `../A10-A11-ground-tiles.md`)
