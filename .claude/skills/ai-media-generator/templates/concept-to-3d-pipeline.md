@@ -57,7 +57,7 @@ The [PROP] from the reference, as a single 45-degree front-side angle for image-
 | 姿勢不對(手臂/坐姿)、缺件(漏頭光環)、比例歪 | →**§姿勢 / 造型辨識錯誤 → 修正機制** |
 | 畫風跑掉(變日式/印度、太精緻乾淨、失彩繪斑駁) | →**§畫風 / 樣式漂移 → STYLE LOCK** |
 | 多視圖各格不一致(高度/比例/材質跳動) | 強化 `IDENTICAL — same geometry / proportions / materials / height / centering` |
-| 背面 / 遮擋處亂編 | 4-VIEW 已含 `reconstruct occluded`;仍不行 → 給概念圖裁切或 pose 當 ref |
+| 背面 / 遮擋處亂編 | 主模板2 已含 `reconstruct all occluded areas`;仍不行 → 給概念圖裁切或 pose 當 ref |
 | 進 3D 後表面爛、光影被烤進貼圖 | 查**4 大殺手**:投影 / rim 光 / 景深 / 戲劇打光 |
 
 **兩條鐵律:**
@@ -429,7 +429,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 **金句(驗證過的標準,每張都要有):**
 `From the attached concept art, extract ONLY the [PROP]` · `one complete, isolated object, centered and fully visible` · `front orthographic view` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
-**多視圖加(front 確認後):**`4-VIEW turntable in ONE image: front | left side | right side | back, four equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
+**多視圖加:**`3-VIEW turntable in ONE image: front | left side | back, three equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
 **3/4 立體 hero 加(給單圖轉 3D):**`single 3/4 hero view for image-to-3D` · `rotated ~35°, tilted ~25° from above` · `near-orthographic (no wide-angle distortion)` · `same geometry / proportions / materials as the front`
 **45° 等角加(零變形單圖轉 3D):**`single 45-degree front-side angle` · `true 45-degree isometric projection (45° azimuth, ~30° downward tilt)` · `parallel projection, no perspective distortion, no vanishing point, centered`
 
