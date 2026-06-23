@@ -1,6 +1,6 @@
 ---
 name: ai-media-generator
-description: 為使用者產生高品質的 AI 生圖、生影片、生音樂提示詞，並在需要時透過瀏覽器自動化實際送到目標平台。涵蓋 OiiOii、Kling 3.0/O-series、Seedance 2.0 pro、Suno v5.5、Seedream 5.0/4.0、Vidu Q3、Midjourney V8.1、Flux 1.1 Pro / Kontext、Runway Gen-4.5 / Aleph、Google Veo 3.1、Ideogram 3、Nano Banana Pro、Stable Diffusion 3.5（⚠️ OpenAI Sora 2 已於 2026-04-26 停運，API 撐到 2026-09-24，預設改推 Runway/Veo/Kling）。只要使用者提到「AI 生圖」「AI 影片」「AI 音樂」「做 MV」「做 storyboard」「寫 prompt 給 XXX」「我想用 Kling/Suno/Midjourney/Runway/Veo...」「幫我操作 OiiOii / 即夢 / 可靈」「txt2img / img2video / 文生圖 / 文生影片 / 圖生影片」「角色一致性」「多鏡頭分鏡」「運鏡」「結果有瑕疵 / 不夠精緻 / 怎麼修」，或任何跟上述平台或影像/影片/音樂生成工作流相關的任務，都要用這個 skill。即使他們沒講明平台，只要任務是要餵給某個生成模型的 prompt，就用這個 skill 幫他們選對的平台、寫對的格式。
+description: 為使用者產生高品質的 AI 生圖、生影片、生音樂提示詞，並在需要時透過瀏覽器自動化實際送到目標平台。涵蓋 OiiOii、Kling 3.0/O-series、Seedance 2.0 pro、Suno v5.5、Seedream 5.0/4.0、Vidu Q3、Midjourney V8.1、Flux 1.1 Pro / Kontext、Runway Gen-4.5 / Aleph、Google Veo 3.1、Ideogram 3、Nano Banana Pro、Stable Diffusion 3.5（⚠️ OpenAI Sora 2 已於 2026-04-26 停運，API 撐到 2026-09-24，預設改推 Runway/Veo/Kling）。只要使用者提到「AI 生圖」「AI 影片」「AI 音樂」「做 MV」「做 storyboard」「寫 prompt 給 XXX」「我想用 Kling/Suno/Midjourney/Runway/Veo...」「幫我操作 OiiOii / 即夢 / 可靈」「txt2img / img2video / 文生圖 / 文生影片 / 圖生影片」「角色一致性」「多鏡頭分鏡」「運鏡」「結果有瑕疵 / 不夠精緻 / 怎麼修」「把概念圖拆成 3D 資產 / concept→3D / 三視圖重建 / turnaround / model sheet / 正交立面 / image-to-3D 參考圖 / 拆概念圖出物件」，或任何跟上述平台或影像/影片/音樂生成工作流相關的任務，都要用這個 skill。即使他們沒講明平台，只要任務是要餵給某個生成模型的 prompt，就用這個 skill 幫他們選對的平台、寫對的格式。
 ---
 
 # AI Media Generator
