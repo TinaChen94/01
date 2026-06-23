@@ -41,14 +41,17 @@ High-resolution clean reference plate for image-to-3D.
 
 ---
 
-## 產出(把對話裡的兩張圖存成下列檔名，放進 `./images/`)
+## 產出
 
-| 檔名 | 內容 | 用途 |
-|---|---|---|
-| `images/mausoleum-orange-extract.png` | 3/4 視角、橘底 `#FF6A00`、完整建築含左側角塔 | 驗證「缺席色」去背;手動 key |
-| `images/mausoleum-front-ortho.png` | 正視角、灰底 `#808080`、對稱 | image-to-3D 正面參考板 |
+### 橘底去背版(3/4 視角)
+![mausoleum 橘底去背](images/mausoleum-orange-extract.png)
 
-> 圖檔目前不在 repo(原本貼在對話裡)。把那兩張另存成上面檔名丟進 `images/`，紀錄就完整。
+橘底 `#FF6A00`、完整建築含左側角塔 — 驗證「缺席色」去背(綠/洋紅幕都不能用),供手動 key。
+
+### 正視參考板(灰底,image-to-3D 用)
+![mausoleum 正視參考板](images/mausoleum-front-ortho.png)
+
+正視角、灰底 `#808080`、對稱 — image-to-3D 正面參考板,由 SOP `1.2b` 模板產出。
 
 ---
 
