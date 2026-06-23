@@ -218,3 +218,16 @@ perspective, bevel, vignette, visible seams, misaligned, blurry, watermark, text
 1. **接線到 Principled BSDF**:base→Base Color;normal→`Normal Map` 節點→Normal;height→`Displacement` 節點→Material Output Displacement(或 Bump);roughness→Roughness;metallic→Metallic;AO→乘進 Base Color(`MixRGB`/Multiply)。**所有灰階圖的 Image Texture 節點設 `Non-Color`,base 設 `sRGB`。**
 2. **combine(打包單一材質集)**:Cycles `Bake` → 每種(Diffuse / Normal / Roughness)各 bake 一張到新 UV/新貼圖;或把 AO+Rough+Metal 用 `Combine Color` 合成 ORM 一張。
 3. bake 完輸出另存,**檔名照上表** → 上傳。Displacement 要真位移記得開 `Settings → Surface → Displacement: Displacement Only` + Subdivision。
+
+---
+
+## ✅ 上傳核對(2026-06-23)
+
+- **使用者上傳** commit `8f3ae52`:2 來源 tile + A11 cobblestone 6 張 PBR(base/normal/height/roughness/specular/ao)+ Blender bake,共 9 檔,皆 **1024²**(mossy tile 2048² RGBA)。
+- **自動補件(由 AO/Roughness 程序生成):**
+  - `cobblestone-path-metallic.png` — 純黑 1024²(石材非金屬常數)
+  - `cobblestone-path-orm.png` — R=AO / G=Roughness / B=Metallic 打包,引擎直接吃
+- **改名:** 上傳的 `floor1_blender_COBINE003.png` → `cobblestone-path-blender-bake.png`(對齊命名規範)。
+- **QC 平均值(健康):** normal `(138,132,228)` 標準切線藍 · specular `≈43`(0.04 介電) · roughness `≈170`(石材高糙) · ao `≈217`(亮、縫暗) · height 灰階 · basecolor 去光暖灰 `(113,104,88)`。
+- 上表 11 個檔名 embed **全部對上**,doc 圖庫完整顯示。
+- ⚠️ 待確認:normal 的綠通道方向(OpenGL/DirectX)依目標引擎,UE 需反轉綠。
