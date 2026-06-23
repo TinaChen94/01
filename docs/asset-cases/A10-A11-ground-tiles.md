@@ -172,3 +172,49 @@ perspective, bevel, vignette, visible seams, misaligned, blurry, watermark, text
 - ✅ height / roughness / AO / base 用 txt2img img2img 可用。
 - ⚠️ **normal / AO 最準是從 height 派生**(Substance / Materialize / DeepBump 用真實高低落差算)。
 - 🚫 **metal = 純黑常數,別燒圖;specular 在 metal/rough 根本不出 map**(留純量 0.5)。
+
+---
+
+## 成品圖檔名規範 + 上傳
+
+> 透過 GitHub 網頁上傳到 `docs/asset-cases/images/`(直接 commit 到本分支)。
+> **檔名務必對齊下表**,本 `.md` 的 `![]()` 才會自動顯示。
+
+**上傳網頁(擇一):**
+- 拖放上傳:`https://github.com/TinaChen94/01/upload/claude/trusting-knuth-f11ltb/docs/asset-cases/images`
+- 或開資料夾 →「Add file → Upload files」:`https://github.com/TinaChen94/01/tree/claude/trusting-knuth-f11ltb/docs/asset-cases/images`
+
+**檔名表:**
+
+| 類別 | 中文 | English | 檔名 |
+|---|---|---|---|
+| 來源 tile | A11 石板路材質 | cobblestone path tile | `cobblestone-path-tile.png` |
+| 來源 tile | A10 苔蘚草地材質 | mossy ground tile | `mossy-ground-tile.png` |
+| A11 PBR | base color(洗淨 albedo) | base color | `cobblestone-path-basecolor.png` |
+| A11 PBR | normal(OpenGL Y+) | normal | `cobblestone-path-normal.png` |
+| A11 PBR | height / displacement | height | `cobblestone-path-height.png` |
+| A11 PBR | roughness | roughness | `cobblestone-path-roughness.png` |
+| A11 PBR | metallic(純黑) | metallic | `cobblestone-path-metallic.png` |
+| A11 PBR | specular(spec/gloss 用) | specular | `cobblestone-path-specular.png` |
+| A11 PBR | ambient occlusion | AO | `cobblestone-path-ao.png` |
+| A11 打包 | ORM(R=AO/G=Rough/B=Metal) | ORM | `cobblestone-path-orm.png` |
+| A11 Blender | 套材質 combine + bake 結果 | blender bake | `cobblestone-path-blender-bake.png` |
+
+> 來源 `*-tile.png` = 原生成圖(base 的素材);洗淨後的 albedo 另存 `*-basecolor.png`。苔蘚草地若也要出 PBR,前綴改 `mossy-ground-*` 同規律。
+
+### PBR 7 圖(上傳後自動顯示)
+| base | normal | height |
+|---|---|---|
+| ![base](images/cobblestone-path-basecolor.png) | ![normal](images/cobblestone-path-normal.png) | ![height](images/cobblestone-path-height.png) |
+
+| roughness | metallic | specular | AO |
+|---|---|---|---|
+| ![roughness](images/cobblestone-path-roughness.png) | ![metallic](images/cobblestone-path-metallic.png) | ![specular](images/cobblestone-path-specular.png) | ![ao](images/cobblestone-path-ao.png) |
+
+### Blender 套用 + combine + bake 結果(上傳後顯示)
+![blender bake](images/cobblestone-path-blender-bake.png)
+
+**Blender combine + bake 速記:**
+1. **接線到 Principled BSDF**:base→Base Color;normal→`Normal Map` 節點→Normal;height→`Displacement` 節點→Material Output Displacement(或 Bump);roughness→Roughness;metallic→Metallic;AO→乘進 Base Color(`MixRGB`/Multiply)。**所有灰階圖的 Image Texture 節點設 `Non-Color`,base 設 `sRGB`。**
+2. **combine(打包單一材質集)**:Cycles `Bake` → 每種(Diffuse / Normal / Roughness)各 bake 一張到新 UV/新貼圖;或把 AO+Rough+Metal 用 `Combine Color` 合成 ORM 一張。
+3. bake 完輸出另存,**檔名照上表** → 上傳。Displacement 要真位移記得開 `Settings → Surface → Displacement: Displacement Only` + Subdivision。
