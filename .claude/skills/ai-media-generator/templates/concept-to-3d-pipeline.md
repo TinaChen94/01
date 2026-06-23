@@ -81,10 +81,13 @@ style and tag "(inferred)"):
      "(inferred)"; if the 2D pose reads ambiguously, note 2 readings + confidence.
 Then compress the axes (incl. pose for figures) into ONE dense phrase (~20-40 words, 5-8 high-signal
 descriptors). That phrase is the asset's [SPEC]. Print it under the asset's table row.
+NOTE: the [SPEC] is documentation + the reference for the CORRECTION pass — do NOT paste
+it into the pass-1 extraction/3-view prompts (those use the plain [PROP] name; the concept
+image is the reference, and heavy text makes the model re-invent the object and drift).
 
-STEP 1.8 — DERIVE STYLE BIBLE (once per reference image; keeps every asset on the
-concept's art style instead of the model's default, more-refined prior)
-Extract a 5-line project style bible that ALL asset prompts must carry:
+STEP 1.8 — DERIVE STYLE BIBLE (once per reference image; used in the CORRECTION pass to
+pull a drifted asset back onto the concept's art style — NOT prepended to pass 1)
+Extract a 5-line project style bible (apply it only when an asset's style drifts):
   - TRADITION/ERA — the specific cultural art/sculpture lineage, AND what it is NOT
   - STYLIZATION LEVEL — refined vs archaic/eroded; what to avoid (clean ZBrush, museum-refined)
   - PROPORTION LANGUAGE — squat/heavy vs elegant/slender, head/hand scale
@@ -93,29 +96,28 @@ Extract a 5-line project style bible that ALL asset prompts must carry:
 The style bible controls FORM/DESIGN/WEATHERING only — it does NOT re-introduce
 dramatic lighting; keep the de-lit neutral lighting from the killers rule.
 
-STEP 2 — AUTO-GENERATE PROMPTS
-For EVERY asset, output a block with ready-to-paste prompts using the template for its
-category. Prepend the STYLE BIBLE to every prompt, and replace every [asset SPEC] slot
-with that asset's full [SPEC] phrase from STEP 1.5 — never the bare name. If the concept
-image is available, also pass an asset crop as a style/proportion reference ("same object
-from the concept — match its sculpting style, proportion, archaism, weathering; change
-only view + lighting"). Keep code blocks clean. Output prompts in English; keep cultural
-nouns precise.
+STEP 2 — AUTO-GENERATE PROMPTS (two passes)
+PASS 1 (default) — for EVERY asset, output the minimal template for its category, filling
+the [PROP] slot with the plain object name only. Do NOT inject the dense [SPEC] or the
+STYLE BIBLE here: the attached concept image IS the reference, and heavy text makes the
+model re-invent the object and drift off-target. Keep it minimal and image-grounded.
+PASS 2 (correction, only if an asset drifts) — add ONLY the locks that target the actual
+deviation: SPEC design anchors, STYLE BIBLE, occlusion-reconstruction, pose lock, or the
+material/color fix (see the correction sections). Always pass the concept crop as the
+reference. Keep code blocks clean. Output prompts in English; keep cultural nouns precise.
 
 == If [A] HERO PROP ==
   CLEAN PLATE (run in Nano Banana Pro / Seedream) — single hero detail plate:
-  "From the attached concept art, extract ONLY the [asset SPEC]. Re-render as one
-   complete, isolated object, centered and fully visible, front orthographic view, on a
-   flat neutral grey #808080 seamless background. Perfectly even diffuse studio lighting,
-   NO cast shadows, NO rim light, NO scene elements. Plausibly reconstruct [name the
-   occluded regions, e.g. the lower base, the back, anything hidden behind X]. Preserve
-   exact design and materials: [key design anchors from the SPEC]. Maximum sculptural
-   detail. High-resolution clean reference plate for image-to-3D."
+  "From the attached concept art, extract ONLY the [PROP]. Re-render as one complete,
+   isolated object, centered and fully visible, front orthographic view, on a flat
+   neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting,
+   NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail.
+   High-resolution clean reference plate for image-to-3D."
   3-VIEW TURNTABLE (run in Nano Banana Pro) — multiview-to-3D reference:
-  "The [asset SPEC] from the reference, as a 3-VIEW orthographic turntable in ONE image:
+  "The [PROP] from the reference, as a 3-VIEW orthographic turntable in ONE image:
    front | left side | back, three equal panels left to right. IDENTICAL object in all
    three panels — same geometry, proportions, materials, height and centering. Flat even
-   diffuse lighting, neutral grey #808080 background, NO shadows, strictly orthographic
+   diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic
    (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset
    reference for multiview-to-3D."
   (Strongly asymmetric asset? add a 4th panel: 3/4 view.)
@@ -125,17 +127,17 @@ nouns precise.
 == If [B] SCENE MODULE ==
   CLEAN PLATE: (same clean-plate prompt as [A])
   2-3 VIEW TURNTABLE (run in Nano Banana Pro):
-  "The [asset SPEC] from the reference, as an orthographic turntable in ONE image:
+  "The [PROP] from the reference, as an orthographic turntable in ONE image:
    front | 3/4 [| back if asymmetric], equal panels left to right. IDENTICAL object in
    all panels — same geometry, proportions, materials, height and centering. Flat even
-   diffuse lighting, neutral grey #808080 background, NO shadows, strictly orthographic.
+   diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic.
    Maximum sculptural detail, reconstruct occluded areas. Asset reference for multiview-to-3D."
   3D: Tripo 3.0 or Hunyuan3D 2.5, multi-view, texture high. If it is a low-relief
    panel, also export a height/displacement pass.
 
 == If [C] REUSABLE/TILEABLE MODULE ==
   If tile/surface (floor, wall, ground):
-  "Top-down orthographic flat texture tile of [asset SPEC]: perfectly SEAMLESS and
+  "Top-down orthographic flat texture tile of the [PROP]: perfectly SEAMLESS and
    TILEABLE on all 4 edges, square 1:1, shot straight from directly above, zero
    perspective, even diffuse light, NO directional shadow, NO baked highlight, scale
    matches a 1m x 1m module, flat de-lit albedo suitable as a PBR base color map."
@@ -147,10 +149,10 @@ nouns precise.
 
 RULES
 - Never invent objects not in the image; for hidden parts, infer from visible style and tag "(inferred)".
-- Every prompt must carry the asset's full [SPEC] (dense 7-8-axis phrase), not the bare name.
-- For figures/creatures, the SPEC must lock POSE limb-by-limb; pose/form drift is a failure even if color and style are right.
+- PASS 1 extraction/3-view uses the plain [PROP] name + minimal boilerplate — the concept image is the reference; do NOT over-constrain with the dense [SPEC] (it makes the model re-invent and drift off-target).
+- Apply [SPEC] anchors / STYLE BIBLE / occlusion / pose / material locks only as a PASS-2 correction on assets that actually drift — target the specific deviation, don't stack everything.
 - For material/color, describe the TRUE de-lit albedo (not the scene-lit tint); if ambiguous, list 2 candidates + confidence.
-- Every prompt carries the STYLE BIBLE; style drift (wrong culture/era, over-refinement, wrong proportion, lost weathering) is a failure even if color and geometry are right.
+- If a figure's pose/form drifts, lock POSE limb-by-limb in the correction pass; pose drift is a failure even if color and style are right.
 - Preserve each asset's real design, material, color, proportions.
 - One object per generated image; if a scene has >5 objects, batch them 3-4 at a time.
 ```
@@ -159,11 +161,13 @@ RULES
 
 ## 手動填空模板(只想處理單一物件時,不跑 Master Prompt 也能用)
 
+> **★ 兩段式原則:第一次極簡(只填道具名 [PROP],讓原圖當依據)→ 偏了才加修正層(SPEC/風格/姿勢/材質鎖)。** 第一次塞太多文字 = 模型照文字重畫 = 偏離原圖。
+
 ### Template A — 英雄道具(3 視圖)
-0. **先寫 7 軸 SPEC**(見下節「精確描述」)── 這段精確描述才是要填的內容,不是只填名字。
-1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[asset SPEC]` 換成那段 SPEC。
-2. **3 視圖**(NBP):同一段 SPEC 套進 `[A] 3-VIEW TURNTABLE` 的 `[asset SPEC]`。
-3. **3D**：Rodin Gen-2 → 上傳 3 視圖 → PBR + quad remesh + high poly。
+1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[PROP]` 換成**道具名**(只填名字,別塞 SPEC)。
+2. **3 視圖**(NBP):把 `[A] 3-VIEW TURNTABLE` 的 `[PROP]` 換成同一個道具名。
+3. **偏了才修**:結果跑掉 → 才進修正層(SPEC 錨點 / STYLE BIBLE / 鎖姿勢/材質,見下方各節)。
+4. **3D**:Rodin Gen-2 → 上傳 3 視圖 → PBR + quad remesh + high poly。
 
 ### Template B — 場景模組物件(2 視圖)
 1. 去背攤平(同 A 的 CLEAN PLATE)。
@@ -195,7 +199,7 @@ RULES
 **壓成一句 [SPEC](就是要填進提示詞的東西):**
 > *a squat three-legged bronze ding censer ~40cm tall, twin upright loop handles, pierced domed lid with a coiled-dragon finial, taotie beast-mask relief on the belly, three beast-claw legs; matte cast bronze, blue-black patina with verdigris in the recesses and rubbed-gold highlights on the rims, soot-stained, oxidized feet.*
 
-把這段塞進 CLEAN PLATE / 3-VIEW 的 `[asset SPEC]`,出圖與 3D 才會精準到「就是這一個」,而非泛泛的香爐。
+這段 [SPEC] 是**盤點文件 + 修正層的依據**,第一次提取**不要**塞進 prompt(會讓模型照文字重畫而偏離原圖)。等出圖偏了,再從這裡挑「就是這一個」的錨點去修(見下方修正各節)。
 
 **精準度自檢(每個 SPEC 過一遍,六項都過才送):**
 ☐ 7 軸都有具體值(沒有空軸)　☐ 顏色含「變化/磨損」不只一個平色
@@ -352,7 +356,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 ## 通用品質金句 +「4 大殺手」
 
 **金句(驗證過的標準,每張都要有):**
-`flat neutral grey #808080 seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `strictly orthographic, no perspective` · `one complete isolated object, centered, fully visible` · `plausibly reconstruct [具體遮擋處:base / back / hidden-behind-X]` · `preserve exact design & materials: [SPEC 錨點]` · `maximum sculptural detail` · `clean reference plate for image-to-3D`
+`From the attached concept art, extract ONLY the [PROP]` · `one complete, isolated object, centered and fully visible` · `front orthographic view` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
 **多視圖加:**`3-VIEW turntable in ONE image: front | left side | back, three equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
 
 **進 3D 前必殺的 4 個東西(出現任一 = 3D 必爛):**
