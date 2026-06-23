@@ -190,7 +190,7 @@ Prompt 寫完問自己：
 - 常用負面提示詞 → [templates/negative-bank.md](templates/negative-bank.md)
 - **社群多版本 / 預算 flag / 平台 flag / 風格 flag** → [templates/user-flags.md](templates/user-flags.md)
 - **大專案省 token** → [templates/token-efficient-mode.md](templates/token-efficient-mode.md)
-- **概念圖拆 3D 資產 / 拆分出資產清單 / concept→3D 高模 / 三視圖重建 / 可拼模組** → [templates/concept-to-3d-pipeline.md](templates/concept-to-3d-pipeline.md) 預設用頂部〈主模板〉四步驟(front 確認 → 4 視圖 → 3/4 → 45° iso 給 3D AI,複製即用、只換 [PROP]、以原圖為準);要批次自動分類才用 Master Prompt;出圖偏了才走修正層(姿勢/造型、顏色/材質、畫風/樣式))
+- **概念圖拆 3D 資產 / 拆分出資產清單 / concept→3D 高模 / 三視圖重建 / 可拼模組** → [templates/concept-to-3d-pipeline.md](templates/concept-to-3d-pipeline.md) 預設用頂部〈主模板〉兩段(主模板1 front + 主模板2 3視圖,複製即用、只換 [PROP];3/4 與 45° iso 為選配額外角度);要批次自動分類才用 Master Prompt;出圖偏了才走修正層(姿勢/造型、顏色/材質、畫風/樣式))
 
 **preset-packs.md 的用法：** 使用者要「Wes Anderson 風」「Nike 廣告感」「賽博龐克雨夜」「水下夢境」等明確風格時，**先到 preset-packs.md 找最近的 preset**，換占位符即可，不用每次從零組 prompt。若使用者要的風格不在 preset 裡，再從 [cinematic-direction.md](references/cinematic-direction.md) / [commercial-direction.md](references/commercial-direction.md) / [vfx-effects.md](references/vfx-effects.md) 現場組。
 
