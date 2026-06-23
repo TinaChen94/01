@@ -4,6 +4,36 @@
 
 ---
 
+## 🔴 核心鐵律 — image-grounded 憲法(先讀這個)★
+
+> **物件已經在圖裡了 → 原圖永遠是 source of truth。** 這類任務是「從原圖**抽取 + 重定向**」,不是「從文字**從零生成**」。把物件寫成一大段文字 = 用有損代理取代原圖,模型會用自己的先驗補完缺口 → **造型穩定地錯(這就是「偏離目標」的根因)**。
+>
+> **文字只負責「呈現規格」(視角 / 背景 / 打光 / 用途),不負責「物件長相」。長相交給圖。**
+
+**反模式 vs 正解:**
+
+| | ❌ 會漂移 | ✅ image-grounded |
+|---|---|---|
+| 模式 | text-to-image 從零生成 | **image-to-image,餵原圖 extract** |
+| 真相來源 | 自己寫的「設計聖經」文字 | **原圖本身** |
+| 文字寫什麼 | 物件長相(寫死細節) | **只寫呈現方式**:視角/背景/光/用途 |
+| 對來源視角 | 只說 ortho,沒否定來源相機 | **明確 `IGNORE` 來源低角/3-4/透視** |
+| 一致性錨 | 文字描述(鎖在誤讀上) | **原圖 +(前一視)+ 固定 seed** |
+
+**🏆 勝利模板(canonical extract,逐字可改;`[ ]` 內為選配):**
+```
+From the attached concept art [and the front reference plate], extract ONLY the [PROP] and re-orient it to a true head-on FRONT orthographic view — camera perpendicular to the front, at eye level, the object facing the viewer directly; IGNORE the concept's camera angle and perspective (do NOT copy a low-angle, tilted or 3/4 view). [SAME object, identical proportions, materials and details as the reference plate.] Re-render as one complete, isolated object, centered and fully visible, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
+```
+- `IGNORE … low-angle/3-4` = **image-grounded 時最關鍵那句**;不寫,FRONT 就沿用原圖的斜角/仰角(你之前 FRONT 給錯角度,就是漏這句)。
+- 已經正對鏡頭的物件,可省略 `re-orient … IGNORE`。
+
+**三視一致性協議:** front 餵原圖 → side/top **同時餵原圖 + 已產出的正確視圖** + 寫 `SAME object as reference`;**全程固定 seed**;每出一視先**疊回原圖比剪影/比例**,過了才下一視(別三張盲生)。
+
+> **實證(2026-06):** 拆哥德教堂概念圖做三視,先用「文字設計聖經」法 → 造型漂移成自創中殿+透視;改用上方 image-grounded extract(餵原圖 + 否定來源相機)→ 一次正確。
+> 👇 下面〈主模板〉是把這套憲法落成的**逐步範本**;〈Master Prompt〉是批次版。本檔已併入舊 `references/concept-to-3d.md` 的核心原則。
+
+---
+
 ## ✅ 主模板 — 個別物件四步驟(front 確認 → 4 視圖 → 3/4 → 45° iso)★
 
 **逐物件、依序做、別跳步:**
@@ -13,7 +43,7 @@
 4. **STEP 3 出 3/4 視圖** ── 一樣拿確認過的 front 當參考跑 ③(單張立體 hero,餵 single-image-to-3D)。
 5. **STEP 4 出 45° 等角視圖** ── 一樣拿確認過的 front 當參考跑 ④(true isometric,零透視,餵 single-image-to-3D)。
 
-**① FRONT(先做這個,確認再往下)**
+**① FRONT(先做這個,確認再往下;斜角/仰角概念圖 → 末尾加〈核心鐵律〉勝利模板的 `re-orient … IGNORE camera angle` 那句)**
 ```
 From the attached concept art, extract ONLY the [PROP]. Re-render as one complete, isolated object, centered and fully visible, front orthographic view, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
 ```
