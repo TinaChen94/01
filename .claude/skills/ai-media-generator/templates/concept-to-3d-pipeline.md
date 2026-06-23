@@ -4,35 +4,38 @@
 
 ---
 
-## ✅ 主模板 — 每次都用這兩個(複製即用)★
+## ✅ 主模板 — 個別物件四步驟(front 確認 → 4 視圖 → 3/4 → 45° iso)★
 
-把 `[PROP]` 換成物件名、附概念圖。**主模板 1 確認 OK 後再做主模板 2。就這兩段,不要加別的字。** 出圖偏了 → 看〈🧭 一頁速查〉對症修。
+**逐物件、依序做、別跳步:**
+1. **STEP 1 先出 front** ── 換 `[PROP]`、附概念圖,只跑 ① front plate。先別碰視圖。
+2. **確認** ── 比對原圖:造型/材質/比例對不對、乾不乾淨?**不對 → 看下面〈🧭 一頁速查〉修到對,先別往下。**
+3. **STEP 2 出 4 視圖** ── 拿**確認過的 front 圖**當參考跑 ②(orthographic 多視圖,餵 multiview-to-3D)。
+4. **STEP 3 出 3/4 視圖** ── 一樣拿確認過的 front 當參考跑 ③(單張立體 hero,餵 single-image-to-3D)。
+5. **STEP 4 出 45° 等角視圖** ── 一樣拿確認過的 front 當參考跑 ④(true isometric,零透視,餵 single-image-to-3D)。
 
-**主模板 1 — FRONT(單件正視)**
+**① FRONT(先做這個,確認再往下)**
 ```
 From the attached concept art, extract ONLY the [PROP]. Re-render as one complete, isolated object, centered and fully visible, front orthographic view, on a flat neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail. High-resolution clean reference plate for image-to-3D.
 ```
 
-**主模板 2 — 3 視圖(turntable)**
+**② 4 視圖(orthographic 多視圖;front 確認後,附確認過的 front)**
 ```
-The [PROP] from the reference, as a 3-VIEW orthographic turntable in ONE image: front | left side | back, three equal panels left to right. IDENTICAL object in all three panels — same geometry, proportions, materials, height and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset reference for multiview-to-3D.
-```
-
----
-
-## 選配:額外角度(需要更多單圖轉 3D 輸入才用,非必要)
-
-> 平常**只用主模板 1+2**。下面是想多餵單圖轉 3D 角度時的選配,確認 front 後再做。
-
-**3/4 視圖(單張立體 hero)**
-```
-The [PROP] from the reference, as a single 3/4 hero view for image-to-3D generation: rotated ~35° to show the front and one side, tilted ~25° from above to reveal the top surfaces. One complete, isolated object, centered and fully visible, on a flat neutral grey (#808080) seamless background. Even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements, near-orthographic (no wide-angle distortion). SAME geometry, proportions and materials as the front plate. Maximum sculptural detail, reconstruct all occluded areas. High-resolution single-image reference for image-to-3D generation.
+The [PROP] from the confirmed front plate, as a 4-VIEW orthographic turntable in ONE image: front | left side | right side | back, four equal panels left to right. IDENTICAL object in all four panels — same geometry, proportions, materials, height and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset reference for multiview-to-3D.
 ```
 
-**45° 等角視圖(true isometric)**
+**③ 3/4 視圖(單張立體 hero,給 3D AI 生成;附確認過的 front)**
 ```
-The [PROP] from the reference, as a single 45-degree front-side angle for image-to-3D generation: true 45-degree isometric projection (45° azimuth, ~30° downward tilt), parallel projection, no perspective distortion, no vanishing point, centered. One complete, isolated object, fully visible, on a flat neutral grey (#808080) seamless background. Even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. SAME geometry, proportions and materials as the front plate. Maximum sculptural detail, reconstruct all occluded areas. High-resolution single-image reference for image-to-3D generation.
+The [PROP] from the confirmed front plate, as a single 3/4 hero view for image-to-3D generation: rotated ~35° to show the front and one side, tilted ~25° from above to reveal the top surfaces. One complete, isolated object, centered and fully visible, on a flat neutral grey (#808080) seamless background. Even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements, near-orthographic (no wide-angle distortion). SAME geometry, proportions and materials as the front plate. Maximum sculptural detail, reconstruct all occluded areas. High-resolution single-image reference for image-to-3D generation.
 ```
+
+**④ 45° 等角視圖(true isometric,給 3D AI 生成;附確認過的 front)**
+```
+The [PROP] from the confirmed front plate, as a single 45-degree front-side angle for image-to-3D generation: true 45-degree isometric projection (45° azimuth, ~30° downward tilt), parallel projection, no perspective distortion, no vanishing point, centered. One complete, isolated object, fully visible, on a flat neutral grey (#808080) seamless background. Even diffuse studio lighting, NO cast shadows, NO rim light, NO scene elements. SAME geometry, proportions and materials as the front plate. Maximum sculptural detail, reconstruct all occluded areas. High-resolution single-image reference for image-to-3D generation.
+```
+
+> **四組各有用途:** ① front 鎖基準 → ② 4 視圖餵**多視圖**轉 3D(Rodin/Tripo 多圖)→ ③ 3/4 hero 餵**單圖**轉 3D(自然立體角)→ ④ 45° 等角餵**單圖**轉 3D(true parallel projection,零透視變形、零滅點,最乾淨)。
+> **③ vs ④:** ③ 是自然 hero 角(~35°/~25°、near-ortho);④ 是**精確等角**(45°/30°、全平行投影、無滅點),要無變形/等角素材就用 ④。
+> **要 3 視圖?** ② 把 `right side` 拿掉、`four`→`three` 即可。Master Prompt / SPEC / 修正層都是選配。
 
 **核心心法：** 沒有真正的「一鍵」。圖上那種乾淨拆解圖是 4 段管線的產物 ──
 `①盤點分類 → ②單件去背攤平 → ③正交多視圖 → ④影像轉3D`。
@@ -50,14 +53,13 @@ The [PROP] from the reference, as a single 45-degree front-side angle for image-
 
 | 你看到的症狀 | 跳這節 / 怎麼修 |
 |---|---|
-| **front 不是正面**:沿用概念圖角度(低角/3-4/傾斜) | 主模板保持精簡;偏了才在末尾**加一句**:`re-orient to a true head-on front, eye level, facing viewer, ignore the concept's camera angle` |
 | 物件被「重畫」、不像原圖、自己長出細節 | **退回 PASS 1**:prompt 砍到只剩 `[PROP]`,別塞 SPEC/風格 |
 | 抽不乾淨:背景殘留、混進別的物件 | PASS 1 加 `extract ONLY the [PROP]` + `NO scene elements` |
 | 顏色/材質不對(被光染、材質認錯) | →**§顏色 / 材質辨識錯誤 → 修正機制** |
 | 姿勢不對(手臂/坐姿)、缺件(漏頭光環)、比例歪 | →**§姿勢 / 造型辨識錯誤 → 修正機制** |
 | 畫風跑掉(變日式/印度、太精緻乾淨、失彩繪斑駁) | →**§畫風 / 樣式漂移 → STYLE LOCK** |
 | 多視圖各格不一致(高度/比例/材質跳動) | 強化 `IDENTICAL — same geometry / proportions / materials / height / centering` |
-| 背面 / 遮擋處亂編 | 主模板2 已含 `reconstruct all occluded areas`;仍不行 → 給概念圖裁切或 pose 當 ref |
+| 背面 / 遮擋處亂編 | 4-VIEW 已含 `reconstruct occluded`;仍不行 → 給概念圖裁切或 pose 當 ref |
 | 進 3D 後表面爛、光影被烤進貼圖 | 查**4 大殺手**:投影 / rim 光 / 景深 / 戲劇打光 |
 
 **兩條鐵律:**
@@ -80,7 +82,7 @@ The [PROP] from the reference, as a single 45-degree front-side angle for image-
 
 | 類別 | 定義 | 視圖數 | 3D 走向 |
 |---|---|---|---|
-| **[A] 英雄道具** 單件精修·多視圖重建 | 小~中、唯一、細節吃重、會被特寫 | **3 視圖**(前/側/背) | 高模 + PBR,Rodin 多圖 |
+| **[A] 英雄道具** 單件精修·多視圖重建 | 小~中、唯一、細節吃重、會被特寫 | **4 視圖**(前/左/右/背) | 高模 + PBR,Rodin 多圖 |
 | **[B] 場景模組物件** | 大型/結構性、定義空間、唯一或少量、中景看 | 2 視圖 | 中模,Tripo/Hunyuan |
 | **[C] 可複用可拼模組** | 重複 ≥3 次 **或** 格狀/可平鋪(地磚/牆段/階梯/柱/燭台陣列) | **1 正交平拍** | 低模 **或 PBR 材質**,模數化拼接 |
 
@@ -171,13 +173,13 @@ reference. Keep code blocks clean. Output prompts in English; keep cultural noun
    neutral grey (#808080) seamless background. Perfectly even diffuse studio lighting,
    NO cast shadows, NO rim light, NO scene elements. Maximum sculptural detail.
    High-resolution clean reference plate for image-to-3D."
-  3-VIEW TURNTABLE (run after the front is confirmed) — multiview-to-3D:
-  "The [PROP] from the reference, as a 3-VIEW orthographic turntable in ONE image: front |
-   left side | back, three equal panels left to right. IDENTICAL object in all three
-   panels — same geometry, proportions, materials, height and centering. Flat even diffuse
-   lighting, neutral grey (#808080) background, NO shadows, strictly orthographic (no
-   perspective). Maximum sculptural detail, reconstruct all occluded areas. Asset reference
-   for multiview-to-3D."
+  4-VIEW TURNTABLE (run in Nano Banana Pro, AFTER the front plate is confirmed) — multiview-to-3D:
+  "The [PROP] from the confirmed front plate, as a 4-VIEW orthographic turntable in ONE
+   image: front | left side | right side | back, four equal panels left to right.
+   IDENTICAL object in all four panels — same geometry, proportions, materials, height
+   and centering. Flat even diffuse lighting, neutral grey (#808080) background, NO
+   shadows, strictly orthographic (no perspective). Maximum sculptural detail, reconstruct
+   all occluded areas. Asset reference for multiview-to-3D."
   3/4 HERO VIEW (run after the front is confirmed) — single-image-to-3D:
   "The [PROP] from the confirmed front plate, as a single 3/4 hero view for image-to-3D:
    rotated ~35° to show front + one side, tilted ~25° from above to reveal the top.
@@ -234,10 +236,10 @@ RULES
 
 > **★ 兩段式原則:第一次極簡(只填道具名 [PROP],讓原圖當依據)→ 偏了才加修正層(SPEC/風格/姿勢/材質鎖)。** 第一次塞太多文字 = 模型照文字重畫 = 偏離原圖。
 
-### Template A — 英雄道具(兩步:front → 確認 → 3 視圖;3/4 與 45°iso 為選配)
+### Template A — 英雄道具(四步:front → 確認 → 4 視圖 + 3/4 + 45°iso)
 1. **去背攤平**(NBP/Seedream):把 `[A] CLEAN PLATE` 的 `[PROP]` 換成**道具名**(只填名字,別塞 SPEC),先出 front。
 2. **確認 front** ── 對了再往下;不對先修(見〈🧭 一頁速查〉)。
-3. **3 視圖**(NBP):拿確認過的 front 當參考,跑 `[A] 3-VIEW TURNTABLE`(要更多角度才另跑選配 `3/4 HERO VIEW` / `45° ISO VIEW`)。
+3. **4 視圖 + 3/4 + 45°iso**(NBP):拿確認過的 front 當參考,跑 `[A] 4-VIEW TURNTABLE`、`[A] 3/4 HERO VIEW`、`[A] 45° ISO VIEW`。
 4. **偏了才修**:結果跑掉 → 修正層(SPEC 錨點 / STYLE BIBLE / 鎖姿勢/材質,見下方各節)。
 5. **3D**:多視圖→Rodin;單圖(3/4)→Tripo/Meshy/Hunyuan → 高模 PBR。
 
@@ -248,7 +250,7 @@ RULES
 
 ### Template C — 可複用可拼模組(1 平拍)
 - 平面類(地/牆) → `[C] tile/surface` 平拍 → **轉 PBR 材質**(別生 mesh)。
-- 立體重複件(燭台/柱) → 走 A 的 3 視圖做 1 個 → 場景內陣列複製。
+- 立體重複件(燭台/柱) → 走 A 的 4 視圖做 1 個 → 場景內陣列複製。
 - **統一 grid 尺寸**(如 1m×1m),才能像積木拼。
 
 ---
@@ -429,7 +431,7 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 **金句(驗證過的標準,每張都要有):**
 `From the attached concept art, extract ONLY the [PROP]` · `one complete, isolated object, centered and fully visible` · `front orthographic view` · `flat neutral grey (#808080) seamless background` · `perfectly even diffuse studio lighting` · `NO cast shadows / NO rim light / NO scene elements` · `maximum sculptural detail` · `high-resolution clean reference plate for image-to-3D`
-**多視圖加:**`3-VIEW turntable in ONE image: front | left side | back, three equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
+**多視圖加(front 確認後):**`4-VIEW turntable in ONE image: front | left side | right side | back, four equal panels` · `IDENTICAL object in all panels — same geometry, proportions, materials, height and centering`
 **3/4 立體 hero 加(給單圖轉 3D):**`single 3/4 hero view for image-to-3D` · `rotated ~35°, tilted ~25° from above` · `near-orthographic (no wide-angle distortion)` · `same geometry / proportions / materials as the front`
 **45° 等角加(零變形單圖轉 3D):**`single 45-degree front-side angle` · `true 45-degree isometric projection (45° azimuth, ~30° downward tilt)` · `parallel projection, no perspective distortion, no vanishing point, centered`
 
@@ -443,9 +445,9 @@ STYLE LOCK 只鎖**造型/比例/風化/文化傳統**,**不要**因此把戲劇
 
 | 類別 | 輸入 | 工具 + 設定 | 輸出 |
 |---|---|---|---|
-| [A] 英雄件 | 3 視圖(選配 3/4·45°iso) | **Rodin Gen-2** 多圖 / **Tripo·Meshy** 單圖,PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
+| [A] 英雄件 | 4 視圖 + 3/4 + 45°iso | **Rodin Gen-2** 多圖 / **Tripo·Meshy** 單圖(3/4 或 45°iso),PBR+quad remesh,high poly | 高模+PBR → ZBrush/Blender 精修 |
 | [B] 場景件 | 單件+2 視 | **Tripo 3.0 / Hunyuan3D 2.5** multi-view,texture 高 | 中模+貼圖 |
-| [C]-立體 | 3 視圖×1 | Tripo 單/多視 → 模數化 kit | 低模可拼件 |
+| [C]-立體 | 4 視圖×1 | Tripo 單/多視 → 模數化 kit | 低模可拼件 |
 | [C]-平面 | top-down 平拍 | **轉 PBR 材質**(base+normal+height),不生 mesh | 可無限平鋪 |
 
 ---
