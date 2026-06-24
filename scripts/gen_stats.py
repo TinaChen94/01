@@ -161,6 +161,103 @@ def branch_commit_counts(branches):
     return rows
 
 
+CASE_PAT = ["docs/asset-cases/A*.md", "*/examples/B*.md", "asset-cutout-jobs/*/RECORD.md"]
+REF_RE = re.compile(r"[\w./\-]+\.(?:png|jpe?g|webp|tga|exr)", re.IGNORECASE)
+EMBED_RE = re.compile(r"!\[[^\]]*\]\(([^)\s]+)")  # 只認真正的 ![alt](path) 內嵌
+
+
+def is_case(path):
+    return any(fnmatch.fnmatch(path, p) for p in CASE_PAT)
+
+
+def md_embeds(branch, path):
+    """Resolved image paths actually embedded via ![...](...) in the file."""
+    content = git("show", f"{branch}:{path}")
+    base = os.path.dirname(path)
+    return [os.path.normpath(os.path.join(base, m)) for m in EMBED_RE.findall(content)
+            if IMG_RE.search(m)]
+
+
+def ls_tree(branch):
+    """[(sha, path)] for every blob on the branch."""
+    out = []
+    for line in git("ls-tree", "-r", branch).splitlines():
+        try:
+            meta, path = line.split("\t", 1)
+        except ValueError:
+            continue
+        parts = meta.split()
+        if len(parts) >= 3:
+            out.append((parts[2], path))
+    return out
+
+
+def md_refs(branch, path):
+    """Image basenames referenced inside a markdown file."""
+    content = git("show", f"{branch}:{path}")
+    return {os.path.basename(m) for m in REF_RE.findall(content)}
+
+
+def in_asset_dir(path):
+    return "/images/" in path or "/assets/" in path
+
+
+def lint(branches):
+    """Detection only — flag likely 遺漏/重複/垃圾. Returns issue dict."""
+    trees = {b: ls_tree(b) for b in branches}
+    paths_on = {b: {p for _, p in trees[b]} for b in branches}
+
+    referenced = set()                 # 任何 md 引用過的圖檔 basename
+    blob_paths = defaultdict(set)      # sha -> {distinct paths}(跨分支)
+    seen_case = {}                     # 去重後的案例 md:path -> branch
+    for b in branches:
+        for sha, p in trees[b]:
+            if IMG_RE.search(p):
+                blob_paths[sha].add(p)
+        for p in paths_on[b]:
+            if is_tracked(p) and p.endswith(".md"):
+                referenced.update(md_refs(b, p))
+            if is_case(p):
+                seen_case.setdefault(p, b)
+
+    issues = {}
+
+    # A. 0 圖案例 + E. 斷掉的內嵌(只看真正的 ![](…))
+    zero, broken = [], []
+    for p, b in sorted(seen_case.items()):
+        embeds = md_embeds(b, p)
+        existing = [e for e in embeds if e in paths_on[b]]
+        missing = sorted(set(embeds) - set(existing))
+        if not existing:
+            zero.append(f"{p}  @{b.replace('origin/','')}")
+        elif missing:
+            broken.append(f"{p} @{b.replace('origin/','')} → 缺 {', '.join(os.path.basename(m) for m in missing)}")
+    issues["0 圖案例(未完成 / 無成品圖)"] = zero
+    issues["斷掉的圖片內嵌(![](…) 指向不存在的圖)"] = broken
+
+    # B. 孤兒圖(圖檔 basename 沒有任何 md 引用)
+    orphan = sorted({
+        p for b in branches for _, p in trees[b]
+        if IMG_RE.search(p) and os.path.basename(p) not in referenced
+    })
+    issues["孤兒圖(沒被任何案例 .md 引用)"] = orphan
+
+    # C. 非標準位置的圖(不在 */images/ 或 */assets/)— 例如散在 repo 根目錄
+    stray = sorted({
+        f"{p}  @{b.replace('origin/','')}"
+        for b in branches for _, p in trees[b]
+        if IMG_RE.search(p) and not in_asset_dir(p)
+    })
+    issues["散落圖(不在 images/ 或 assets/,如 repo 根目錄)"] = stray
+
+    # D. 同內容、多路徑(真重複 → dedupe 候選)
+    dup = [f"{sha[:9]} → " + " | ".join(sorted(ps))
+           for sha, ps in sorted(blob_paths.items()) if len(ps) > 1]
+    issues["同內容存在於多個路徑(重複檔)"] = dup
+
+    return issues
+
+
 def build_block(branches):
     files = collect_files(branches)
     per_branch_img, distinct_img, prefix_img = collect_images(branches)
@@ -215,6 +312,18 @@ def main():
     branches = list_branches()
     if not branches:
         sys.exit("找不到 origin/claude/* 或 origin/main 分支;先 git fetch。")
+
+    if "--lint" in sys.argv:
+        report = lint(branches)
+        total = sum(len(v) for v in report.values())
+        print(f"# 🔎 倉庫健檢(偵測,未改任何檔)— 掃 {len(branches)} 分支,共 {total} 項待看\n")
+        for title, items in report.items():
+            print(f"## {'✅' if not items else '⚠️'} {title} — {len(items)}")
+            for it in items:
+                print(f"  - {it}")
+            print()
+        return
+
     block = build_block(branches)
 
     if "--stdout" in sys.argv:
