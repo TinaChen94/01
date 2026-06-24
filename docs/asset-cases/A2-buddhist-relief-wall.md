@@ -61,14 +61,21 @@ flames, no warm glow.
 
 ---
 
-## 產出
+## 產出(4 張,依 4 組提示詞順序生成)
 
-### 正視參考板(head-on 正交,image-to-3D 用)
-![浮雕牆正視參考板](images/buddhist-relief-wall-front-ortho.png)
+| # | 提示詞 | 檔名(存到 `images/`) | 說明 |
+|---|---|---|---|
+| 1 | STEP 1 FRONT | `buddhist-relief-wall-front-ortho.png` | head-on 正交、主尊施無畏印 + 四脇侍 + 飛天祥雲、藍底彩繪;風格/轉正成立,**但殘留供桌/燭台/壁龕**(未清場、未完全去光) |
+| 2 | STEP 2 2 視圖 | `buddhist-relief-wall-2view.png` | front \| 3/4 掠射,讀得出牆板厚度與浮雕凸出量;**繼承了 #1 的供桌/壁龕**(盲生,未先清場) |
+| 3 | height pass | `buddhist-relief-wall-height.png` | 灰階深度圖,近白遠黑;**同樣帶進供桌**,需以清場後的板重出 |
+| 4 | 清場 pass | `buddhist-relief-wall-cleaned-ortho.png` | 供桌/燭台/壁龕已刪、裁切到牆板、灰底 —— **這張才是乾淨的 image-to-3D 正視板** |
 
-> ⚠️ **圖待存入** — 把對話裡生成的 front plate 另存為 `images/buddhist-relief-wall-front-ortho.png`(對齊上方引用名)。
+![1 正視板(未清場)](images/buddhist-relief-wall-front-ortho.png)
+![2 兩視圖](images/buddhist-relief-wall-2view.png)
+![3 height map](images/buddhist-relief-wall-height.png)
+![4 清場後正視板](images/buddhist-relief-wall-cleaned-ortho.png)
 
-head-on 正交、主尊立佛施無畏印 + 四脇侍 + 上方飛天祥雲、藍底彩繪、風化石材 —— 風格與轉正都成立;但**尚未清場 / 尚未完全去光**(見下)。
+> ⚠️ **4 張圖待存入** `docs/asset-cases/images/`,檔名對齊上表(我無法把對話裡的圖轉存進 repo)。
 
 ---
 
@@ -79,5 +86,6 @@ head-on 正交、主尊立佛施無畏印 + 四脇侍 + 上方飛天祥雲、藍
 - ⚠️ **`NO scene elements` 只被執行一半 —— 這是本案最大教訓。** 模型保留了 in-situ 的**供桌、青銅鼎、燭台、點燃蠟燭、玫瑰花瓣、左右壁龕 + 鳥**,背景也不是純 `#808080`。
   → **修法:列點刪 > 泛詞否定。** 與其寫 `NO scene elements`,不如逐項點名要刪的東西(見上方 prompt 4),對「牆板帶附屬供桌」這種 in-situ 構圖才清得乾淨。
 - ⚠️ **蠟燭是點燃的 = 殘留小光源 + 暖調溢光**,踩到「4 大殺手」之一。進 image-to-3D 前必跑一次清場 + 去光 pass,否則火焰/暖光會被烤進貼圖。
-- 📌 **下一步序列:** 清場 pass(prompt 4)→ 比對原圖確認 → STEP 2 兩視圖(front | 3/4 掠射)→ height pass → 餵 Tripo 3.0 / Hunyuan3D 2.5 multi-view → 中模 + 貼圖,淺浮雕細節用 height 做位移。
+- ⚠️ **本批是「盲生」4 張 —— 沒先確認 CLEAN front 就往下跑,結果 #2 兩視圖、#3 height 都繼承了 #1 的供桌/壁龕。** 正好踩中 pipeline〈三視一致性協議〉警告的「別三張盲生」。**正確順序應是 FRONT → 清場(#4)→ 確認乾淨 → 才用乾淨板出 #2 兩視圖 + #3 height。** → 目前 #2 #3 需以 `buddhist-relief-wall-cleaned-ortho.png` 為基礎重出一次。
+- 📌 **下一步序列:** 以 #4 清場板為基準 → 重出 2 視圖(front | 3/4 掠射)+ height pass(都從乾淨板來)→ 餵 Tripo 3.0 / Hunyuan3D 2.5 multi-view → 中模 + 貼圖,淺浮雕細節用 height 做位移。
 - 📌 右牆(立佛列 + 大坐佛浮雕)是另一塊獨立牆板,另開一輪同模板,只換 `[PROP]` 描述。
