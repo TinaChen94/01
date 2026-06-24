@@ -60,7 +60,7 @@ flames, no warm glow.
 ```
 
 ### 5.(重出版,本次採用)以 #4 清場板為基準重出 2 視圖 + height
-盲生的 #2 #3 繼承了供桌/壁龕(見 QC),改餵 `buddhist-relief-wall-cleaned-ortho.png` 重出,並在句中再鎖一次隔離:
+盲生的 #2 #3 繼承了供桌/壁龕(見 QC),改餵 `buddhist-relief-wall-cleaned-ortho.jpg` 重出,並在句中再鎖一次隔離:
 
 **5a — 2 視圖(重出):**
 ```text
@@ -84,7 +84,7 @@ BLACK = deepest (blue back plane / recesses), smooth tonal gradient following ca
 no color, no lighting, no cast shadows, no scene props. Aligned 1:1 with the cleaned front
 albedo plate. For displacement / normal baking.
 ```
-> 跑法:參考圖放 #4,兩張同 seed,重出後覆蓋 `buddhist-relief-wall-2view.png` / `-height.png`(舊盲生版留存改 `-blind` 後綴)。
+> 跑法:參考圖放 #4,兩張同 seed,重出後覆蓋 `buddhist-relief-wall-2view.jpg` / `-height.jpg`(舊盲生版留存改 `-blind` 後綴)。
 
 ---
 
@@ -92,21 +92,21 @@ albedo plate. For displacement / normal baking.
 
 | # | 階段 / 提示詞 | 檔名(存到 `images/`) | 角色 | 說明 |
 |---|---|---|---|---|
-| 1 | STEP 1 FRONT | `buddhist-relief-wall-front-ortho.png` | canonical | head-on 正交、主尊施無畏印 + 四脇侍 + 飛天祥雲、藍底彩繪;風格/轉正成立,但殘留供桌/燭台/壁龕(未清場) |
-| 2 | STEP 2 2 視圖(盲生) | `buddhist-relief-wall-2view-blind.png` | 反例存證 | front \| 3/4 掠射;**繼承 #1 供桌/壁龕**(盲生,未先清場) |
-| 3 | height(盲生) | `buddhist-relief-wall-height-blind.png` | 反例存證 | 灰階;**同樣帶進供桌**(盲生) |
-| 4 | 清場 pass | `buddhist-relief-wall-cleaned-ortho.png` | canonical | 供桌/燭台/壁龕已刪、裁切到牆板、灰底 —— 乾淨的 image-to-3D 正視板 |
-| 5 | §5a 2 視圖(重出) | `buddhist-relief-wall-2view.png` | canonical | 餵 #4 重出,**已清場 ✅**;front \| 3/4 掠射,讀得出厚度。左視略斜可用 |
-| 6 | §5b height(重出) | `buddhist-relief-wall-height.png` | canonical | 餵 #4 重出,**已清場 ✅**。⚠️ 去飽和 render 非真深度,正式位移從 3D 烘 |
+| 1 | STEP 1 FRONT | `buddhist-relief-wall-front-ortho.jpg` | canonical | head-on 正交、主尊施無畏印 + 四脇侍 + 飛天祥雲、藍底彩繪;風格/轉正成立,但殘留供桌/燭台/壁龕(未清場) |
+| 2 | STEP 2 2 視圖(盲生) | `buddhist-relief-wall-2view-blind.jpg` | 反例存證 | front \| 3/4 掠射;**繼承 #1 供桌/壁龕**(盲生,未先清場) |
+| 3 | height(盲生) | `buddhist-relief-wall-height-blind.jpg` | 反例存證 | 灰階;**同樣帶進供桌**(盲生) |
+| 4 | 清場 pass | `buddhist-relief-wall-cleaned-ortho.jpg` | canonical | 供桌/燭台/壁龕已刪、裁切到牆板、灰底 —— 乾淨的 image-to-3D 正視板 |
+| 5 | §5a 2 視圖(重出) | `buddhist-relief-wall-2view.jpg` | canonical | 餵 #4 重出,**已清場 ✅**;front \| 3/4 掠射,讀得出厚度。左視略斜可用 |
+| 6 | §5b height(重出) | `buddhist-relief-wall-height.jpg` | canonical | 餵 #4 重出,**已清場 ✅**。⚠️ 去飽和 render 非真深度,正式位移從 3D 烘 |
 
-![1 正視板(未清場)](images/buddhist-relief-wall-front-ortho.png)
-![2 兩視圖(盲生·帶供桌)](images/buddhist-relief-wall-2view-blind.png)
-![3 height(盲生·帶供桌)](images/buddhist-relief-wall-height-blind.png)
-![4 清場後正視板](images/buddhist-relief-wall-cleaned-ortho.png)
-![5 兩視圖(重出·已清場)](images/buddhist-relief-wall-2view.png)
-![6 height(重出·已清場)](images/buddhist-relief-wall-height.png)
+![1 正視板(未清場)](images/buddhist-relief-wall-front-ortho.jpg)
+![2 兩視圖(盲生·帶供桌)](images/buddhist-relief-wall-2view-blind.jpg)
+![3 height(盲生·帶供桌)](images/buddhist-relief-wall-height-blind.jpg)
+![4 清場後正視板](images/buddhist-relief-wall-cleaned-ortho.jpg)
+![5 兩視圖(重出·已清場)](images/buddhist-relief-wall-2view.jpg)
+![6 height(重出·已清場)](images/buddhist-relief-wall-height.jpg)
 
-> ⚠️ **6 張圖待存入** `docs/asset-cases/images/`,檔名對齊上表(我無法把對話裡的圖轉存進 repo)。
+> ✅ **6 張圖已上傳**至 `docs/asset-cases/images/`(`.jpg`),引用已對齊。
 > 接 3D 用 canonical 4 張(`front-ortho` / `cleaned-ortho` / `2view` / `height`);`-blind` 兩張只留作「盲生反例」對照。
 
 ---
@@ -118,7 +118,7 @@ albedo plate. For displacement / normal baking.
 - ⚠️ **`NO scene elements` 只被執行一半 —— 這是本案最大教訓。** 模型保留了 in-situ 的**供桌、青銅鼎、燭台、點燃蠟燭、玫瑰花瓣、左右壁龕 + 鳥**,背景也不是純 `#808080`。
   → **修法:列點刪 > 泛詞否定。** 與其寫 `NO scene elements`,不如逐項點名要刪的東西(見上方 prompt 4),對「牆板帶附屬供桌」這種 in-situ 構圖才清得乾淨。
 - ⚠️ **蠟燭是點燃的 = 殘留小光源 + 暖調溢光**,踩到「4 大殺手」之一。進 image-to-3D 前必跑一次清場 + 去光 pass,否則火焰/暖光會被烤進貼圖。
-- ⚠️ **本批是「盲生」4 張 —— 沒先確認 CLEAN front 就往下跑,結果 #2 兩視圖、#3 height 都繼承了 #1 的供桌/壁龕。** 正好踩中 pipeline〈三視一致性協議〉警告的「別三張盲生」。**正確順序應是 FRONT → 清場(#4)→ 確認乾淨 → 才用乾淨板出 #2 兩視圖 + #3 height。** → 目前 #2 #3 需以 `buddhist-relief-wall-cleaned-ortho.png` 為基礎重出一次。
+- ⚠️ **本批是「盲生」4 張 —— 沒先確認 CLEAN front 就往下跑,結果 #2 兩視圖、#3 height 都繼承了 #1 的供桌/壁龕。** 正好踩中 pipeline〈三視一致性協議〉警告的「別三張盲生」。**正確順序應是 FRONT → 清場(#4)→ 確認乾淨 → 才用乾淨板出 #2 兩視圖 + #3 height。** → 目前 #2 #3 需以 `buddhist-relief-wall-cleaned-ortho.jpg` 為基礎重出一次。
 - ✅ **重出版(§5)已驗證:** 改餵 #4 清場板後,重出的 2 視圖 / height **都不再帶供桌/壁龕**(對照 `-blind` 兩張盲生存證)—— 「先清場再出視圖」順序修正有效,canonical 取重出版。
 - ⚠️ **t2i 生的「height map」不是真深度圖。** 重出 height 仍是去飽和 render(保留石材紋理/風化明暗),非純 white→black 深度梯度(主尊本應最白、藍底本應均勻暗)。→ 正式 displacement 請**從 3D 網格烘 height/normal** 或跑專用 depth pass,別直接拿這張當位移圖。
 - 📌 **下一步序列:** 6 張存證齊 → 餵 Tripo 3.0 / Hunyuan3D 2.5 multi-view(#4 清場板 + 重出 2view)→ 中模 + 貼圖;淺浮雕細節**從 3D 網格烘** height/normal。再來可做右牆(立佛列 + 大坐佛)。
