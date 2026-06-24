@@ -4,7 +4,7 @@
 > 資產分類:**[B] 場景模組件**(大型、結構性、淺浮雕牆板 → 2 視圖 + height pass)。
 
 ## 來源(索引)
-- **生成平台:** [Leonardo.ai](https://leonardo.ai/)(平台);**模型選 Auto → 實際路由到 Nano Banana 出圖**。〔正好對上 skill 推薦的 Nano Banana 系——拆概念圖結構一致性最強〕
+- **生成平台:** [Leonardo.ai](https://leonardo.ai/) —— **模型(Model)選 Auto;平台/引擎(Platform)選 Nano Banana**。〔對上 skill 推薦的 Nano Banana 系——拆概念圖結構一致性最強〕
 - **日期:** 2026-06-24
 - **原始素材:** 洞窟佛寺概念圖中,左側藍底彩繪佛教浮雕牆(主尊立佛 + 四脇侍菩薩 + 上方飛天/祥雲)
 - **前一案例:** [A1 哥德陵墓](A1-mausoleum.md)
@@ -113,7 +113,7 @@ albedo plate. For displacement / normal baking.
 
 ## 學到的(可複用結論)
 
-- ✅ **平台/模型:[Leonardo.ai](https://leonardo.ai/) + 模型選 Auto,實際路由到 Nano Banana 出圖。** image-grounded 那套(餵原圖 extract → 轉正 head-on → de-lit → 清場)Nano Banana 都接得住,風格/轉正/清場都成立 —— 正好印證 skill「拆概念圖優先 Nano Banana(結構一致性最強)」的選型。**啟示:不確定選哪個模型時,Leonardo 的 Auto 是可靠 fallback。** 唯一弱點是 height map(t2i 通病,非模型專屬)。
+- ✅ **平台/模型:[Leonardo.ai](https://leonardo.ai/),模型(Model)= Auto、平台(Platform)= Nano Banana。** image-grounded 那套(餵原圖 extract → 轉正 head-on → de-lit → 清場)Nano Banana 都接得住,風格/轉正/清場都成立 —— 正好印證 skill「拆概念圖優先 Nano Banana(結構一致性最強)」的選型。唯一弱點是 height map(t2i 通病,非模型專屬)。
 - ✅ **`re-orient … IGNORE the concept's camera angle/perspective` 對「斜退的建築牆板」成立。** 原圖那面往深處斜退的牆被成功壓成 head-on 正交立面 —— 印證 concept-to-3D 〈核心鐵律〉那句不只對小道具有效,對大牆板一樣鎖得住視角。
 - ✅ **STYLE 不靠 PASS-2 STYLE BIBLE 就咬住了。** 純 image-grounded extract 就保住 5–6 世紀中式石窟風、礦物藍/朱/金斑駁彩繪、風化崩缺石材,**沒漂成日式仁王 / 印度神廟**。→ 印證「原圖=真相,文字只寫呈現規格」勝過堆設計文字。
 - ⚠️ **`NO scene elements` 只被執行一半 —— 這是本案最大教訓。** 模型保留了 in-situ 的**供桌、青銅鼎、燭台、點燃蠟燭、玫瑰花瓣、左右壁龕 + 鳥**,背景也不是純 `#808080`。
