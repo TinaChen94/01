@@ -59,6 +59,33 @@ extend the background to flat neutral grey (#808080), de-lit even diffuse light,
 flames, no warm glow.
 ```
 
+### 5.(重出版,本次採用)以 #4 清場板為基準重出 2 視圖 + height
+盲生的 #2 #3 繼承了供桌/壁龕(見 QC),改餵 `buddhist-relief-wall-cleaned-ortho.png` 重出,並在句中再鎖一次隔離:
+
+**5a — 2 視圖(重出):**
+```text
+Using the attached CLEANED relief-wall plate (already isolated — no altar, no
+candlesticks, no candles, no side niches, no scene props) as the single source of truth,
+render it as a 2-VIEW orthographic turntable in ONE image: front | 3/4 raking angle
+(camera ~35° to the wall face to reveal relief depth and how far each figure projects
+from the back plane), two equal panels left to right. IDENTICAL panel in both — same
+geometry, proportions, polychrome, height and centering as the source. Keep it fully
+isolated: NO altar, NO candles, NO niches, NO scene elements. Flat even diffuse lighting,
+neutral grey (#808080) background, NO cast shadows, strictly orthographic (no perspective).
+Maximum carved-relief detail, reconstruct cropped/occluded areas. Asset reference for
+multiview-to-3D.
+```
+**5b — height(重出):**
+```text
+A height / displacement map of the attached CLEANED relief-wall plate (the isolated panel
+only — no altar, no candlesticks, no niches). Head-on orthographic, perfectly flat front
+view: pure grayscale where WHITE = nearest (figures and halo projecting forward) and
+BLACK = deepest (blue back plane / recesses), smooth tonal gradient following carved depth,
+no color, no lighting, no cast shadows, no scene props. Aligned 1:1 with the cleaned front
+albedo plate. For displacement / normal baking.
+```
+> 跑法:參考圖放 #4,兩張同 seed,重出後覆蓋 `buddhist-relief-wall-2view.png` / `-height.png`(舊盲生版留存改 `-blind` 後綴)。
+
 ---
 
 ## 產出(4 張,依 4 組提示詞順序生成)
