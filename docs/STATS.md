@@ -89,7 +89,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - **不重複圖檔(blob)**:19 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 10 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/quirky-wright-rkdcey 2 · claude/relaxed-bardeen-n9esux 8 · claude/trusting-knuth-f11ltb 13 · main 2
+- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/quirky-wright-rkdcey 13 · claude/relaxed-bardeen-n9esux 8 · claude/trusting-knuth-f11ltb 13 · main 2
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
@@ -100,7 +100,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | claude/affectionate-lamport-2jpqa6 | 4 | 2026-06-23 → 2026-06-24 |
 | claude/festive-volta-sft8rv | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
-| claude/quirky-wright-rkdcey | 4 | 2026-06-23 → 2026-06-24 |
+| claude/quirky-wright-rkdcey | 7 | 2026-06-23 → 2026-06-24 |
 | claude/relaxed-bardeen-n9esux | 11 | 2026-06-23 → 2026-06-24 |
 | claude/trusting-knuth-f11ltb | 7 | 2026-06-23 → 2026-06-23 |
 
@@ -111,5 +111,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 註記
 
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
-- ⚠️ **案例散落各分支**:只有 A1 進了 `main`;A2、A10/A11、B1、props 各自卡在自己的 feature 分支。
-- ⚠️ **圖檔擺放不一致**:預設分支上 cobblestone 那批圖散在 repo 根目錄,僅 `trusting-knuth` 才整理進 `docs/asset-cases/images/`。
+- 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint` 會掃出 0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌。
+- ✅ **本工作分支(`quirky-wright`)已歸位**:A10/A11 案例 + 11 張圖收進 `docs/asset-cases/`,根目錄散圖已清空。
+- ⚠️ **其餘分支仍待處理**:`affectionate-lamport`、`relaxed-bardeen` 的 cobblestone 圖仍散在 repo 根目錄(各自獨立分支,需各自清理)→ `--lint` 仍顯示散落圖 18、多路徑重複 9。
+- ⚠️ **案例仍部分散落**:A1 在 `main`、A10/A11 已併入本分支;**A2、B1、props 仍卡在各自 feature 分支**(屬「補遺漏」那一刀,尚未做)。
