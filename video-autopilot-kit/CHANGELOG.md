@@ -3,6 +3,176 @@
 All notable changes to **video-autopilot-kit** are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.5.0] — 2026-06-23
+
+**Getting started: runnable examples.** A new `examples/` folder with self-contained,
+ffmpeg-synthesized demos, so a newcomer can watch the pipeline work end-to-end in ~60
+seconds — no real footage and no CapCut required.
+
+### Added
+- `examples/01_vertical_short.py` — synthesizes two landscape test clips + a music track
+  with ffmpeg, then runs the real pipeline (`normalize_to_portrait` → `build_one_short`
+  with multi-color captions + BGM started at its highlight) to produce a finished
+  1080x1920 MP4. Verified end-to-end.
+- `examples/02_caption_broll_match.py` — pure-Python (no ffmpeg) demo of zero-config
+  `auto_sequence_brolls`: name b-roll by content (`coffee.mp4`, `sunset.mov`) and each
+  caption gets the matching clip, with filler for the gaps.
+- `examples/README.md` + a "See it run in 60 seconds" section in both READMEs.
+
+## [0.4.2] — 2026-06-23
+
+- `_probe_dur()` in `delivery_qa.py` + `screen_rec_cleaner.py` now raise a clear
+  `RuntimeError` on a bad/missing media file instead of an opaque `float("")` crash —
+  closing the last unguarded duration probes.
+- `knowledge/meta-lessons.md`: added **M100** — a single grep gate is necessary but NOT
+  sufficient for public-release sanitization; you need adversarial multi-round,
+  multi-angle scanning looped until a full round returns zero (distilled from the v0.4.1
+  remediation). `M1-M99` → `M1-M100`.
+
+## [0.4.1] — 2026-06-23
+
+**Privacy hardening + the font fix that should've shipped.** A 7-agent audit of the
+v0.4.0 drop found that the first sanitization pass missed a layer: hard identifiers AND
+semantic-layer fingerprints survived in `knowledge/meta-lessons.md` and a few sibling docs,
+and the same personal context lingered in some `src/` docstrings + the example keyword map.
+All scrubbed; verified by **5 rounds of adversarial multi-agent re-scan** (hard-identifier /
+semantic-fingerprint / triangulation-reconstruction / code-consistency angles) looped until a
+full round returned zero, backed by a whole-repo mechanical grep gate.
+
+### Fixed — privacy
+- **`knowledge/meta-lessons.md`** — removed real identifiers that slipped through: a personal
+  domain, a named real-world location + its giveaway selling-points, a real project name, real
+  export filenames, an absolute user path, the author-named keyword map, a real game-project
+  name, the channel's brand-keyword fingerprint, and a community-metric anecdote. Also restored
+  two `#000000` hex values the prior sanitizer had corrupted (broke the caption-style spec).
+- **Semantic-layer scrub** across `viral-short-playbook.md`, `ig-caption-patterns.md`,
+  `teaching-niche-playbook.md`, `capcut-text-templates.md`, `agent-token-efficiency.md`,
+  `capcut-agent-brief-template.md`, `capcut-automation-sop.md` — generalized author-specific
+  signatures, paraphrased real posts, a personal sign-off, and one-off measured telemetry into
+  neutral placeholders / clearly-labeled synthetic examples. Methodology preserved throughout.
+- **`src/`** — neutralized `EXAMPLE_KEYWORD_MAP` (had real game/project/location keywords incl.
+  a street address), genericized an outro-card docstring's shop+address, and removed a residual
+  drive path. Author-nicknamed public symbols (`HAO_*_MAP`, `apply_hao_teaching_dual_tier`,
+  `hao_teaching_*` preset keys) renamed to neutral names (`EXAMPLE_KEYWORD_MAP`,
+  `apply_teaching_dual_tier`, `teaching_*`) — **back-compat aliases kept**, so existing imports
+  still work.
+
+### Fixed — Shorts captions ship at the right size
+- **`shorts_vertical.py`** — the public kit was still shipping the *old* vertical-caption font
+  (MAIN 82px / ADDR 46px), which gets cropped on a 1080-wide frame. Synced to the corrected
+  values (MAIN **124px** / ADDR **58px** / heavier outline) that the private pipeline already
+  used, plus the load-bearing "124px = WrapStyle=2 8-char line ceiling" note.
+
+### Fixed — robustness + docs
+- `_probe_dur()` now raises a clear error on a bad/missing media file instead of an opaque
+  `could not convert string to float` (benefits `find_music_highlight` + `build_one_short`).
+- `pick_bgm()` no longer silently returns a too-short track when every candidate is shorter
+  than the video — it warns that the pick will loop.
+- Broken cross-links repaired (`references/…` paths → flat filenames), README content table
+  gains a `knowledge/` row (zh + en), `M1–M96` → `M1–M99`, duplicate `# Video Craft Playbook`
+  H1 disambiguated.
+
+## [0.4.0] — 2026-06-23
+
+**Knowledge base drop.** The kit used to ship the *tools* (`src/` helpers) but not the
+*know-how*. This release adds a `knowledge/` folder — 20 markdown docs distilling the
+methodology behind the tools, with all personal data stripped (creator identity, community,
+channel stats, real video titles/addresses, personal script voice → all removed). MIT.
+
+### Added — `knowledge/`
+- **`meta-lessons.md`** — M1–M99 "every mistake + permanent fix" canon (look-before-caption,
+  no-fabrication, chrome/privacy leaks, image framing, strobing, dead-air, Shorts BGM
+  highlight, loudness-swing compression, "self-tests that mock the external tool ship bugs"…).
+- **YouTube algorithm** — overview, deep mastery (MrBeast tactics + retention engineering),
+  2026 insights, teaching-niche playbook, launch-hype/community-mobilization SOP.
+- **Cross-platform craft** — craft overview, playbook, IG caption patterns, viral-short
+  structure, 2026 Shorts/Reels best practices.
+- **CapCut automation SOP** — agent-ops SOP, brief template, text-template catalog, draft-JSON
+  direct editing, Pro paywall map, pure-ffmpeg build pipeline, agent token-efficiency.
+- **Script** — a framework for learning *your own* script style (you fill your own profile).
+
+> Sanitized via a 20-agent parallel pass + a mechanical leak gate (grep) over the whole folder.
+
+## [0.3.3] — 2026-06-23
+
+Music intelligence for vertical Shorts — auto-pick the right track, start it at the
+hook, and keep the volume even. Distilled from cutting a batch of food/travel Shorts
+where ambient picks felt flat and dynamic tracks swung loud→quiet.
+
+### Added
+- **`find_music_highlight(bgm, dur)`** — Shorts BGM shouldn't start at the (boring) intro.
+  Uses `ebur128` short-term loudness (S) as an energy proxy and returns the start second of
+  the most energetic `dur`-length window, so the whole Short rides the chorus/drop. Wired
+  into `build_one_short(bgm_start='auto')` (default). Note: do NOT add `metadata=1` to
+  ebur128 — it suppresses the per-frame `t:/S:` lines this parses.
+- **`beat_rate(bgm)`** — rhythmic-density proxy (ebur128 momentary-loudness peak count per
+  second). Ambient tracks ~1/s, upbeat/quick-cut/vocal-chop ~2.5–3/s. Use to tell energetic
+  tracks from mood pieces by measurement, not by filename guessing.
+- **`pick_bgm(candidates, dur, prefer='energetic')`** — automatic track selection: from a
+  list of same-theme tracks, pick the one that is **long enough (no loop)** AND **most
+  energetic (highest beat_rate)**. `prefer='chill'` flips it for relaxed footage.
+
+### Fixed
+- **BGM volume "swings loud→quiet"** — `build_one_short` now compresses the BGM with
+  `acompressor` so the chorus/breakdown dynamics even out (peaks pulled toward the quiet
+  parts) while per-beat transients survive. `dynaudnorm`/`loudnorm` do NOT fix this
+  (measured); a compressor does (≈8→4 dB loudness swing).
+- **Short-track loop seam** — `build_one_short` warns when the BGM is shorter than the video
+  (the `-stream_loop` seam jumps audibly = another "swing" source); use `pick_bgm` to avoid it.
+
+## [0.3.2] — 2026-06-22
+
+Patch: two Windows integration bugs in the v0.3.1 code that the string-only self-tests
+(no real ffmpeg/ffprobe) didn't catch. Surfaced the first time the vertical-Shorts
+pipeline was run end-to-end.
+
+### Fixed
+- **`build_one_short` caption burn** — the `ass=` filter value held a Windows drive-letter
+  colon (`D:`), which libavfilter parses as an option separator (`original_size`), so
+  caption burning always failed on a Windows absolute path. Now runs ffmpeg with `cwd` set
+  to the output dir and a **relative** `ass=<basename>` (no colon). (The old first attempt
+  used basenames but forgot to set cwd; the fallback used the full colon path — both broke.)
+- **`_probe_wh` (M92 letterbox detection)** — `ffprobe -of csv=p=0:s=x` emits a trailing
+  separator + CRLF on Windows (`1080x1920x\r`), so `split('x')` returned 3 parts and raised.
+  Now parses with `re.findall(r'\d+', …)` (immune to trailing separators / CRLF).
+- **self-test regression guard** — added the `1080x1920x\r` parse case to `delivery_qa`'s
+  self-test.
+
+> Lesson: a self-test that mocks out the external tool (ffmpeg/ffprobe) only exercises your
+> string assembly, not whether the tool accepts the args. New pipelines need at least one
+> real end-to-end run before shipping.
+
+## [0.3.1] — 2026-06-20
+
+Hardening + reach. Makes the v0.3.0 QA layer robust on Windows/CJK setups, adds
+letterbox detection to the one-shot QA, and ships a new vertical-Shorts pipeline.
+
+### Added
+- **`detect_dead_borders(video)`** (M92) — `cropdetect` flags non-full-frame footage that
+  was left with dead **letterbox/pillarbox** bars (i.e. a screenshot dropped in without the
+  blurred-fill background). Wired into `final_delivery_qa` → `rep['border_flag']` + a
+  `M92 border` line in the report, so the same QA pass that catches flash/dead-air now also
+  catches un-filled bars. Pairs with `still_blurfill` (the fix).
+- **`silent_vlog_maker/shorts_vertical.py`** (M96) — pure-ffmpeg vertical (9:16 1080×1920)
+  food/travel Shorts pipeline: `normalize_to_portrait` (phone .MOV → upright 9:16, handles
+  mixed −90/+90 rotation via autorotate), `build_multicolor_ass` (per-word multi-color
+  emphasis captions, auto emoji-strip), `extract_gps` (read clip GPS for address lookup),
+  `build_one_short` (silent footage + multi-color captions + BGM-as-lead-audio). Exported
+  from `silent_vlog_maker`.
+
+### Fixed
+- **Windows cp950 crash on CJK paths** — `_run()` now forces `text=True, encoding="utf-8",
+  errors="replace"` so ffmpeg/ffprobe stderr with Chinese paths no longer raises mid-QA.
+- **Scientific-notation-safe ffmpeg parsers** — `silencedetect` / `blackdetect` (and the new
+  `cropdetect`) timestamp regexes accept `1.2e-05`-style values (`[\d.eE+-]+`); previously a
+  sci-notation timestamp silently fell through to a false `[OK]`.
+- **`delivery_qa` self-test** (`python delivery_qa.py`) — regression-guards
+  `build_keep_ranges` / `remap_time` / `trim_dead_air_ranges` + the sci-notation black-ts,
+  silence, and cropdetect parsers. `shorts_vertical.py` ships its own ASS/emoji-strip self-test.
+- **`COLOR_VARIETY` name-clash** — `silent_vlog_maker.COLOR_VARIETY` stays the constants
+  7-color named palette; the vertical-Shorts BGR ASS map is reached via
+  `from silent_vlog_maker.shorts_vertical import COLOR_VARIETY` (no package-level shadow).
+
 ## [0.3.0] — 2026-06-16
 
 Ship-ready QA layer (canon M91–M95). New module `capcut_helpers/delivery_qa.py` —
@@ -45,9 +215,9 @@ Adopter-readiness sweep (multi-agent, adversarially verified): fixed the remaini
 ### Fixed
 - **subtitle_corrections** — the author's personal mishear dict no longer force-applies.
   `use_builtin_corrections` defaults to **False** in the kit, so a stranger's legit
-  "cloud computing" / "the crowd" / "studio apartment" are NOT rewritten to Claude/Studio.
-- **broll_audit.narration_broll_sync_report** — defaults keyword_map to `{}` (was the
-  author's studio/gamehall/player/coding taxonomy → strangers got a vacuous always-pass).
+  "cloud computing" / "studio apartment" are NOT force-rewritten to some brand casing.
+- **broll_audit.narration_broll_sync_report** — defaults keyword_map to `{}` (was a
+  personal content taxonomy → strangers got a vacuous always-pass).
   Now warns loudly when content labels aren't in the map instead of silently passing.
 - **caption_broll_matcher** — accepts `pathlib.Path` identifiers (the module's own
   docstring example crashed with AttributeError); Latin tokens now stem (-s/-ing/-ed) so
