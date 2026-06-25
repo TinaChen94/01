@@ -18,7 +18,7 @@ Implements R1-R21 rules + audit pipeline (2026-05-24 v3 升級):
 | `effects.py` | R20 KenBurns + R17 cinematic + xfade |
 | `pipeline.py` | R16 make_keyframe_grid + R15 load_voice_profile + R9 build_filter_complex |
 
-⭐ **2026-05-24 v3 升級**：解 #003 a travel vlog 8/18 caption 錯位的根本痛點 — audit 沒系統化抓
+⭐ **2026-05-24 v3 升級**：解 (a past project) a travel vlog 8/18 caption 錯位的根本痛點 — audit 沒系統化抓
 拍攝時間排序 / GPS 地點 / 畫面內容。新 audit pipeline 一鍵跑完輸出完整 report。
 
 Usage (top-level import — recommended):
@@ -148,6 +148,14 @@ from .shorts_template import (
     NETGAN_NICHE_PRESETS, NETGAN_SHORTS_TEMPLATE, render_hook_card,
     HOOK_FORMULAS, suggest_hook,
 )
+# 🆕 v0.3.1 (2026-06-20) M96: 美食/旅遊直式 Shorts 純 ffmpeg pipeline（多色重點字幕 + 轉正 + GPS）
+from .shorts_vertical import (
+    build_one_short, normalize_to_portrait, build_multicolor_ass,
+    strip_emoji, extract_gps, find_music_highlight, beat_rate, pick_bgm,
+)
+# 註：shorts_vertical 內另有同名 COLOR_VARIETY (g/o/r/w/y BGR ASS 碼)，但 package-level
+# COLOR_VARIETY 保留給 constants 的 7 色命名 palette（避免 shadow）；要 ASS 碼用
+# `from silent_vlog_maker.shorts_vertical import COLOR_VARIETY`。
 
 __all__ = [
     # constants
@@ -196,4 +204,7 @@ __all__ = [
     "SHORTS_SAFE_ZONE", "safe_caption_y", "chunk_caption", "style_chunks_active",
     "NETGAN_NICHE_PRESETS", "NETGAN_SHORTS_TEMPLATE", "render_hook_card",
     "HOOK_FORMULAS", "suggest_hook",
+    # 🆕 v0.3.1 M96 直式 Shorts pipeline（COLOR_VARIETY 不在此 export — 避與 constants shadow）
+    "build_one_short", "normalize_to_portrait", "build_multicolor_ass",
+    "strip_emoji", "extract_gps", "find_music_highlight", "beat_rate", "pick_bgm",
 ]
