@@ -231,3 +231,16 @@ perspective, bevel, vignette, visible seams, misaligned, blurry, watermark, text
 - **QC 平均值(健康):** normal `(138,132,228)` 標準切線藍 · specular `≈43`(0.04 介電) · roughness `≈170`(石材高糙) · ao `≈217`(亮、縫暗) · height 灰階 · basecolor 去光暖灰 `(113,104,88)`。
 - 上表 11 個檔名 embed **全部對上**,doc 圖庫完整顯示。
 - ⚠️ 待確認:normal 的綠通道方向(OpenGL/DirectX)依目標引擎,UE 需反轉綠。
+
+### 🔧 base color 去光校正(2026-06-26)
+**問題:** 上傳的 `basecolor` 平均 `(113,105,88)` ≈ 原始 tile `(109,103,86)` → **去光沒生效**,陰影/AO 還烤在 albedo 裡;進 Blender 再被 AO map / 法線自陰影乘一次 → **暗度疊乘 → 偏黑**(縫隙 min=0 死黑)。
+**程序化修法(產出 `cobblestone-path-basecolor-delit.png`):**
+1. homomorphic 攤平巨觀光照(亮度大模糊當光照估計後反除)
+2. 反除烤進去的 AO(0.7 強度)
+3. 黑位下限 sRGB 48(albedo 不留純黑)
+→ 平均提到 `(125,116,99)`、**min 0 → 48**,更亮更均勻不死黑。
+**Blender 端配套(偏黑常是這邊才是主因):**
+- **View Transform**:Blender 4.x 預設 **AgX** 會壓暗壓灰 → 試 **Standard** 或 Color Management 加 **Exposure +0.5~1**。
+- **色彩空間**:Base Color = **sRGB**;normal/height/rough/metal/ao = **Non-Color**(設錯整個變暗變怪)。
+- **別把 AO 再乘進 Base Color**:albedo 已去光,AO 只走光照/間接(否則又雙重變暗)。
+- 場景光不足 → 補 HDRI / area light。
