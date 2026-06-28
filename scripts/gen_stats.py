@@ -305,8 +305,10 @@ def build_block(branches):
 
 def main():
     if "--no-fetch" not in sys.argv:
+        # --prune:遠端已刪除的分支,連帶清掉本地 refs/remotes/origin/* 殭屍參照,
+        # 否則已刪分支會被繼續算進統計。
         subprocess.run(
-            ["git", "fetch", "--quiet", "origin", "+refs/heads/*:refs/remotes/origin/*"],
+            ["git", "fetch", "--quiet", "--prune", "origin", "+refs/heads/*:refs/remotes/origin/*"],
             cwd=REPO,
         )
     branches = list_branches()

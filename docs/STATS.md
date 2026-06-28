@@ -28,13 +28,13 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 | 指標 | 數字 |
 |---|---|
-| 觀測期間 | 2026-06-17 → 2026-06-24(8 天) |
-| 分支(分流) | 8(7 條 `claude/*` + `main`) |
-| 參與 session | 8 |
+| 觀測期間 | 2026-06-17 → 2026-06-28(12 天) |
+| 分支(分流) | 9(8 條 `claude/*` + `main`) |
+| 參與 session | 9 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
-| 資產案例 | 6 件(分布在 5 個檔) |
-| 不重複成品圖 | 19 張 |
+| 資產案例 | 7 件(分布在 6 個檔) |
+| 不重複成品圖 | 25 張 |
 
 ---
 
@@ -58,11 +58,12 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **A1** | 哥德陵墓 Mausoleum | [A] 主角 / 去背 | 2D 板 ✅、未進 3D | 2 |
 | **A2** | 中式石窟佛教浮雕牆 | [B] 場景模組 | 2D + height ✅、未進 3D | 6 |
 | **A10** | 苔蘚草地 | [C] 可平鋪 | base albedo ✅、未派生 PBR | 1 |
-| **A11** | 石板路 cobblestone | [C] 可平鋪 PBR | ⭐ PBR 全套 ✅(含 ORM / Blender bake) | 10 |
+| **A11** | 石板路 cobblestone | [C] 可平鋪 PBR | ⭐ PBR 全套 ✅(含 ORM / Blender bake / de-lit 校正) | 11 |
 | **B1** | 哥德陵墓 concept→3D | [B] 場景模組 | ⚠️ WIP、純 prompt、無圖 | 0 |
+| **B2** | 青銅武將像 — 物件合成進場景 | [B] 物件合成(放進背景、對齊光影) | ✅ 完成(暖陽森林 / 冷霧枯林 2 變體) | 5 |
 | **graveyard-props** | 墓園道具(欄杆 / 門柱 / 墓碑) | 去背 job | ⚠️ 墓碑待做、無圖入庫 | 0 |
 
-> - A1 / A10 / A11 / B1 出自**同一張哥德墓園概念圖**;A2 為另一張洞窟佛寺概念圖。
+> - A1 / A10 / A11 / B1 出自**同一張哥德墓園概念圖**;A2 為洞窟佛寺;B2 為青銅武將像 + 森林/沼澤場景合成。
 > - **A1 = 同檔多分支複本**(blob 相同,非內容重複);**B1 與 A1 僅「名字像」**(同一棟,但 B1 是未完成 WIP)。
 
 ---
@@ -70,7 +71,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 8 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 9 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -80,29 +81,32 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `concept-to-3d.md` | main | 2026-06-23 07:43 | 1 | 2026-06-23 07:43 | `014ecc8Bz` |
 | `SKILL.md` | main | 2026-06-23 09:36 | 2 | 2026-06-23 12:01 | `01HFm82dQ` |
 | `A1-mausoleum.md` | main | 2026-06-23 11:56 | 2 | 2026-06-23 12:28 | `01HFm82dQ` |
-| `B1-gothic-mausoleum.md` | claude/inspiring-darwin-hm3u4u | 2026-06-23 12:26 | 1 | 2026-06-23 12:26 | `01UE5S6as` |
-| `A10-A11-ground-tiles.md` | claude/trusting-knuth-f11ltb | 2026-06-23 13:15 | 4 | 2026-06-23 14:32 | `01MwFuhN6` |
-| `RECORD.md` | claude/adoring-lamport-sh6fgh | 2026-06-23 13:18 | 1 | 2026-06-23 13:18 | `01CUDKd1z` |
+| `A10-A11-ground-tiles.md` | claude/trusting-knuth-f11ltb | 2026-06-23 13:15 | 5 | 2026-06-26 05:31 | `01MwFuhN6` |
 | `A2-buddhist-relief-wall.md` | claude/relaxed-bardeen-n9esux | 2026-06-24 13:57 | 7 | 2026-06-24 14:24 | `013jQQysa` |
+| `B1-gothic-mausoleum.md` | main | 2026-06-25 06:32 | 1 | 2026-06-25 06:32 | `01R1izqY5` |
+| `RECORD.md` | main | 2026-06-25 06:32 | 1 | 2026-06-25 06:32 | `01R1izqY5` |
+| `B2-statue-into-forest.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
+| `README.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 
 ### 成品圖
 
-- **不重複圖檔(blob)**:19 張
-- **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 10 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/quirky-wright-rkdcey 13 · claude/relaxed-bardeen-n9esux 8 · claude/trusting-knuth-f11ltb 13 · main 2
+- **不重複圖檔(blob)**:25 張
+- **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
+- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/quirky-wright-rkdcey 19 · claude/relaxed-bardeen-n9esux 8 · claude/sync-a11-delight 25 · claude/trusting-knuth-f11ltb 14 · main 24
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 16 | 全部 merge 線 |
+| main | 20 | 全部 merge 線 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
-| claude/affectionate-lamport-2jpqa6 | 4 | 2026-06-23 → 2026-06-24 |
+| claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
 | claude/festive-volta-sft8rv | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
-| claude/quirky-wright-rkdcey | 7 | 2026-06-23 → 2026-06-24 |
+| claude/quirky-wright-rkdcey | 12 | 2026-06-23 → 2026-06-28 |
 | claude/relaxed-bardeen-n9esux | 11 | 2026-06-23 → 2026-06-24 |
-| claude/trusting-knuth-f11ltb | 7 | 2026-06-23 → 2026-06-23 |
+| claude/sync-a11-delight | 1 | 2026-06-28 → 2026-06-28 |
+| claude/trusting-knuth-f11ltb | 8 | 2026-06-23 → 2026-06-26 |
 
 <!-- AUTO:END -->
 
@@ -111,7 +115,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 註記
 
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
-- 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint` 會掃出 0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌。
-- ✅ **本工作分支(`quirky-wright`)已歸位**:A10/A11 案例 + 11 張圖收進 `docs/asset-cases/`,根目錄散圖已清空。
-- ⚠️ **其餘分支仍待處理**:`affectionate-lamport`、`relaxed-bardeen` 的 cobblestone 圖仍散在 repo 根目錄(各自獨立分支,需各自清理)→ `--lint` 仍顯示散落圖 18、多路徑重複 9。
-- ⚠️ **案例仍部分散落**:A1 在 `main`、A10/A11 已併入本分支;**A2、B1、props 仍卡在各自 feature 分支**(屬「補遺漏」那一刀,尚未做)。
+- 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
+- ✅ **遺漏持續收斂到 `main`**:`main` 現有全部 **6 案例**(A1 / A2 / A10-A11 / B1 / **B2** / props);B2 於 06-28 併入 `main` 後,`object-placement-lighting` 分支已刪除,**B2 無遺失**。
+- ⚠️ **僅剩 A11 de-lit 校正未進 main**(`cobblestone-path-basecolor-delit.png` 仍在 `trusting-knuth` / `sync-a11-delight`)。遺漏是「滾動」的,平行 session 持續長新東西 → 跑腳本即追上。
+- ✅ **`quirky-wright` 已示範清理**(A10/A11 歸位、根目錄清空);但 **`main` 仍 pre-cleanup**,根目錄 9 張散圖還在,新分支從舊 lineage fork 會繼承 → 散圖數見 `--lint`。要清跟我說。
