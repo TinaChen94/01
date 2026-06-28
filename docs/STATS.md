@@ -68,6 +68,19 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 ---
 
+## 3. 已沉澱的可複用模板 / SOP
+
+> 從實測案例固化成可重用的模板 / SOP(機器掃不出,人工登錄)。
+
+| 模板 / SOP | 位置 | 可搜尋入口 | 來源 |
+|---|---|---|---|
+| **物件合成進場景**(物件放進背景圖、鎖位鎖比例、整包對齊環境光照反射) | `references/nano-banana.md` §物件合成進場景 | `SKILL.md` 🪧「物件合成 / 把物件放進場景 / game art background asset」 | B2 案例實測 |
+| **concept→3D 資產 pipeline**(front → 多視 → 3/4 → 45° iso) | `templates/concept-to-3d-pipeline.md` | `SKILL.md`「concept→3D / 拆概念圖 / 三視圖重建」 | inspiring-darwin(18 次迭代) |
+| **image-grounded concept→3D 憲法**(原圖=真相,別用文字代理) | `references/concept-to-3d.md` | `SKILL.md` 硬規則 | session `014ecc8` |
+| **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
+
+---
+
 ## 📈 自動統計
 
 <!-- AUTO:START -->
@@ -92,13 +105,13 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - **不重複圖檔(blob)**:25 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/relaxed-bardeen-n9esux 8 · claude/sync-a11-delight 25 · claude/trusting-knuth-f11ltb 14 · main 24
+- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/relaxed-bardeen-n9esux 8 · claude/sync-a11-delight 25 · claude/trusting-knuth-f11ltb 14 · main 25
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 22 | 全部 merge 線 |
+| main | 24 | 全部 merge 線 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
 | claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
 | claude/festive-volta-sft8rv | 0 | — |
@@ -116,6 +129,6 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **遺漏持續收斂到 `main`**:`main` 現有全部 **6 案例**(A1 / A2 / A10-A11 / B1 / **B2** / props);B2 於 06-28 併入 `main` 後,`object-placement-lighting` 分支已刪除,**B2 無遺失**。
-- ⚠️ **僅剩 A11 de-lit 校正未進 main**(`cobblestone-path-basecolor-delit.png` 仍在 `trusting-knuth` / `sync-a11-delight`)。遺漏是「滾動」的,平行 session 持續長新東西 → 跑腳本即追上。
+- ✅ **A11 de-lit 校正已併入 `main`**(`81288c6`:程序去光 basecolor 圖 + Blender 偏黑修法段)。`relaxed-bardeen` / `sync-a11-delight` 自此**全 redundant**(內容皆在 main)→ 可在 GitHub 整條刪。
 - 📍 **本頁 + `gen_stats.py` 現以 `main` 為正本**(已從 `quirky-wright` 搬入);✅ **`quirky-wright` 分支已刪除**,`--prune` 已自動把它移出統計。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份,新分支從舊 lineage fork 會繼承 → 散圖數見 `--lint`。要清跟我說。
