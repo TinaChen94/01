@@ -29,7 +29,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 指標 | 數字 |
 |---|---|
 | 觀測期間 | 2026-06-17 → 2026-06-28(12 天) |
-| 分支(分流) | 9(8 條 `claude/*` + `main`) |
+| 分支(分流) | 8(7 條 `claude/*` + `main`) |
 | 參與 session | 9 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
@@ -71,7 +71,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 9 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 8 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -92,18 +92,17 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - **不重複圖檔(blob)**:25 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/quirky-wright-rkdcey 19 · claude/relaxed-bardeen-n9esux 8 · claude/sync-a11-delight 25 · claude/trusting-knuth-f11ltb 14 · main 24
+- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/relaxed-bardeen-n9esux 8 · claude/sync-a11-delight 25 · claude/trusting-knuth-f11ltb 14 · main 24
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 20 | 全部 merge 線 |
+| main | 22 | 全部 merge 線 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
 | claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
 | claude/festive-volta-sft8rv | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
-| claude/quirky-wright-rkdcey | 12 | 2026-06-23 → 2026-06-28 |
 | claude/relaxed-bardeen-n9esux | 11 | 2026-06-23 → 2026-06-24 |
 | claude/sync-a11-delight | 1 | 2026-06-28 → 2026-06-28 |
 | claude/trusting-knuth-f11ltb | 8 | 2026-06-23 → 2026-06-26 |
@@ -118,5 +117,5 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **遺漏持續收斂到 `main`**:`main` 現有全部 **6 案例**(A1 / A2 / A10-A11 / B1 / **B2** / props);B2 於 06-28 併入 `main` 後,`object-placement-lighting` 分支已刪除,**B2 無遺失**。
 - ⚠️ **僅剩 A11 de-lit 校正未進 main**(`cobblestone-path-basecolor-delit.png` 仍在 `trusting-knuth` / `sync-a11-delight`)。遺漏是「滾動」的,平行 session 持續長新東西 → 跑腳本即追上。
-- 📍 **本頁 + `gen_stats.py` 現以 `main` 為正本**(已從 `quirky-wright` 搬入)。`quirky-wright` 因受管環境不允許 git 刪分支,我無法自動刪除 → **請在 GitHub 手動刪**;刪後在 main 跑一次 `gen_stats.py`,`--prune` 會自動把它從統計移除。
+- 📍 **本頁 + `gen_stats.py` 現以 `main` 為正本**(已從 `quirky-wright` 搬入);✅ **`quirky-wright` 分支已刪除**,`--prune` 已自動把它移出統計。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份,新分支從舊 lineage fork 會繼承 → 散圖數見 `--lint`。要清跟我說。
