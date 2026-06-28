@@ -3,7 +3,7 @@
 兩支單檔網頁工具，搭配 `ai-media-generator` 的「深度圖控制打光」流程使用。
 完整工作流見 [../references/depth-relight-pipeline.md](../references/depth-relight-pipeline.md)。
 
-> 來源：使用者自製/提供的工作流工具，收錄於此作為可複用資產。
+> 來源：第三方製作的外部工具，由使用者引用；收錄於此作為可複用資產（非本專案原創）。
 
 ---
 
