@@ -29,7 +29,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 指標 | 數字 |
 |---|---|
 | 觀測期間 | 2026-06-17 → 2026-06-28(12 天) |
-| 分支(分流) | 6(5 條 `claude/*` + `main`) |
+| 分支(分流) | 7(6 條 `claude/*` + `main`) |
 | 參與 session | 9 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
@@ -78,13 +78,14 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **concept→3D 資產 pipeline**(front → 多視 → 3/4 → 45° iso) | `templates/concept-to-3d-pipeline.md` | `SKILL.md`「concept→3D / 拆概念圖 / 三視圖重建」 | inspiring-darwin(18 次迭代) |
 | **image-grounded concept→3D 憲法**(原圖=真相,別用文字代理) | `references/concept-to-3d.md` | `SKILL.md` 硬規則 | session `014ecc8` |
 | **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
+| **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | 🆕 `object-placement-lighting`,**待併 main** |
 
 ---
 
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 6 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 7 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -105,17 +106,18 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - **不重複圖檔(blob)**:25 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/trusting-knuth-f11ltb 14 · main 25
+- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 25
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 25 | 全部 merge 線 |
+| main | 27 | 全部 merge 線 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
 | claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
 | claude/festive-volta-sft8rv | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
+| claude/object-placement-lighting-6gat9k | 1 | 2026-06-28 → 2026-06-28 |
 | claude/trusting-knuth-f11ltb | 8 | 2026-06-23 → 2026-06-26 |
 
 <!-- AUTO:END -->
@@ -127,5 +129,6 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **全數收斂到 `main`**:6 案例(A1 / A2 / A10-A11 / B1 / B2 / props)+ A11 de-lit + 物件合成模板皆在 `main`;統計頁與 `gen_stats.py` 也以 `main` 為正本。
-- 🧹 **分支已清理**:`quirky-wright`、`object-placement-lighting`、`relaxed-bardeen`、`sync-a11-delight` 皆已刪除(內容無遺失,`--prune` 已反映)→ 現存 6 分支;PR #8 已關閉(被 `81288c6` 取代)。
+- 🧹 **分支已清理**:`quirky-wright`、`relaxed-bardeen`、`sync-a11-delight` 已刪除(內容無遺失);PR #8 已關閉(被 `81288c6` 取代)。
+- 🆕 **`object-placement-lighting` 又重新推上**:帶新的 **depth-relight 打光管線 + 2 個 HTML 工具**(見 §3),**尚未進 main、無 PR** → 現存 **7 分支**。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。
