@@ -166,6 +166,8 @@ Prompt 寫完問自己：
 
 > **🪧 把物件放進場景 / 物件合成 / 指定位置放資產 / game art background asset / 讓物件吃環境光影反射 → 必讀 [references/nano-banana.md](references/nano-banana.md#物件合成進場景-game-asset--把物件放進背景圖--實測通用模板)**（場景圖 + 物件圖 → 鎖位鎖比例、材質光照反射整包對齊的實測通用模板 + 多場景變體技巧）。**核心心法：少寫、讓模型整包對齊光影 > 逐條指定影子方向。**
 
+> **💡 穩定打光 / 重打光 / 控制光向 / depth 控制圖 / 場景重打光 / 多重參考融合（風格+光影+姿勢分離）→ 必讀 [references/depth-relight-pipeline.md](references/depth-relight-pipeline.md)**（depth map → 打光工具定光向 → 多參考融合的可重現管線；附 [tools/](tools/) 兩支單檔網頁工具）。**核心：NB 無 seed，靠 depth 鎖形狀 + 工具鎖光向 + 風格圖鎖材質，三維全鎖才穩。**
+
 **音樂 (Music)**
 - Suno v5.5（Personas 已改名 Voices） → [references/suno.md](references/suno.md)
 
