@@ -118,4 +118,5 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **遺漏持續收斂到 `main`**:`main` 現有全部 **6 案例**(A1 / A2 / A10-A11 / B1 / **B2** / props);B2 於 06-28 併入 `main` 後,`object-placement-lighting` 分支已刪除,**B2 無遺失**。
 - ⚠️ **僅剩 A11 de-lit 校正未進 main**(`cobblestone-path-basecolor-delit.png` 仍在 `trusting-knuth` / `sync-a11-delight`)。遺漏是「滾動」的,平行 session 持續長新東西 → 跑腳本即追上。
-- ✅ **`quirky-wright` 已示範清理**(A10/A11 歸位、根目錄清空);但 **`main` 仍 pre-cleanup**,根目錄 9 張散圖還在,新分支從舊 lineage fork 會繼承 → 散圖數見 `--lint`。要清跟我說。
+- 📍 **本頁 + `gen_stats.py` 現以 `main` 為正本**(已從 `quirky-wright` 搬入)。`quirky-wright` 因受管環境不允許 git 刪分支,我無法自動刪除 → **請在 GitHub 手動刪**;刪後在 main 跑一次 `gen_stats.py`,`--prune` 會自動把它從統計移除。
+- ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份,新分支從舊 lineage fork 會繼承 → 散圖數見 `--lint`。要清跟我說。
