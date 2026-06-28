@@ -78,7 +78,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **concept→3D 資產 pipeline**(front → 多視 → 3/4 → 45° iso) | `templates/concept-to-3d-pipeline.md` | `SKILL.md`「concept→3D / 拆概念圖 / 三視圖重建」 | inspiring-darwin(18 次迭代) |
 | **image-grounded concept→3D 憲法**(原圖=真相,別用文字代理) | `references/concept-to-3d.md` | `SKILL.md` 硬規則 | session `014ecc8` |
 | **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
-| **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | 🆕 `object-placement-lighting`,**待併 main** |
+| **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | ✅ 已併入 `main`(PR #9) |
 
 ---
 
@@ -101,6 +101,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `RECORD.md` | main | 2026-06-25 06:32 | 1 | 2026-06-25 06:32 | `01R1izqY5` |
 | `B2-statue-into-forest.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 | `README.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
+| `depth-relight-pipeline.md` | main | 2026-06-28 15:34 | 1 | 2026-06-28 15:34 | `01Gc5rJav` |
 
 ### 成品圖
 
@@ -112,7 +113,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 27 | 全部 merge 線 |
+| main | 28 | 全部 merge 線 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
 | claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
 | claude/festive-volta-sft8rv | 0 | — |
@@ -130,5 +131,5 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **全數收斂到 `main`**:6 案例(A1 / A2 / A10-A11 / B1 / B2 / props)+ A11 de-lit + 物件合成模板皆在 `main`;統計頁與 `gen_stats.py` 也以 `main` 為正本。
 - 🧹 **分支已清理**:`quirky-wright`、`relaxed-bardeen`、`sync-a11-delight` 已刪除(內容無遺失);PR #8 已關閉(被 `81288c6` 取代)。
-- 🆕 **`object-placement-lighting` 又重新推上**:帶新的 **depth-relight 打光管線 + 2 個 HTML 工具**(見 §3),**尚未進 main、無 PR** → 現存 **7 分支**。
+- ✅ **depth-relight 打光管線 + 2 工具已併入 `main`**(PR #9 / `3760178`);來源分支 `object-placement-lighting` 內容已全在 main → **可刪**。現存 **7 分支**。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。

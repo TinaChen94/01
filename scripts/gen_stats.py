@@ -36,6 +36,7 @@ TRACK = [
     "asset-cutout-jobs/*/RECORD.md",
     ".claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md",
     ".claude/skills/ai-media-generator/references/concept-to-3d.md",
+    ".claude/skills/ai-media-generator/references/depth-relight-pipeline.md",
     ".claude/skills/asset-cutout/SKILL.md",
 ]
 EXCLUDE = {"docs/asset-cases/README.md", "docs/asset-cases/images/README.md"}
