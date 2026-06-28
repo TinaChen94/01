@@ -155,6 +155,7 @@ Prompt 寫完問自己：
 - ⚠️ OpenAI Sora 2 → [references/sora.md](references/sora.md)（**已停運** — app 2026-04-26 關，API 2026-09-24 關。讀此檔只為了解替代方案；新任務改用 Veo/Gemini Omni/Runway/Kling）
 
 **圖片 (Image)**
+- Nano Banana Pro / Gemini Flash Image（文字渲染 + 角色一致 + 多圖合成最強）→ [references/nano-banana.md](references/nano-banana.md)
 - Seedream 5.0 / 4.0 → [references/seedream.md](references/seedream.md)
 - Midjourney V8.1 / niji 7（⚠️ `--oref` 為 V7-only） → [references/midjourney.md](references/midjourney.md)
 - Flux 1.1 Pro / Kontext → [references/flux.md](references/flux.md)
@@ -162,6 +163,8 @@ Prompt 寫完問自己：
 - Stable Diffusion 3.5 / SDXL → [references/stable-diffusion.md](references/stable-diffusion.md)
 
 > **🧱 拆概念圖 / concept→3D / 三視圖重建 / image-to-3D reference plate → 必讀 [references/concept-to-3d.md](references/concept-to-3d.md)**（image-grounded extract SOP + 正交三視勝利模板 + 一致性協議）。**禁止用純文字重述物件。**
+
+> **🪧 把物件放進場景 / 物件合成 / 指定位置放資產 / game art background asset / 讓物件吃環境光影反射 → 必讀 [references/nano-banana.md](references/nano-banana.md#物件合成進場景-game-asset--把物件放進背景圖--實測通用模板)**（場景圖 + 物件圖 → 鎖位鎖比例、材質光照反射整包對齊的實測通用模板 + 多場景變體技巧）。**核心心法：少寫、讓模型整包對齊光影 > 逐條指定影子方向。**
 
 **音樂 (Music)**
 - Suno v5.5（Personas 已改名 Voices） → [references/suno.md](references/suno.md)
