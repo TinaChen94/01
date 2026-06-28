@@ -6,7 +6,7 @@
 
 | 檔名 | 內容 |
 |---|---|
-| `B2-scene-forest.png` | 輸入場景圖:暖陽森林空地 |
+| `B2-scene-forest.jpg` | 輸入場景圖:暖陽森林空地 |
 | `B2-scene-swamp.png` | 輸入場景圖:冷霧枯林 |
 | `B2-object-statue.png` | 輸入物件圖:青銅忿怒武將坐像(去背/灰底) |
 | `B2-out-forest.png` | 輸出:暖陽森林版 |

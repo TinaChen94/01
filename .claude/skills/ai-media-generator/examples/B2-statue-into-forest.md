@@ -43,7 +43,7 @@ game art background asset
 
 | 場景圖(圖1) | 物件圖(圖2) |
 |---|---|
-| ![scene forest](images/B2-scene-forest.png) | ![object statue](images/B2-object-statue.png) |
+| ![scene forest](images/B2-scene-forest.jpg) | ![object statue](images/B2-object-statue.png) |
 
 ### 輸出 — 同一物件 + 同一 prompt,只換場景圖
 
