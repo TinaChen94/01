@@ -3,6 +3,13 @@
 > Game background asset 的「保真放大 → 增加細節」品質管線驗證紀錄。
 > 對應工作流:`ai-media-generator`(quality-control / 放大與細節 pass 思路)。
 
+**🔑 關鍵字(日後對 Claude 說這些詞即可叫出本紀錄):**
+`B1`、`B1 紀錄`、`照 B1 配方`、`4K 放大`、`放大管線`、`保真放大`、
+`材質保真 pass`、`TEXTURE-FIDELITY`、`增加細節`、`細節 pass`、
+`UE5 地面質感`、`鎖句字典`、`鎖句`、`letterbox 白邊`、`白邊踩坑`、
+`Universal Upscaler`、`Nano Banana 2`、`Leonardo 設定`、
+`夜霧森林背景`、`投影貼圖品質`、`驗收 checklist`
+
 ## 來源(索引)
 - **素材:** 夜霧森林地面背景(前景兩棵樹幹 + 苔蘚草地,16:9 滿版約 2K)
   - 版本 A:純黑背景(cutout / 夜景合成用)
