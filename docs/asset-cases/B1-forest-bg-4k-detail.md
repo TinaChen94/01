@@ -84,6 +84,16 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 
 ---
 
+## 產出對照
+
+### 原圖(2K 滿版,細節 pass 前)
+![B1 forest original](images/b1-forest-original.png)
+
+### 最終成品(材質保真 pass 後 — UE5 級地面紋理)
+![B1 forest final texture pass](images/b1-forest-final-texture.png)
+
+---
+
 ## 踩坑紀錄(依時間序)
 
 | # | 現象 | 根因 | 解法 |
