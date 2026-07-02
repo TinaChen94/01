@@ -8,7 +8,7 @@
   - 版本 A:純黑背景(cutout / 夜景合成用)
   - 版本 B:青綠霧中枯樹背景(完整場景版)
 - **用途:** 投影(camera projection)回 3D 灰盒場景
-- **平台:** Leonardo Universal Upscaler(保真 2× 放大)+ Google Gemini Nano Banana Pro(細節 pass)
+- **平台:** Leonardo.ai — Universal Upscaler(保真 2× 放大)+ AI Creation **Nano Banana 2**(材質細節 pass)
 - **日期:** 2026-07-02
 - **結果:** ✅ 最終版「材質保真 pass」達成期望 — 地面紋理細節提升至 UE5 掃描質感,構圖/色調/景深零漂移
 
@@ -19,10 +19,21 @@
 ```
 滿版 16:9 原檔(2K,無白邊 letterbox!)
   → Leonardo Universal Upscaler 2×(creativity 最低檔)
-  → Gemini Nano Banana Pro「材質保真 pass」(下方最終 prompt)
+  → Leonardo AI Creation / Nano Banana 2「材質保真 pass」(下方最終 prompt)
   → 100% 原寸驗收(見 checklist)
   →(套圖時)四張同配方 → 互拼驗縫 → 縫帶 inpaint → 進引擎投影驗收
 ```
+
+### 平台設定 — Leonardo.ai AI Creation(細節 pass 實際使用)
+
+| 設定 | 值 | 備註 |
+|---|---|---|
+| Model | **Nano Banana 2** | |
+| Image Dimensions | **16:9(4096×2304,Custom/Large)** | ⚠️ 選 **1:1 4096×4096 就是白邊方圖的來源** — 模型會把 16:9 輸入塞進方形畫布補白邊/outpaint。比例必須跟輸入圖一致 |
+| Prompt Enhance | ⚠️ 建議 **關閉(None)** | Auto 會改寫 prompt,可能破壞 FRAME LOCK 等鎖句;鎖句型 prompt 一律關 |
+| Style | ⚠️ 建議 **None** | Dynamic 等 preset 會疊自己的色調/對比,與曝光鎖、色盤鎖衝突 |
+| Number of generations | 1 | 套圖批次時仍逐張跑,維持同配方 |
+| Private Mode | On | |
 
 ---
 
@@ -102,6 +113,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 2 | NBP 細節 pass 輸出變 1:1、鏡頭拉近、多出大石/粗枝(甚至頭骨狀石頭) | 又餵了 letterbox 版 → 模型把白邊當 outpaint 區重新構圖 | 滿版輸入 + prompt 加 **FRAME LOCK** 段 |
 | 3 | 細節長對了但地上多出草叢、枯枝、碎石(非需求) | 允許清單 = 「放置物件」指令 | 改寫成 TEXTURE-FIDELITY pass(prompt 1),物件全進禁止清單 |
 | 4 | 遠景枯樹有左右鏡像對稱 artifact | 原圖生成時的對稱性瑕疵 | 選配修法:`Fix the mirrored symmetry in the distant background branches — make the tree silhouettes asymmetric and natural, while keeping them equally soft and hazy in the fog.` |
+| 5 | 輸出反覆帶白邊方形(letterbox 的另一半根因) | Leonardo **Image Dimensions 選了 1:1**,16:9 輸入被塞進方形畫布 | Dimensions 改 **16:9 / Custom 4096×2304**,平台輸出比例永遠對齊輸入圖比例 |
 
 ---
 
