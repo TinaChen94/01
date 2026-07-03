@@ -22,7 +22,8 @@
   - 已入庫參考:夜森林([b1-forest-final-texture.png](images/b1-forest-final-texture.png))、
     雪地(雪山 4K,成品圖待補)、沙漠([b1-desert-reference.jpg](images/b1-desert-reference.jpg),
     物件有漂移但參考用途合格)
-- **平台:** Leonardo.ai — Universal Upscaler(保真 2× 放大)+ AI Creation **Nano Banana 2**(材質細節 pass)
+- **平台:** Leonardo.ai — AI Creation **Nano Banana 2**(材質保真 pass,直出 4K)。
+  Universal Upscaler 僅於前期測試驗證(可作「純保真放大」分支工具),**不在最終定案管線內**
 - **日期:** 2026-07-02
 - **結果:** ✅ 最終版「材質保真 pass」達成期望 — 地面紋理細節提升至 UE5 掃描質感,構圖/色調/景深零漂移
 
@@ -32,11 +33,15 @@
 
 ```
 滿版 16:9 原檔(2K,無白邊 letterbox!)
-  → Leonardo Universal Upscaler 2×(creativity 最低檔)
-  → Leonardo AI Creation / Nano Banana 2「材質保真 pass」(下方最終 prompt)
+  → Leonardo AI Creation / Nano Banana 2「材質保真 pass」直出 4K(下方最終 prompt)
   → 100% 原寸驗收(見 checklist)
   →(套圖時)四張同配方 → 互拼驗縫 → 縫帶 inpaint → 進引擎投影驗收
 ```
+
+> 📝 訂正(2026-07-03):早期版本誤將「Universal Upscaler 2×」列為必經步驟 —
+> 實際定案管線由 NB2 **單段直出 4K**。UU 僅在前期測試驗證過
+> 「滿版輸入 + 最低 creativity 可用」,定位為**類型分流中「純保真放大」分支的工具**
+> (手繪風/多離散小物件圖用),不屬於本配方。
 
 ### 平台設定 — Leonardo.ai AI Creation(細節 pass 實際使用)
 
@@ -153,7 +158,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 4 | 遠景枯樹有左右鏡像對稱 artifact | 原圖生成時的對稱性瑕疵 | 選配修法:`Fix the mirrored symmetry in the distant background branches — make the tree silhouettes asymmetric and natural, while keeping them equally soft and hazy in the fog.` |
 | 5 | 輸出反覆帶白邊方形(letterbox 的另一半根因) | Leonardo **Image Dimensions 選了 1:1**,16:9 輸入被塞進方形畫布 | Dimensions 改 **16:9 / Custom 4096×2304**,平台輸出比例永遠對齊輸入圖比例 |
 | 6 | (雪景樣本)曖昧的骨刺叢被「補完」成整具動物骸骨;符文光暈被放大 | prompt 寫了 `cleaner definition on the bone structures` — 對**歧義物件**下「畫清楚」指令 = 邀請重新解釋 | 歧義物件改用**輪廓鎖**(見鎖句字典);發光元素加**光暈半徑鎖** |
-| 7 | (白底 cutout 樣本)鎖邊成功但地面材質平淡,不如完整版成品 | 只跑了單段「faithful upscale」— 保真定性下模型不敢長材質;**材質豐富度來自兩段式的 TEXTURE-FIDELITY pass** | cutout 也要走完整兩段式;**更優解:同構圖已有完整版 4K 時,把低解析 cutout 放大當遮罩,從完整版直接摳出透明背景版** — 品質與完整版完全一致,零抽獎 |
+| 7 | (白底 cutout 樣本)鎖邊成功但地面材質平淡,不如完整版成品 | 用了「faithful upscale」定性 — 保真定性下模型不敢長材質;**材質豐富度來自 TEXTURE-FIDELITY 定性的材質 pass** | cutout 也要用 TEXTURE-FIDELITY 定性跑;**更優解:同構圖已有完整版 4K 時,把低解析 cutout 放大當遮罩,從完整版直接摳出透明背景版** — 品質與完整版完全一致,零抽獎 |
 | 8 | (沙漠樣本)NB2 全圖 pass 後武器丟失/合併 | **多離散小物件 = 注意力稀釋**,逐物件鎖(WEAPON LOCK)也追蹤不了十幾件小物 | 資產用途 → 類型分流走純保真放大;或混合方案(保真底 + 範圍限定 pass + 遮罩合成) |
 | 9 | (沙漠樣本)前景被換成乾河床/沙丘地貌 | 寫實化 prompt 列了 wind ripples / cracks / pebble trails 等**地貌特徵配料**,模型全部畫好畫滿 = 重新設計地形 | 寫實 token 只能描述**渲染品質**(grain/AO/接觸陰影),不能描述**地貌特徵** — 地貌詞一律放禁止清單 |
 
@@ -236,9 +241,9 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 - ✅ **輸入檔比例 = 第一品質變數。** letterbox 白邊連續造成兩種不同災難(假細節+色偏、outpaint 重構圖) — 任何放大/細節工具,輸入一律滿版。
 - ✅ **「增加細節」有兩種,prompt 寫法完全不同:** 物件式(允許清單:草葉/枯枝/小石)vs 材質式(表面屬性詞:granularity / roughness variation / damp sheen / AO in crevices)。要 UE5 質感 = 材質式。
 - ✅ **定性句 > 禁令堆疊。** 開頭一句「這是材質保真 pass,等於同一塊地的高解析掃描」比一百條 do NOT 有效;禁令當保險。
-- ✅ **Universal Upscaler 在滿版輸入 + creativity 最低 + 2× 下可用**;它的抬色調問題是 letterbox 誘發,非本體缺陷。
+- ✅ **Universal Upscaler 在滿版輸入 + creativity 最低 + 2× 下可用**;它的抬色調問題是 letterbox 誘發,非本體缺陷。(定位:類型分流「純保真放大」分支的工具,不在主配方內)
 - ✅ **放大倍率 2× 安全、4× 危險** — sheet 排版時盡量讓單格底圖 ≥2K。
 - 📌 **套圖(tileset)延伸:** 四張 tile 同一天、同模型版本、同 prompt 逐字、同參數跑;細節 pass 會動到接縫 → **修縫必須排在細節 pass 之後**(相鄰兩張拼一起只 inpaint 縫帶)。
-- ✅ **cutout(去背)資產的 4K 正解:** 同構圖已有完整版 4K 成品時,**不要單獨重放大 cutout** — 把低解析 cutout 放大當遮罩(黑白剪影縮放無品質問題),在 Photoshop 從完整版 4K 直接摳出透明背景版。品質與完整版完全一致、邊緣手動可控、零抽獎。單獨放大 cutout 需走完整兩段式 + 白鎖/邊緣鎖,材質仍略遜。
+- ✅ **cutout(去背)資產的 4K 正解:** 同構圖已有完整版 4K 成品時,**不要單獨重放大 cutout** — 把低解析 cutout 放大當遮罩(黑白剪影縮放無品質問題),在 Photoshop 從完整版 4K 直接摳出透明背景版。品質與完整版完全一致、邊緣手動可控、零抽獎。單獨放大 cutout 需用 TEXTURE-FIDELITY 定性 + 白鎖/邊緣鎖,材質仍略遜。
 - ✅ **AI 大面積、確定性工具收尾:** NB2 的「區域修復」實為全圖重繪 — 修好 A 會重擲 B(打地鼠)。單一物件的修復/合成,收尾交給 Photoshop 遮罩合成,把骰子收走。
-- ✅ **類型分流(選管線前先判斷圖的細節性質):** 圖的細節是**有機微紋理**(草/苔/沙/雪/樹皮)→ 兩段式含 NB2 細節 pass 有增益;圖的細節是**筆觸/離散小物件**(手繪概念風、滿地武器道具)→ **只走純保真放大器**(Topaz / Real-ESRGAN / UU 低 creativity),生成式 pass 會抹筆觸、丟物件(多離散小物件 = 注意力稀釋,逐物件鎖也擋不住)。
+- ✅ **類型分流(選管線前先判斷圖的細節性質):** 圖的細節是**有機微紋理**(草/苔/沙/雪/樹皮)→ NB2 材質保真 pass(直出 4K)有增益;圖的細節是**筆觸/離散小物件**(手繪概念風、滿地武器道具)→ **只走純保真放大器**(Topaz / Real-ESRGAN / UU 低 creativity),生成式 pass 會抹筆觸、丟物件(多離散小物件 = 注意力稀釋,逐物件鎖也擋不住)。
