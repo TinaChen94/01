@@ -19,7 +19,9 @@
   供灰盒重繪時掛參考。因此有兩套驗收標準:
   - **當資產用** → 全部鎖都要過(構圖/物件/輪廓保真)
   - **當質感參考用** → 只驗材質品質/色調/光;構圖與物件保真**不重要**(灰盒 prompt 會明文拒收參考圖的幾何)
-  - 已入庫參考:夜森林(B1 成品)、雪地(雪山 4K)、沙漠(戰場 4K,物件有漂移但參考用途合格)
+  - 已入庫參考:夜森林([b1-forest-final-texture.png](images/b1-forest-final-texture.png))、
+    雪地(雪山 4K,成品圖待補)、沙漠([b1-desert-reference.jpg](images/b1-desert-reference.jpg),
+    物件有漂移但參考用途合格)
 - **平台:** Leonardo.ai — Universal Upscaler(保真 2× 放大)+ AI Creation **Nano Banana 2**(材質細節 pass)
 - **日期:** 2026-07-02
 - **結果:** ✅ 最終版「材質保真 pass」達成期望 — 地面紋理細節提升至 UE5 掃描質感,構圖/色調/景深零漂移
@@ -131,6 +133,14 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 骸骨幻覺失敗版(踩坑 #6 證據 — 曖昧骨刺叢被「補完」成整具骸骨):
 ![B1 snow fail skeleton](images/b1-snow-fail-skeleton.png)
 
+### 沙漠戰場樣本(暖色調/手繪風/多離散小物件壓測)
+
+原圖(1280 寬):
+![B1 desert original](images/b1-desert-original.png)
+
+質感參考入庫版(混合方案:保真底 + 範圍限定沙地 pass;物件有漂移,參考用途合格):
+![B1 desert reference](images/b1-desert-reference.jpg)
+
 ---
 
 ## 踩坑紀錄(依時間序)
@@ -144,6 +154,8 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 5 | 輸出反覆帶白邊方形(letterbox 的另一半根因) | Leonardo **Image Dimensions 選了 1:1**,16:9 輸入被塞進方形畫布 | Dimensions 改 **16:9 / Custom 4096×2304**,平台輸出比例永遠對齊輸入圖比例 |
 | 6 | (雪景樣本)曖昧的骨刺叢被「補完」成整具動物骸骨;符文光暈被放大 | prompt 寫了 `cleaner definition on the bone structures` — 對**歧義物件**下「畫清楚」指令 = 邀請重新解釋 | 歧義物件改用**輪廓鎖**(見鎖句字典);發光元素加**光暈半徑鎖** |
 | 7 | (白底 cutout 樣本)鎖邊成功但地面材質平淡,不如完整版成品 | 只跑了單段「faithful upscale」— 保真定性下模型不敢長材質;**材質豐富度來自兩段式的 TEXTURE-FIDELITY pass** | cutout 也要走完整兩段式;**更優解:同構圖已有完整版 4K 時,把低解析 cutout 放大當遮罩,從完整版直接摳出透明背景版** — 品質與完整版完全一致,零抽獎 |
+| 8 | (沙漠樣本)NB2 全圖 pass 後武器丟失/合併 | **多離散小物件 = 注意力稀釋**,逐物件鎖(WEAPON LOCK)也追蹤不了十幾件小物 | 資產用途 → 類型分流走純保真放大;或混合方案(保真底 + 範圍限定 pass + 遮罩合成) |
+| 9 | (沙漠樣本)前景被換成乾河床/沙丘地貌 | 寫實化 prompt 列了 wind ripples / cracks / pebble trails 等**地貌特徵配料**,模型全部畫好畫滿 = 重新設計地形 | 寫實 token 只能描述**渲染品質**(grain/AO/接觸陰影),不能描述**地貌特徵** — 地貌詞一律放禁止清單 |
 
 ### 踩坑證據圖
 
@@ -155,6 +167,12 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 
 **#3 — 物件式細節誤用**(允許清單長出草叢/枯枝/碎石,行走面被雜物污染):
 ![b1 fail clutter](images/b1-fail-clutter.png)
+
+**#8 — 多離散小物件注意力稀釋**(沙漠戰場:NB2 全圖 pass 後武器丟失/合併,逐物件鎖也擋不住):
+![b1 desert fail weapons](images/b1-desert-fail-weapons.jpg)
+
+**#9 — 寫實化配料清單 = 重新設計地形**(wind ripples/cracks/pebble trails 全畫好畫滿,前景被換成乾河床):
+![b1 desert fail terrain](images/b1-desert-fail-terrain.jpg)
 
 ---
 
@@ -203,7 +221,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 2 | 夜霧森林(B1 主案例) | 霧景+暗部+細節密集 | ✅ | ✅ | (letterbox 修正後通過) |
 | 3 | 雪山符文石 | 亮部+大氣景深+發光元素+歧義物件 | ❌ 骨架被補完成骸骨 | ✅(輪廓鎖後) | 光暈需半徑鎖;NB2 區域修復=全圖重繪,收尾用 Photoshop 合成(合成暫擱置,成品圖待補) |
 | 4 | (待填) | 模組成品(輪廓漂移) | ☐ | ☐ | |
-| 5 | 沙漠戰場(劍陣+城堡廢墟) | 暖色調+手繪風+多離散小物件+3.2× | ❌ 武器丟失/合併,無明顯增益 | — | **此類型不走 NB2 細節 pass**(見結論「類型分流」) |
+| 5 | 沙漠戰場(劍陣+城堡廢墟) | 暖色調+手繪風+多離散小物件+3.2× | ❌ 武器丟失/合併,無明顯增益 | ✅ 混合方案(保真底+範圍限定沙地 pass);**當質感參考入庫**([b1-desert-reference.jpg](images/b1-desert-reference.jpg)) | 資產用途走類型分流(純保真放大);參考用途物件漂移可接受 |
 
 ### 判定標準
 
