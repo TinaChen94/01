@@ -122,6 +122,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 4 | 遠景枯樹有左右鏡像對稱 artifact | 原圖生成時的對稱性瑕疵 | 選配修法:`Fix the mirrored symmetry in the distant background branches — make the tree silhouettes asymmetric and natural, while keeping them equally soft and hazy in the fog.` |
 | 5 | 輸出反覆帶白邊方形(letterbox 的另一半根因) | Leonardo **Image Dimensions 選了 1:1**,16:9 輸入被塞進方形畫布 | Dimensions 改 **16:9 / Custom 4096×2304**,平台輸出比例永遠對齊輸入圖比例 |
 | 6 | (雪景樣本)曖昧的骨刺叢被「補完」成整具動物骸骨;符文光暈被放大 | prompt 寫了 `cleaner definition on the bone structures` — 對**歧義物件**下「畫清楚」指令 = 邀請重新解釋 | 歧義物件改用**輪廓鎖**(見鎖句字典);發光元素加**光暈半徑鎖** |
+| 7 | (白底 cutout 樣本)鎖邊成功但地面材質平淡,不如完整版成品 | 只跑了單段「faithful upscale」— 保真定性下模型不敢長材質;**材質豐富度來自兩段式的 TEXTURE-FIDELITY pass** | cutout 也要走完整兩段式;**更優解:同構圖已有完整版 4K 時,把低解析 cutout 放大當遮罩,從完整版直接摳出透明背景版** — 品質與完整版完全一致,零抽獎 |
 
 ---
 
@@ -131,6 +132,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 |---|---|---|
 | **畫框鎖** | 防裁切/變焦/outpaint | `keep the exact original 16:9 canvas, framing and camera — do NOT crop, zoom, extend or outpaint` |
 | **黑鎖** | 純黑背景不長噪點/霧/星 | `pure black stays exactly pure black (#000000), do NOT add noise, fog, stars, gradient` |
+| **白鎖** | 純白背景不被補天空 | `pure white stays exactly pure white (#FFFFFF) — no sky, clouds, fog, gradient, texture, or scenery in the white areas`(白底另需邊緣鎖加 `no semi-transparent blur`,曝光鎖加 `must NOT be lightened to match the white background`) |
 | **邊緣鎖** | cutout 輪廓不糊不發光 | `silhouette edges ... crisp and clean, no glow, no fringing` |
 | **曝光鎖** | 暗部不被偷提亮 | `do not brighten the shadows — preserve the dark, muted grade` |
 | **深度鎖** | 霧後遠景不被銳化 | `distant trees in the fog stay soft, hazy and unsharpened — no detail or contrast behind the fog line` |
@@ -165,7 +167,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 
 | # | 圖 | 類型(測的風險點) | 第 1 輪 | 第 2 輪 | 失敗項 |
 |---|---|---|---|---|---|
-| 1 | (待填) | 純黑背景 cutout(黑鎖/邊緣鎖) | ☐ | ☐ | |
+| 1 | 森林地面白底 cutout | 去背資產(白鎖/邊緣鎖) | ⚠️ 鎖邊成功但材質平淡 | — | 單段保真放大不長材質;cutout 品質正解 = 用遮罩從完整版 4K 摳(見結論) |
 | 2 | 夜霧森林(B1 主案例) | 霧景+暗部+細節密集 | ✅ | ✅ | (letterbox 修正後通過) |
 | 3 | 雪山符文石 | 亮部+大氣景深+發光元素+歧義物件 | ❌ 骨架被補完成骸骨 | ✅(輪廓鎖後) | 光暈需半徑鎖;NB2 區域修復=全圖重繪,收尾用 Photoshop 合成 |
 | 4 | (待填) | 模組成品(輪廓漂移) | ☐ | ☐ | |
@@ -186,3 +188,5 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 - ✅ **Universal Upscaler 在滿版輸入 + creativity 最低 + 2× 下可用**;它的抬色調問題是 letterbox 誘發,非本體缺陷。
 - ✅ **放大倍率 2× 安全、4× 危險** — sheet 排版時盡量讓單格底圖 ≥2K。
 - 📌 **套圖(tileset)延伸:** 四張 tile 同一天、同模型版本、同 prompt 逐字、同參數跑;細節 pass 會動到接縫 → **修縫必須排在細節 pass 之後**(相鄰兩張拼一起只 inpaint 縫帶)。
+- ✅ **cutout(去背)資產的 4K 正解:** 同構圖已有完整版 4K 成品時,**不要單獨重放大 cutout** — 把低解析 cutout 放大當遮罩(黑白剪影縮放無品質問題),在 Photoshop 從完整版 4K 直接摳出透明背景版。品質與完整版完全一致、邊緣手動可控、零抽獎。單獨放大 cutout 需走完整兩段式 + 白鎖/邊緣鎖,材質仍略遜。
+- ✅ **AI 大面積、確定性工具收尾:** NB2 的「區域修復」實為全圖重繪 — 修好 A 會重擲 B(打地鼠)。單一物件的修復/合成,收尾交給 Photoshop 遮罩合成,把骰子收走。
