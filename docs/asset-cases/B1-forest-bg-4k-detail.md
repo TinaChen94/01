@@ -121,6 +121,7 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | 3 | 細節長對了但地上多出草叢、枯枝、碎石(非需求) | 允許清單 = 「放置物件」指令 | 改寫成 TEXTURE-FIDELITY pass(prompt 1),物件全進禁止清單 |
 | 4 | 遠景枯樹有左右鏡像對稱 artifact | 原圖生成時的對稱性瑕疵 | 選配修法:`Fix the mirrored symmetry in the distant background branches — make the tree silhouettes asymmetric and natural, while keeping them equally soft and hazy in the fog.` |
 | 5 | 輸出反覆帶白邊方形(letterbox 的另一半根因) | Leonardo **Image Dimensions 選了 1:1**,16:9 輸入被塞進方形畫布 | Dimensions 改 **16:9 / Custom 4096×2304**,平台輸出比例永遠對齊輸入圖比例 |
+| 6 | (雪景樣本)曖昧的骨刺叢被「補完」成整具動物骸骨;符文光暈被放大 | prompt 寫了 `cleaner definition on the bone structures` — 對**歧義物件**下「畫清楚」指令 = 邀請重新解釋 | 歧義物件改用**輪廓鎖**(見鎖句字典);發光元素加**光暈半徑鎖** |
 
 ---
 
@@ -136,6 +137,8 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 | **霧量鎖** | 霧不被清掉或加厚 | `do not thin out or thicken the fog` |
 | **尺度鎖** | 紋理不被畫大一號 | `the ground texture scale stays identical to the input` |
 | **定性句** | 給模型正確心智模型 | `This is a TEXTURE-FIDELITY pass, NOT an object pass — a higher-resolution scan of the SAME material` |
+| **輪廓鎖(歧義物件)** | 曖昧形狀不被重新解釋/補完 | `keeps its EXACT original silhouette — sharpen only its surface texture. Do NOT reinterpret it, do NOT complete it into [骸骨等]` |
+| **光暈半徑鎖** | 發光元素不變大不變色 | `same color, same brightness, and the SAME GLOW RADIUS as the original; do not enlarge or soften the halo` |
 | **允許/禁止成對** | 控制細節種類 | ADD ONLY 清單 + do NOT 清單同時出現,缺一不可 |
 
 ---
