@@ -36,7 +36,7 @@
 | 設定 | 值 | 備註 |
 |---|---|---|
 | Model | Nano Banana 2 | |
-| Image Dimensions | Custom 3276×4096（4:5，同輸入比例） | 實收檔案約 1638×2048 — 未達 4K 標稱（傳圖壓縮或設定未吃到，B1 checklist「別信平台標稱」再度應驗） |
+| Image Dimensions | Custom 3276×4096（4:5，同輸入比例） | 實收檔案 **1856×2304**（入庫檔實測）— 未達 4K 標稱，實際放大僅約 1.7×（B1 checklist「別信平台標稱」再度應驗） |
 | Prompt Enhance | None | |
 | Style | None | |
 | Number of generations | 1 | |
@@ -89,7 +89,7 @@ saturated teal-purple-magenta palette exactly.
 ## 產出對照
 
 ### 原圖（1080×1350，Jeremy Fenske 簽名在右下）
-![B3 fenske original](images/b3-fenske-original.png)
+![B3 fenske original](images/b3-fenske-original.jpg)
 
 ### NB2 材質保真 pass 產出（❌ 重繪級漂移；✅ 質感參考用合格）
 ![B3 fenske NB2 repaint](images/b3-fenske-nb2-repaint.png)
@@ -118,7 +118,7 @@ saturated teal-purple-magenta palette exactly.
 
 ### B1 checklist 對照
 
-- ☒ 解析度達標 — 實收約 1638×2048，未達 4K
+- ☒ 解析度達標 — 實收 1856×2304（約 1.7×），未達 4K
 - ☒ 疊圖輪廓重合 — 全面漂移
 - ☒ 角色 / 離散小物件保真 — 重繪
 - ☒ 歧義物件輪廓 — 雕像被重新詮釋
