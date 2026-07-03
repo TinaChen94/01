@@ -17,7 +17,7 @@
   苔蘚懸崖多層瀑布、紫紅色扭曲樹、遠景持杖鬍鬚石像 + 發光青綠瀑布。
   厚塗手繪筆觸、高飽和 teal-purple-magenta 配色。
   原檔 1080×1350（4:5 直式），右下有畫家簽名 "JEREMY FENSKE"。
-  （原圖 / 成品對照圖待補入 `images/`）
+  （對照圖見下方〈產出對照〉）
 - **圖的類型判定（B1 類型分流）：** ⚠️ 筆觸/離散小物件型 —
   手繪概念風 + 角色（小臉）+ 鞍具韁繩皮帶 + 歧義遠景雕像 + 發光元素，
   **五個高風險元素全中**。B1 結論本來就預測此型應走「純保真放大」分支；
@@ -83,6 +83,16 @@ STRICT: no new objects of any kind (no birds, no extra petals, no
 particles, no fireflies), do not brighten the shadows, keep the
 saturated teal-purple-magenta palette exactly.
 ```
+
+---
+
+## 產出對照
+
+### 原圖（1080×1350，Jeremy Fenske 簽名在右下）
+![B3 fenske original](images/b3-fenske-original.png)
+
+### NB2 材質保真 pass 產出（❌ 重繪級漂移；✅ 質感參考用合格）
+![B3 fenske NB2 repaint](images/b3-fenske-nb2-repaint.png)
 
 ---
 
