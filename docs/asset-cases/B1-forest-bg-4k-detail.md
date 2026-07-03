@@ -110,6 +110,22 @@ TEXTURE-FIDELITY 寫法;要植被豐富度才用允許清單寫法。
 ### 最終成品(材質保真 pass 後 — UE5 級地面紋理)
 ![B1 forest final texture pass](images/b1-forest-final-texture.png)
 
+### 白底 cutout 樣本(踩坑 #7 對照)
+
+單段保真放大 — 鎖邊成功但材質平淡(❌ 對照組):
+![B1 cutout flat](images/b1-cutout-flat.jpg)
+
+遮罩摳圖最終版 — 低解析 cutout 放大當遮罩,從完整版 4K 摳出,4096×2305 RGBA 帶透明通道(✅ 正解):
+![B1 cutout final](images/b1-cutout-final.png)
+
+### 雪山樣本(亮部/景深/發光/歧義物件壓測)
+
+原圖(1280 寬,3× 高倍率壓力測試):
+![B1 snow original](images/b1-snow-original.png)
+
+骸骨幻覺失敗版(踩坑 #6 證據 — 曖昧骨刺叢被「補完」成整具骸骨):
+![B1 snow fail skeleton](images/b1-snow-fail-skeleton.png)
+
 ---
 
 ## 踩坑紀錄(依時間序)
