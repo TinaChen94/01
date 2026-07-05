@@ -200,7 +200,8 @@ def md_refs(branch, path):
 
 
 def in_asset_dir(path):
-    return "/images/" in path or "/assets/" in path
+    # 正當的資產落點:images/、assets/、以及去背 job 的 asset-cutout-jobs/(input/output)
+    return "/images/" in path or "/assets/" in path or "asset-cutout-jobs/" in path
 
 
 def lint(branches):
