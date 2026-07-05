@@ -29,7 +29,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 指標 | 數字 |
 |---|---|
 | 觀測期間 | 2026-06-17 → 2026-07-05(19 天) |
-| 分支(分流) | 10(9 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
+| 分支(分流) | 7(6 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
 | 參與 session | 11 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
@@ -91,7 +91,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 10 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 7 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -116,18 +116,15 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - **不重複圖檔(blob)**:52 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/4k-zz-testing-78vi6g 25 · claude/affectionate-lamport-2jpqa6 2 · claude/game-art-perspective-match-i6odbk 52 · claude/light-branches-background-removal-24n9sf 25 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 52
+- **各分支圖檔數(含複本)**:claude/4k-zz-testing-78vi6g 25 · claude/light-branches-background-removal-24n9sf 25 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 52
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 76 | 全部 merge 線 |
+| main | 77 | 全部 merge 線 |
 | claude/4k-zz-testing-78vi6g | 2 | 2026-07-03 → 2026-07-03 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
-| claude/affectionate-lamport-2jpqa6 | 0 | — |
-| claude/festive-volta-sft8rv | 0 | — |
-| claude/game-art-perspective-match-i6odbk | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
 | claude/light-branches-background-removal-24n9sf | 5 | 2026-06-30 → 2026-07-01 |
 | claude/object-placement-lighting-6gat9k | 1 | 2026-06-28 → 2026-06-28 |
@@ -142,6 +139,6 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
 - ✅ **全數收斂到 `main`**:10 案例 + 7 個 SOP/模板皆在 `main`;統計頁與 `gen_stats.py` 也以 `main` 為正本。
-- 🧹 **分支現況**:現存 10 條(9 `claude/*` + `main`)+ `TinaChen94-patch-1`。新增 `4k-zz-testing` / `game-art-perspective-match` / `light-branches-background-removal`,`object-placement-lighting` 又回來;其中 `affectionate-lamport` / `festive-volta` / `game-art-perspective-match` 已 **0 獨有 commit = 全 redundant 可刪**。(先前已刪 quirky-wright / relaxed-bardeen / sync-a11-delight。)
+- 🧹 **分支現況**:現存 **7 條**(6 `claude/*` + `main`)+ `TinaChen94-patch-1`。本輪刪 `affectionate-lamport` / `festive-volta` / `game-art-perspective-match`(皆 0 獨有 commit);先前已刪 quirky-wright / relaxed-bardeen / sync-a11-delight / object-placement(後又回)。餘 `4k-zz-testing` / `light-branches-background-removal` / `object-placement-lighting` 仍有獨有 commit,`adoring-lamport` / `inspiring-darwin` / `trusting-knuth` 為早期 dev。
 - ✅ **depth-relight 打光管線 + 2 工具已併入 `main`**(PR #9 / `3760178`)。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。
