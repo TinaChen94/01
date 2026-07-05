@@ -33,8 +33,8 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 參與 session | 11 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
-| 資產案例 | 10 件(分布在 9 個檔) |
-| 不重複成品圖 | 52 張 |
+| 資產案例 | 11 件(分布在 10 個檔) |
+| 不重複成品圖 | 57 張 |
 
 ---
 
@@ -65,6 +65,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **B2-greybox** | 灰盒 → 夜森林地面模組(master tile) | greybox→模組 生成管線 | ✅ 三路線攻關(色標 / 深度 / Crop-Gen-Paste) | 11 |
 | **B3-fenske** | 手繪筆觸奇幻概念圖 — NB2 保真 pass | 放大**反例**(類型分流實證) | ✅ 反面教材(筆觸型不能強求) | 2 |
 | **graveyard-props** | 墓園道具(欄杆 / 門柱 / 墓碑) | 去背 job | ⚠️ 墓碑待做、無圖入庫 | 0 |
+| **plants-cutout** | 立體寬葉植物去背(SAM 方框;苔蘚同色分不開) | 去背 job(純 matting) | ✅ 完成(透明母檔 + 橘底 + v1-matting/v2-render 變體) | 5 |
 
 > - ⚠️ **B 系有兩套(編號撞名、不同系列)**:`examples/` 的 **B1-gothic / B2-statue**(concept→3D 示範)vs `docs/asset-cases/` 的 **B1-forest / B2-greybox / B3-fenske**(4K / 灰盒品質管線)。
 > - A1 / A10 / A11 / B1-gothic 出自**同一張哥德墓園概念圖**;A2 為洞窟佛寺;B1-forest→B2-greybox→B3 為同一條「夜森林 game bg」管線攻關(B3 是反例)。
@@ -108,21 +109,22 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `B2-statue-into-forest.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 | `README.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 | `depth-relight-pipeline.md` | main | 2026-06-28 15:34 | 1 | 2026-06-28 15:34 | `01Gc5rJav` |
+| `README.md` | claude/light-branches-background-removal-24n9sf | 2026-06-30 15:41 | 1 | 2026-06-30 15:41 | `01Mbz9H45` |
 | `B1-forest-bg-4k-detail.md` | main | 2026-07-02 14:30 | 16 | 2026-07-03 16:51 | `01MdNxesm` |
 | `B2-greybox-module-pipeline.md` | main | 2026-07-03 11:00 | 3 | 2026-07-05 10:10 | `011YGmpRj` |
 | `B3-fenske-painterly-4k.md` | main | 2026-07-03 16:51 | 3 | 2026-07-03 16:58 | `01MdNxesm` |
 
 ### 成品圖
 
-- **不重複圖檔(blob)**:52 張
+- **不重複圖檔(blob)**:57 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/4k-zz-testing-78vi6g 25 · claude/light-branches-background-removal-24n9sf 25 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 52
+- **各分支圖檔數(含複本)**:claude/4k-zz-testing-78vi6g 25 · claude/light-branches-background-removal-24n9sf 30 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 52
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 77 | 全部 merge 線 |
+| main | 78 | 全部 merge 線 |
 | claude/4k-zz-testing-78vi6g | 2 | 2026-07-03 → 2026-07-03 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |

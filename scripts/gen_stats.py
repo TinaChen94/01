@@ -33,7 +33,7 @@ END = "<!-- AUTO:END -->"
 TRACK = [
     "docs/asset-cases/*.md",
     ".claude/skills/ai-media-generator/examples/*.md",
-    "asset-cutout-jobs/*/RECORD.md",
+    "asset-cutout-jobs/*/*.md",  # 去背 job 紀錄:graveyard-props/RECORD.md、output/README.md 等
     ".claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md",
     ".claude/skills/ai-media-generator/references/concept-to-3d.md",
     ".claude/skills/ai-media-generator/references/depth-relight-pipeline.md",
@@ -130,7 +130,7 @@ def collect_images(branches):
                 meta, path = line.split("\t", 1)
             except ValueError:
                 continue
-            if "/images/" not in path and "/assets/" not in path:
+            if not any(d in path for d in ("/images/", "/assets/", "asset-cutout-jobs/output/")):
                 continue
             if not IMG_RE.search(path):
                 continue
