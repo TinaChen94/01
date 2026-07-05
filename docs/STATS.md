@@ -28,13 +28,13 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 | 指標 | 數字 |
 |---|---|
-| 觀測期間 | 2026-06-17 → 2026-06-28(12 天) |
-| 分支(分流) | 6(5 條 `claude/*` + `main`) |
-| 參與 session | 9 |
+| 觀測期間 | 2026-06-17 → 2026-07-05(19 天) |
+| 分支(分流) | 10(9 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
+| 參與 session | 11 |
 | Skills / 框架 | 3 skills + 1 框架 |
 | 原創工作流檔 | 3 |
-| 資產案例 | 7 件(分布在 6 個檔) |
-| 不重複成品圖 | 25 張 |
+| 資產案例 | 10 件(分布在 9 個檔) |
+| 不重複成品圖 | 52 張 |
 
 ---
 
@@ -59,12 +59,16 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **A2** | 中式石窟佛教浮雕牆 | [B] 場景模組 | 2D + height ✅、未進 3D | 6 |
 | **A10** | 苔蘚草地 | [C] 可平鋪 | base albedo ✅、未派生 PBR | 1 |
 | **A11** | 石板路 cobblestone | [C] 可平鋪 PBR | ⭐ PBR 全套 ✅(含 ORM / Blender bake / de-lit 校正) | 11 |
-| **B1** | 哥德陵墓 concept→3D | [B] 場景模組 | ⚠️ WIP、純 prompt、無圖 | 0 |
-| **B2** | 青銅武將像 — 物件合成進場景 | [B] 物件合成(放進背景、對齊光影) | ✅ 完成(暖陽森林 / 冷霧枯林 2 變體) | 5 |
+| **B1-gothic** | 哥德陵墓 concept→3D(examples) | [B] 場景模組 | ⚠️ WIP、純 prompt、無圖 | 0 |
+| **B2-statue** | 青銅武將像 物件合成(examples) | [B] 物件合成 | ✅ 完成(森林 / 沼澤 2 變體) | 5 |
+| **B1-forest** | 夜霧森林地面背景 — 4K 放大 + 材質保真管線 | 品質 / 放大管線(game bg) | ✅ 已驗證(16 迭代;A/B 版 + 多場景反例) | 13 |
+| **B2-greybox** | 灰盒 → 夜森林地面模組(master tile) | greybox→模組 生成管線 | ✅ 三路線攻關(色標 / 深度 / Crop-Gen-Paste) | 11 |
+| **B3-fenske** | 手繪筆觸奇幻概念圖 — NB2 保真 pass | 放大**反例**(類型分流實證) | ✅ 反面教材(筆觸型不能強求) | 2 |
 | **graveyard-props** | 墓園道具(欄杆 / 門柱 / 墓碑) | 去背 job | ⚠️ 墓碑待做、無圖入庫 | 0 |
 
-> - A1 / A10 / A11 / B1 出自**同一張哥德墓園概念圖**;A2 為洞窟佛寺;B2 為青銅武將像 + 森林/沼澤場景合成。
-> - **A1 = 同檔多分支複本**(blob 相同,非內容重複);**B1 與 A1 僅「名字像」**(同一棟,但 B1 是未完成 WIP)。
+> - ⚠️ **B 系有兩套(編號撞名、不同系列)**:`examples/` 的 **B1-gothic / B2-statue**(concept→3D 示範)vs `docs/asset-cases/` 的 **B1-forest / B2-greybox / B3-fenske**(4K / 灰盒品質管線)。
+> - A1 / A10 / A11 / B1-gothic 出自**同一張哥德墓園概念圖**;A2 為洞窟佛寺;B1-forest→B2-greybox→B3 為同一條「夜森林 game bg」管線攻關(B3 是反例)。
+> - **A1 = 同檔多分支複本**(blob 相同,非內容重複)。
 
 ---
 
@@ -79,13 +83,15 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **image-grounded concept→3D 憲法**(原圖=真相,別用文字代理) | `references/concept-to-3d.md` | `SKILL.md` 硬規則 | session `014ecc8` |
 | **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
 | **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | ✅ 已併入 `main`(PR #9) |
+| **4K 放大 / 材質保真 pass 管線**(類型分流:純保真 vs 生成式 pass、鎖句字典、letterbox 白邊坑) | `docs/asset-cases/B1-forest-bg-4k-detail.md`(B3 為反例) | 「B1 紀錄 / 4K 放大 / 材質保真」關鍵字 | B1-forest / B3-fenske |
+| **灰盒 → game art 模組管線**(色標灰盒 / 深度 guidance / Crop-Gen-Paste、頂光、幾何滲漏) | `docs/asset-cases/B2-greybox-module-pipeline.md` | 「B2 紀錄 / 灰盒 / greybox」關鍵字 | B2-greybox |
 
 ---
 
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 6 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 10 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -102,23 +108,30 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `B2-statue-into-forest.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 | `README.md` | main | 2026-06-28 13:05 | 1 | 2026-06-28 13:05 | `01Gc5rJav` |
 | `depth-relight-pipeline.md` | main | 2026-06-28 15:34 | 1 | 2026-06-28 15:34 | `01Gc5rJav` |
+| `B1-forest-bg-4k-detail.md` | main | 2026-07-02 14:30 | 16 | 2026-07-03 16:51 | `01MdNxesm` |
+| `B2-greybox-module-pipeline.md` | main | 2026-07-03 11:00 | 3 | 2026-07-05 10:10 | `011YGmpRj` |
+| `B3-fenske-painterly-4k.md` | main | 2026-07-03 16:51 | 3 | 2026-07-03 16:58 | `01MdNxesm` |
 
 ### 成品圖
 
-- **不重複圖檔(blob)**:25 張
+- **不重複圖檔(blob)**:52 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/affectionate-lamport-2jpqa6 2 · claude/trusting-knuth-f11ltb 14 · main 25
+- **各分支圖檔數(含複本)**:claude/4k-zz-testing-78vi6g 25 · claude/affectionate-lamport-2jpqa6 2 · claude/game-art-perspective-match-i6odbk 52 · claude/light-branches-background-removal-24n9sf 25 · claude/object-placement-lighting-6gat9k 25 · claude/trusting-knuth-f11ltb 14 · main 52
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 29 | 全部 merge 線 |
+| main | 76 | 全部 merge 線 |
+| claude/4k-zz-testing-78vi6g | 2 | 2026-07-03 → 2026-07-03 |
 | claude/adoring-lamport-sh6fgh | 1 | 2026-06-23 → 2026-06-23 |
-| claude/affectionate-lamport-2jpqa6 | 5 | 2026-06-23 → 2026-06-25 |
+| claude/affectionate-lamport-2jpqa6 | 0 | — |
 | claude/festive-volta-sft8rv | 0 | — |
+| claude/game-art-perspective-match-i6odbk | 0 | — |
 | claude/inspiring-darwin-hm3u4u | 19 | 2026-06-22 → 2026-06-23 |
-| claude/trusting-knuth-f11ltb | 8 | 2026-06-23 → 2026-06-26 |
+| claude/light-branches-background-removal-24n9sf | 5 | 2026-06-30 → 2026-07-01 |
+| claude/object-placement-lighting-6gat9k | 1 | 2026-06-28 → 2026-06-28 |
+| claude/trusting-knuth-f11ltb | 6 | 2026-06-23 → 2026-06-26 |
 
 <!-- AUTO:END -->
 
@@ -128,7 +141,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
-- ✅ **全數收斂到 `main`**:6 案例(A1 / A2 / A10-A11 / B1 / B2 / props)+ A11 de-lit + 物件合成模板皆在 `main`;統計頁與 `gen_stats.py` 也以 `main` 為正本。
-- 🧹 **分支已清理**:`quirky-wright`、`relaxed-bardeen`、`sync-a11-delight`、`object-placement-lighting` 皆已刪除(內容無遺失);PR #8 已關閉、PR #9 已併入 → 現存 **6 分支**。
+- ✅ **全數收斂到 `main`**:10 案例 + 7 個 SOP/模板皆在 `main`;統計頁與 `gen_stats.py` 也以 `main` 為正本。
+- 🧹 **分支現況**:現存 10 條(9 `claude/*` + `main`)+ `TinaChen94-patch-1`。新增 `4k-zz-testing` / `game-art-perspective-match` / `light-branches-background-removal`,`object-placement-lighting` 又回來;其中 `affectionate-lamport` / `festive-volta` / `game-art-perspective-match` 已 **0 獨有 commit = 全 redundant 可刪**。(先前已刪 quirky-wright / relaxed-bardeen / sync-a11-delight。)
 - ✅ **depth-relight 打光管線 + 2 工具已併入 `main`**(PR #9 / `3760178`)。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。
