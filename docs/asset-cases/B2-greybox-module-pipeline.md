@@ -172,6 +172,22 @@ No new objects, no fog, muted dark night palette.
 | 8 | 活化 pass 長出立草 | prompt 寫了 `grass tufts`(允許清單效應,B1 踩坑 #3 重演) | 已從配方刪除;除草 pass 會糊,小範圍用 PS 點掉 |
 | 9 | 三參考版(加掛光線樣本)被干擾 | 光線樣本 = 幾何滲漏前科圖,第 4 次滲漏 | 光線資訊**文字就鎖得住**,不值得掛圖;參考圖數量最小化原則 |
 
+### 踩坑證據圖
+
+**#1 — NB2 幾何滲漏**(風格參考的雙坎夾走道構圖滲入,緩坡被畫成坎):
+![b2 fail geometry leak](images/b2-fail-geometry-leak.jpg)
+
+**#4 — SD 深度路線「場景化」**(長出森林背景與樹,出自然場景不出乾淨模組):
+![b2 fail sd scene](images/b2-fail-sd-scene.jpg)
+
+**#4 — SD 怕空症**(角落飄浮植被、土丘、圓木):
+![b2 fail sd floating](images/b2-fail-sd-floating.webp)
+
+**#6 — 兩區直線分界初版**(「地毯感」的來源對照):
+![b2 textured blockout v1](images/b2-textured-blockout-v1.png)
+
+---
+
 ## 技法字典(新增)
 
 | 技法 | 用途 | 要點 |
