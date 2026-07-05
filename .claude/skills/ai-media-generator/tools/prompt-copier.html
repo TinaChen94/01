@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美術 Prompt 複製器 (本機版)</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Inter 字體 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: "rgba(255, 255, 255, 0.05)",
+                        glassBorder: "rgba(255, 255, 255, 0.1)",
+                        glassHover: "rgba(255, 255, 255, 0.1)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+            background-attachment: fixed;
+            color: #f3f4f6;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Button Gradient Animation */
+        .btn-gradient {
+            background-size: 200% auto;
+            transition: 0.5s;
+        }
+
+        .btn-gradient:hover {
+            background-position: right center;
+        }
+
+        /* Image Hover Zoom */
+        .img-container {
+            overflow: hidden;
+            /* 預設圓角 */
+            border-radius: 0;
+        }
+
+        /* 針對一般卡片 (直式) 的底部圓角 */
+        .card-vertical .img-container {
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+
+        /* 針對寬卡片 (橫式) 的右側圓角 (桌面版) */
+        @media (min-width: 768px) {
+            .card-horizontal .img-container {
+                border-top-right-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        /* 針對寬卡片 (橫式) 的底部圓角 (手機版) */
+        @media (max-width: 767px) {
+            .card-horizontal .img-container {
+                border-bottom-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+            }
+        }
+
+        .img-zoom {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center center;
+        }
+
+        .glass-card:hover .img-zoom {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <div class="max-w-7xl mx-auto">
+
+        <header class="mb-12 text-center relative">
+            <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl -z-10 pointer-events-none">
+            </div>
+            <h1
+                class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-4 tracking-tight">
+                Prompt 複製器
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                精選美術生成腳本庫。點擊卡片按鈕即可一鍵複製。
+            </p>
+            <div
+                class="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-200 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>請確保 <code>images</code> 資料夾與此檔案位於同一目錄</span>
+            </div>
+        </header>
+
+        <!-- Prompt 列表 -->
+        <div id="prompt-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+            <!-- 第一排: 風格/光影/姿勢 融合 (佔滿全寬) -->
+            <div
+                class="glass-card card-horizontal rounded-2xl overflow-hidden flex flex-col md:flex-row group col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
+                <div class="p-8 flex flex-col justify-center md:w-1/2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">多重參考融合
+                            (風格/光影/姿勢)</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Fusion</span>
+                    </div>
+                    <p class="text-gray-400 text-base mb-6 leading-relaxed">
+                        進階融合生成腳本。<br>同時指定「風格參考」、「光影姿勢參考」與「原始資料」，嚴格控制生成結果的三大要素。
+                        <br><br>
+                        <span class="text-base text-red-500">* 請準備包含標註的參考圖供 AI
+                            識別。<br>**「風格參考」、「光影姿勢參考」不用每個都有，可選擇使用。<br>***可在PROMPT尾端加入PROMPT補充自訂描述。</span>
+                    </p>
+                    
+                    <!-- 超連結 -->
+                    <div class="mb-8">
+                         <a href="Light_Pose.html" target="_blank" class="inline-flex items-center gap-2 text-indigo-400 hover:text-white transition-colors border-b border-indigo-500/30 hover:border-indigo-400 pb-0.5 group-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-link-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            <span class="font-medium">光影姿勢製作(使用深度圖)</span>
+                        </a>
+                    </div>
+
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_ref_fusion')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <!-- 4:3 示意圖容器 -->
+                <div class="img-container aspect-[4/3] md:h-auto md:w-1/2 bg-gray-900/50 relative">
+                    <img src="images/ref_fusion.png" alt="多重參考融合" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/800x600/4f46e5/e0e7ff?text=Reference+Fusion+(4:3)'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 第二排第1個: Depth Map -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Depth Map
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-gray-500/20 text-gray-300 border border-gray-500/30">Z-Depth</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">生成深度圖 (Depth Map)，以灰階表示距離，近白遠黑。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-gray-600 to-zinc-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-gray-500/30 hover:shadow-gray-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_depth_map')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/depth_map.png" alt="Depth Map" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/3f3f46/71717a?text=Depth+Map'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 第二排第2個: AO Map (Ambient Occlusion) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-slate-300 transition-colors">AO Map
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-slate-500/20 text-slate-300 border border-slate-500/30">AO
+                            Pass</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">生成 Ambient Occlusion (AO) Map，強調物體接觸陰影與立體感。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-slate-600 to-gray-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-slate-500/30 hover:shadow-slate-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_ao_map')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/AO_MAP.PNG" alt="AO Map" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/475569/94a3b8?text=AO+Map'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 第二排第3個: 材質 ID Map (Clown Pass) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-orange-300 transition-colors">材質 ID Map
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-orange-500/20 text-orange-300 border border-orange-500/30">ID
+                            Map</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">生成 3D 算圖的 Clown Pass，以高對比純色區分材質，方便後期選區。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_id_map')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/ID_MAP.PNG" alt="ID Map" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/d97706/fcd34d?text=ID+Map'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 1. 三視圖 (T-Pose) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">三視圖
+                            (T-Pose)</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Turnaround</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">生成角色或物件的正視、側視、後視 T-Pose 三視圖。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_ortho_turnaround')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/ortho_turnaround.png" alt="三視圖" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/0891b2/67e8f9?text=Turnaround'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 2. 素模 (原角度) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">素模 (原角度)
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">Sculpt</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">ZBrush 風格素模，保持原圖角度。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_sculpt_original')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/sculpt_original.png" alt="素模原角度" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/831843/fbcfe8?text=Sculpt+Orig'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 3. 素模 (轉180度) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">素模 (轉180度)
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">Sculpt
+                            180°</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">ZBrush 風格素模，視角旋轉 180 度。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_sculpt_180')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/sculpt_180.png" alt="素模180度" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/831843/fbcfe8?text=Sculpt+180'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 7. 細節特寫 (臉部+部位) -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">細節特寫
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Details</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">臉部與任一重要部位的微距特寫。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_detail_face')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/detail_face.png" alt="細節特寫" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/064e3b/6ee7b7?text=Details'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 8. 九宮格變體 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">九宮格變體
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Grid</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">生成九宮格變體或剪影研究。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt_detail_grid')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/detail_grid.png" alt="九宮格" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/064e3b/6ee7b7?text=Grid'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 9. 算背面 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">算背面</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">View</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">保持角色與配色，生成精確的背面視圖。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt2')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/back_view.png" alt="算背面範例" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/1e3a8a/bfdbfe?text=Back+View'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 10. 變 PVC 展示玩具 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">變 PVC 展示玩具
+                        </h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">Product</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">將角色轉化為 1/7 比例的實體 PVC 公仔攝影風格。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt3')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/pvc_figure.png" alt="變PVC展示玩具範例" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/115e59/99f6e4?text=PVC+Figure'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 11. 轉為高清 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-violet-300 transition-colors">轉為高清</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">Upscale</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">提升圖片解析度與細節，適用於模糊圖片修復。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt4')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/To_HD.png" alt="轉為高清" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/4c1d95/ddd6fe?text=HD+Upscale'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 12. 動漫轉真人 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition-colors">動漫轉真人</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">Realism</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">將二次元動漫角色轉換為高品質真人 Cosplay 照片。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-sky-600 to-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt5')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/CGtoReal.png" alt="動漫轉真人" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/0c4a6e/bae6fd?text=Anime+to+Real'; this.onerror=null;">
+                </div>
+            </div>
+
+            <!-- 13. 高光影強化 -->
+            <div class="glass-card card-vertical rounded-2xl overflow-hidden flex flex-col group">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white group-hover:text-rose-300 transition-colors">高光影強化</h2>
+                        <span
+                            class="text-xs font-medium px-2 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">Lighting</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">強化照片光影質感，打造雜誌封面級別的視覺效果。</p>
+                    <button
+                        class="btn-gradient w-full bg-gradient-to-r from-rose-600 to-pink-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-rose-500/30 hover:shadow-rose-500/50 active:scale-95 transform transition-all flex items-center justify-center gap-2"
+                        onclick="copyToClipboard('prompt6')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        複製 Prompt
+                    </button>
+                </div>
+                <div class="img-container aspect-square bg-gray-900/50 relative">
+                    <img src="images/ToPro.png" alt="高光影強化照片" class="img-zoom w-full h-full object-cover"
+                        onerror="this.src='https://placehold.co/600x600/881337/fecdd3?text=Pro+Lighting'; this.onerror=null;">
+                </div>
+            </div>
+
+        </div> <!-- End grid -->
+    </div> <!-- End max-w-7xl -->
+
+    <!-- 複製成功提示框 (移到最外層) -->
+    <div id="toast"
+        class="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-gray-900/80 backdrop-blur-md border border-white/10 text-white py-3 px-6 rounded-full shadow-2xl transform translate-y-20 opacity-0 transition-all duration-500 z-50 pointer-events-none">
+        <div class="bg-green-500 rounded-full p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+        <span class="font-medium">Prompt 已成功複製到剪貼簿！</span>
+    </div>
+
+    <!-- 剪貼簿輔助元素 (修正: 使用 fixed 並定位於 0,0 避免滾動) -->
+    <textarea id="clipboard-helper" class="fixed top-0 left-0 opacity-0 pointer-events-none"
+        aria-hidden="true"></textarea>
+
+    <script>
+        // 儲存所有 Prompts 的物件
+        const prompts = {
+            'prompt_ref_fusion': `# SYSTEM INSTRUCTIONS: STRICT MULTI-REFERENCE SYNTHESIS
+
+**/// MISSION OBJECTIVE ///**
+You are an advanced image synthesis engine tasked with generating a new image by seamlessly merging distinct attributes from three different reference sources. You must execute a "creative generation" based on strict component isolation, not simple photo-bashing.
+
+**/// INPUT DEFINITIONS & ASSIGNMENT ///**
+
+You will receive visual inputs which must be categorized and processed according to the following strict roles. You must identify these roles based on the user's provided input layout:
+
+1.  **[SOURCE_CONTENT] (原始資料):** The subject matter definition.
+    * *Contains:* The specific character, object, outfit details, and identity that *must* be drawn.
+2.  **[STYLE_REF] (風格參考):** The artistic rendering guide.
+    * *Contains:* The target medium (e.g., PVC figurine, 3D render, watercolor, oil painting), texture, brushwork, and overall color palette vibe.
+3.  **[POSE_LIGHTING_REF] (光影姿勢參考):** The structural and atmospheric guide.
+    * *Contains:* The exact body action/gesture, camera angle, and dramatic lighting conditions.
+
+**/// EXECUTION DIRECTIVES (STRICT ADHERENCE REQUIRED) ///**
+
+Generate a single, high-quality image by following these prioritized rules:
+
+**1. SUBJECT IDENTITY (FROM [SOURCE_CONTENT]):**
+* Identify the primary character or object in **[SOURCE_CONTENT]**.
+* Redraw this exact subject, keeping their identity, specific clothing details, hair design, and accessories recognizable.
+
+**2. POSE & PROPORTION STRUCTURE (CRITICAL HYBRIDIZATION):**
+* **Action:** Force the subject from **[SOURCE_CONTENT]** into the exact gesture and action shown in **[POSE_LIGHTING_REF]**. Copy the angle of limbs, torso twist, and head orientation relative to the camera.
+* **Proportion Constraint (MOST IMPORTANT):** Do **NOT** copy the skeletal proportions or body shape from **[POSE_LIGHTING_REF]**. You must apply the *pose* to the *original body proportions* of the character defined in **[SOURCE_CONTENT]**. Maintain subject consistency.
+* **Ignore Accessories:** Ignore any clothing, hair, or held objects present in the **[POSE_LIGHTING_REF]** image.
+
+**3. LIGHTING & ATMOSPHERE (FROM [POSE_LIGHTING_REF]):**
+* Replicate the exact lighting scenario from **[POSE_LIGHTING_REF]**. This includes the direction of light sources, the hardness/softness of shadows, highlights, and the color temperature of the light onto the subject.
+
+**4. ARTISTIC STYLE RENDERING (FROM [STYLE_REF]):**
+* Apply the artistic style derived *only* from **[STYLE_REF]** to the entire final composition.
+* Mimic the material textures (e.g., plastic sheen, brush strokes), rendering technique, and shading style.
+* **Content Exclusion:** Completely ignore the subject matter, pose, gender, or clothing depicted in the **[STYLE_REF]** image itself; extract only its visual "style."
+
+**/// FINAL OUTPUT SUMMARY ///**
+The final image must show the subject defined in **[SOURCE_CONTENT]**, retaining their original proportions but performing the action from **[POSE_LIGHTING_REF]**, lit by the light from **[POSE_LIGHTING_REF]**, and rendered entirely in the artistic style of **[STYLE_REF]**.
+
+**[AWAITING USER INPUTS...]**`,
+
+            'prompt_sculpt_original': `**Sculpting / Clay View (Original Angle)**
+
+**Crucial Instruction:** Base the design **STRICTLY** on the visual information provided in the reference image.
+**Global Settings:** 4K resolution, ultra-high definition, pristine quality, noise-free.
+**Task:** Generate a **Sculpting / Clay View** matching the **EXACT ANGLE** of the reference image:
+A pristine "clay render" (ZBrush style) untextured model view of the subject. Use a neutral grey material with soft ambient occlusion shadows to emphasize 3D volume, bevels, sharp edges, and surface tension details.`,
+
+            'prompt_sculpt_180': `**Sculpting / Clay View (Rotated 180°)**
+
+**Crucial Instruction:** Base the design **STRICTLY** on the visual information provided in the reference image.
+
+**Global Settings:** 4K resolution, ultra-high definition, pristine quality, noise-free.
+
+**Task:** Generate a **Sculpting / Clay View** rotated **180 DEGREES** from the reference image (showing the opposite side).
+
+
+
+A pristine "clay render" (ZBrush style) untextured model view of the subject. Use a neutral grey material with soft ambient occlusion shadows to emphasize 3D volume, bevels, sharp edges, and surface tension details.`,
+
+            'prompt_id_map': `3D render pass, Material ID map, segmentation map, clown pass, flat solid distinct colors, high contrast specific color coding for different parts, no shading, no lighting, no shadows, no gradients, no texture, hard edges, unlit, pure black background.`,
+
+            'prompt_ao_map': `AO MAP, White background`,
+
+            'prompt_depth_map': `depth map, grayscale, height map, z-depth, white is near, black is far, high contrast, smooth gradient, 3d render style, no texture, no color,black background`,
+
+            'prompt_detail_face': `**Diagonal Split Composition: Close-up Details**
+
+**Crucial Instruction:** Base all details **STRICTLY** on the reference image provided.
+**Global Settings:** 4K resolution, sharply focused, high detail fidelity.
+
+**Layout & Composition:**
+Apply a **DIAGONAL SPLIT SCREEN** layout dividing the image into two distinct triangular sections (from top-right corner to bottom-left corner):
+
+1.  **Top-Left Section (Face Focus):**
+    * A hyper-detailed macro close-up of the **FACE**.
+    * Focus on skin texture, eye details, and facial expression.
+
+2.  **Bottom-Right Section (Feature Focus):**
+    * A hyper-detailed macro close-up of **ONE ARBITRARY IMPORTANT PART** (e.g., a specific weapon, intricate armor pattern, or accessory).
+    * Focus on material texture (metal, leather, fabric) and fine geometry.
+
+**Style:** Macro-lens photography, ultra-sharp focus, consistent lighting between both sections.`,
+
+            'prompt_detail_grid': `**Nine-Grid (9-Up) Overview**
+
+**Crucial Instruction:** Base all details **STRICTLY** on the reference image provided.
+**Global Settings:** 4K resolution, sharply focused, high detail fidelity.
+**Task:** Generate a **Nine-Grid (9-Up) Overview**:
+A single image arranged in a 3x3 grid based on the subject type:
+* **IF the subject is a character/creature:** Generate a grid of 9 different facial expressions or small action pose thumbnails.
+* **IF the subject is an object/vehicle/prop:** Generate a grid of 9 small thumbnail views from various distant angles (silhouette studies).`,
+
+            'prompt2': `Retain the subject and color of the image and generate the back view of the subject. Don't change the pose. White Background.`,
+
+            'prompt3': `Draw a prospective model of the character in the picture, commercialized as a 1/7 scale full body figure. 
+Please make this image into a real-life figure photo.I would like the PVC material to be clearly visible.`,
+
+            'prompt4': `Redraw, sharp focus, high-quality, high-resolution, detail enhancement.`,
+            'prompt5': `Generate a highly detailed photo of a girl cosplaying this illustration, at Comiket. Exactly replicate the same pose, body posture, hand gestures, facial expression, and camera framing as in the original illustration. Keep the same angle, perspective, and composition, without any deviation`,
+            'prompt6': `Transform the person in the photo into highly stylized ultra-realistic portrait, with sharp facial features and flawless fair skin, standing confidently against a bold green gradient background. Dramatic, cinematic lighting highlights her facial structure, evoking the look of a luxury fashion magazine cover. Editorial photography style, high-detail, 4K resolution, symmetrical composition, minimalistic background`,
+
+            'prompt_ortho_turnaround': `**Subject: High-Fidelity Orthographic Turnaround Sheet (T-Pose)**
+
+**Crucial Instruction:**
+1.  **VISUAL REFERENCE:** Base the character/object design **STRICTLY** on the attached reference image.
+2.  **STYLE MATCH:** The output must use the **exact same rendering style, color palette, and material quality** as the reference. (Full Color, Fully Rendered).
+3.  **NO LINE ART:** Do NOT generate wireframes, sketches, or black-and-white technical drawings.
+
+**Pose Requirement (Mandatory):**
+* **FORCE T-POSE:** Regardless of the pose in the reference image, you MUST render the subject in a rigid, symmetrical **T-POSE** (arms extended horizontally, legs straight, facing forward).
+* If it is a vehicle/object, render it in a neutral, level alignment.
+
+**Layout Requirement:**
+Generate a single **"Character Turnaround Sheet"** containing **three distinct views** arranged horizontally with clear separation:
+1.  **Front View** (Exact Front, T-Pose)
+2.  **Side View** (Exact Profile, T-Pose)
+3.  **Back View** (Exact Rear, T-Pose)
+
+**Quality Settings:**
+4K resolution, noise-free, neutral background, clean silhouette, production-grade 3D asset reference,Simple background.`,
+
+        };
+
+        // 複製功能
+        function copyToClipboard(promptKey) {
+            const textToCopy = prompts[promptKey];
+            if (!textToCopy) return;
+
+            const helperTextarea = document.getElementById('clipboard-helper');
+            helperTextarea.value = textToCopy;
+            helperTextarea.select();
+
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('無法複製文字: ', err);
+                // Fallback for modern browsers if execCommand fails or is deprecated
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast();
+                }).catch(err => {
+                    alert('複製失敗，請手動複製。');
+                });
+            }
+
+            window.getSelection().removeAllRanges();
+        }
+
+        // 顯示提示框 (動畫優化)
+        let toastTimeout;
+        function showToast() {
+            const toast = document.getElementById('toast');
+
+            // Reset state
+            clearTimeout(toastTimeout);
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            // Auto hide
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

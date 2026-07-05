@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 深度打光工具 (Pro UI Final)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --text-color: #ddd;
+            --accent: #00d2ff;
+            --border: #333;
+            --input-bg: #2a2a2a;
+            --frame-color: #ffd700; /* 鏡頭框黃色 */
+        }
+        * { box-sizing: border-box; user-select: none; }
+        body { 
+            margin: 0; overflow: hidden; background-color: var(--bg-color); 
+            color: var(--text-color); font-family: 'Segoe UI', Roboto, sans-serif; 
+            display: flex; height: 100vh; font-size: 13px;
+        }
+        
+        /* 側邊欄通用 */
+        .sidebar {
+            width: 280px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 15px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+        }
+        .sidebar-left { border-left: none; }
+        .sidebar-right { border-right: none; }
+
+        /* 中間畫布區 */
+        #viewport {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: relative;
+            overflow: hidden; 
+            padding: 20px; 
+        }
+        
+        #canvas-wrapper {
+            box-shadow: 0 0 60px rgba(0,0,0,0.8);
+            border: 4px solid var(--frame-color); /* 黃色粗框 */
+            background-color: #000; 
+            position: relative;
+            box-sizing: content-box; 
+        }
+        canvas { display: block; width: 100%; height: 100%; }
+
+        /* 九宮格輔助線 (Rule of Thirds) */
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .grid-line {
+            position: absolute;
+            background-color: rgba(255, 215, 0, 0.4); 
+        }
+        .grid-h-1 { top: 33.33%; left: 0; width: 100%; height: 1px; }
+        .grid-h-2 { top: 66.66%; left: 0; width: 100%; height: 1px; }
+        .grid-v-1 { left: 33.33%; top: 0; height: 100%; width: 1px; }
+        .grid-v-2 { left: 66.66%; top: 0; height: 100%; width: 1px; }
+
+        /* UI 元件樣式 */
+        h2 { 
+            margin: 0 0 8px 0; font-size: 12px; color: var(--accent); 
+            text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 4px; 
+        }
+        
+        .control-group { margin-bottom: 12px; }
+        .control-label { display: flex; justify-content: space-between; margin-bottom: 4px; color: #aaa; }
+        
+        /* 雷達圖 */
+        #radar-container {
+            background: #151515;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        #radar-canvas {
+            background: radial-gradient(circle, #333 1px, transparent 1px) 0 0 / 20px 20px;
+            border-radius: 50%;
+            cursor: default;
+            border: 1px solid #444;
+            width: 200px; height: 200px;
+        }
+
+        /* 燈光卡片 */
+        .light-card {
+            background: #252525;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            margin-bottom: 8px;
+        }
+        .light-header { 
+            display: flex; align-items: center; gap: 6px; font-weight: bold; margin-bottom: 6px; font-size: 12px;
+        }
+        .light-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        
+        input[type="range"] {
+            -webkit-appearance: none; width: 100%; height: 4px; background: #444; border-radius: 2px; outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 12px; height: 12px; background: #ccc; border-radius: 50%; cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); }
+
+        input[type="color"] {
+            -webkit-appearance: none; border: none; width: 24px; height: 24px; border-radius: 3px; cursor: pointer; background: none; padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 1px solid #555; border-radius: 3px; }
+
+        select {
+            width: 100%; background: var(--input-bg); color: #fff; border: 1px solid var(--border); padding: 4px; border-radius: 3px;
+        }
+
+        .btn {
+            width: 100%; background: #333; color: #fff; border: 1px solid var(--border); padding: 8px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;
+            margin-top: 5px;
+        }
+        .btn:hover { background: #444; border-color: #fff; }
+        .btn-primary { background: #007acc; border-color: #007acc; }
+        .btn-primary:hover { background: #0098ff; }
+
+        #loading {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 15px 30px; border-radius: 30px;
+            display: none; z-index: 100; border: 1px solid var(--accent);
+        }
+        
+        .val-display { font-family: monospace; color: var(--accent); min-width: 30px; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <!-- 左側：燈光控制 -->
+    <div class="sidebar sidebar-left">
+        <div>
+            <h2>燈光位置 (雷達圖)</h2>
+            <div style="font-size:11px; color:#888; margin-bottom:5px;">拖曳光點調整平面位置 (X/Y)</div>
+            <div id="radar-container">
+                <canvas id="radar-canvas" width="200" height="200"></canvas>
+            </div>
+        </div>
+
+        <div>
+            <h2>燈光參數</h2>
+            
+            <!-- 主光 -->
+            <div class="light-card">
+                <div class="light-header">
+                    <div class="light-dot" style="background:#ffcc00"></div> 主光 (Key)
+                </div>
+                <div class="row">
+                    <input type="color" id="keyColor" value="#ffffff" title="顏色">
+                    <input type="range" id="keyInt" min="0" max="3" step="0.1" value="1.0" title="強度">
+                    <span class="val-display" id="val-keyInt">1.0</span>
+                </div>
+                <div class="row" style="margin-top:6px">
+                    <span style="font-size:11px; width:45px">深度 (Z)</span>
+                    <input type="range" id="keyZ" min="-500" max="500" value="200">
+                </div>
+            </div>
+
+            <!-- 補光 -->
+            <div class="light-card">
+                <div class="light-header">
+                    <div class="light-dot" style="background:#0088ff"></div> 補光 (Fill)
+                </div>
+                <div class="row">
+                    <input type="color" id="fillColor" value="#88ccff" title="顏色">
+                    <input type="range" id="fillInt" min="0" max="3" step="0.1" value="0.4" title="強度">
+                    <span class="val-display" id="val-fillInt">0.4</span>
+                </div>
+                <div class="row" style="margin-top:6px">
+                    <span style="font-size:11px; width:45px">深度 (Z)</span>
+                    <input type="range" id="fillZ" min="-500" max="500" value="100">
+                </div>
+            </div>
+
+            <!-- 邊光 -->
+            <div class="light-card">
+                <div class="light-header">
+                    <div class="light-dot" style="background:#ffffff"></div> 邊光 (Rim)
+                </div>
+                <div class="row">
+                    <input type="color" id="rimColor" value="#ffffff" title="顏色">
+                    <input type="range" id="rimInt" min="0" max="5" step="0.1" value="1.0" title="強度">
+                    <span class="val-display" id="val-rimInt">1.0</span>
+                </div>
+                <div class="row" style="margin-top:6px">
+                    <span style="font-size:11px; width:45px">深度 (Z)</span>
+                    <input type="range" id="rimZ" min="-500" max="500" value="-50">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 中間：畫布 -->
+    <div id="viewport">
+        <div id="loading">正在建構 1024 解析度網格...</div>
+        <div id="canvas-wrapper">
+            <div class="grid-overlay">
+                <div class="grid-line grid-h-1"></div>
+                <div class="grid-line grid-h-2"></div>
+                <div class="grid-line grid-v-1"></div>
+                <div class="grid-line grid-v-2"></div>
+            </div>
+            <canvas id="main-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- 右側：幾何與輸出 -->
+    <div class="sidebar sidebar-right">
+        <label class="btn btn-primary" style="margin-bottom: 20px;">
+            📂 載入深度圖 (Depth Map)<br>**請使用1:1比例圖片**
+            <input type="file" id="depthInput" accept="image/*" style="display:none">
+        </label>
+
+        <div>
+            <h2>幾何設定</h2>
+            
+            <div class="control-group">
+                <div class="control-label">網格密度 (Resolution)</div>
+                <select id="densitySelect">
+                    <option value="256">256 (預覽)</option>
+                    <option value="512">512 (高)</option>
+                    <option value="1024" selected>1024 (極高)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">深度強度 (Depth) <span id="val-depthStrength" class="val-display">26</span></div>
+                <input type="range" id="depthStrength" min="0" max="300" value="26">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">立體銳利度 (Sharpness) <span id="val-normalSharpness" class="val-display">5.0</span></div>
+                <input type="range" id="normalSharpness" min="0.1" max="10.0" step="0.1" value="5.0">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">背景剔除 (Cutoff) <span id="val-bgCutoff" class="val-display">0.05</span></div>
+                <input type="range" id="bgCutoff" min="0" max="0.2" step="0.001" value="0.05">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">邊緣透明度 (Edge Fade) <span id="val-edgeTransparency" class="val-display">10</span></div>
+                <input type="range" id="edgeTransparency" min="1" max="30" value="10">
+            </div>
+        </div>
+
+        <div>
+            <h2>相機與輸出</h2>
+            
+            <div class="control-group">
+                <div class="control-label">鏡頭透視</div>
+                <select id="perspSelect">
+                    <option value="ortho" selected>無透視 (Ortho)</option>
+                    <option value="micro">微透視 (15°)</option>
+                    <option value="std">標準透視 (45°)</option>
+                </select>
+            </div>
+
+            <button class="btn" id="resetCamBtn">⟲ 重置視角</button>
+            <button class="btn btn-primary" id="downloadBtn" style="margin-top:10px; padding:12px; background-color:#28a745; border-color:#28a745;">📸 下載截圖</button>
+        </div>
+        
+        <div style="font-size:11px; color:#666; margin-top:auto;">
+            左鍵：旋轉模型<br>
+            右鍵：移動畫面<br>
+            滾輪：縮放
+        </div>
+    </div>
+
+    <!-- Shader Code -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+        uniform sampler2D uDepthTexture;
+        uniform float uDepthStrength;
+        uniform vec2 uTextureSize;
+        uniform float uNormalSharpness;
+        
+        varying vec2 vUv;
+        varying vec3 vViewPosition;
+        varying vec3 vNormal;
+        varying float vRawDepth;
+
+        float getDepth(vec2 uv) { return texture2D(uDepthTexture, uv).r; }
+
+        void main() {
+            vUv = uv;
+            float d = getDepth(uv);
+            vRawDepth = d;
+            float z = d * uDepthStrength;
+            
+            vec2 step = vec2(1.0) / uTextureSize; 
+            float dRight = getDepth(uv + vec2(step.x, 0.0)) * uDepthStrength;
+            float dLeft  = getDepth(uv - vec2(step.x, 0.0)) * uDepthStrength;
+            float dUp    = getDepth(uv + vec2(0.0, step.y)) * uDepthStrength;
+            float dDown  = getDepth(uv - vec2(0.0, step.y)) * uDepthStrength;
+            
+            float scale = 1.0 / max(0.1, uNormalSharpness);
+            vec3 tangentX = vec3(scale, 0.0, dRight - dLeft);
+            vec3 tangentY = vec3(0.0, scale, dUp - dDown);
+            vec3 normalLocal = normalize(cross(tangentX, tangentY));
+            
+            vNormal = normalize(normalMatrix * normalLocal);
+            
+            vec3 newPos = position;
+            newPos.z = z;
+            
+            vec4 mvPosition = modelViewMatrix * vec4(newPos, 1.0);
+            vViewPosition = mvPosition.xyz;
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        uniform float uEdgeTransparent;
+        uniform float uBgCutoff;
+        
+        uniform vec3 uKeyLightPos; uniform vec3 uKeyLightColor; uniform float uKeyLightInt;
+        uniform vec3 uFillLightPos; uniform vec3 uFillLightColor; uniform float uFillLightInt;
+        uniform vec3 uRimLightPos; uniform vec3 uRimLightColor; uniform float uRimLightInt;
+
+        varying vec2 vUv;
+        varying vec3 vViewPosition;
+        varying vec3 vNormal;
+        varying float vRawDepth;
+
+        void main() {
+            if (vRawDepth < uBgCutoff) {
+                gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                return;
+            }
+
+            vec3 N = normalize(vNormal);
+            vec3 V = normalize(-vViewPosition);
+            
+            float alpha = 1.0;
+            if (uEdgeTransparent > 0.1) {
+                float edgeFactor = abs(N.z); 
+                float threshold = uEdgeTransparent / 40.0;
+                alpha = smoothstep(threshold, threshold + 0.15, edgeFactor);
+            }
+            
+            vec3 finalColor = vec3(0.0);
+            vec3 baseColor = vec3(0.9); 
+
+            vec3 L_key = normalize(uKeyLightPos - vViewPosition);
+            float diff_key = max(dot(N, L_key), 0.0);
+            finalColor += baseColor * uKeyLightColor * diff_key * uKeyLightInt;
+
+            vec3 L_fill = normalize(uFillLightPos - vViewPosition);
+            float diff_fill = max(dot(N, L_fill), 0.0);
+            finalColor += baseColor * uFillLightColor * diff_fill * uFillLightInt;
+
+            vec3 L_rim = normalize(uRimLightPos - vViewPosition);
+            float diff_rim = max(dot(N, L_rim), 0.0);
+            float rim = 1.0 - max(dot(V, N), 0.0);
+            rim = pow(rim, 3.0); 
+            finalColor += uRimLightColor * rim * diff_rim * uRimLightInt;
+
+            vec3 pixelColor = mix(vec3(0.0), finalColor, alpha);
+            gl_FragColor = vec4(pixelColor, 1.0);
+        }
+    </script>
+
+    <script>
+        const params = {
+            density: 1024, depthStrength: 32, edgeTransparency: 1, normalSharpness: 6.0, bgCutoff: 0.05,
+            keyX: 80, keyY: 80, keyZ: 200, keyColor: '#ffffff', keyInt: 1.0,
+            fillX: -100, fillY: 20, fillZ: 100, fillColor: '#88ccff', fillInt: 0.4,
+            rimX: 0, rimY: 150, rimZ: -50, rimColor: '#ffffff', rimInt: 0.8
+        };
+
+        let scene, renderer, camera, controls, mesh;
+        let cameraPersp, cameraOrtho, controlsPersp, controlsOrtho;
+        let depthTexture;
+        let originalImgW = 1024, originalImgH = 1024;
+        
+        let radarCanvas, radarCtx;
+        let isDraggingRadar = false;
+        let activeLight = null;
+        const RADAR_SCALE = 300;
+
+        function init() {
+            const canvas = document.getElementById('main-canvas');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, preserveDrawingBuffer: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            cameraPersp = new THREE.PerspectiveCamera(15, 1, 0.1, 5000);
+            cameraOrtho = new THREE.OrthographicCamera(-125, 125, 125, -125, 0.1, 5000);
+
+            const setupCtrl = (cam) => {
+                const ctrl = new THREE.OrbitControls(cam, canvas);
+                ctrl.enableDamping = true; ctrl.dampingFactor = 0.05;
+                const limit = 15 * (Math.PI/180);
+                ctrl.minAzimuthAngle = -limit; ctrl.maxAzimuthAngle = limit;
+                ctrl.minPolarAngle = (Math.PI/2) - limit; ctrl.maxPolarAngle = (Math.PI/2) + limit;
+                ctrl.enablePan = true;
+                ctrl.enabled = false;
+                return ctrl;
+            };
+            controlsPersp = setupCtrl(cameraPersp);
+            controlsOrtho = setupCtrl(cameraOrtho);
+            controlsOrtho.enableZoom = true;
+
+            setCameraMode('ortho');
+            
+            initRadar();
+            setupUI();
+            onWindowResize();
+            animate();
+        }
+
+        function setupUI() {
+            const bind = (id, key, isColor = false) => {
+                const el = document.getElementById(id);
+                const displayId = 'val-' + key; 
+                const display = document.getElementById(displayId);
+                el.addEventListener('input', (e) => {
+                    params[key] = isColor ? e.target.value : parseFloat(e.target.value);
+                    if(display) display.textContent = params[key];
+                    updateUniforms();
+                    if(key.includes('X') || key.includes('Y') || key.includes('Color')) drawRadar();
+                });
+            };
+
+            // Lights: Slider is Z now (Depth)
+            bind('keyColor', 'keyColor', true); bind('keyInt', 'keyInt'); bind('keyZ', 'keyZ');
+            bind('fillColor', 'fillColor', true); bind('fillInt', 'fillInt'); bind('fillZ', 'fillZ');
+            bind('rimColor', 'rimColor', true); bind('rimInt', 'rimInt'); bind('rimZ', 'rimZ');
+
+            bind('depthStrength', 'depthStrength');
+            bind('bgCutoff', 'bgCutoff');
+            bind('edgeTransparency', 'edgeTransparency');
+            bind('normalSharpness', 'normalSharpness');
+
+            document.getElementById('densitySelect').addEventListener('change', (e) => {
+                params.density = parseInt(e.target.value);
+                if(depthTexture) createMesh();
+            });
+            document.getElementById('perspSelect').addEventListener('change', (e) => setCameraMode(e.target.value));
+
+            document.getElementById('resetCamBtn').addEventListener('click', () => { if(mesh) fitCameraToMesh(); });
+            document.getElementById('downloadBtn').addEventListener('click', downloadSnapshot);
+            
+            document.getElementById('depthInput').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if(!file) return;
+                const loader = new THREE.TextureLoader();
+                document.getElementById('loading').style.display = 'block';
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    loader.load(evt.target.result, (tex) => {
+                        tex.minFilter = THREE.LinearFilter;
+                        tex.magFilter = THREE.LinearFilter;
+                        tex.wrapS = THREE.ClampToEdgeWrapping;
+                        tex.wrapT = THREE.ClampToEdgeWrapping;
+                        depthTexture = tex;
+                        originalImgW = tex.image.width;
+                        originalImgH = tex.image.height;
+                        document.getElementById('loading').style.display = 'none';
+                        onWindowResize(); 
+                        createMesh();
+                        fitCameraToMesh();
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function setCameraMode(mode) {
+            if (controls) controls.enabled = false;
+            if (mode === 'ortho') { camera = cameraOrtho; controls = controlsOrtho; }
+            else { 
+                camera = cameraPersp; controls = controlsPersp;
+                camera.fov = (mode === 'micro') ? 15 : 45;
+                camera.updateProjectionMatrix();
+            }
+            controls.enabled = true;
+            if (mesh) fitCameraToMesh();
+        }
+
+        function createMesh() {
+            if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); mesh.material.dispose(); }
+            if (!depthTexture) return;
+
+            const geoSize = 200;
+            const geometry = new THREE.PlaneGeometry(geoSize, geoSize, params.density, params.density);
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uDepthTexture: { value: depthTexture },
+                    uTextureSize: { value: new THREE.Vector2(originalImgW, originalImgH) },
+                    uDepthStrength: { value: params.depthStrength },
+                    uEdgeTransparent: { value: params.edgeTransparency },
+                    uNormalSharpness: { value: params.normalSharpness },
+                    uBgCutoff: { value: params.bgCutoff },
+                    uKeyLightPos: { value: new THREE.Vector3() }, uKeyLightColor: { value: new THREE.Color() }, uKeyLightInt: { value: params.keyInt },
+                    uFillLightPos: { value: new THREE.Vector3() }, uFillLightColor: { value: new THREE.Color() }, uFillLightInt: { value: params.fillInt },
+                    uRimLightPos: { value: new THREE.Vector3() }, uRimLightColor: { value: new THREE.Color() }, uRimLightInt: { value: params.rimInt }
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                transparent: true, side: THREE.DoubleSide
+            });
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            updateUniforms();
+        }
+
+        function updateUniforms() {
+            if(!mesh) return;
+            const u = mesh.material.uniforms;
+            u.uDepthStrength.value = params.depthStrength;
+            u.uEdgeTransparent.value = params.edgeTransparency;
+            u.uBgCutoff.value = params.bgCutoff;
+            u.uNormalSharpness.value = params.normalSharpness;
+            
+            u.uKeyLightPos.value.set(params.keyX, params.keyY, params.keyZ);
+            u.uKeyLightColor.value.set(params.keyColor);
+            u.uKeyLightInt.value = params.keyInt;
+            
+            u.uFillLightPos.value.set(params.fillX, params.fillY, params.fillZ);
+            u.uFillLightColor.value.set(params.fillColor);
+            u.uFillLightInt.value = params.fillInt;
+            
+            u.uRimLightPos.value.set(params.rimX, params.rimY, params.rimZ);
+            u.uRimLightColor.value.set(params.rimColor);
+            u.uRimLightInt.value = params.rimInt;
+        }
+
+        function fitCameraToMesh() {
+            if (!mesh) return;
+            controls.reset(); controls.target.set(0,0,0);
+            const meshSize = 200;
+            if (camera.isPerspectiveCamera) {
+                const fov = camera.fov * (Math.PI / 180);
+                let dist = (meshSize / 2) / Math.tan(fov / 2);
+                camera.position.set(0, 0, dist * 1.1);
+            } else {
+                camera.zoom = 1.0;
+                const frustumH = (camera.top - camera.bottom);
+                camera.zoom = 1 / (frustumH / (meshSize * 1.1));
+                camera.position.set(0, 0, 500);
+            }
+            camera.updateProjectionMatrix(); controls.update();
+        }
+
+        function onWindowResize() {
+            const wrapper = document.getElementById('canvas-wrapper');
+            const sidebarW = 300 * 2; 
+            const maxW = window.innerWidth - sidebarW - 40; 
+            const maxH = window.innerHeight - 40;
+            const size = Math.min(maxW, maxH);
+            wrapper.style.width = `${size}px`; wrapper.style.height = `${size}px`;
+            renderer.setSize(size, size);
+            
+            [cameraPersp, cameraOrtho].forEach(cam => {
+                if (cam.isPerspectiveCamera) cam.aspect = 1;
+                else { const f = 250; cam.left = -f/2; cam.right = f/2; cam.top = f/2; cam.bottom = -f/2; }
+                cam.updateProjectionMatrix();
+            });
+        }
+
+        // --- 雷達圖邏輯 (控制 X, Y) ---
+        function initRadar() {
+            radarCanvas = document.getElementById('radar-canvas');
+            radarCtx = radarCanvas.getContext('2d');
+            
+            const getPos = (e) => {
+                const rect = radarCanvas.getBoundingClientRect();
+                return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+            };
+
+            const checkHit = (x, y) => {
+                const w = radarCanvas.width, h = radarCanvas.height, cx = w/2, cy = h/2;
+                const lights = ['key', 'fill', 'rim'];
+                for(let i=lights.length-1; i>=0; i--) {
+                    const type = lights[i];
+                    // Radar Mapping: X and Y (screen plane)
+                    const lx = params[`${type}X`];
+                    const ly = params[`${type}Y`]; 
+                    
+                    const rx = cx + (lx / RADAR_SCALE) * (w/2);
+                    const ry = cy - (ly / RADAR_SCALE) * (h/2); // Invert Y
+                    
+                    const dist = Math.sqrt((x - rx)**2 + (y - ry)**2);
+                    if(dist < 12) return type;
+                }
+                return null;
+            };
+
+            radarCanvas.addEventListener('mousedown', (e) => {
+                const p = getPos(e);
+                activeLight = checkHit(p.x, p.y);
+                if(activeLight) isDraggingRadar = true;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = radarCanvas.getBoundingClientRect();
+                if(e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    const p = getPos(e);
+                    if(!isDraggingRadar) {
+                        const hit = checkHit(p.x, p.y);
+                        radarCanvas.style.cursor = hit ? 'pointer' : 'default';
+                    }
+                }
+
+                if(isDraggingRadar && activeLight) {
+                    const p = getPos(e);
+                    const w = radarCanvas.width, h = radarCanvas.height, cx = w/2, cy = h/2;
+                    
+                    let nx = (p.x - cx) / (w/2) * RADAR_SCALE;
+                    let ny = (cy - p.y) / (h/2) * RADAR_SCALE;
+                    
+                    nx = Math.max(-300, Math.min(300, nx));
+                    ny = Math.max(-300, Math.min(300, ny));
+                    
+                    params[`${activeLight}X`] = nx;
+                    params[`${activeLight}Y`] = ny;
+                    
+                    updateUniforms();
+                    drawRadar();
+                }
+            });
+
+            window.addEventListener('mouseup', () => { isDraggingRadar = false; activeLight = null; });
+            drawRadar();
+        }
+
+        function drawRadar() {
+            const w = radarCanvas.width, h = radarCanvas.height, cx = w/2, cy = h/2;
+            radarCtx.clearRect(0, 0, w, h);
+            
+            radarCtx.strokeStyle = '#333'; radarCtx.lineWidth = 1;
+            radarCtx.beginPath(); radarCtx.moveTo(cx, 0); radarCtx.lineTo(cx, h); radarCtx.moveTo(0, cy); radarCtx.lineTo(w, cy); radarCtx.stroke();
+            
+            radarCtx.fillStyle = '#666'; radarCtx.beginPath(); radarCtx.arc(cx, cy, 3, 0, Math.PI*2); radarCtx.fill();
+
+            const drawDot = (type, color) => {
+                const x = params[`${type}X`], y = params[`${type}Y`];
+                const rx = cx + (x / RADAR_SCALE) * (w/2);
+                const ry = cy - (y / RADAR_SCALE) * (h/2);
+                
+                radarCtx.fillStyle = color;
+                radarCtx.shadowColor = color; radarCtx.shadowBlur = 10;
+                radarCtx.beginPath(); radarCtx.arc(rx, ry, 6, 0, Math.PI*2); radarCtx.fill();
+                radarCtx.shadowBlur = 0;
+                
+                radarCtx.strokeStyle = '#fff'; radarCtx.lineWidth = 1; radarCtx.stroke();
+                
+                radarCtx.fillStyle = '#fff'; radarCtx.font = '10px Arial'; radarCtx.textAlign = 'center';
+                radarCtx.fillText(type[0].toUpperCase(), rx, ry - 9);
+            };
+
+            drawDot('key', params.keyColor);
+            drawDot('fill', params.fillColor);
+            drawDot('rim', params.rimColor);
+        }
+
+        function downloadSnapshot() {
+            const exportSize = 2048;
+            renderer.setSize(exportSize, exportSize);
+            renderer.render(scene, camera);
+            const link = document.createElement('a');
+            link.download = 'relight_model.png';
+            link.href = renderer.domElement.toDataURL('image/png');
+            link.click();
+            onWindowResize(); // 復原
+            renderer.render(scene, camera);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+</html>

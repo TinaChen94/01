@@ -102,6 +102,15 @@ Prompt 寫完問自己：
 
 4 題都過 → 送。缺一題回去改。
 
+### concept→3D / 三視圖重建 / 拆概念圖（image-grounded 鐵律）
+
+**任務只要是「從一張既有圖（概念圖/截圖/照片）抽出物件、轉正交、做三視圖/turnaround、image-to-3D」→ 絕不用 text-to-image 憑文字重述物件。**
+
+- ❌ 反模式：把物件翻成一段「文字設計描述」再從零生成 → 文字有損 + 模型用先驗補完 → **造型必漂移**。
+- ✅ 正解：**image-grounded extract**（Nano Banana Pro / Flux Kontext / Seedream 餵原圖）。文字只寫「呈現規格」（視角 + **明確否定來源相機** + 背景 + 平光 + 用途），**物件長相交給圖**。
+- 一致性錨 = 原圖 +（出完一視後）把該 render 也加進 reference + **固定 seed**，不是綁文字描述。
+- 完整 SOP + 勝利模板 + checklist → [references/concept-to-3d.md](references/concept-to-3d.md)
+
 ## 核心原則
 
 1. **先問清楚「要什麼」，再決定「用哪個」**。同一個想法送到不同模型，prompt 寫法完全不同。先釐清：
@@ -146,11 +155,18 @@ Prompt 寫完問自己：
 - ⚠️ OpenAI Sora 2 → [references/sora.md](references/sora.md)（**已停運** — app 2026-04-26 關，API 2026-09-24 關。讀此檔只為了解替代方案；新任務改用 Veo/Gemini Omni/Runway/Kling）
 
 **圖片 (Image)**
+- Nano Banana Pro / Gemini Flash Image（文字渲染 + 角色一致 + 多圖合成最強）→ [references/nano-banana.md](references/nano-banana.md)
 - Seedream 5.0 / 4.0 → [references/seedream.md](references/seedream.md)
 - Midjourney V8.1 / niji 7（⚠️ `--oref` 為 V7-only） → [references/midjourney.md](references/midjourney.md)
 - Flux 1.1 Pro / Kontext → [references/flux.md](references/flux.md)
 - Ideogram 3 → [references/ideogram.md](references/ideogram.md)
 - Stable Diffusion 3.5 / SDXL → [references/stable-diffusion.md](references/stable-diffusion.md)
+
+> **🧱 拆概念圖 / concept→3D / 三視圖重建 / image-to-3D reference plate → 必讀 [references/concept-to-3d.md](references/concept-to-3d.md)**（image-grounded extract SOP + 正交三視勝利模板 + 一致性協議）。**禁止用純文字重述物件。**
+
+> **🪧 把物件放進場景 / 物件合成 / 指定位置放資產 / game art background asset / 讓物件吃環境光影反射 → 必讀 [references/nano-banana.md](references/nano-banana.md#物件合成進場景-game-asset--把物件放進背景圖--實測通用模板)**（場景圖 + 物件圖 → 鎖位鎖比例、材質光照反射整包對齊的實測通用模板 + 多場景變體技巧）。**核心心法：少寫、讓模型整包對齊光影 > 逐條指定影子方向。**
+
+> **💡 穩定打光 / 重打光 / 控制光向 / depth 控制圖 / 場景重打光 / 多重參考融合（風格+光影+姿勢分離）→ 必讀 [references/depth-relight-pipeline.md](references/depth-relight-pipeline.md)**（depth map → 打光工具定光向 → 多參考融合的可重現管線；附 [tools/](tools/) 兩支單檔網頁工具）。**核心：NB 無 seed，靠 depth 鎖形狀 + 工具鎖光向 + 風格圖鎖材質，三維全鎖才穩。**
 
 **音樂 (Music)**
 - Suno v5.5（Personas 已改名 Voices） → [references/suno.md](references/suno.md)
