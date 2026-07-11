@@ -20,6 +20,38 @@
 | [`tools/unreal-camera-port/blender_cam_export.py`](../../tools/unreal-camera-port/blender_cam_export.py) | Blender Text Editor | 讀相機 `matrix_world`(B6 踩坑 #4:多層 rig 不抄面板)+ Sensor Fit 展開,轉 UE 座標,寫出 `cam_unreal.json` |
 | [`tools/unreal-camera-port/unreal_cam_import.py`](../../tools/unreal-camera-port/unreal_cam_import.py) | UE Python(Output Log → Cmd 切 Python) | 讀 json 生成 CineCameraActor,filmback/focal 照抄、位姿套用、關景深 |
 
+### cam_unreal.json 是什麼
+
+兩支腳本之間的**交接檔**:Blender 和 Unreal 是獨立軟體,腳本不能直接對話,
+所以 Blender 端把「重建這顆相機需要的所有數字」打包成一個 JSON,
+UE 端腳本照單全收建出一模一樣的相機。
+
+```
+Blender(有相機1的場景)                Unreal(空關卡)
+blender_cam_export.py  →  cam_unreal.json  →  unreal_cam_import.py
+       (寫出)              (同機路徑/隨身碟)        (讀入,照著建相機)
+```
+
+裡面裝什麼(全部是**已轉換成 Unreal 格式**的值):
+
+| 欄位 | 內容 | 例子 |
+|---|---|---|
+| `focal_mm` | 焦距 | 13.46 |
+| `sensor_mm` | 有效 sensor 寬高(Sensor Fit 已展開) | 27.64 × 15.5475 |
+| `location_cm` | 相機世界位置(已做 Y 鏡像 + 公尺→公分) | 如 [0, 1000, 500] |
+| `rotator_deg` | UE 的 pitch/yaw/roll(已從 Blender 旋轉反解) | 如 pitch −20 |
+| `fov_deg` | 換算出的水平/垂直 FOV — 給 UE 面板**驗算**用 | 91.51 / 60.02 |
+| `resolution`、`clip_m`、`name` | 解析度、裁剪距離、相機名 | 紀錄與命名用 |
+
+它幫你避開的坑:相機1 掛在 Unity 匯入的多層 rig 裡(B6 踩坑 #4),
+面板顯示局部座標,手抄必錯;座標系轉換(右手→左手、公尺→公分)與
+Sensor Fit 展開也容易算錯方向——全部由匯出腳本算好、凍結在 JSON 裡,
+**不手抄任何數字**。
+
+檔案位置:執行 Blender 腳本後存在 **.blend 檔旁邊**(同資料夾)。
+Blender 與 Unreal 不在同一台機器時,複製這個 JSON 過去即可——
+它是純文字的「相機身分證」,記事本也能開。
+
 ## 相機1 參數與換算
 
 Blender 端(來源:B6 `b6-cam1-lens.png`):
