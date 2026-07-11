@@ -19,6 +19,16 @@
 |---|---|---|
 | [`tools/unreal-camera-port/blender_cam_export.py`](../../tools/unreal-camera-port/blender_cam_export.py) | Blender Text Editor | 讀相機 `matrix_world`(B6 踩坑 #4:多層 rig 不抄面板)+ Sensor Fit 展開,轉 UE 座標,寫出 `cam_unreal.json` |
 | [`tools/unreal-camera-port/unreal_cam_import.py`](../../tools/unreal-camera-port/unreal_cam_import.py) | UE Python(Output Log → Cmd 切 Python) | 讀 json 生成 CineCameraActor,filmback/focal 照抄、位姿套用、關景深 |
+| [`tools/unreal-camera-port/locked/cam1_unreal.json`](../../tools/unreal-camera-port/locked/cam1_unreal.json) | (資料檔) | **相機1 鎖檔 json**(2026-07-11 驗收通過那份)— 日後在任何 UE 專案重現相機1,拿這份跑 import 腳本即可,**不必重做 Blender 匯出** |
+
+### 重現與擴充規則(鎖檔後)
+
+- **重現**:json = 鎖檔資產。任何 UE 專案:啟用 Python 外掛 →
+  `unreal_cam_import.py` 的 `JSON_PATH` 指向 `locked/` 裡的 json → 執行,
+  相機分毫不差回來。Blender 半場只在**相機本身動了**時才需要重跑。
+- **擴充**(相機2/3):每顆各做一次匯出 → 驗收 → json 入 `locked/`,
+  命名 `cam2_unreal.json`、`cam3_unreal.json`。做完三份,整組三相機
+  在 UE 的重現能力就永久固定,与素材/主題無關。
 
 ### cam_unreal.json 是什麼
 

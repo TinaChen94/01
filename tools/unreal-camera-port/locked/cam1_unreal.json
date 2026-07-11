@@ -1,0 +1,30 @@
+{
+  "name": "Camera",
+  "focal_mm": 13.4622,
+  "sensor_mm": {
+    "width": 27.6352,
+    "height": 15.5448
+  },
+  "fov_deg": {
+    "horizontal": 91.49,
+    "vertical": 60.0
+  },
+  "resolution": [
+    1920,
+    1080
+  ],
+  "location_cm": [
+    150.0,
+    -2035.964,
+    93.312
+  ],
+  "rotator_deg": {
+    "pitch": -23.9999,
+    "yaw": 90.0,
+    "roll": -0.0
+  },
+  "clip_m": {
+    "near": 0.3,
+    "far": 200.0
+  }
+}
