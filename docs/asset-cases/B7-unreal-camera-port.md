@@ -140,6 +140,9 @@ Properties → **Output 頁籤**(印表機圖示)→ Resolution X/Y = **1920×10
    `blender_cam_export.py` → 改第一個參數:`CAM_NAME = "Camera"`
    (scene camera 已是目標相機的話留 `""` 也行)
 
+六層 rig 判讀 + CAM_NAME 填法(紅箭頭 = 要填的物件;其下綠色圖示為資料塊):
+![b7 rig outliner](images/b7-rig-outliner.png)
+
 ### §3 Blender:執行匯出
 
 1. **Text 選單 → Run Script**(視窗太窄時右上角 ▶ 會被擠不見 —
@@ -204,6 +207,9 @@ C:/Users/USER/Downloads/unreal_cam_import.py
 - ⚠️ **不要整段貼腳本內容**:UE console 看到內容含 `.py` 字樣會把輸入
   當檔名載入,報 `Could not load Python file '# unreal_cam_import.py'`
   (實測踩到)。Python 模式下「輸入一個 .py 路徑 = 執行那個檔」最穩
+
+  貼整段的失敗現場(最後一行紅字即該錯誤):
+  ![b7 console paste fail](images/b7-console-paste-fail.png)
 - 成功輸出:`OK: Camera loc=[150.0, -2035.964, 93.312] ...` +
   filmback/focal + FOV 預測行,Outliner 多一顆 `Camera`(CineCameraActor)
 
@@ -220,6 +226,11 @@ C:/Users/USER/Downloads/unreal_cam_import.py
 
 `Aspect Ratio Axis Constraint = Maintain X-Axis FOV` 為正確預設,不動。
 
+面板實測三連 — Transform / Filmback / Current FOV:
+![b7 ue transform](images/b7-ue-transform.png)
+![b7 ue filmback](images/b7-ue-filmback.png)
+![b7 ue fov](images/b7-ue-fov.png)
+
 ### §11 UE:Pilot 看畫面
 
 - Outliner 右鍵 `Camera` → **Pilot 'Camera'**(或視口左上 `Perspective`
@@ -228,6 +239,9 @@ C:/Users/USER/Downloads/unreal_cam_import.py
 - ⚠️ **Pilot 中禁用 WASD/滑鼠飛行** — 會直接搬動相機本體!誤動:
   左上 ⏏ 退出 → Ctrl+Z;或重跑 §9 重生一顆
 - 退出 Pilot:視口左上橫條的 **⏏**
+
+選中相機時的小預覽窗(此輪同框:顯存超支紅字,見踩坑 7):
+![b7 cam preview vram](images/b7-cam-preview-vram.png)
 
 ### §12 UE:截圖(Cmd 模式)
 
@@ -241,6 +255,9 @@ HighResShot 1920x1080
 存檔:`<專案>\Saved\Screenshots\WindowsEditor\HighresScreenshot0000N.png`
 (每拍編號 +1,拿最大編號;Output Log 也會印出完整路徑)
 
+留在 Python 模式打指令的失敗現場(SyntaxError):
+![b7 highresshot mode fail](images/b7-highresshot-mode-fail.png)
+
 ### §13 驗收比對
 
 - UE 截圖 vs §5 基準圖:模組梯形四邊、中央小徑、近緣裁切位置應同座標
@@ -250,6 +267,18 @@ HighResShot 1920x1080
   不列入驗收;之後要比對**材質顏色**時再刪 Fog、曝光改 Manual
 - ✅ 相機1 實測:構圖重合,驗收通過 → json 入庫
   `tools/unreal-camera-port/locked/cam1_unreal.json` 鎖檔
+
+驗收對照 — UE 相機1 視角(上)vs Blender 基準渲圖(下),
+梯形四邊/中央小徑/近緣裁切同座標;亮度與天空差異屬渲染器,不列入驗收:
+![b7 ue cam1 view](images/b7-ue-cam1-view.png)
+![b7 blender cam1 base](images/b7-blender-cam1-base.png)
+
+## 圖檔
+
+✅ 已入庫 9 張:rig 判讀 ×1、UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/
+模式錯置)、預覽窗+顯存警告 ×1、驗收對照 ×2。
+選配(找得到再補):`b7-json-final.png`(json 定案版記事本)、
+`b7-import-ok.png`(OK: Camera 成功訊息)。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
