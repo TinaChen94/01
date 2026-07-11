@@ -42,6 +42,9 @@ blender_cam_export.py  →  cam_unreal.json  →  unreal_cam_import.py
        (寫出)              (同機路徑/隨身碟)        (讀入,照著建相機)
 ```
 
+三件套實體(兩支腳本 + 交接檔,放同一資料夾最好找):
+![b7 toolkit files](images/b7-toolkit-files.png)
+
 裡面裝什麼(全部是**已轉換成 Unreal 格式**的值):
 
 | 欄位 | 內容 | 例子 |
@@ -147,7 +150,8 @@ Properties → **Output 頁籤**(印表機圖示)→ Resolution X/Y = **1920×10
 
 1. **Text 選單 → Run Script**(視窗太窄時右上角 ▶ 會被擠不見 —
    選單這條路永遠在;或滑鼠停在編輯器上按 Alt+P)
-2. 執行紀錄出現打勾的 `bpy.ops.text.run_script()` = 成功(紅字 = 失敗)
+2. 執行紀錄出現打勾的 `bpy.ops.text.run_script()` = 成功(紅字 = 失敗):
+   ![b7 run script ok](images/b7-run-script-ok.png)
 3. 產出 `cam_unreal.json` 在 **.blend 檔旁邊**(⚠️ .blend 沒存過檔會
    寫不出來 → 先 Ctrl+S 再跑)
 
@@ -163,6 +167,9 @@ Properties → **Output 頁籤**(印表機圖示)→ Resolution X/Y = **1920×10
 
 實測時 `name` 一度變 `Camera.001`(誤複製了相機,位姿相同故數據無害)—
 刪掉複製品重跑,以乾淨的 `Camera` 定案。
+
+json 定案版(記事本檢視):
+![b7 json final](images/b7-json-final.png)
 
 ### §5 Blender:渲基準圖
 
@@ -195,6 +202,9 @@ JSON_PATH = r"C:\Users\USER\Downloads\cam_unreal.json"
 - 路徑不會打?檔案總管 **Shift+右鍵 json → 複製路徑** → 貼進引號
 - 反斜線 `\` 沒關係,**引號前的小寫 `r` 必須保留**
 - 改完 Ctrl+S
+
+改哪裡(紅框 = 換成你的 json 路徑):
+![b7 json path edit](images/b7-json-path-edit.png)
 
 ### §9 UE:執行腳本(用「路徑執行法」)
 
@@ -275,10 +285,10 @@ HighResShot 1920x1080
 
 ## 圖檔
 
-✅ 已入庫 9 張:rig 判讀 ×1、UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/
-模式錯置)、預覽窗+顯存警告 ×1、驗收對照 ×2。
-選配(找得到再補):`b7-json-final.png`(json 定案版記事本)、
-`b7-import-ok.png`(OK: Camera 成功訊息)。
+✅ 已入庫 13 張:三件套 ×1、rig 判讀 ×1、執行成功 ×1、json 定案 ×1、
+JSON_PATH 改法 ×1、UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/模式錯置)、
+預覽窗+顯存警告 ×1、驗收對照 ×2。
+選配(找得到再補):`b7-import-ok.png`(OK: Camera 成功訊息)。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
