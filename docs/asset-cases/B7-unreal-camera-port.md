@@ -106,22 +106,150 @@ Unreal 端(CineCameraActor)——**照抄,不換算**:
   (已用已知位姿驗算:朝 −Y 俯 20° → yaw −90° / pitch −20° / roll 0 ✓)。
   Unity rig 帶滾轉也照搬,不假設 roll = 0。
 
-## SOP(相機1)
+## SOP(相機1)— 逐步實操全紀錄(2026-07-11 實測定稿)
 
-1. **Blender**:開 B6 場景 .blend → 確認 scene camera = 相機1(或在腳本
-   `CAM_NAME` 填名字)→ Text Editor 執行 `blender_cam_export.py`
-   → 得 `cam_unreal.json`(在 .blend 旁)
-2. **Blender**:相機1 渲一張 1920×1080 灰盒基準圖(驗收用)
-3. **模組進 UE**:同一個 .blend 選模組全部 mesh(主體+前緣條,B6 踩坑 #5)
-   → File → Export → FBX(勾 Selected Objects,其餘**預設**)→ UE 匯入
-   (Import Uniform Scale = 1,擺在原點、零旋轉——mesh 的世界位置已烙在 FBX 裡)
-4. **UE**:啟用 Python Editor Script Plugin → 改 `unreal_cam_import.py` 的
-   `JSON_PATH` → Output Log 執行 → 生成 `CAM1_GAME`(以 json 裡的相機名為準)
-5. **UE**:右鍵 CineCameraActor → Pilot,或開 Cinematic Viewport;
-   CineCamera 預設 Constrain Aspect Ratio = On,黑邊即 16:9 取景框
-6. **驗收(B6 鎖檔法)**:High Resolution Screenshot 1920×1080 →
-   PS 疊到步驟 2 的 Blender render 上 50% 透明度,灰盒梯形四邊應幾乎重合
-   (誤差個位數像素)。重合即鎖檔,再繼續相機2/3。
+> 以下是相機1 實際走通的每一步,含 UI 位置與當場踩的坑。
+> 相機2/3 照抄本節,只換 §2 的相機名與 §4 的 json 檔名。
+
+### §0 前置:抓兩支腳本(一次性)
+
+1. GitHub repo → 分支 `claude/unity-camera-unreal-export-m50ht8` →
+   `tools/unreal-camera-port/`,兩支都要:
+   `blender_cam_export.py`、`unreal_cam_import.py`
+2. 開檔案點 **Raw** → 右鍵另存。⚠️ Windows 會偷加 `.txt` 變
+   `*.py.txt`:檔案總管 **檢視 → 顯示 → 副檔名** 打開,**F2** 刪掉尾巴
+   `.txt`(Blender 端不改也能跑,**UE 端執行檔案必須是 `.py`**)
+
+### §1 Blender:確認渲染解析度(先做!)
+
+Properties → **Output 頁籤**(印表機圖示)→ Resolution X/Y = **1920×1080**。
+
+- 實測第一輪就栽在這:場景殘留 4096×2286(成品圖比例),垂直 FOV 跑成
+  59.61° ≠ 遊戲的 60°。**解析度比例參與 sensor 換算,必須先對**
+- 水平視野跟解析度無關(Auto fit 橫向吃 sensor),錯的只有直向
+
+### §2 Blender:認出相機、填 CAM_NAME
+
+1. Outliner 展開相機 rig。本案六層:
+   `[System] → CameraSystem Variant → MainCamera → WorldAnchor → LocalAnchor → Camera`
+2. **判讀規則:橘色圖示 = 物件;物件底下縮排的綠色攝影機圖示 = 資料塊**。
+   要填的是**物件**名 → 本案 = 倒數第二層的 `Camera`
+   - ⚠️ 第三層空物件叫 `MainCamera`、相機資料塊也叫 `MainCamera` —
+     **絕不填 MainCamera**,會抓到 rig 中間的空物件
+3. 工作區頁籤切 **Scripting** → 文字編輯器 **Open** → 選
+   `blender_cam_export.py` → 改第一個參數:`CAM_NAME = "Camera"`
+   (scene camera 已是目標相機的話留 `""` 也行)
+
+### §3 Blender:執行匯出
+
+1. **Text 選單 → Run Script**(視窗太窄時右上角 ▶ 會被擠不見 —
+   選單這條路永遠在;或滑鼠停在編輯器上按 Alt+P)
+2. 執行紀錄出現打勾的 `bpy.ops.text.run_script()` = 成功(紅字 = 失敗)
+3. 產出 `cam_unreal.json` 在 **.blend 檔旁邊**(⚠️ .blend 沒存過檔會
+   寫不出來 → 先 Ctrl+S 再跑)
+
+### §4 檢查 json(記事本開)
+
+| 欄位 | 相機1 正解 | 錯了代表 |
+|---|---|---|
+| `name` | `Camera` | 出現 `.001` 後綴 = 場景有重複相機,刪複製品重跑 |
+| `focal_mm` | 13.4622 | 抓錯相機 → 回 §2 |
+| `sensor_mm` | 27.6352 × 15.5448 | 解析度/Sensor Fit 不對 → 回 §1 |
+| `fov_deg.vertical` | 60.0 | 同上(≈59.6 = 還在 4096×2286) |
+| `resolution` | [1920, 1080] | 回 §1 |
+
+實測時 `name` 一度變 `Camera.001`(誤複製了相機,位姿相同故數據無害)—
+刪掉複製品重跑,以乾淨的 `Camera` 定案。
+
+### §5 Blender:渲基準圖
+
+確認 scene camera = 相機1(Scene 頁籤 Camera 欄)→ **F12** →
+Image → Save As → `cam1_blender_base.png`(1920×1080,驗收的標準答案)
+
+### §6 模組 FBX → UE
+
+1. Blender:空白處點一下**取消全選** → 只選模組**全部** mesh
+   (主體+前緣泥土條;別選到其他灰盒副本 — B6 踩坑 #5)
+2. File → Export → FBX → 勾 **Limit to: Selected Objects**,其餘**全預設**
+3. UE:FBX 拖進 Content Browser(預設選項)→ mesh 拖進關卡 →
+   Details 把 **Location/Rotation 全部歸零** — 世界位置已烙在 FBX 頂點裡,
+   actor 必須在原點,相機才對得上
+
+### §7 UE:啟用 Python(一次性)
+
+**Edit → Plugins** → 搜 `python` → 勾 **Python Editor Script Plugin**
+(Scripting 分類)→ **Restart Now**。
+驗證:Window → Output Log → 底部輸入列最左下拉多了 `Python` 選項。
+
+### §8 UE:改 JSON_PATH
+
+記事本開 `unreal_cam_import.py`,改這行:
+
+```python
+JSON_PATH = r"C:\Users\USER\Downloads\cam_unreal.json"
+```
+
+- 路徑不會打?檔案總管 **Shift+右鍵 json → 複製路徑** → 貼進引號
+- 反斜線 `\` 沒關係,**引號前的小寫 `r` 必須保留**
+- 改完 Ctrl+S
+
+### §9 UE:執行腳本(用「路徑執行法」)
+
+Output Log 底部輸入列 → 左邊下拉切 **Python** → 輸入**腳本檔完整路徑**一行,Enter:
+
+```
+C:/Users/USER/Downloads/unreal_cam_import.py
+```
+
+- ⚠️ **不要整段貼腳本內容**:UE console 看到內容含 `.py` 字樣會把輸入
+  當檔名載入,報 `Could not load Python file '# unreal_cam_import.py'`
+  (實測踩到)。Python 模式下「輸入一個 .py 路徑 = 執行那個檔」最穩
+- 成功輸出:`OK: Camera loc=[150.0, -2035.964, 93.312] ...` +
+  filmback/focal + FOV 預測行,Outliner 多一顆 `Camera`(CineCameraActor)
+
+### §10 UE:面板驗數
+
+點相機 → Details:
+
+| 搜尋 | 應顯示 |
+|---|---|
+| Transform | Location (150, −2035.964, 93.312);Rotation (0, −23.9999, 90) — UE 順序 Roll/Pitch/Yaw |
+| `sensor` | Filmback 27.635201 × 15.5448,Aspect 1.777778 |
+| `current` | Focal 13.4622、Aperture 22、Focus = Disable |
+| `fov` | **Current Horizontal FOV = 91.492805**(對上腳本預測 91.49 = 視野零誤差)|
+
+`Aspect Ratio Axis Constraint = Maintain X-Axis FOV` 為正確預設,不動。
+
+### §11 UE:Pilot 看畫面
+
+- Outliner 右鍵 `Camera` → **Pilot 'Camera'**(或視口左上 `Perspective`
+  下拉 → 選 Camera);選中相機時右下也會浮出小預覽窗
+- 按 **G**(Game View)藏圖示;上下黑邊 = 16:9 取景框,正常
+- ⚠️ **Pilot 中禁用 WASD/滑鼠飛行** — 會直接搬動相機本體!誤動:
+  左上 ⏏ 退出 → Ctrl+Z;或重跑 §9 重生一顆
+- 退出 Pilot:視口左上橫條的 **⏏**
+
+### §12 UE:截圖(Cmd 模式)
+
+輸入列下拉切回 **Cmd**(⚠️ 留在 Python 模式會把指令當程式碼,報
+SyntaxError — 實測踩到;口訣:**Cmd 吃引擎指令,Python 吃程式碼**):
+
+```
+HighResShot 1920x1080
+```
+
+存檔:`<專案>\Saved\Screenshots\WindowsEditor\HighresScreenshot0000N.png`
+(每拍編號 +1,拿最大編號;Output Log 也會印出完整路徑)
+
+### §13 驗收比對
+
+- UE 截圖 vs §5 基準圖:模組梯形四邊、中央小徑、近緣裁切位置應同座標
+- 量化版:PS 兩張疊圖,上層混合模式 **Difference** — 重合處全黑,
+  邊緣偏移會浮出細亮線,一眼讀出差幾像素(比 50% 透明度利眼)
+- 亮度/霧感/天空不同 = 渲染器差異(天光/大氣霧/自動曝光),與相機無關,
+  不列入驗收;之後要比對**材質顏色**時再刪 Fog、曝光改 Manual
+- ✅ 相機1 實測:構圖重合,驗收通過 → json 入庫
+  `tools/unreal-camera-port/locked/cam1_unreal.json` 鎖檔
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
@@ -161,14 +289,6 @@ rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 
 | 5 | UE 貼整段腳本報 `Could not load Python file '# unreal_cam_import.py'` | UE Python 輸入列看到內容含 `.py` 字樣,把整段輸入當**檔名**去載入(console 怪癖) | 不貼內容,改成在 Python 模式直接輸入**腳本檔完整路徑**執行:`C:/.../unreal_cam_import.py` |
 | 6 | `HighResShot` 報 SyntaxError | 輸入列還在 Python 模式 | **Cmd 模式吃引擎指令、Python 模式吃程式碼**,拍圖前切回 Cmd:`HighResShot 1920x1080` |
 | 7 | 視口紅字 Video memory exhausted | 測試關卡帶 Landscape+體積雲,顯存超支 | 驗收用 Empty/Basic Level 重建(模組+相機 30 秒重生);高解析截圖前尤其要處理,否則可能破圖 |
-
-### UE 端操作備忘
-
-- 截圖指令(Cmd 模式、Pilot 中):`HighResShot 1920x1080`,
-  存到 `<專案>\Saved\Screenshots\WindowsEditor\HighresScreenshot0000N.png`(取最大編號)
-- Pilot 中**不可用 WASD/滑鼠飛行** — 那會直接搬動相機本體;誤動 → 退出 Pilot、Ctrl+Z,或重跑腳本重生
-- 按 G(Game View)藏圖示再截圖
-- `Aspect Ratio Axis Constraint = Maintain X-Axis FOV` 是正確預設(對應 Blender Auto fit 橫向吃 sensor),不用動
 
 ## 預防踩坑(照 B6 經驗預埋)
 
