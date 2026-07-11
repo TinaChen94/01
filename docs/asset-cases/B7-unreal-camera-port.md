@@ -3,7 +3,7 @@
 > 目標:[B6](B6-three-camera-pipeline.md) 的三相機(遊戲/出圖/生成)在 Unreal
 > 裡重現**逐像素相同的鏡頭畫面**。第一階段先做相機1(遊戲相機)。
 > 路線:數值直搬(確定性轉換),不走 FBX 相機匯入(filmback 常被改寫)。
-> B6 在分支 `claude/b2-greybox-experiment-fgsc06` 上。
+> B6 已入 main;B4/B5 仍在分支 `claude/b2-greybox-experiment-fgsc06` 上。
 
 **🔑 關鍵字:** `B7`、`Unreal 相機`、`UE 相機`、`CineCamera`、`filmback`、
 `相機搬 UE`、`Blender 轉 Unreal`、`座標系轉換`、`FOV 水平垂直`

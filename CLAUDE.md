@@ -23,6 +23,8 @@
 - **B2** — 灰盒 → 夜森林地面模組(master tile):貼材質灰盒管線
   (貼圖烙分佈 → NB2 圖案活化 → 頂光 polish → PS 收邊);
   三路線成敗對照(NB2 幾何滲漏 / SD 畫布填滿症 / 貼材質正解)
+- **B6** — 三相機管線(遊戲/出圖/生成相機解耦、反解相機 homography、
+  品質三資源);B7 的上游,B4/B5 在 `claude/b2-greybox-experiment-fgsc06` 分支
 
 ## 進行中
 
