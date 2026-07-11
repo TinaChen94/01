@@ -123,6 +123,9 @@ Unreal 端(CineCameraActor)——**照抄,不換算**:
    `*.py.txt`:檔案總管 **檢視 → 顯示 → 副檔名** 打開,**F2** 刪掉尾巴
    `.txt`(Blender 端不改也能跑,**UE 端執行檔案必須是 `.py`**)
 
+抓法圖解(Raw → 另存新檔;`locked/cam1_unreal.json` 鎖檔也同法可抓):
+![b7 github raw download](images/b7-github-raw-download.png)
+
 ### §1 Blender:確認渲染解析度(先做!)
 
 Properties → **Output 頁籤**(印表機圖示)→ Resolution X/Y = **1920×1080**。
@@ -285,9 +288,9 @@ HighResShot 1920x1080
 
 ## 圖檔
 
-✅ 已入庫 13 張:三件套 ×1、rig 判讀 ×1、執行成功 ×1、json 定案 ×1、
-JSON_PATH 改法 ×1、UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/模式錯置)、
-預覽窗+顯存警告 ×1、驗收對照 ×2。
+✅ 已入庫 14 張:GitHub 抓檔 ×1、三件套 ×1、rig 判讀 ×1、執行成功 ×1、
+json 定案 ×1、JSON_PATH 改法 ×1、UE 面板驗數 ×3、失敗現場 ×2
+(貼碼當檔名/模式錯置)、預覽窗+顯存警告 ×1、驗收對照 ×2。
 選配(找得到再補):`b7-import-ok.png`(OK: Camera 成功訊息)。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
