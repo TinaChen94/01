@@ -1,4 +1,4 @@
-# 實戰紀錄 — B7 三相機 → Unreal 重現(🚧 實驗中)
+# 實戰紀錄 — B7 三相機 → Unreal 重現(相機1 ✅)
 
 > 目標:[B6](B6-three-camera-pipeline.md) 的三相機(遊戲/出圖/生成)在 Unreal
 > 裡重現**逐像素相同的鏡頭畫面**。第一階段先做相機1(遊戲相機)。
@@ -10,8 +10,8 @@
 
 ## 狀態
 
-- 🚧 **實驗中** — 腳本已備,待在實機 Blender + Unreal 走一輪驗收
-- 階段:①相機1(本篇)→ ②相機2 → ③相機3(CAM_GEN2)
+- ✅ **相機1 實機驗收通過**(2026-07-11,UE 5.5)— Blender→UE 轉換路線成立
+- 階段:①相機1 ✅ → ②相機2(待做)→ ③相機3 CAM_GEN2(待做)
 
 ## 工具(已入庫)
 
@@ -113,6 +113,53 @@ Unreal 端(CineCameraActor)——**照抄,不換算**:
    PS 疊到步驟 2 的 Blender render 上 50% 透明度,灰盒梯形四邊應幾乎重合
    (誤差個位數像素)。重合即鎖檔,再繼續相機2/3。
 
+## 相機1 實測紀錄(2026-07-11 定案值)
+
+json 定案值(比面板的四捨五入值更精確,以此為準):
+
+| 項目 | 定案值 | UE 端實測 |
+|---|---|---|
+| focal | **13.4622 mm** | Current Focal Length 13.4622 ✓ |
+| 有效 sensor | **27.6352 × 15.5448 mm** | Filmback 同值,Aspect 1.777778 ✓ |
+| location(UE cm) | **[150.0, −2035.964, 93.312]** | Transform 同值 ✓ |
+| rotator | **pitch −24.0° / yaw 90° / roll 0** | Rotation (0, −23.9999, 90) ✓(UE 顯示順序 Roll/Pitch/Yaw) |
+| 水平 FOV | 預測 91.49° | **Current HFOV 91.492805** ✓ 零誤差 |
+
+畫面驗收:UE Pilot 視角與 Blender 基準圖構圖相符,通過。
+rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 rig。
+
+### 解析度插曲(重要觀念)
+
+第一次匯出 json 時場景 Resolution 是 4096×2286(配合 5504×3072 成品圖比例),
+垂直 FOV 算出 59.61° ≠ 遊戲的 60°。改回 1920×1080 重跑才定案。
+
+- **水平視野跟解析度無關**(Auto fit 橫向吃 sensor,永遠 91.49°),
+  比例只影響直向多看/少看一點
+- **素材不同永遠不需要動相機**(透視不住在貼圖裡,B6 心法):
+  json 只在「換相機」時才多一份,最終就是相機1/2/3 各一份,鎖檔沿用
+- 5504×3072(1.7917)那個比例屬於**相機3 的反解畫布**,輪到相機3 再用
+- 鐵則:驗收時渲圖、json、截圖三處**同一顆相機同一個比例**
+
+## 實戰踩坑(相機1 這輪實際遇到)
+
+| # | 現象 | 根因 | 解法 |
+|---|---|---|---|
+| 1 | 填 `CAM_NAME` 時不知道填哪個 | rig 六層鏈:`[System]→CameraSystem Variant→MainCamera→WorldAnchor→LocalAnchor→Camera`,且相機**資料塊**也叫 MainCamera(綠色圖示)跟第三層空物件撞名 | 填**物件**名 `Camera`(橘色圖示、倒數第二層);絕不填 `MainCamera` |
+| 2 | json 的 name 變 `Camera.001` | 操作中誤複製出第二顆相機(位姿相同故數據無害) | Outliner 搜 Camera 刪複製品;渲基準圖前確認 scene camera 與 json 同一顆 |
+| 3 | 從網頁另存腳本變 `.py.txt` | Windows 自動加副檔名 | Blender 端無所謂(只看內容);**UE 端執行檔案必須是 `.py`** — 檔案總管開「顯示副檔名」後 F2 改名 |
+| 4 | Text Editor 沒有 ▶ 按鈕 | 編輯器區塊太窄,按鈕被擠出畫面 | 用 **Text 選單 → Run Script**(等效)或 Alt+P |
+| 5 | UE 貼整段腳本報 `Could not load Python file '# unreal_cam_import.py'` | UE Python 輸入列看到內容含 `.py` 字樣,把整段輸入當**檔名**去載入(console 怪癖) | 不貼內容,改成在 Python 模式直接輸入**腳本檔完整路徑**執行:`C:/.../unreal_cam_import.py` |
+| 6 | `HighResShot` 報 SyntaxError | 輸入列還在 Python 模式 | **Cmd 模式吃引擎指令、Python 模式吃程式碼**,拍圖前切回 Cmd:`HighResShot 1920x1080` |
+| 7 | 視口紅字 Video memory exhausted | 測試關卡帶 Landscape+體積雲,顯存超支 | 驗收用 Empty/Basic Level 重建(模組+相機 30 秒重生);高解析截圖前尤其要處理,否則可能破圖 |
+
+### UE 端操作備忘
+
+- 截圖指令(Cmd 模式、Pilot 中):`HighResShot 1920x1080`,
+  存到 `<專案>\Saved\Screenshots\WindowsEditor\HighresScreenshot0000N.png`(取最大編號)
+- Pilot 中**不可用 WASD/滑鼠飛行** — 那會直接搬動相機本體;誤動 → 退出 Pilot、Ctrl+Z,或重跑腳本重生
+- 按 G(Game View)藏圖示再截圖
+- `Aspect Ratio Axis Constraint = Maintain X-Axis FOV` 是正確預設(對應 Blender Auto fit 橫向吃 sensor),不用動
+
 ## 預防踩坑(照 B6 經驗預埋)
 
 | # | 風險 | 預防 |
@@ -127,9 +174,11 @@ Unreal 端(CineCameraActor)——**照抄,不換算**:
 
 ## 待辦
 
-- [ ] 相機1 實機走一輪 SOP → 疊圖驗收 → 鎖檔(通過後本篇轉 ✅)
+- [x] 相機1 實機走一輪 SOP → 驗收通過(2026-07-11;定案值見「相機1 實測紀錄」節)
+- [ ] 相機1 嚴格鎖檔(選配):PS 50% 疊圖量化誤差(目前為目測相符);
+  乾淨 Empty Level 重建一份,解掉顯存警告
 - [ ] 相機2:同 focal 13.46,filmback 直接吃 43.77 × 24.62(B6 已算好的
   Sensor Fit=Vertical 那組)——UE 不用管 Sensor Fit,寬高照填就是那個視野
 - [ ] 相機3(CAM_GEN2):21.10mm + 5504×3072 畫布 → filmback 36 × 20.09
   (36 × 3072/5504);先確認 CAM_GEN2 的 sensor 設定再定案
-- [ ] 三顆都鎖檔後:把 UE 端截圖與對照結論回填本篇,狀態轉 ✅
+- [ ] 三顆都鎖檔後:把 UE 端截圖與對照結論回填本篇,狀態轉全 ✅

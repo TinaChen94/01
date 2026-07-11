@@ -11,7 +11,7 @@
 | **B1 夜霧森林地面背景(4K 放大 + 材質細節)** | [B1-forest-bg-4k-detail.md](B1-forest-bg-4k-detail.md) | ✅ 定案管線 + 逐字 prompt + 鎖句字典 + 踩坑紀錄 + 驗收 checklist |
 | **B2 灰盒 → 夜森林地面模組(master tile)** | [B2-greybox-module-pipeline.md](B2-greybox-module-pipeline.md) | ✅ 貼材質灰盒管線 + 三路線成敗對照 + 逐字 prompt 三連 + 技法字典 |
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |
-| **B7 三相機 → Unreal 重現** | [B7-unreal-camera-port.md](B7-unreal-camera-port.md) | 🚧 實驗中:B6 相機1(Unity 遊戲相機 13.46mm)在 UE 以 CineCamera filmback 照抄重現;Blender 匯出 + UE 建相機腳本已入庫,待實機驗收(B4–B6 紀錄在 `claude/b2-greybox-experiment-fgsc06` 分支) |
+| **B7 三相機 → Unreal 重現** | [B7-unreal-camera-port.md](B7-unreal-camera-port.md) | ✅ 相機1 驗收通過(UE 5.5,HFOV 91.4928 零誤差):Blender 匯出 + UE 建相機腳本 + 實測定案值 + 實戰踩坑 ×7;相機2/3 待做(B4–B6 紀錄在 `claude/b2-greybox-experiment-fgsc06` 分支) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
 
