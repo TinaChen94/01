@@ -1,4 +1,4 @@
-# 實戰紀錄 — B7 三相機 → Unreal 重現(相機1 ✅)
+# 實戰紀錄 — B7 三相機 → Unreal 重現(相機1 ✅ 相機2 ✅)
 
 > 目標:[B6](B6-three-camera-pipeline.md) 的三相機(遊戲/出圖/生成)在 Unreal
 > 裡重現**逐像素相同的鏡頭畫面**。第一階段先做相機1(遊戲相機)。
@@ -11,7 +11,8 @@
 ## 狀態
 
 - ✅ **相機1 實機驗收通過**(2026-07-11,UE 5.5)— Blender→UE 轉換路線成立
-- 階段:①相機1 ✅ → ②相機2(待做)→ ③相機3 CAM_GEN2(待做)
+- ✅ **相機2 實機驗收通過**(2026-07-11)— UE Current HFOV 對上 116.81°
+- 階段:①相機1 ✅ → ②相機2 ✅ → ③相機3 CAM_GEN2(待做)
 
 ## 快速摘要(整條流程三步)
 
@@ -32,6 +33,7 @@
 | [`tools/unreal-camera-port/blender_cam_export.py`](../../tools/unreal-camera-port/blender_cam_export.py) | Blender Text Editor | 讀相機 `matrix_world`(B6 踩坑 #4:多層 rig 不抄面板)+ Sensor Fit 展開,轉 UE 座標,寫出 `cam_unreal.json` |
 | [`tools/unreal-camera-port/unreal_cam_import.py`](../../tools/unreal-camera-port/unreal_cam_import.py) | UE Python(Output Log → Cmd 切 Python) | 讀 json 生成 CineCameraActor,filmback/focal 照抄、位姿套用、關景深 |
 | [`tools/unreal-camera-port/locked/cam1_unreal.json`](../../tools/unreal-camera-port/locked/cam1_unreal.json) | (資料檔) | **相機1 鎖檔 json**(2026-07-11 驗收通過那份)— 日後在任何 UE 專案重現相機1,拿這份跑 import 腳本即可,**不必重做 Blender 匯出** |
+| [`tools/unreal-camera-port/locked/cam2_unreal.json`](../../tools/unreal-camera-port/locked/cam2_unreal.json) | (資料檔) | **相機2 鎖檔 json**(同日驗收通過)— 用法同上 |
 
 ### 重現與擴充規則(鎖檔後)
 
@@ -339,6 +341,33 @@ rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 
 - 5504×3072(1.7917)那個比例屬於**相機3 的反解畫布**,輪到相機3 再用
 - 鐵則:驗收時渲圖、json、截圖三處**同一顆相機同一個比例**
 
+## 相機2 實測紀錄(2026-07-11 定案值)
+
+照 SOP §0–§13 走,只換相機名與 json 檔名,一次過:
+
+| 項目 | 定案值 | 對照 B6 |
+|---|---|---|
+| Blender 物件名 | **`Camera.001`**(資料塊 Camera.002) | B6 `b6-cam2-adjusted` 同名 ✓ |
+| focal | 13.4622 mm | 與相機1 同數字(B6 設計如此) |
+| 有效 sensor | **43.77 × 24.6206 mm** | B6 換算值 43.77 × 24.62 ✓ |
+| 水平 FOV | **116.81°** | B6 定案 116.81° 一字不差;UE Current HFOV 對上 ✓ |
+| 垂直 FOV | 84.88° | |
+| location / rotator | 與相機1 完全相同 | **證實兩顆同掛點,只差 sensor 寬窄** |
+| 鎖檔 | `locked/cam2_unreal.json` | |
+
+### 相機2 輪的發現與小坑
+
+1. **場景其實有兩套完整 rig**:`[System]` 尾端 = `Camera`(相機1)、
+   `[System].001` 尾端 = `Camera.001`(相機2)。相機1 輪 json 一度冒出
+   `Camera.001`,當時以為是誤複製 — 實為第二套 rig 的相機2。
+   **教訓:看到 `.001` 別急著刪,先點開看鏡頭參數**(相機2 的身分證 =
+   sensor 43.77)。
+2. **`OUT_NAME` 忘了改會覆蓋前一顆的 json**:相機2 第一次匯出寫進了
+   `cam_unreal.json`,蓋掉 Downloads 的相機1 檔(repo `locked/` 有正本,
+   無實害)。之後每顆相機:`CAM_NAME` 與 `OUT_NAME` **成對改**。
+3. UE 端兩顆 CineCamera 並存無衝突,名字照 json(`Camera`/`Camera.001`),
+   切著 Pilot 即可對照;同位置不同視野,相機2 畫面裡模組小一圈。
+
 ## 實戰踩坑(相機1 這輪實際遇到)
 
 | # | 現象 | 根因 | 解法 |
@@ -368,8 +397,8 @@ rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 
 - [x] 相機1 實機走一輪 SOP → 驗收通過(2026-07-11;定案值見「相機1 實測紀錄」節)
 - [ ] 相機1 嚴格鎖檔(選配):PS 50% 疊圖量化誤差(目前為目測相符);
   乾淨 Empty Level 重建一份,解掉顯存警告
-- [ ] 相機2:同 focal 13.46,filmback 直接吃 43.77 × 24.62(B6 已算好的
-  Sensor Fit=Vertical 那組)——UE 不用管 Sensor Fit,寬高照填就是那個視野
+- [x] 相機2:驗收通過(2026-07-11;filmback 43.77 × 24.6206,
+  HFOV 116.81° 與 B6 定案值一字不差;json 已入 `locked/`)
 - [ ] 相機3(CAM_GEN2):21.10mm + 5504×3072 畫布 → filmback 36 × 20.09
   (36 × 3072/5504);先確認 CAM_GEN2 的 sensor 設定再定案
 - [ ] 三顆都鎖檔後:把 UE 端截圖與對照結論回填本篇,狀態轉全 ✅
