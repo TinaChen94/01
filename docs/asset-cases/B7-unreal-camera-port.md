@@ -317,6 +317,9 @@ json 定案 ×1、JSON_PATH 改法 ×1、UE 執行成功 ×1、UE 面板驗數 �
 視口切相機圖解 ×1、驗收對照 ×2。
 相機2(6):Blender 鏡頭面板 ×1、兩套 rig Outliner ×1、json 定案 ×1、
 UE FOV 驗證 ×1、驗收對照 ×2。
+相機3(5):json 定案 ×1、JSON_PATH 換行示範 ×1、UE FOV 驗證 ×1、
+驗收對照 ×2。
+選配:`b7-cam3-closeloop.png`(UE 截圖疊 AI 成品原圖的閉環比對,做了再補)。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
@@ -409,6 +412,10 @@ sensor 是腳本預設 36mm。
 | clip | 0.1–1000 m | 腳本建的相機是 Blender 預設裁剪(非 rig 的 0.3–200),無影響 |
 | 鎖檔 | `locked/cam3_unreal.json` | |
 
+json 定案版與 UE 端 FOV 驗證(80.93° 對上):
+![b7 cam3 json](images/b7-cam3-json.png)
+![b7 cam3 ue fov](images/b7-cam3-ue-fov.png)
+
 ### 相機3 專屬注意
 
 1. **匯出前 Resolution 改 5504×3072** — 這組解綁定這個畫布(B6 三個必要
@@ -418,6 +425,15 @@ sensor 是腳本預設 36mm。
 3. **閉環驗收**:CAM_GEN2 是從 AI 成品圖反解的 → UE 截圖可直接疊回
    當初那張 5504×3072 成品圖,梯形重合 = 「AI 圖 → Blender → UE」
    全鏈路閉環
+
+換相機只改一行 — UE 腳本的 `JSON_PATH` 指向哪顆的 json,生成哪顆
+(三顆 json 都在 `locked/`,這就是整套系統的重現介面):
+![b7 cam3 json path](images/b7-cam3-json-path.png)
+
+驗收對照 — UE CAM_GEN2 視角(上)vs Blender 基準渲圖(下),
+模組滿框、俯角比相機1/2 深:
+![b7 cam3 ue view](images/b7-cam3-ue-view.png)
+![b7 cam3 blender base](images/b7-cam3-blender-base.png)
 
 ## 實戰踩坑(相機1 這輪實際遇到)
 
