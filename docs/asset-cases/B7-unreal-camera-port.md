@@ -226,6 +226,9 @@ C:/Users/USER/Downloads/unreal_cam_import.py
 - 成功輸出:`OK: Camera loc=[150.0, -2035.964, 93.312] ...` +
   filmback/focal + FOV 預測行,Outliner 多一顆 `Camera`(CineCameraActor)
 
+成功現場 — 模式下拉(Cmd/Python)+ 路徑輸入 + OK 輸出:
+![b7 import ok](images/b7-import-ok.png)
+
 ### §10 UE:面板驗數
 
 點相機 → Details:
@@ -255,6 +258,10 @@ C:/Users/USER/Downloads/unreal_cam_import.py
 
 選中相機時的小預覽窗(此輪同框:顯存超支紅字,見踩坑 7):
 ![b7 cam preview vram](images/b7-cam-preview-vram.png)
+
+視口切相機視角圖解(Perspective 下拉 → PLACED CAMERAS 選 Camera;
+此輪同框:相機1 視角 + 顯存警告 + §9 執行紀錄):
+![b7 pilot viewport](images/b7-pilot-viewport.png)
 
 ### §12 UE:截圖(Cmd 模式)
 
@@ -288,10 +295,10 @@ HighResShot 1920x1080
 
 ## 圖檔
 
-✅ 已入庫 14 張:GitHub 抓檔 ×1、三件套 ×1、rig 判讀 ×1、執行成功 ×1、
-json 定案 ×1、JSON_PATH 改法 ×1、UE 面板驗數 ×3、失敗現場 ×2
-(貼碼當檔名/模式錯置)、預覽窗+顯存警告 ×1、驗收對照 ×2。
-選配(找得到再補):`b7-import-ok.png`(OK: Camera 成功訊息)。
+✅ 已入庫 16 張,零缺圖:GitHub 抓檔 ×1、三件套 ×1、rig 判讀 ×1、
+Blender 執行成功 ×1、json 定案 ×1、JSON_PATH 改法 ×1、UE 執行成功 ×1、
+UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/模式錯置)、
+預覽窗+顯存警告 ×1、視口切相機圖解 ×1、驗收對照 ×2。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
