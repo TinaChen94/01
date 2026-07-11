@@ -309,10 +309,13 @@ HighResShot 1920x1080
 
 ## 圖檔
 
-✅ 已入庫 16 張,零缺圖:GitHub 抓檔 ×1、三件套 ×1、rig 判讀 ×1、
-Blender 執行成功 ×1、json 定案 ×1、JSON_PATH 改法 ×1、UE 執行成功 ×1、
-UE 面板驗數 ×3、失敗現場 ×2(貼碼當檔名/模式錯置)、
-預覽窗+顯存警告 ×1、視口切相機圖解 ×1、驗收對照 ×2。
+✅ 已入庫 21 張,零缺圖。
+相機1(16):GitHub 抓檔 ×1、三件套 ×1、rig 判讀 ×1、Blender 執行成功 ×1、
+json 定案 ×1、JSON_PATH 改法 ×1、UE 執行成功 ×1、UE 面板驗數 ×3、
+失敗現場 ×2(貼碼當檔名/模式錯置)、預覽窗+顯存警告 ×1、
+視口切相機圖解 ×1、驗收對照 ×2。
+相機2(5):兩套 rig Outliner ×1、json 定案 ×1、UE FOV 驗證 ×1、
+驗收對照 ×2。
 
 ## 相機1 實測紀錄(2026-07-11 定案值)
 
@@ -355,6 +358,10 @@ rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 
 | location / rotator | 與相機1 完全相同 | **證實兩顆同掛點,只差 sensor 寬窄** |
 | 鎖檔 | `locked/cam2_unreal.json` | |
 
+json 定案版與 UE 端 FOV 驗證(116.81° 對上):
+![b7 cam2 json](images/b7-cam2-json.png)
+![b7 cam2 ue fov](images/b7-cam2-ue-fov.png)
+
 ### 相機2 輪的發現與小坑
 
 1. **場景其實有兩套完整 rig**:`[System]` 尾端 = `Camera`(相機1)、
@@ -362,11 +369,19 @@ rotator 數字乾淨(整數 −24°/90°)= `matrix_world` 正確攤平了六層 
    `Camera.001`,當時以為是誤複製 — 實為第二套 rig 的相機2。
    **教訓:看到 `.001` 別急著刪,先點開看鏡頭參數**(相機2 的身分證 =
    sensor 43.77)。
+
+   兩套 rig 的 Outliner 與 CAM_NAME/OUT_NAME 成對改法:
+   ![b7 cam2 rig outliner](images/b7-cam2-rig-outliner.png)
 2. **`OUT_NAME` 忘了改會覆蓋前一顆的 json**:相機2 第一次匯出寫進了
    `cam_unreal.json`,蓋掉 Downloads 的相機1 檔(repo `locked/` 有正本,
    無實害)。之後每顆相機:`CAM_NAME` 與 `OUT_NAME` **成對改**。
 3. UE 端兩顆 CineCamera 並存無衝突,名字照 json(`Camera`/`Camera.001`),
    切著 Pilot 即可對照;同位置不同視野,相機2 畫面裡模組小一圈。
+
+驗收對照 — UE 相機2 視角(上)vs Blender 基準渲圖(下),
+同視點、比相機1 寬一大圈(116.81° vs 91.49°):
+![b7 cam2 ue view](images/b7-cam2-ue-view.png)
+![b7 cam2 blender base](images/b7-cam2-blender-base.png)
 
 ## 實戰踩坑(相機1 這輪實際遇到)
 
