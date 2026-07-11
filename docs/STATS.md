@@ -64,8 +64,8 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **B1-forest** | 夜霧森林地面背景 — 4K 放大 + 材質保真管線 | 品質 / 放大管線(game bg) | ✅ 已驗證(16 迭代;A/B 版 + 多場景反例) | 13 |
 | **B2-greybox** | 灰盒 → 夜森林地面模組(master tile) | greybox→模組 生成管線 | ✅ 三路線攻關(色標 / 深度 / Crop-Gen-Paste) | 11 |
 | **B3-fenske** | 手繪筆觸奇幻概念圖 — NB2 保真 pass | 放大**反例**(類型分流實證) | ✅ 反面教材(筆觸型不能強求) | 2 |
-| **B4-tileset** | master 貼圖 → 套圖變體(同圖材質替換) | 變體 / 套圖管線 | ✅ 已驗收;⚠️ 在 `b2-greybox-experiment`、**待併 main** | 15 |
-| **B5-snow** | master 主題翻譯:森林 → 雪地(三檔位雪) | 變體 / 換皮管線 | ✅ 已驗收;⚠️ 在 `b2-greybox-experiment`、**待併 main** | 10 |
+| **B4-tileset** | master 貼圖 → 套圖變體(同圖材質替換) | 變體 / 套圖管線 | ⚠️ **未完成(WIP)**;在 `b2-greybox-experiment` 分支 | 15 |
+| **B5-snow** | master 主題翻譯:森林 → 雪地(三檔位雪) | 變體 / 換皮管線 | ⚠️ **未完成(WIP)**;在 `b2-greybox-experiment` 分支 | 10 |
 | **B6-camera** | 三相機管線(生成 / 出圖 / 遊戲相機解耦 + homography) | 相機 / 投影管線 | ✅ master 貼圖皆由此產出(已在 main) | 15 |
 | **B7-unreal** | 三相機 → Unreal 重現(數值直搬) | 相機移植 | ✅ 三相機全通過(UE 5.5, 07-11;已在 main) | 28 |
 | **graveyard-props** | 墓園道具(欄杆 / 門柱 / 墓碑) | 去背 job | ⚠️ 墓碑待做、無圖入庫 | 0 |
@@ -91,7 +91,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **4K 放大 / 材質保真 pass 管線**(類型分流:純保真 vs 生成式 pass、鎖句字典、letterbox 白邊坑) | `docs/asset-cases/B1-forest-bg-4k-detail.md`(B3 為反例) | 「B1 紀錄 / 4K 放大 / 材質保真」關鍵字 | B1-forest / B3-fenske |
 | **灰盒 → game art 模組管線**(色標灰盒 / 深度 guidance / Crop-Gen-Paste、頂光、幾何滲漏) | `docs/asset-cases/B2-greybox-module-pipeline.md` | 「B2 紀錄 / 灰盒 / greybox」關鍵字 | B2-greybox |
 | **三相機管線 + 引擎移植**(生成/出圖/遊戲相機解耦、homography 投影攤平、相機數值搬 Unreal) | `docs/asset-cases/B6-three-camera-pipeline.md` → `B7-unreal-camera-port.md` | 「三相機 / 相機解耦 / CineCamera / UE 相機」 | B6 / B7 |
-| **master 變體 / 主題翻譯**(區域編輯鏈「老三樣」、換皮、厚度檔位) | `B4-master-variant-tileset.md` / `B5-theme-translation-snow.md` | 「套圖變體 / 材質替換 / 主題翻譯 / 森林轉雪」 | B4 / B5(⚠️ 待併 main) |
+| **master 變體 / 主題翻譯**(區域編輯鏈「老三樣」、換皮、厚度檔位) | `B4-master-variant-tileset.md` / `B5-theme-translation-snow.md` | 「套圖變體 / 材質替換 / 主題翻譯 / 森林轉雪」 | B4 / B5(⚠️ WIP、在分支) |
 
 ---
 
@@ -151,7 +151,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
-- ✅ **主要收斂在 `main`**:13 案例 + 9 個 SOP/模板在 `main`(統計頁 / `gen_stats.py` 亦以 main 為正本);⚠️ **B4 / B5 兩案例仍在 `b2-greybox-experiment` 分支、待併 main**。
+- ✅ **主要收斂在 `main`**:13 案例 + 9 個 SOP/模板在 `main`(統計頁 / `gen_stats.py` 亦以 main 為正本);⚠️ **B4 / B5 兩案例未完成(WIP)、仍在 `b2-greybox-experiment` 分支**(做完再併 main)。
 - 🧹 **分支現況**:現存 **8 條**(7 `claude/*` + `main`)+ `TinaChen94-patch-1`。🆕 `b2-greybox-experiment`(B4/B5 待併、B6/B7 已進 main)、`unity-camera-unreal-export`(0 獨有 commit = 可刪)。**可刪**:`light-branches` / `object-placement` / `unity-camera-unreal-export`。早期 dev:`adoring` / `inspiring` / `trusting`。
 - ✅ **depth-relight 打光管線 + 2 工具已併入 `main`**(PR #9 / `3760178`)。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。
