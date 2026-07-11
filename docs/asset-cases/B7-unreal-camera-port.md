@@ -13,6 +13,18 @@
 - ✅ **相機1 實機驗收通過**(2026-07-11,UE 5.5)— Blender→UE 轉換路線成立
 - 階段:①相機1 ✅ → ②相機2(待做)→ ③相機3 CAM_GEN2(待做)
 
+## 快速摘要(整條流程三步)
+
+1. **Blender** 開 B6 場景,確認 scene camera = 相機1,執行
+   `tools/unreal-camera-port/blender_cam_export.py` → 得 `cam_unreal.json`
+   (它讀 `matrix_world`,承 B6 踩坑 #4,六層 rig 不用手抄面板)
+2. 同一個 .blend 把模組 mesh(主體+前緣條)用**預設 FBX** 匯出 →
+   UE 匯入,擺原點零旋轉
+3. **UE** 啟用 Python plugin,改 `unreal_cam_import.py` 的 `JSON_PATH`
+   後執行 → 生成相機(景深已自動關掉,避免誤判)
+
+細節、踩坑、逐步圖解見下方「SOP §0–§13」;做相機2/3 只換相機名與 json 檔名。
+
 ## 工具(已入庫)
 
 | 檔案 | 跑在哪 | 做什麼 |
