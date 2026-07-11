@@ -1,4 +1,4 @@
-# 實戰紀錄 — B7 三相機 → Unreal 重現(相機1 ✅ 相機2 ✅)
+# 實戰紀錄 — B7 三相機 → Unreal 重現(✅ 三相機全數通過)
 
 > 目標:[B6](B6-three-camera-pipeline.md) 的三相機(遊戲/出圖/生成)在 Unreal
 > 裡重現**逐像素相同的鏡頭畫面**。第一階段先做相機1(遊戲相機)。
@@ -10,9 +10,9 @@
 
 ## 狀態
 
-- ✅ **相機1 實機驗收通過**(2026-07-11,UE 5.5)— Blender→UE 轉換路線成立
-- ✅ **相機2 實機驗收通過**(2026-07-11)— UE Current HFOV 對上 116.81°
-- 階段:①相機1 ✅ → ②相機2 ✅ → ③相機3 CAM_GEN2(待做)
+- ✅ **三相機全數驗收通過**(2026-07-11,UE 5.5)— B6 三相機系統在 Unreal
+  完整重現,鎖檔 json ×3 入庫
+- ①相機1 ✅ HFOV 91.49° → ②相機2 ✅ 116.81° → ③相機3 CAM_GEN2 ✅ 80.93°
 
 ## 快速摘要(整條流程三步)
 
@@ -34,6 +34,7 @@
 | [`tools/unreal-camera-port/unreal_cam_import.py`](../../tools/unreal-camera-port/unreal_cam_import.py) | UE Python(Output Log → Cmd 切 Python) | 讀 json 生成 CineCameraActor,filmback/focal 照抄、位姿套用、關景深 |
 | [`tools/unreal-camera-port/locked/cam1_unreal.json`](../../tools/unreal-camera-port/locked/cam1_unreal.json) | (資料檔) | **相機1 鎖檔 json**(2026-07-11 驗收通過那份)— 日後在任何 UE 專案重現相機1,拿這份跑 import 腳本即可,**不必重做 Blender 匯出** |
 | [`tools/unreal-camera-port/locked/cam2_unreal.json`](../../tools/unreal-camera-port/locked/cam2_unreal.json) | (資料檔) | **相機2 鎖檔 json**(同日驗收通過)— 用法同上 |
+| [`tools/unreal-camera-port/locked/cam3_unreal.json`](../../tools/unreal-camera-port/locked/cam3_unreal.json) | (資料檔) | **相機3(CAM_GEN2)鎖檔 json**(同日驗收通過)— 用法同上;⚠️ 出圖/截圖比例須配 5504×3072 畫布 |
 
 ### 重現與擴充規則(鎖檔後)
 
@@ -389,6 +390,35 @@ json 定案版與 UE 端 FOV 驗證(116.81° 對上):
 ![b7 cam2 ue view](images/b7-cam2-ue-view.png)
 ![b7 cam2 blender base](images/b7-cam2-blender-base.png)
 
+## 相機3(CAM_GEN2)實測紀錄(2026-07-11 定案值)
+
+反解生成相機,與前兩顆的三個不同:**不掛 rig**(B6 腳本建的獨立相機,
+Outliner 平放)、**畫布 5504×3072**(反解綁定,匯出前 Resolution 必須先改)、
+sensor 是腳本預設 36mm。
+
+| 項目 | 定案值 | 對照 B6 反解 |
+|---|---|---|
+| Blender 物件名 | `CAM_GEN2` | B6 建立腳本命名 ✓ |
+| focal | **21.1 mm** | 反解定案 21.10 ✓ |
+| 有效 sensor | **36.0 × 20.093 mm**(36 × 3072/5504) | 腳本預設 36mm 展開 |
+| 水平/垂直 FOV | **80.93° / 50.92°** | UE Current HFOV 對上 ✓ |
+| **pitch** | **−31.94°** | **= B6 反解俯角原數字** — 整條座標轉換鏈正確的鐵證 |
+| yaw / roll | 90° / 0 | 與相機1/2 同朝向 |
+| location(UE cm) | **[150.0, −2688.036, 519.702]** | x=150 同中線;比相機1/2 更遠(26.88m)更高(5.2m)俯視滿框 — 符合生成相機定位 |
+| resolution | **[5504, 3072]** | 反解畫布,鎖定 |
+| clip | 0.1–1000 m | 腳本建的相機是 Blender 預設裁剪(非 rig 的 0.3–200),無影響 |
+| 鎖檔 | `locked/cam3_unreal.json` | |
+
+### 相機3 專屬注意
+
+1. **匯出前 Resolution 改 5504×3072** — 這組解綁定這個畫布(B6 三個必要
+   條件之一),用 16:9 匯出 sensor 高度就錯
+2. UE 端出圖/截圖也用同比例:`HighResShot 5504x3072`(顯存吃緊破圖時
+   `HighResShot 2752x1536`,比例相同、幾何不變,只降精度)
+3. **閉環驗收**:CAM_GEN2 是從 AI 成品圖反解的 → UE 截圖可直接疊回
+   當初那張 5504×3072 成品圖,梯形重合 = 「AI 圖 → Blender → UE」
+   全鏈路閉環
+
 ## 實戰踩坑(相機1 這輪實際遇到)
 
 | # | 現象 | 根因 | 解法 |
@@ -420,6 +450,7 @@ json 定案版與 UE 端 FOV 驗證(116.81° 對上):
   乾淨 Empty Level 重建一份,解掉顯存警告
 - [x] 相機2:驗收通過(2026-07-11;filmback 43.77 × 24.6206,
   HFOV 116.81° 與 B6 定案值一字不差;json 已入 `locked/`)
-- [ ] 相機3(CAM_GEN2):21.10mm + 5504×3072 畫布 → filmback 36 × 20.09
-  (36 × 3072/5504);先確認 CAM_GEN2 的 sensor 設定再定案
-- [ ] 三顆都鎖檔後:把 UE 端截圖與對照結論回填本篇,狀態轉全 ✅
+- [x] 相機3(CAM_GEN2):驗收通過(2026-07-11;filmback 36 × 20.093,
+  HFOV 80.93°,pitch −31.94° = 反解俯角原數字;json 已入 `locked/`)
+- [x] 三顆都鎖檔 → 狀態轉全 ✅(2026-07-11)
+- [ ] 選配:CAM_GEN2 的 UE 截圖疊回 AI 成品原圖(全鏈路閉環的量化留檔)

@@ -26,10 +26,10 @@
 
 ## 進行中
 
-- **B7 — 三相機 → Unreal 重現:** 相機1+2 ✅ 驗收通過(UE 5.5,數值直搬
-  零誤差);相機3(CAM_GEN2)待做。腳本與鎖檔 json 在
-  `tools/unreal-camera-port/`,定案值與踩坑在
-  `docs/asset-cases/B7-unreal-camera-port.md`。
+- **B7 — 三相機 → Unreal 重現:✅ 三相機全數通過**(UE 5.5,數值直搬
+  零誤差)。腳本與鎖檔 json ×3 在 `tools/unreal-camera-port/`,
+  定案值/SOP/踩坑在 `docs/asset-cases/B7-unreal-camera-port.md` —
+  日後在任何 UE 專案重現,跑 import 腳本指向 locked/ 的 json 即可。
 - **B2 待辦:** 引擎投影最終驗收 → 通過後量產橫/直/十字/T 套圖
   (同配方同 prompt 三連);B1 穩定度矩陣「模組成品」格同時補上。
   關鍵教訓已收進 B2:幾何滲漏、像素預算(Crop-Gen-Paste)、

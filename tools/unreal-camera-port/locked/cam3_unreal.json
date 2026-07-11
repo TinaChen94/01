@@ -1,0 +1,30 @@
+{
+  "name": "CAM_GEN2",
+  "focal_mm": 21.1,
+  "sensor_mm": {
+    "width": 36.0,
+    "height": 20.093
+  },
+  "fov_deg": {
+    "horizontal": 80.93,
+    "vertical": 50.92
+  },
+  "resolution": [
+    5504,
+    3072
+  ],
+  "location_cm": [
+    150.0,
+    -2688.036,
+    519.702
+  ],
+  "rotator_deg": {
+    "pitch": -31.94,
+    "yaw": 90.0,
+    "roll": 0.0
+  },
+  "clip_m": {
+    "near": 0.1,
+    "far": 1000.0
+  }
+}
