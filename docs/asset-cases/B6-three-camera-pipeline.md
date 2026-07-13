@@ -302,6 +302,29 @@ The background stays empty exactly as reference 1.
 - ✅ **確定性轉換優先**:透視轉換用投影(幾何精確、每張一致、緩坡也對),
   不用 PS 手拉(每張手工、平面近似);調色歸 PS 預設(B5 鏈要短原則同源)。
 
+## 附錄:用 Resolution 擴投影/出圖視野的通用規則(雙向)
+
+> 出圖/投影畫面範圍要變大時查此表。適用於相機2(出圖相機),
+> 同理可用於任何 Blender 相機。
+
+**Sensor Fit 鎖哪個方向,哪個方向的視野固定 → 想用 Resolution 擴某方向,
+Fit 就鎖「另一個」方向:**
+
+| 需求 | Sensor Fit | 動哪個 Resolution | 例 |
+|---|---|---|---|
+| 左右擴(上下不動) | **Vertical**(鎖直向) | 加大 **Resolution X** | sensor 換算節步驟② |
+| 上下擴(左右不動) | **Horizontal**(鎖橫向) | 加大 **Resolution Y** | 13.46mm/Width 27.64、3840×2160 → Y 調 2880:等效高度 15.54 → 20.73mm,上下視野 +33%,左右零變化 |
+
+- 擴展以視線軸為中心**對稱**發生;只想往**單邊**多看用 **Shift X/Y**
+  (鏡頭位移,平移取景框、透視線不變,不是轉相機)——兩招可疊用:
+  Resolution 擴總量、Shift 調偏向。
+- **自檢法**:改完 Resolution 後看灰掉的另一向 sensor 數字(如 Horizontal
+  fit 下的 Height)有沒有跟著變——有變 = 視野真的擴了;沒變 = Fit 方向鎖錯。
+
+「上下擴」實例設定(改 Resolution Y / Horizontal fit,Width 27.64 不動):
+![b6 resy expand format](images/b6-resy-expand-format.png)
+![b6 resy expand sensor](images/b6-resy-expand-sensor.png)
+
 ## 圖檔
 
 ✅ 已入庫 15 張:反解輸入 ×4、三相機 render/lens/視角/調整後數據 ×6、
