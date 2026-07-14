@@ -297,6 +297,31 @@ style, same texture scale. Do not add anything new.
 
 ---
 
+## 七張套圖量產 SOP(v4 錨鏈依序算)
+
+> 套圖:`T_Forest_Ground_F / Fb / B / Bb / Bc / C / H`(直路×2、純苔×3、
+> 轉角、橫路),每張輸出 ≥2048。
+> **同輪 strip 出局的原因:** 7×2048=14336px > NB2 上限 4096;硬拼單格只剩
+> ~585px,像素預算死(B1 鐵律)。一致性改由錨鏈承擔。
+
+1. **輸入檢查:** 每張寫實 tile 滿版 1:1;Dimensions 設 **2048×2048**
+   (輸入 1024 → 2×,安全倍率)。同日、同設定(Enhance/Style = None)跑完全套。
+2. **定 master:** 已通過的 v3 成品(對應 `_H` 底部橫路)= master 錨,不重抽。
+3. **排程(由易到難,材質最像 master 的先跑):**
+   `B → Bb → Bc`(純苔,無路)→ `F → Fb`(直路)→ `C`(轉角)。
+4. **每張:** v4 prompt 逐字不動(LAYOUT GUIDE 描述是通用寫法,無需逐張改字),
+   ref 1 = 該張寫實 tile、ref 2 = master;**開 4 挑 1**(挑分佈最貼 + 無套外色相)。
+5. **全套出完 → PS Match Color:** 每張以 master 為 source 拉齊色盤
+   (確定性收尾;輕微色偏不重抽)。
+6. **驗縫兩層(排最後,B1「修縫在細節 pass 之後」原則):**
+   ① 每張自身 Offset 50/50 驗 wrap;
+   ② **套內互拼** — 按接縫規則兩兩拼(F 接 B、H 接 C…),只修縫帶
+   (PS 仿製印章優先;AI 只在有遮罩的 inpaint 工具上跑縫帶)。
+7. **要 4096:** 全套用**同一個純保真放大器同參數** 2×
+   (Real-ESRGAN / Topaz / UU 最低 creativity),禁回鍋 NB2(B3 鐵證)。
+
+成本估算:6 張 × 開 4 = 24 次生成 + master 已在手。
+
 ## 管線總覽
 
 ```
