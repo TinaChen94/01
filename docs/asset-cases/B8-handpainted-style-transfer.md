@@ -231,31 +231,65 @@ PALETTE: match reference 2 exactly.]
 以 master 為 source 拉齊(確定性收尾,把色盤的骰子收走);
 形狀級的變異(路形/苔丘位置)才需要重抽,開 4 挑 1。
 
-#### v4.1 — 角色消歧補丁(踩坑 #4 後;取代 v4 的前兩段)
+#### v4.1 — 角色消歧完整版(踩坑 #4/#5 後的量產定版,逐字可貼)
 
 ref 1 與 ref 2 同為地面 tile 時,模型會混淆兩張的角色 → 錨失效。
-v4 的 Reference 兩段換成下面這段,其餘(TASK 之後)照舊:
+v4.1 = 消歧段 + v3 骨架 + 反 genre / 反石板 / 禁新色相三保險:
 
 ```text
 Reference image 1 is the LAYOUT GUIDE and reference image 2 is the
-STYLE ANCHOR. They are different tiles from the SAME tile set, so
-they look similar — do NOT confuse their roles:
+STYLE ANCHOR. They are different tiles from the SAME tile set, so they
+look similar — do NOT confuse their roles:
 - Reference 1 decides WHERE everything is: the exact moss / dirt /
-  path layout. Nothing about its layout may change.
-- Reference 2 decides HOW everything is painted: its exact palette,
-  value range, brush stroke size, moss shape language and matte
-  finish. Nothing about its layout may be copied.
+  path layout, and the square 1:1 canvas. Nothing about its layout may
+  change.
+- Reference 2 decides HOW everything is painted: its exact color
+  palette, value range, brush stroke size, moss shape language and
+  overall matte finish. Nothing about its layout may be copied.
 - If they conflict: reference 1 wins for placement, reference 2 wins
   for paint.
 
-SCALE: the moss clumps and path grain in the result are the SAME
-physical size as in reference 2 — do not enlarge or simplify them.
+TASK: paint a completely NEW hand-painted game texture from a blank
+canvas, following reference 1's layout, in reference 2's exact style —
+as if painted by the same artist, in the same session, for the same
+tile set. This is a FULL REPAINT, not an edit: no photographic pixels
+from reference 1 may survive. Every area must show visible, deliberate
+brush marks — if any region still looks like a photo, that region is
+wrong. Painterly but disciplined, NOT a loose concept sketch.
 
-This is a flat ground TEXTURE, not a stylized game-map illustration:
-no rounded bush balls, no shrubs, no cartoon map look. Moss stays
-low speckled cushions exactly like reference 2. Do NOT introduce any
-hue that does not exist in reference 2.
+SCALE: the moss clumps, path grain and brush stroke size in the result
+are the SAME physical size as in reference 2 — do not enlarge or
+simplify them. The largest single visible stroke is no wider than 2%
+of the canvas: small dabs and speckles for moss, short strokes for
+twigs and litter. NO long sweeping strokes, no large gestural swirls,
+not impressionistic. Detail stays DENSE — stylized does not mean
+simplified.
+
+MOSS: low rounded cushions with fine speckled granularity, exactly
+like reference 2 — not leafy fronds, ferns, bushes or rounded bush
+balls. This is a flat ground TEXTURE seen from above, not a stylized
+game-map illustration — no cartoon map look. Any dirt path from
+reference 1 stays a plain dirt path exactly like reference 2 — do NOT
+turn it into cobblestones or stone slabs.
+
+PALETTE: match reference 2 exactly. Do NOT introduce any hue that does
+not exist in reference 2 — no red-brown moss, no new path colors, no
+shifted greens.
+
+LAYOUT & TILING: keep the square 1:1 canvas (no crop, zoom or
+outpaint) and reference 1's macro distribution. The texture must be
+SEAMLESSLY TILEABLE — left/right and top/bottom edges wrap perfectly.
+
+LIGHTING: soft zenith light only — no horizontal light direction, no
+cast shadows. Gouache-like matte finish, stepped value planes,
+hue-shifted shadows leaning teal instead of black.
+
+Do NOT add objects: no plants, flowers, mushrooms, standing grass
+tufts, stones, props, characters or footprints.
 ```
+
+> 首驗建議:先跑 `_B`(純苔,與 master 差異最大、角色最不易混),
+> 驗證錨鏈接上與否的最乾淨樣本。
 
 ### 1a-alt. master 拼貼統一法(套圖最穩解 — 把任務推回「增強」區間)
 
