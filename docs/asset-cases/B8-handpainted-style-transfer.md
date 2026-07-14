@@ -9,7 +9,7 @@
 `hand-painted`、`Ruined King 風`、`四方連續風格化`、`tileable 風格轉換`、
 `筆觸化`、`寫實轉手繪`
 
-**狀態:⏳ 實戰中 — 第 1 輪(v1)過度寫意已淘汰,v2 收斂版(筆觸尺度鎖 + 細節密度鎖 + 苔蘚形態鎖)待驗。**
+**狀態:⏳ 實戰中 — v1 過度寫意 / v2 零變化(單擺兩極都踩過),v3 重繪定性版待驗。**
 
 ## 來源(索引)
 
@@ -17,8 +17,9 @@
 - **風格目標:** 《Ruined King: A League of Legends Story》遊戲截圖 ×3
   (青綠夜色石板競技場 ×2、暖色叢林土地 ×1)
 - **平台:** Leonardo.ai AI Creation / **Nano Banana 2**(沿用 B1/B2 主力)
-- **任務定性:** B2 的「增強」模式 — 圖案分佈是真相,AI 只換「渲染方式」
-  (照片噪點 → 手繪筆觸);**不是**從零生成
+- **任務定性:** ~~B2 的「增強」模式~~ → **修正(踩坑 #2 後):風格轉換必須用
+  「重繪」定性**(照版面從空白畫布重畫),edit/保留定性會得到零變化的認同解;
+  分佈真相由 layout 鎖承擔,不由 edit 定性承擔
 
 ---
 
@@ -76,10 +77,64 @@
 
 ## 逐字 prompt
 
-### 1. 主配方 v2 — 收斂版手繪風格化 pass(ref 1 = 寫實貼圖、ref 2 = 材質色票板)
+### 1. 主配方 v3 — 重繪定性版(ref 1 = 寫實貼圖、ref 2 = 材質色票板)
+
+v2 零變化後的反轉版:定性從「edit 保留」反轉成「**照版面從空白畫布重畫**」,
+加**強制重繪條款**;v2 的三鎖保留但措辭放軟(尤其細節密度鎖不再綁「跟照片一樣」)。
+
+```text
+Reference image 1 is the LAYOUT GUIDE — a seamless, tileable ground
+texture (near top-down): green moss slopes with exposed dirt and a
+sandy path along the bottom. Take from it ONLY: the moss / dirt / path
+distribution layout, the texture scale, and the square 1:1 canvas.
+
+Reference image 2 is the STYLE TARGET — material swatches from a
+hand-painted stylized game. The finished image must look like it was
+painted by the same artist with the same brushes.
+
+TASK: paint a completely NEW hand-painted game texture from a blank
+canvas, following reference 1's layout. This is a FULL REPAINT, not an
+edit: no photographic pixels from reference 1 may survive. Every area
+must show visible, deliberate brush marks — if any region still looks
+like a photo, that region is wrong. Painterly but disciplined, like a
+professional hand-painted ground texture, NOT a loose concept sketch.
+
+BRUSH SCALE: strokes stay SMALL — the largest single visible stroke no
+wider than 2% of the canvas: small dabs and speckles for moss, short
+strokes for twigs and litter. NO long sweeping strokes, no large
+gestural swirls, not impressionistic. Detail stays DENSE: many small
+crisp shapes, each with 2-3 value steps — stylized does not mean
+simplified.
+
+MOSS: low rounded cushions with fine speckled granularity, same clump
+size as reference 1 — not leafy fronds, ferns, bushes or side-view
+foliage; everything reads as flat ground seen from above.
+
+LAYOUT & TILING: keep the square 1:1 canvas (no crop, zoom or
+outpaint) and reference 1's macro distribution of moss / dirt / path.
+The texture must be SEAMLESSLY TILEABLE — left/right and top/bottom
+edges wrap perfectly.
+
+STYLE DETAILS: stepped value planes, hue-shifted shadows leaning teal
+instead of black, crisp painted edge accents, gouache-like matte
+finish. PALETTE: natural daylight green-and-earth tones matching
+reference 1. LIGHTING: soft zenith light only — no horizontal light
+direction, no cast shadows.
+
+Do NOT add objects: no plants, flowers, mushrooms, standing grass
+tufts, stones, props, characters or footprints.
+```
+
+> 校準邏輯:v1(寫意)與 v3 之間如果還有落差,兩張輸出可用 Plan B
+> 互混;v3 若分佈漂移,把 LAYOUT 段的 `macro distribution` 強化為
+> `the distribution must stay recognizable when overlaid`(但別再回到
+> v2 的 pixel 對齊措辭 — 那是零變化的根源)。
+
+### 1-old. 淘汰版 v2 — 收斂版(❌ 零變化,留作對照)
 
 v1 過度寫意後的修正版:新增**筆觸尺度鎖、細節密度鎖、苔蘚形態鎖**,
 並刪除 v1 的授權減密句(`detail is suggested by brushwork, not rendered`)。
+結果:輸出≈原圖,風格完全沒轉 — 保留鎖過量 + edit 定性,模型取「認同解」。
 
 ```text
 Reference image 1 is the BASE — a seamless, tileable ground texture
@@ -219,6 +274,7 @@ style, same texture scale. Do not add anything new.
 | # | 現象 | 根因 | 解法 |
 |---|---|---|---|
 | 1 | (v1)筆觸尺度爆大(單筆≈角色寬)、苔蘚被重繪成側視蕨葉叢、土路寫意漩渦、細節密度大降 — 「太過寫意」 | ①只定義「畫法」沒鎖「筆觸尺度/細節密度」→ 模型用自己習慣的大筆觸作畫 ②`painterly clumps with light and shadow planes` 給苔蘚往葉叢重新解釋的空間(B1 踩坑 #6 歧義物件同型)③`detail is suggested, not rendered` 直接授權減密 — 禍首句 | v2 三鎖:**筆觸尺度鎖**(單筆 ≤2% 畫布)+ **細節密度鎖**(100% 原寸小形狀數量≈輸入)+ **苔蘚形態鎖**(low rounded cushions,禁 fronds/ferns/side-view foliage);刪授權減密句 |
+| 2 | (v2)輸出≈原圖,風格完全沒轉 — 「沒有變化」 | **保留鎖過量 + edit 定性 = 認同解**:密度鎖綁「跟照片一樣多的小形狀」+「疊圖必須 line up」,等於下令複製輸入;B1 踩坑 #7 同型(保真定性下模型不敢動) | v3 定性反轉:`paint a completely NEW texture from a blank canvas, following reference 1's layout` + **強制重繪條款**(`no photographic pixels may survive — if any region still looks like a photo, that region is wrong`);密度/分佈鎖措辭放軟(macro distribution,不綁 pixel 對齊) |
 
 ## 鎖句字典(B8 新增)
 
@@ -228,6 +284,8 @@ style, same texture scale. Do not add anything new.
 | **細節密度鎖** | 防風格化=減細節 | `keep the same visual detail density as the input — at 100% zoom roughly the same amount of small shapes, painted crisply instead of photographic noise` |
 | **形態鎖(苔蘚)** | 防材質被重新解釋成別種植被 | `moss stays LOW ROUNDED CUSHIONS with fine speckled granularity — do NOT reinterpret as leafy fronds, ferns, bushes or side-view foliage` |
 | **收斂定性句** | 給「緊的手繪」心智模型 | `a TIGHT, CONTROLLED hand-painted game texture — painterly but disciplined, NOT a loose concept sketch` |
+| **重繪定性句** | 治零變化(edit → 重繪反轉) | `paint a completely NEW hand-painted texture from a blank canvas, following reference 1's layout — a FULL REPAINT, not an edit` |
+| **強制重繪條款** | 不留照片像素的驗收律 | `no photographic pixels from reference 1 may survive — if any region still looks like a photo, that region is wrong` |
 
 ## 學到的(累積中)
 
@@ -238,3 +296,10 @@ style, same texture scale. Do not add anything new.
   風格 prompt 裡每一句「允許」都要想一遍會被放大成什麼。
 - 📌 風格強度最便宜的旋鈕不是 prompt,是 **PS 圖層不透明度**(Plan B)—
   同構圖疊圖天然對位,零抽獎。
+- ✅ **風格轉換的力度是單擺,兩端都會死**:v1(風格詞無鎖 → 過度寫意)、
+  v2(保留鎖過量 + edit 定性 → 認同解/零變化)。正解結構 =
+  **重繪定性(給變化的力)+ 少數硬鎖(給不變的框)** — 鎖要鎖
+  「尺度/形態/版面」這些框架量,不能鎖「跟輸入一樣」這種認同量。
+- ✅ **B2「增強模式極穩」不適用於風格轉換**:增強(材質變高清)與
+  風格轉換(渲染方式整個換掉)是相反方向 — 前者要 edit 定性,
+  後者必須重繪定性,拿錯定性就掉進對應的坑(B1 #7 / B8 #2 同型)。
