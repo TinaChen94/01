@@ -195,6 +195,47 @@ tufts, stones, props, characters or footprints.
 > `no wider than 4% of the canvas`;若**仍太寫意** → 先走 Plan B(下方
 > PS 混合),不要繼續加禁令堆疊。
 
+### 1a. 量產版 v4 — 成品錨鏈(套圖/重抽一致性用)
+
+第一張用 v3 抽到滿意後,那張成品升格為 **master 錨**;之後每一張
+(同 tile 重抽、或套圖其他 tile)都用本版:**ref 1 = 該張的寫實 tile、
+ref 2 = master 成品**(色票板退役 — 參考圖數量最小化,B2 #9)。
+與 v3 的差異只有前兩段,其餘段落逐字照 v3:
+
+```text
+Reference image 1 is the LAYOUT GUIDE — a seamless, tileable ground
+texture (near top-down). Take from it ONLY: the terrain distribution
+layout, the texture scale, and the square 1:1 canvas.
+
+Reference image 2 is a FINISHED TILE from this exact tile set — the
+STYLE & PALETTE ANCHOR. The result must look like it was painted by
+the same artist, in the same session, for the same tile set: match
+its exact color palette, value range, brush stroke size, moss shape
+language and overall matte finish. Do NOT introduce any hue that
+does not exist in reference 2 — no red-brown moss, no new path
+colors, no shifted greens.
+
+TASK: paint a completely NEW hand-painted game texture from a blank
+canvas, following reference 1's layout, in reference 2's exact
+style. This is a FULL REPAINT, not an edit: no photographic pixels
+from reference 1 may survive. Every area must show visible,
+deliberate brush marks — if any region still looks like a photo,
+that region is wrong.
+
+[BRUSH SCALE / MOSS / LAYOUT & TILING / STYLE DETAILS / LIGHTING /
+Do NOT add objects — 五段逐字照 v3,PALETTE 句改為:
+PALETTE: match reference 2 exactly.]
+```
+
+殘餘的輕微色偏**不要重抽** — PS `Image > Adjustments > Match Color`
+以 master 為 source 拉齊(確定性收尾,把色盤的骰子收走);
+形狀級的變異(路形/苔丘位置)才需要重抽,開 4 挑 1。
+
+> 備選(更強的一致性,但流程重):**同輪 strip 生成** — 把 2–3 張
+> 寫實 tile 拼成一條橫 strip 一次風格化(同一輪生成內風格天然自洽),
+> 出圖後按座標切回單格。代價:單格像素預算下降(3072 寬輸入 → 4096
+> 輸出,單格僅 ~1365px)+ 格與格交界會被畫連;先用 v4 錨鏈,不夠穩再上。
+
 ### 1b. Plan B — PS 透明度混合(零抽獎的風格強度旋鈕)
 
 風格 pass 輸出(即使偏寫意)疊在原寫實圖上,**圖層不透明度 50–70%**
@@ -284,6 +325,7 @@ style, same texture scale. Do not add anything new.
 |---|---|---|---|
 | 1 | (v1)筆觸尺度爆大(單筆≈角色寬)、苔蘚被重繪成側視蕨葉叢、土路寫意漩渦、細節密度大降 — 「太過寫意」 | ①只定義「畫法」沒鎖「筆觸尺度/細節密度」→ 模型用自己習慣的大筆觸作畫 ②`painterly clumps with light and shadow planes` 給苔蘚往葉叢重新解釋的空間(B1 踩坑 #6 歧義物件同型)③`detail is suggested, not rendered` 直接授權減密 — 禍首句 | v2 三鎖:**筆觸尺度鎖**(單筆 ≤2% 畫布)+ **細節密度鎖**(100% 原寸小形狀數量≈輸入)+ **苔蘚形態鎖**(low rounded cushions,禁 fronds/ferns/side-view foliage);刪授權減密句 |
 | 2 | (v2)輸出≈原圖,風格完全沒轉 — 「沒有變化」 | **保留鎖過量 + edit 定性 = 認同解**:密度鎖綁「跟照片一樣多的小形狀」+「疊圖必須 line up」,等於下令複製輸入;B1 踩坑 #7 同型(保真定性下模型不敢動) | v3 定性反轉:`paint a completely NEW texture from a blank canvas, following reference 1's layout` + **強制重繪條款**(`no photographic pixels may survive — if any region still looks like a photo, that region is wrong`);密度/分佈鎖措辭放軟(macro distribution,不綁 pixel 對齊) |
+| 3 | (v3 量產)同 prompt 重抽三張拼不成一套:色盤/明度漂移、土路形狀不同、其中一張長出紅褐苔 — 「單張生成不穩定」 | **NB2 無 seed + 重繪定性 = 高變異**;B1 套圖鐵律(同日同配方同 prompt)只鎖得住保真 pass,鎖不住重繪 pass;色票板只定「畫法」,沒定「這一套的確切色值」 | **v4 成品錨鏈**:ref 2 改掛「已通過的 v3 成品」當 STYLE & PALETTE ANCHOR(`painted by the same artist, in the same session, for the same set` + 禁新色相條款);殘餘色偏用 **PS Match Color**(以 master 為 source)確定性收尾;仍有變異就開 N 挑 1 |
 
 ## 鎖句字典(B8 新增)
 
@@ -295,6 +337,8 @@ style, same texture scale. Do not add anything new.
 | **收斂定性句** | 給「緊的手繪」心智模型 | `a TIGHT, CONTROLLED hand-painted game texture — painterly but disciplined, NOT a loose concept sketch` |
 | **重繪定性句** | 治零變化(edit → 重繪反轉) | `paint a completely NEW hand-painted texture from a blank canvas, following reference 1's layout — a FULL REPAINT, not an edit` |
 | **強制重繪條款** | 不留照片像素的驗收律 | `no photographic pixels from reference 1 may survive — if any region still looks like a photo, that region is wrong` |
+| **成品錨(同套一致性)** | 治無 seed 重抽漂移 | `a FINISHED TILE from this exact tile set — painted by the same artist, in the same session, for the same set: match its exact palette, value range, brush stroke size and finish` |
+| **禁新色相條款** | 防單張長出套外顏色 | `do NOT introduce any hue that does not exist in reference 2 — no red-brown moss, no new path colors` |
 
 ## 學到的(累積中)
 
@@ -319,3 +363,9 @@ style, same texture scale. Do not add anything new.
   4 張無角色/無 UI 的場景圖拼 2×2,配合輸出端 layout 鎖,未發生
   幾何滲漏 — 拼板本身就稀釋了單張構圖的權重。有角色/UI 才必須
   裁材質特寫(B2 踩坑 #1 的滲漏源是「單張強構圖 + 畫面主體」)。
+- ✅ **風格化 pass 的量產一致性要靠「成品錨鏈」,不能靠重抽紀律**:
+  NB2 無 seed,重繪定性的輪間變異(色盤/路形)是結構性的 —
+  B1 套圖鐵律只對保真 pass 有效。正解 = 第一張定 master →
+  之後每張掛 master 當風格+色盤錨(concept-to-3d 的一致性錨協議
+  在貼圖管線同樣成立);輕微色偏用 PS Match Color 確定性拉齊,
+  重抽只留給形狀級變異。
