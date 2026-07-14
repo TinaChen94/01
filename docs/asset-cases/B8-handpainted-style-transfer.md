@@ -323,6 +323,12 @@ toward the borders, even if the layout guide has darker edges.
    路面塊只裁「路的內部」;
 3. **不收暗部漸層/模糊區塊**(master 上緣暗區)— 糊塊會被學成
    「模糊也是風格」;全部用清晰中間調。
+4. **「清晰」指筆觸級清晰,不是照片級清晰**(實戰第三版拼板踩的點):
+   判準 = 放大 100%,**能數出一筆一筆的色塊 → 進板;看得到毛絲/
+   碎石顆粒/照片雜訊 → 不進板**(那是 master 重繪不徹底的區域或
+   原圖殘留,進板就是教模型畫照片)。
+5. **格數不用湊滿** — 4–6 格全純,勝過 9 格摻照片塊;好區域可
+   多裁不同位置,寧可略重複也不收照片塊。
 
 ```text
 Reference image 1 is the LAYOUT GUIDE — a seamless, tileable ground
