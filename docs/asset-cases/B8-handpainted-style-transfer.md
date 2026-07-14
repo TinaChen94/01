@@ -286,10 +286,10 @@ objects.
 優點:色盤/筆觸 100% 同套(像素就是 master 的)、零 genre 漂移;
 代價:每張要 10–20 分鐘 PS 手工。七張套圖規模下,這條通常比重抽便宜。
 
-> 備選(更強的一致性,但流程重):**同輪 strip 生成** — 把 2–3 張
-> 寫實 tile 拼成一條橫 strip 一次風格化(同一輪生成內風格天然自洽),
-> 出圖後按座標切回單格。代價:單格像素預算下降(3072 寬輸入 → 4096
-> 輸出,單格僅 ~1365px)+ 格與格交界會被畫連;先用 v4 錨鏈,不夠穩再上。
+> ~~備選:同輪 strip 生成~~ — **❌ 已實戰否決(踩坑 #5)**:多張 tile
+> 拼一起生成,模型會把拼圖當「一個場景」畫 — 交界被暈接、道路被合理化
+> 成新材質、像素預算腰斬,每張 tile 的獨立性與 wrap 邊全毀。
+> **tile 生成鐵律:一次一張、單張滿版。**
 
 ### 1b. Plan B — PS 透明度混合(零抽獎的風格強度旋鈕)
 
@@ -406,7 +406,8 @@ style, same texture scale. Do not add anything new.
 | 1 | (v1)筆觸尺度爆大(單筆≈角色寬)、苔蘚被重繪成側視蕨葉叢、土路寫意漩渦、細節密度大降 — 「太過寫意」 | ①只定義「畫法」沒鎖「筆觸尺度/細節密度」→ 模型用自己習慣的大筆觸作畫 ②`painterly clumps with light and shadow planes` 給苔蘚往葉叢重新解釋的空間(B1 踩坑 #6 歧義物件同型)③`detail is suggested, not rendered` 直接授權減密 — 禍首句 | v2 三鎖:**筆觸尺度鎖**(單筆 ≤2% 畫布)+ **細節密度鎖**(100% 原寸小形狀數量≈輸入)+ **苔蘚形態鎖**(low rounded cushions,禁 fronds/ferns/side-view foliage);刪授權減密句 |
 | 2 | (v2)輸出≈原圖,風格完全沒轉 — 「沒有變化」 | **保留鎖過量 + edit 定性 = 認同解**:密度鎖綁「跟照片一樣多的小形狀」+「疊圖必須 line up」,等於下令複製輸入;B1 踩坑 #7 同型(保真定性下模型不敢動) | v3 定性反轉:`paint a completely NEW texture from a blank canvas, following reference 1's layout` + **強制重繪條款**(`no photographic pixels may survive — if any region still looks like a photo, that region is wrong`);密度/分佈鎖措辭放軟(macro distribution,不綁 pixel 對齊) |
 | 3 | (v3 量產)同 prompt 重抽三張拼不成一套:色盤/明度漂移、土路形狀不同、其中一張長出紅褐苔 — 「單張生成不穩定」 | **NB2 無 seed + 重繪定性 = 高變異**;B1 套圖鐵律(同日同配方同 prompt)只鎖得住保真 pass,鎖不住重繪 pass;色票板只定「畫法」,沒定「這一套的確切色值」 | **v4 成品錨鏈**:ref 2 改掛「已通過的 v3 成品」當 STYLE & PALETTE ANCHOR(`painted by the same artist, in the same session, for the same set` + 禁新色相條款);殘餘色偏用 **PS Match Color**(以 master 為 source)確定性收尾;仍有變異就開 N 挑 1 |
-| 4 | (v4 套圖 tile)苔變青綠灌木球、顆粒比 master 大數倍、路變奶黃 — 三鎖全失守,整體掉進「卡通俯視 RPG 地圖」genre | ①**參考圖角色混淆**:ref 1(layout)與 ref 2(master 錨)同為「苔地+土路」tile,外觀高度相似 → 模型分不清「誰管 where 誰管 how」,錨失效後自由發揮 ②「俯視 + 道路」觸發 NB2 的 stylized game map 先驗 ③(檢查項)確認 Enhance/Style 仍為 None | **v4.1 角色消歧版**:開頭明寫「兩張很像但角色不同」+ WHERE/HOW 分工 + PRIORITY 條款(B2 技法);尺度直接綁 ref 2(`same physical size as in reference 2`);加**反 genre 條款**(`a flat ground TEXTURE, not a stylized game-map illustration — no rounded bush balls`)。更穩走 **master 拼貼統一法**(見 1a-alt) |
+| 4 | (v4 套圖 tile)苔變青綠灌木球、顆粒比 master 大數倍、路變奶黃 — 三鎖全失守,整體掉進「卡通俯視 RPG 地圖」genre | ①**參考圖角色混淆**:ref 1(layout)與 ref 2(master 錨)同為「苔地+土路」tile,外觀高度相似 → 模型分不清「誰管 where 誰管 how」,錨失效後自由發揮 ②「俯視 + 道路」觸發 NB2 的 stylized game map 先驗 ③(檢查項)確認 Enhance/Style 仍為 None ④事後確認:此輪輸入是 **4 合 1 拼圖**(踩坑 #5 的第一次發作) | **v4.1 角色消歧版**:開頭明寫「兩張很像但角色不同」+ WHERE/HOW 分工 + PRIORITY 條款(B2 技法);尺度直接綁 ref 2(`same physical size as in reference 2`);加**反 genre 條款**(`a flat ground TEXTURE, not a stylized game-map illustration — no rounded bush balls`)。更穩走 **master 拼貼統一法**(見 1a-alt) |
+| 5 | (4 合 1 生成)四張 tile 拼 2×2 一次跑:材質糊掉、四象限交界被暈接、土路被重新解釋成**石板路**、角落壓暗 — 「合一後變醜」 | ①**像素預算**:2048 輸出下每張 tile 只分到 1024px,微觀苔粒畫不出來 → 糊(B1 白邊 / B2 模組佔比 第四度應驗)②**模型把拼圖當一個場景**:十字交會的路被「合理化」成石板大道、象限交界被暈接、整圖打氣氛光 — 每張 tile 的獨立性與 wrap 邊全毀 ③「俯視地圖」genre 先驗再度觸發 | **tile 生成鐵律:一次一張、單張滿版**。4 合 1 沒有任何補救 prompt — 一致性需求由 v4.1 錨鏈或 1a-alt 拼貼統一法承擔,不由「同輪合成」承擔。拼板唯一合法用途 = 風格參考(色票板),絕不當生成目標 |
 
 ## 鎖句字典(B8 新增)
 
@@ -444,6 +445,11 @@ style, same texture scale. Do not add anything new.
   4 張無角色/無 UI 的場景圖拼 2×2,配合輸出端 layout 鎖,未發生
   幾何滲漏 — 拼板本身就稀釋了單張構圖的權重。有角色/UI 才必須
   裁材質特寫(B2 踩坑 #1 的滲漏源是「單張強構圖 + 畫面主體」)。
+- ✅ **多張 tile 絕不合一生成(踩坑 #5)**:模型把拼圖讀成「一個場景」—
+  交界暈接、道路被合理化成石板、氣氛光壓角;且像素預算腰斬 →
+  **筆觸相對變粗、材質糊**(2048 出圖每格只剩 1024,筆觸尺度是絕對
+  像素量,格子越小筆觸看起來越粗)。一次一張、單張滿版;
+  一致性交給錨鏈/拼貼法,不交給「同輪」。
 - ✅ **風格化 pass 的量產一致性要靠「成品錨鏈」,不能靠重抽紀律**:
   NB2 無 seed,重繪定性的輪間變異(色盤/路形)是結構性的 —
   B1 套圖鐵律只對保真 pass 有效。正解 = 第一張定 master →
