@@ -298,6 +298,14 @@ tufts, stones, props, characters or footprints.
 (苔區 ×2–3、深土區 ×1–2、路面 ×1,路面裁到只剩沙土質感、看不出路形),
 拼成一張 1:1 方板 = 新的 ref 2。風格像素 100% 是 master 的,構圖歸零。
 
+拼板細則(實戰第一版拼板的三個修正點):
+1. **裁塊一律 100% 原尺寸**,禁止放大 — SCALE 段綁「筆觸大小 match
+   reference 2」,放大過的裁塊會把尺度錨整個帶大;
+2. **不帶任何交界線** — 路緣、分區邊界都是形狀資訊(滲漏載體),
+   路面塊只裁「路的內部」;
+3. **不收暗部漸層/模糊區塊**(master 上緣暗區)— 糊塊會被學成
+   「模糊也是風格」;全部用清晰中間調。
+
 ```text
 Reference image 1 is the LAYOUT GUIDE — a seamless, tileable ground
 texture (near top-down). Follow its layout EXACTLY: where the moss,
