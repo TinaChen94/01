@@ -290,6 +290,63 @@ tufts, stones, props, characters or footprints.
 
 > 首驗建議:先跑 `_B`(純苔,與 master 差異最大、角色最不易混),
 > 驗證錨鏈接上與否的最乾淨樣本。
+> **實戰結果(踩坑 #6):風格錨定成功、但 master 構圖滲漏 → 升級 v4.2。**
+
+#### v4.2 — master 色票板錨(踩坑 #6 後的量產定版,逐字可貼)
+
+**前置:master 色票板製作** — PS 從 master 成品裁 4–6 塊無構圖材質特寫
+(苔區 ×2–3、深土區 ×1–2、路面 ×1,路面裁到只剩沙土質感、看不出路形),
+拼成一張 1:1 方板 = 新的 ref 2。風格像素 100% 是 master 的,構圖歸零。
+
+```text
+Reference image 1 is the LAYOUT GUIDE — a seamless, tileable ground
+texture (near top-down). Follow its layout EXACTLY: where the moss,
+dirt and path are, and the square 1:1 canvas. Every path in reference
+1 must appear in the result at the same position and width, and must
+enter and exit the canvas edges exactly where it does in reference 1 —
+paths must NOT fade out, narrow away or stop mid-tile (required for
+tiling).
+
+Reference image 2 is the STYLE ANCHOR — cropped material close-ups
+from a FINISHED TILE of this exact tile set. It defines HOW everything
+is painted: the exact color palette, value range, brush stroke size,
+moss shape language and overall matte finish. It contains NO layout
+information — ALL layout comes from reference 1 only.
+
+TASK: paint a completely NEW hand-painted game texture from a blank
+canvas, following reference 1's layout, in reference 2's exact style —
+as if painted by the same artist, in the same session, for the same
+tile set. This is a FULL REPAINT, not an edit: no photographic pixels
+from reference 1 may survive. Every area must show visible, deliberate
+brush marks — if any region still looks like a photo, that region is
+wrong. Painterly but disciplined, NOT a loose concept sketch.
+
+SCALE: the moss clumps, path grain and brush stroke size match
+reference 2 exactly — do not enlarge or simplify them. The largest
+single visible stroke is no wider than 2% of the canvas. NO long
+sweeping strokes, no large gestural swirls, not impressionistic.
+Detail stays DENSE — stylized does not mean simplified.
+
+MOSS: low rounded cushions with fine speckled granularity, exactly
+like reference 2 — not leafy fronds, ferns, bushes or rounded bush
+balls. This is a flat ground TEXTURE seen from above, not a stylized
+game-map illustration. Any dirt path stays a plain dirt path — do NOT
+turn it into cobblestones or stone slabs.
+
+PALETTE: match reference 2 exactly. Do NOT introduce any hue that does
+not exist in reference 2.
+
+LAYOUT & TILING: keep the square 1:1 canvas (no crop, zoom or
+outpaint) and reference 1's layout everywhere. The texture must be
+SEAMLESSLY TILEABLE — left/right and top/bottom edges wrap perfectly.
+
+LIGHTING: soft zenith light only — no horizontal light direction, no
+cast shadows. Gouache-like matte finish, stepped value planes,
+hue-shifted shadows leaning teal instead of black.
+
+Do NOT add objects: no plants, flowers, mushrooms, standing grass
+tufts, stones, props, characters or footprints.
+```
 
 ### 1a-alt. master 拼貼統一法(套圖最穩解 — 把任務推回「增強」區間)
 
@@ -442,6 +499,7 @@ style, same texture scale. Do not add anything new.
 | 3 | (v3 量產)同 prompt 重抽三張拼不成一套:色盤/明度漂移、土路形狀不同、其中一張長出紅褐苔 — 「單張生成不穩定」 | **NB2 無 seed + 重繪定性 = 高變異**;B1 套圖鐵律(同日同配方同 prompt)只鎖得住保真 pass,鎖不住重繪 pass;色票板只定「畫法」,沒定「這一套的確切色值」 | **v4 成品錨鏈**:ref 2 改掛「已通過的 v3 成品」當 STYLE & PALETTE ANCHOR(`painted by the same artist, in the same session, for the same set` + 禁新色相條款);殘餘色偏用 **PS Match Color**(以 master 為 source)確定性收尾;仍有變異就開 N 挑 1 |
 | 4 | (v4 套圖 tile)苔變青綠灌木球、顆粒比 master 大數倍、路變奶黃 — 三鎖全失守,整體掉進「卡通俯視 RPG 地圖」genre | ①**參考圖角色混淆**:ref 1(layout)與 ref 2(master 錨)同為「苔地+土路」tile,外觀高度相似 → 模型分不清「誰管 where 誰管 how」,錨失效後自由發揮 ②「俯視 + 道路」觸發 NB2 的 stylized game map 先驗 ③(檢查項)確認 Enhance/Style 仍為 None ④事後確認:此輪輸入是 **4 合 1 拼圖**(踩坑 #5 的第一次發作) | **v4.1 角色消歧版**:開頭明寫「兩張很像但角色不同」+ WHERE/HOW 分工 + PRIORITY 條款(B2 技法);尺度直接綁 ref 2(`same physical size as in reference 2`);加**反 genre 條款**(`a flat ground TEXTURE, not a stylized game-map illustration — no rounded bush balls`)。更穩走 **master 拼貼統一法**(見 1a-alt) |
 | 5 | (4 合 1 生成)四張 tile 拼 2×2 一次跑:材質糊掉、四象限交界被暈接、土路被重新解釋成**石板路**、角落壓暗 — 「合一後變醜」 | ①**像素預算**:2048 輸出下每張 tile 只分到 1024px,微觀苔粒畫不出來 → 糊(B1 白邊 / B2 模組佔比 第四度應驗)②**模型把拼圖當一個場景**:十字交會的路被「合理化」成石板大道、象限交界被暈接、整圖打氣氛光 — 每張 tile 的獨立性與 wrap 邊全毀 ③「俯視地圖」genre 先驗再度觸發 | **tile 生成鐵律:一次一張、單張滿版**。4 合 1 沒有任何補救 prompt — 一致性需求由 v4.1 錨鏈或 1a-alt 拼貼統一法承擔,不由「同輪合成」承擔。拼板唯一合法用途 = 風格參考(色票板),絕不當生成目標 |
+| 6 | (v4.1 跑 `_F`)風格全對(色盤/筆觸/苔形同 master,消歧成功),但 ref 1 的貫穿直路中段消失、底部長出 master 的橫向沙帶 — **layout 被錨滲漏**,直路未出下緣,tile 接不了縫 | **成品錨 = 整張 tile = 帶構圖的圖** → B2 踩坑 #1 幾何滲漏在錨身上發作;`Nothing about its layout may be copied` 文字鎖不住(B2 已證);另外「路徑淡出」是模型對長路徑的慣性,需獨立鎖 | **v4.2:master 色票板化** — 把 master 裁成 4–6 塊無構圖材質特寫拼板當 ref 2(風格像素全保留、構圖歸零);加**路徑連續鎖**(`every path must enter and exit the canvas edges exactly where it does in reference 1 — must NOT fade out or stop mid-tile`) |
 
 ## 鎖句字典(B8 新增)
 
