@@ -46,8 +46,9 @@
 |---|---|---|
 | Model | Nano Banana 2 | |
 | Image Dimensions | **1:1(2048×2048)** | 輸入 1:1 → 輸出比例對齊(B1 鐵律);1024→2048 = 2× 安全倍率 |
-| Prompt Enhance | None | 鎖句型 prompt 一律關 |
+| Prompt Enhance | None | 鎖句型 prompt 一律關(⚠️ 介面預設 Auto,每次開新 session 檢查)|
 | Style | None | 避免疊色調,與色盤指令衝突 |
+| **Use Fixed Seed**(Advanced Settings) | **On,全套同一 seed** | 🆕 2026-07-14 實戰發現:Leonardo 介面有固定 seed(先前誤判 NB2 無 seed)。固定 seed 可稍降輪間變異、提高成功率 — **定調段抽中 master 時把 seed 記進紀錄,量產全套沿用**。注意:seed 只是降變異,錨鏈(master 色票板)仍是主防線 |
 | Private Mode | On | |
 
 ## ① v3 — 定調用完整提示詞(探索模式)
@@ -387,9 +388,14 @@ scale or detail density — this is a finish-unification pass only.
   風格轉換(渲染方式整個換掉)是相反方向 — 前者要 edit 定性,
   後者必須重繪定性,拿錯定性就掉進對應的坑(B1 #7 / B8 #2 同型)。
 - ✅ **風格化 pass 的量產一致性要靠「成品錨鏈」,不能靠重抽紀律**:
-  NB2 無 seed,重繪定性的輪間變異是結構性的 — B1 套圖鐵律只對保真
-  pass 有效。正解 = 定調 master → master 色票板錨 → Match Color 收尾;
+  重繪定性的輪間變異是結構性的 — B1 套圖鐵律只對保真 pass 有效。
+  正解 = 定調 master → master 色票板錨 → Match Color 收尾;
   重抽只留給形狀級變異(concept-to-3d 一致性錨協議在貼圖管線同樣成立)。
+  > 🆕 更正(2026-07-14):先前多處寫「NB2 無 seed」— **Leonardo 介面
+  > Advanced Settings 其實有 Use Fixed Seed**,實戰確認固定 seed 可稍降
+  > 輪間變異、提高成功率。修正後的一致性配方 = **錨鏈(主)+ 固定 seed(輔)
+  > + Match Color(收尾)** 三層;seed 記錄慣例:master 抽中那輪的 seed
+  > 記入紀錄,量產全套沿用。
 - ✅ **錨也會滲漏**:整張成品 tile 當風格錨,構圖照樣滲(#6)—
   「材質色票板化」是錨的必要形態,不是選配。滲漏的載體永遠是構圖。
 - ✅ **多張 tile 絕不合一生成(#5)**:模型把拼圖讀成「一個場景」+
