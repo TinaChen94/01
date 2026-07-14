@@ -9,7 +9,7 @@
 `hand-painted`、`Ruined King 風`、`四方連續風格化`、`tileable 風格轉換`、
 `筆觸化`、`寫實轉手繪`
 
-**狀態:⏳ 草案 — prompt 配方設計完成,未實戰。實戰後補產出圖與踩坑。**
+**狀態:⏳ 實戰中 — 第 1 輪(v1)過度寫意已淘汰,v2 收斂版(筆觸尺度鎖 + 細節密度鎖 + 苔蘚形態鎖)待驗。**
 
 ## 來源(索引)
 
@@ -76,7 +76,10 @@
 
 ## 逐字 prompt
 
-### 1. 主配方 — 手繪風格化 pass(ref 1 = 寫實貼圖、ref 2 = 材質色票板)
+### 1. 主配方 v2 — 收斂版手繪風格化 pass(ref 1 = 寫實貼圖、ref 2 = 材質色票板)
+
+v1 過度寫意後的修正版:新增**筆觸尺度鎖、細節密度鎖、苔蘚形態鎖**,
+並刪除 v1 的授權減密句(`detail is suggested by brushwork, not rendered`)。
 
 ```text
 Reference image 1 is the BASE — a seamless, tileable ground texture
@@ -86,34 +89,69 @@ DISTRIBUTION PATTERN, the texture scale, and the square 1:1 canvas are
 all correct and final.
 
 Reference image 2 is the STYLE TARGET — cropped material swatches from
-a hand-painted stylized game. Use it ONLY for the painting technique:
-confident visible brushstrokes, simplified chunky planar shapes,
-stepped value planes, exaggerated value structure, hue-shifted shadows
-that lean teal instead of black, crisp painted edge accents, and a
-gouache-like matte finish. Do NOT copy any layout, objects or
-composition from it.
+a hand-painted stylized game. Use it ONLY for the painting technique.
 
-TASK: repaint reference 1 in reference 2's hand-painted style — as if
-a concept artist repainted the SAME ground by hand. Replace all
-photographic noise and photo grain with deliberate brush marks: moss
-becomes clustered painterly clumps with clear light and shadow planes;
-dirt and the sandy path become broad warm strokes with a few crisp
-accents; detail is suggested by brushwork, not rendered.
+TASK: repaint reference 1 as a TIGHT, CONTROLLED hand-painted game
+texture — painterly but disciplined, like a professional hand-painted
+ground texture for a game engine, NOT a loose concept sketch.
 
-KEEP EXACTLY: the square 1:1 canvas (do NOT crop, zoom, extend or
-outpaint), the distribution pattern of moss / dirt / path, and the
-texture scale — identical to the input. The texture must remain
-SEAMLESSLY TILEABLE: the left and right edges must wrap perfectly
-into each other, and the top and bottom edges must wrap perfectly
-into each other — brushwork flows continuously across the borders.
+BRUSH SCALE LOCK (critical): brush strokes stay SMALL. The largest
+single visible stroke is no wider than 2% of the canvas. Stroke size
+follows the input's texture granularity — small dabs and speckles for
+moss, short strokes for twigs and litter. NO long sweeping strokes,
+NO large gestural swirls, NOT impressionistic, NOT abstract.
 
-LIGHTING: soft light from straight above (zenith) only — moss clump
-tops catch gentle light, crevices fall into soft painted shadow; no
-horizontal light direction, no long cast shadows.
+DETAIL DENSITY LOCK: keep the same visual detail density as the input
+— at 100% zoom the result shows roughly the same amount of small
+shapes as the photo, each painted crisply with 2-3 value steps
+instead of photographic noise.
+
+MOSS SHAPE LOCK: moss stays LOW ROUNDED CUSHIONS with fine speckled
+granularity, matching the input's clump size. Do NOT reinterpret moss
+as leafy fronds, ferns, bushes, grass blades or any side-view foliage
+— everything reads as a flat ground surface seen from above.
+
+KEEP EXACTLY: the square 1:1 canvas (no crop, zoom, extend or
+outpaint), the moss / dirt / path distribution pattern (overlaying
+the result on the input must line up), and the texture scale. The
+texture must remain SEAMLESSLY TILEABLE — left/right and top/bottom
+edges wrap perfectly, brushwork flows continuously across the borders.
+
+STYLE: stepped value planes, hue-shifted shadows that lean teal
+instead of black, crisp painted edge accents, gouache-like matte
+finish. PALETTE: keep the natural daylight green-and-earth palette of
+reference 1. LIGHTING: soft zenith light only — no horizontal light
+direction, no cast shadows.
 
 Do NOT add any objects: no plants, flowers, mushrooms, standing grass
 tufts, stones, props, characters or footprints.
 ```
+
+> 風格強度旋鈕:v2 出來若**太照片**(筆觸感不足)→ 尺度鎖放寬到
+> `no wider than 4% of the canvas`;若**仍太寫意** → 先走 Plan B(下方
+> PS 混合),不要繼續加禁令堆疊。
+
+### 1b. Plan B — PS 透明度混合(零抽獎的風格強度旋鈕)
+
+風格 pass 輸出(即使偏寫意)疊在原寫實圖上,**圖層不透明度 50–70%**
+= 直接手動調風格強度;分佈對位因兩張同構圖天然吻合。混完若筆觸與照片
+噪點打架,可選配再跑一次輕量統一 pass:
+
+```text
+Unify this ground texture into a consistent hand-painted finish:
+remove the remaining photographic noise so every area shows the same
+tight, small brushwork. Do NOT change the layout, colors, texture
+scale or detail density — this is a finish-unification pass only.
+```
+
+### 1c. 淘汰版 v1(❌ 過度寫意,留作對照)
+
+v1 與 v2 差異:無筆觸尺度/細節密度/苔蘚形態三鎖,且含
+`moss becomes clustered painterly clumps with clear light and shadow
+planes`(給了往「葉叢」重新解釋的空間)與
+`detail is suggested by brushwork, not rendered`(直接授權減密)。
+產出:筆觸尺度爆大、苔蘚變側視蕨葉叢、土路寫意漩渦、細節密度大降。
+完整 v1 文字見 git 歷史(b8a1b76)。
 
 ### 2. 色盤變體句(擇一,取代/追加在主配方結尾)
 
@@ -176,6 +214,27 @@ style, same texture scale. Do not add anything new.
 - ☐ 引擎 3×3 鋪排:無高對比筆觸造成的週期重複感
   (若有 → 把該筆觸區在 PS 壓一點對比,或換一張候選)
 
-## 學到的(實戰後補)
+## 踩坑紀錄
 
-- (待補)
+| # | 現象 | 根因 | 解法 |
+|---|---|---|---|
+| 1 | (v1)筆觸尺度爆大(單筆≈角色寬)、苔蘚被重繪成側視蕨葉叢、土路寫意漩渦、細節密度大降 — 「太過寫意」 | ①只定義「畫法」沒鎖「筆觸尺度/細節密度」→ 模型用自己習慣的大筆觸作畫 ②`painterly clumps with light and shadow planes` 給苔蘚往葉叢重新解釋的空間(B1 踩坑 #6 歧義物件同型)③`detail is suggested, not rendered` 直接授權減密 — 禍首句 | v2 三鎖:**筆觸尺度鎖**(單筆 ≤2% 畫布)+ **細節密度鎖**(100% 原寸小形狀數量≈輸入)+ **苔蘚形態鎖**(low rounded cushions,禁 fronds/ferns/side-view foliage);刪授權減密句 |
+
+## 鎖句字典(B8 新增)
+
+| 鎖 | 用途 | 關鍵句 |
+|---|---|---|
+| **筆觸尺度鎖** | 防大筆寫意化 | `brush strokes stay SMALL — the largest single visible stroke is no wider than 2% of the canvas; stroke size follows the input's texture granularity` |
+| **細節密度鎖** | 防風格化=減細節 | `keep the same visual detail density as the input — at 100% zoom roughly the same amount of small shapes, painted crisply instead of photographic noise` |
+| **形態鎖(苔蘚)** | 防材質被重新解釋成別種植被 | `moss stays LOW ROUNDED CUSHIONS with fine speckled granularity — do NOT reinterpret as leafy fronds, ferns, bushes or side-view foliage` |
+| **收斂定性句** | 給「緊的手繪」心智模型 | `a TIGHT, CONTROLLED hand-painted game texture — painterly but disciplined, NOT a loose concept sketch` |
+
+## 學到的(累積中)
+
+- ✅ **「手繪風」預設會帶三個副作用:筆觸變大、細節變少、歧義材質被重新解釋。**
+  三者都要各自上鎖 — 風格詞只管「像不像手繪」,不管「畫多細」。
+- ✅ **正面授權句比禁令危險**(B1「定性句>禁令」的反面):
+  `suggested, not rendered` 一句就讓模型合法丟掉一半細節。
+  風格 prompt 裡每一句「允許」都要想一遍會被放大成什麼。
+- 📌 風格強度最便宜的旋鈕不是 prompt,是 **PS 圖層不透明度**(Plan B)—
+  同構圖疊圖天然對位,零抽獎。
