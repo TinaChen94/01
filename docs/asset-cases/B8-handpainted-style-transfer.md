@@ -231,6 +231,61 @@ PALETTE: match reference 2 exactly.]
 以 master 為 source 拉齊(確定性收尾,把色盤的骰子收走);
 形狀級的變異(路形/苔丘位置)才需要重抽,開 4 挑 1。
 
+#### v4.1 — 角色消歧補丁(踩坑 #4 後;取代 v4 的前兩段)
+
+ref 1 與 ref 2 同為地面 tile 時,模型會混淆兩張的角色 → 錨失效。
+v4 的 Reference 兩段換成下面這段,其餘(TASK 之後)照舊:
+
+```text
+Reference image 1 is the LAYOUT GUIDE and reference image 2 is the
+STYLE ANCHOR. They are different tiles from the SAME tile set, so
+they look similar — do NOT confuse their roles:
+- Reference 1 decides WHERE everything is: the exact moss / dirt /
+  path layout. Nothing about its layout may change.
+- Reference 2 decides HOW everything is painted: its exact palette,
+  value range, brush stroke size, moss shape language and matte
+  finish. Nothing about its layout may be copied.
+- If they conflict: reference 1 wins for placement, reference 2 wins
+  for paint.
+
+SCALE: the moss clumps and path grain in the result are the SAME
+physical size as in reference 2 — do not enlarge or simplify them.
+
+This is a flat ground TEXTURE, not a stylized game-map illustration:
+no rounded bush balls, no shrubs, no cartoon map look. Moss stays
+low speckled cushions exactly like reference 2. Do NOT introduce any
+hue that does not exist in reference 2.
+```
+
+### 1a-alt. master 拼貼統一法(套圖最穩解 — 把任務推回「增強」區間)
+
+v4/v4.1 仍不穩時放棄「逐張重繪」,改用 B2 貼材質灰盒的邏輯:
+**風格與色盤由像素直接繼承,AI 只做它最穩的縫合**。
+
+1. PS 開 master 成品,把「苔區 / 土區 / 路面」當素材庫;
+2. 照每張 tile 寫實版的分佈,把 master 素材粗拼出該 tile 的手繪版
+   (套索粗選 + 蓋章即可,接縫醜沒關係);
+3. NB2 跑「無縫統一 pass」(**edit 定性** — 風格已在,回到增強區間):
+
+```text
+This image is a game ground texture assembled in Photoshop from
+hand-painted material patches — the style, palette and brushwork are
+already correct and final. Its only problem: visible patch seams and
+a few repeated-looking areas.
+
+TASK: blend the patch seams so the brushwork flows naturally, and add
+subtle variation to obviously repeated patches. This is a FINISH pass:
+keep the layout, palette, brush stroke size, texture scale and the
+square 1:1 canvas exactly. The texture must remain seamlessly tileable
+— left/right and top/bottom edges wrap perfectly.
+
+Do not restyle, do not repaint untouched areas, do not add any
+objects.
+```
+
+優點:色盤/筆觸 100% 同套(像素就是 master 的)、零 genre 漂移;
+代價:每張要 10–20 分鐘 PS 手工。七張套圖規模下,這條通常比重抽便宜。
+
 > 備選(更強的一致性,但流程重):**同輪 strip 生成** — 把 2–3 張
 > 寫實 tile 拼成一條橫 strip 一次風格化(同一輪生成內風格天然自洽),
 > 出圖後按座標切回單格。代價:單格像素預算下降(3072 寬輸入 → 4096
@@ -351,6 +406,7 @@ style, same texture scale. Do not add anything new.
 | 1 | (v1)筆觸尺度爆大(單筆≈角色寬)、苔蘚被重繪成側視蕨葉叢、土路寫意漩渦、細節密度大降 — 「太過寫意」 | ①只定義「畫法」沒鎖「筆觸尺度/細節密度」→ 模型用自己習慣的大筆觸作畫 ②`painterly clumps with light and shadow planes` 給苔蘚往葉叢重新解釋的空間(B1 踩坑 #6 歧義物件同型)③`detail is suggested, not rendered` 直接授權減密 — 禍首句 | v2 三鎖:**筆觸尺度鎖**(單筆 ≤2% 畫布)+ **細節密度鎖**(100% 原寸小形狀數量≈輸入)+ **苔蘚形態鎖**(low rounded cushions,禁 fronds/ferns/side-view foliage);刪授權減密句 |
 | 2 | (v2)輸出≈原圖,風格完全沒轉 — 「沒有變化」 | **保留鎖過量 + edit 定性 = 認同解**:密度鎖綁「跟照片一樣多的小形狀」+「疊圖必須 line up」,等於下令複製輸入;B1 踩坑 #7 同型(保真定性下模型不敢動) | v3 定性反轉:`paint a completely NEW texture from a blank canvas, following reference 1's layout` + **強制重繪條款**(`no photographic pixels may survive — if any region still looks like a photo, that region is wrong`);密度/分佈鎖措辭放軟(macro distribution,不綁 pixel 對齊) |
 | 3 | (v3 量產)同 prompt 重抽三張拼不成一套:色盤/明度漂移、土路形狀不同、其中一張長出紅褐苔 — 「單張生成不穩定」 | **NB2 無 seed + 重繪定性 = 高變異**;B1 套圖鐵律(同日同配方同 prompt)只鎖得住保真 pass,鎖不住重繪 pass;色票板只定「畫法」,沒定「這一套的確切色值」 | **v4 成品錨鏈**:ref 2 改掛「已通過的 v3 成品」當 STYLE & PALETTE ANCHOR(`painted by the same artist, in the same session, for the same set` + 禁新色相條款);殘餘色偏用 **PS Match Color**(以 master 為 source)確定性收尾;仍有變異就開 N 挑 1 |
+| 4 | (v4 套圖 tile)苔變青綠灌木球、顆粒比 master 大數倍、路變奶黃 — 三鎖全失守,整體掉進「卡通俯視 RPG 地圖」genre | ①**參考圖角色混淆**:ref 1(layout)與 ref 2(master 錨)同為「苔地+土路」tile,外觀高度相似 → 模型分不清「誰管 where 誰管 how」,錨失效後自由發揮 ②「俯視 + 道路」觸發 NB2 的 stylized game map 先驗 ③(檢查項)確認 Enhance/Style 仍為 None | **v4.1 角色消歧版**:開頭明寫「兩張很像但角色不同」+ WHERE/HOW 分工 + PRIORITY 條款(B2 技法);尺度直接綁 ref 2(`same physical size as in reference 2`);加**反 genre 條款**(`a flat ground TEXTURE, not a stylized game-map illustration — no rounded bush balls`)。更穩走 **master 拼貼統一法**(見 1a-alt) |
 
 ## 鎖句字典(B8 新增)
 
