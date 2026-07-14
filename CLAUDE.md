@@ -28,6 +28,9 @@
 
 ## 進行中
 
+- **B8 — 寫實貼圖 → 手繪風格化(style transfer):⏳ 草案**
+  (Ruined King 級厚塗)。配方/風格解剖/四方連續驗縫 SOP 在
+  `docs/asset-cases/B8-handpainted-style-transfer.md`,待實戰補產出與踩坑。
 - **B7 — 三相機 → Unreal 重現:✅ 三相機全數通過**(UE 5.5,數值直搬
   零誤差)。腳本與鎖檔 json ×3 在 `tools/unreal-camera-port/`,
   定案值/SOP/踩坑在 `docs/asset-cases/B7-unreal-camera-port.md` —
