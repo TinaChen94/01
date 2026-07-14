@@ -46,7 +46,7 @@
 |---|---|---|
 | Model | Nano Banana 2 | |
 | Image Dimensions | **1:1(2048×2048)** | 輸入 1:1 → 輸出比例對齊(B1 鐵律);1024→2048 = 2× 安全倍率 |
-| Prompt Enhance | None | 鎖句型 prompt 一律關(⚠️ 介面預設 Auto,每次開新 session 檢查)|
+| Prompt Enhance | None(首選)/ Auto 可接受 | 🆕 實測(2026-07-14):**Auto 依 prompt 長度判斷,B8 這種 300 字級鎖句長文不會被改寫**,v3/v4.2 全程 Auto 下通過。但 Auto 門檻是黑盒,能選 None 就選 None |
 | Style | None | 避免疊色調,與色盤指令衝突 |
 | **Use Fixed Seed**(Advanced Settings) | **On,全套同一 seed** | 🆕 2026-07-14 實戰發現:Leonardo 介面有固定 seed(先前誤判 NB2 無 seed)。固定 seed 可稍降輪間變異、提高成功率 — **定調段抽中 master 時把 seed 記進紀錄,量產全套沿用**。注意:seed 只是降變異,錨鏈(master 色票板)仍是主防線 |
 | Private Mode | On | |
