@@ -13,6 +13,7 @@
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |
 | **B6 三相機管線(遊戲/出圖/生成)** | [B6-three-camera-pipeline.md](B6-three-camera-pipeline.md) | ✅ 相機解耦架構 + 反解相機(homography)+ 品質三資源 + 踩坑 ×8;B7 的上游(注:文中 B4/B5 連結仍在 `claude/b2-greybox-experiment-fgsc06` 分支) |
 | **B7 三相機 → Unreal 重現** | [B7-unreal-camera-port.md](B7-unreal-camera-port.md) | ✅ 三相機全數通過(UE 5.5,HFOV 91.49°/116.81°/80.93° 零誤差,CAM_GEN2 pitch = 反解俯角原數字):腳本 + 鎖檔 json ×3 + 圖解 SOP + 實戰踩坑(B4/B5 紀錄在 `claude/b2-greybox-experiment-fgsc06` 分支) |
+| **B8 樹資產重上色(材質特寫參考)** | [B8-tree-trunk-restyle.md](B8-tree-trunk-restyle.md) | ✅ 幾何滲漏根治法:風格參考圖裁成**無幾何材質特寫** + 極短中文 prompt(`不要改變構圖`);含 prompt 鎖形狀二連敗解剖 + 像素鎖備案(Crop-Gen-Paste + 遮罩) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
 
