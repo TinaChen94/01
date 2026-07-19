@@ -37,25 +37,41 @@
 
 ---
 
-## 逐字 prompt(驗證通過版)
+## 逐字 prompt(實際使用版,原樣收錄)
 
-### 1. 主樹模板(踩坑教訓已烙進 remove 清單)
+### 1a. 左樹首輪拆件
 
 ```text
 Keep ONLY the large twisted dead tree in the center of the image — the one
 with the glowing teal-cyan cracks on its trunk. Remove the mossy tree trunk
-at the far left edge, the smaller background trees, the background forest,
-the skulls and bones at the base, fog, sky, moons, path, all spiderwebs, the
-white diamond-shaped sparkle, and everything else, and place it on a flat,
-solid, uniform magenta #FF00FF (RGB 255, 0, 255) background that fills the
-entire background area — no gradient, no vignette, no shadow. Where branches
-or roots are cut off by the image edge or hidden behind fog, reconstruct
-them and complete the silhouette with natural tapering branch and root tips,
-matching the existing gnarled bark material — do NOT invent new structures.
-Keep the moss, hanging lichen, and shelf fungi on the trunk. The glowing
-teal-cyan cracks and their soft emissive bloom are PART of the subject —
-preserve their exact color and glow, do NOT dim, desaturate, recolor, or
-remove them. Keep everything else unchanged.
+at the far left edge, the background forest, fog, sky, moons, path, and
+everything else, and place it on a flat, solid, uniform #FF00FF  — no gradient, no vignette, no shadow on the background. Where branches or roots
+are cut off by the image edge or hidden behind fog, reconstruct them and
+complete the silhouette with natural tapering branch and root tips, matching
+the existing gnarled bark material — do NOT invent new structures. Keep the
+moss, hanging lichen, and shelf fungi on the trunk. The glowing teal-cyan
+cracks and their soft emissive bloom are PART of the subject — preserve their
+exact color and glow, do NOT dim, desaturate, recolor, or remove them. Keep
+everything else unchanged.
+```
+
+### 1b. 右樹首輪拆件
+
+```text
+Keep ONLY the large twisted dead tree in the center-right of the image — the
+one with the glowing teal-cyan cracks on its trunk. Remove the large mossy
+trunk with shelf fungi at the far right edge, the smaller background trees,
+the background forest, the skull and scattered bones at the base, fog, sky,
+moons, path, all spiderwebs, the white diamond-shaped sparkle, and everything
+else, and place it on a flat, solid, uniform #FF00FF magenta background — no
+gradient, no vignette, no shadow on the background. Where branches or roots
+are cut off by the image edge or hidden behind fog, reconstruct them and
+complete the silhouette with natural tapering branch and root tips, matching
+the existing gnarled bark material — do NOT invent new structures. Keep the
+moss, hanging lichen, and shelf fungi on the trunk. The glowing teal-cyan
+cracks and their soft emissive bloom are PART of the subject — preserve their
+exact color and glow, do NOT dim, desaturate, recolor, or remove them. Keep
+everything else unchanged.
 ```
 
 ### 2. 根部骸骨叢(獨立地面 prop)
@@ -96,16 +112,18 @@ The faint glowing teal-cyan cracks are PART of the subject — preserve their
 exact color and glow. Keep the visible parts exactly unchanged.
 ```
 
-### 4. Cleanup pass(單目標,只在殘留與主體交疊時用)
+### 4. 左樹 cleanup pass(去殘留 + 去骨頭;實測 2/5 → gen-02)
 
 ```text
-Remove the smaller bare dead tree standing behind and to the right of the
-main tree's trunk — the one rising from behind the root mound. Fill the
-revealed areas with the same flat, solid, uniform #FF00FF background. Where
-the removed tree overlapped the main tree, reconstruct the main tree's bark
-and root edges cleanly. Do NOT change anything else — keep the main tree's
-shape, bark, moss, shelf fungi, and the glowing teal-cyan cracks exactly
-unchanged.
+Keep the large central twisted dead tree exactly as-is. Remove the leftover
+elements that are NOT part of it: the partial mossy trunk and branches
+entering from the left edge, the smaller bare tree visible behind the roots
+on the right, all spiderwebs, the skulls and bones nestled in the roots, and
+the white diamond-shaped sparkle near the bottom right. Fill the revealed
+areas with the same flat, solid, uniform #FF00FF background — no gradient,
+no vignette, no shadow. Do NOT change the tree itself — keep its shape, bark,
+moss, shelf fungi, and the glowing teal-cyan cracks with their exact color
+and emissive glow unchanged.
 ```
 
 ### 5. 失敗輸出跳板句(Plan B — 場景已簡化成「洋紅底 + 兩物件」時)
