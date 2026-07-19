@@ -112,7 +112,7 @@ The faint glowing teal-cyan cracks are PART of the subject — preserve their
 exact color and glow. Keep the visible parts exactly unchanged.
 ```
 
-### 3b. 右場景背景小樹(實跑 → 全淨成功張〔未入庫,擬名 gen-07〕;推測 gen-04 ✗ 為其失敗 reroll,待確認)
+### 3b. 右場景背景小樹(實跑 → gen-04 ✗ 場景殘留;全淨成功張未入庫,擬名 gen-07)
 
 ```text
 The image shows a bare dead tree in the center, partially hidden behind the
