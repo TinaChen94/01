@@ -55,7 +55,7 @@ exact color and glow, do NOT dim, desaturate, recolor, or remove them. Keep
 everything else unchanged.
 ```
 
-### 1b. 右樹首輪拆件(推測 → gen-03 ✗ 月雲+地形殘留;原文對應待確認)
+### 1b. 右樹首輪拆件(實跑 → gen-03 ✗ 月雲+地形殘留)
 
 ```text
 Keep ONLY the large twisted dead tree in the center-right of the image — the
