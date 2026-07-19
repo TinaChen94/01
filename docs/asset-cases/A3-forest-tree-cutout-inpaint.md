@@ -8,6 +8,8 @@
 - **生成平台:** Google Gemini(Nano Banana 2 edit)
 - **Gemini 對話連結(⚠️ 私人,僅本人登入可開,連結可能失效 → 真正內容見本文):**
   `https://gemini.google.com/u/2/app/35d6c6ca4f2f92b0?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all`
+- **Gemini 對話連結 2(同上注意事項):**
+  `https://gemini.google.com/u/2/app/d6eb9d4c4b7b64c9?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all`
 - **日期:** 2026-07-19
 - **原始素材:** 夜森林概念圖(雙月 + 骷髏雲 + 拱門雙樹 + 青綠發光裂紋),標記 4 物件拆件,實作中擴為 6 件
 - **背景色決策:** 工作底色 `#FF00FF` 洋紅(本包資產無洋紅 = 缺席色);`#808080` 撞樹皮/骨灰、橘 `#FF6A00` 撞層架菌/枯草 → 皆不可用。印證 asset-cutout 表 B「挑資產缺席色」。
