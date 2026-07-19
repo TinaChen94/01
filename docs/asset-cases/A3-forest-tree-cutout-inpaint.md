@@ -151,10 +151,17 @@ magenta #FF00FF background.
 | `a3-source.png` | 原圖(2048²) |
 | `a3-source-annotated.jpg` | 拆件指示位置(紅箭頭 ×4) |
 | `a3-source-fill-4096.jpg` | 原圖生成 4096 補圖 |
-| `a3-crop-left-tree` / `a3-crop-right-tree` / `a3-crop-small-tree-left` / `a3-crop-small-tree-right` | 裁切局部 ×4(**待補**) |
+| `a3-crop-left-tree.jpg` / `a3-crop-right-tree.jpg` | 裁切局部:左/右主樹(整裁圖) |
+| `a3-crop-small-tree-left.jpg` / `a3-crop-small-tree-right.jpg` | 裁切局部:背景小樹**緊裁**(遮擋幹只留柱狀前景 — 教訓 1 的解法示範) |
 | `a3-gen-01` ~ `a3-gen-06` | 生成批次,逐張判定見下表 |
 
 ![拆件指示位置](images/a3-source-annotated.jpg)
+
+緊裁換主角示範(小樹 = 畫面唯一完整樹形,遮擋主樹只剩無頭無根柱狀前景):
+
+| 左場景緊裁 | 右場景緊裁 |
+|---|---|
+| ![左緊裁](images/a3-crop-small-tree-left.jpg) | ![右緊裁](images/a3-crop-small-tree-right.jpg) |
 
 ### 生成批次逐張判定(6 張)
 
