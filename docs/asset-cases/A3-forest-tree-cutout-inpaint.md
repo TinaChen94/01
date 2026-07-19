@@ -39,7 +39,7 @@
 
 ## 逐字 prompt(實際使用版,原樣收錄)
 
-### 1a. 左樹首輪拆件
+### 1a. 左樹首輪拆件(實跑 → gen-01)
 
 ```text
 Keep ONLY the large twisted dead tree in the center of the image — the one
@@ -55,7 +55,7 @@ exact color and glow, do NOT dim, desaturate, recolor, or remove them. Keep
 everything else unchanged.
 ```
 
-### 1b. 右樹首輪拆件
+### 1b. 右樹首輪拆件(推測 → gen-03 ✗ 月雲+地形殘留;原文對應待確認)
 
 ```text
 Keep ONLY the large twisted dead tree in the center-right of the image — the
@@ -112,7 +112,7 @@ The faint glowing teal-cyan cracks are PART of the subject — preserve their
 exact color and glow. Keep the visible parts exactly unchanged.
 ```
 
-### 3b. 右場景背景小樹
+### 3b. 右場景背景小樹(實跑 → 全淨成功張〔未入庫,擬名 gen-07〕;推測 gen-04 ✗ 為其失敗 reroll,待確認)
 
 ```text
 The image shows a bare dead tree in the center, partially hidden behind the
