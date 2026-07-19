@@ -8,6 +8,10 @@
 - **生成平台:** Google Gemini(Nano Banana 2 edit)
 - **Gemini 對話連結(⚠️ 私人,僅本人登入可開,連結可能失效 → 真正內容見本文):**
   `https://gemini.google.com/u/2/app/35d6c6ca4f2f92b0?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all`
+- **Gemini 對話連結 2(同上注意事項):**
+  `https://gemini.google.com/u/2/app/d6eb9d4c4b7b64c9?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all`
+- **Leonardo 生成連結(NB2 場景填補批次「陰暗的黑森林　依照原圖構圖色調材質　填補」):**
+  `https://app.leonardo.ai/generation/image/%E9%99%B0%E6%9A%97%E7%9A%84%E9%BB%91%E6%A3%AE%E6%9E%97-%E4%BE%9D%E7%85%A7%E5%8E%9F%E5%9C%96%E6%A7%8B%E5%9C%96%E8%89%B2%E8%AA%BF%E6%9D%90%E8%B3%AA-%E5%A1%AB%E8%A3%9C-8e97e0d5-189e-4540-b746-0e8bfb1af69b`
 - **日期:** 2026-07-19
 - **原始素材:** 夜森林概念圖(雙月 + 骷髏雲 + 拱門雙樹 + 青綠發光裂紋),標記 4 物件拆件,實作中擴為 6 件
 - **背景色決策:** 工作底色 `#FF00FF` 洋紅(本包資產無洋紅 = 缺席色);`#808080` 撞樹皮/骨灰、橘 `#FF6A00` 撞層架菌/枯草 → 皆不可用。印證 asset-cutout 表 B「挑資產缺席色」。
