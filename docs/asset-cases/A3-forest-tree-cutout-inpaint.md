@@ -157,11 +157,13 @@ magenta #FF00FF background.
 
 ![拆件指示位置](images/a3-source-annotated.jpg)
 
-緊裁換主角示範(小樹 = 畫面唯一完整樹形,遮擋主樹只剩無頭無根柱狀前景):
+裁切局部 ×4 — 上排:主樹整裁圖;下排:小樹**緊裁**
+(緊裁換主角示範:小樹 = 畫面唯一完整樹形,遮擋主樹只剩無頭無根柱狀前景):
 
-| 左場景緊裁 | 右場景緊裁 |
+| 左場景 | 右場景 |
 |---|---|
-| ![左緊裁](images/a3-crop-small-tree-left.jpg) | ![右緊裁](images/a3-crop-small-tree-right.jpg) |
+| ![左主樹裁圖](images/a3-crop-left-tree.jpg) | ![右主樹裁圖](images/a3-crop-right-tree.jpg) |
+| ![左小樹緊裁](images/a3-crop-small-tree-left.jpg) | ![右小樹緊裁](images/a3-crop-small-tree-right.jpg) |
 
 ### 生成批次逐張判定(6 張)
 
