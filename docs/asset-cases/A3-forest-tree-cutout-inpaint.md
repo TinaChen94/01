@@ -89,7 +89,7 @@ do NOT invent new structures or add extra skulls. Keep everything else
 unchanged.
 ```
 
-### 3. 背景小樹(極高遮擋 — 必須先「緊裁換主角」)
+### 3a. 左場景背景小樹(極高遮擋 — 必須先「緊裁換主角」)
 
 前置:以小樹為中心緊裁 — 小樹 = 畫面唯一完整樹形、佔比 ≥50%;
 遮擋主樹只留無頭無根的柱狀前景(從左/右緣進場,方位詞跟著改)。
@@ -104,6 +104,27 @@ spiderwebs, the grass, and everything else, and place the tree on a flat,
 solid, uniform magenta #FF00FF (RGB 255, 0, 255) background that fills the
 entire background area — no gradient, no vignette, no shadow. Where the tree
 is hidden behind the foreground trunk or cut off by the image edge,
+reconstruct the hidden trunk, branches, and root base, and complete it as
+ONE whole free-standing tree with natural tapering branch tips, matching its
+existing gnarled bark and silhouette style. Do NOT invent structures beyond
+completing this one tree — no extra trees, no moss, fungi, skulls, or webs.
+The faint glowing teal-cyan cracks are PART of the subject — preserve their
+exact color and glow. Keep the visible parts exactly unchanged.
+```
+
+### 3b. 右場景背景小樹
+
+```text
+The image shows a bare dead tree in the center, partially hidden behind the
+mossy roots and trunk of a larger foreground tree entering from the right
+edge. Keep ONLY the smaller bare dead tree in the center — the one with a
+faint teal-cyan crack on its trunk. Remove the foreground mossy roots and
+trunk, the skull and bones at the bottom right, the ghostly face in the
+clouds, the background forest, fog, the red glowing eyes in the distance,
+all spiderwebs, the grass, and everything else, and place the tree on a
+flat, solid, uniform magenta #FF00FF (RGB 255, 0, 255) background that fills
+the entire background area — no gradient, no vignette, no shadow. Where the
+tree is hidden behind the foreground roots or cut off by the image edge,
 reconstruct the hidden trunk, branches, and root base, and complete it as
 ONE whole free-standing tree with natural tapering branch tips, matching its
 existing gnarled bark and silhouette style. Do NOT invent structures beyond
