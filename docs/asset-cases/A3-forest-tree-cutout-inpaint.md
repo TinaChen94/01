@@ -89,7 +89,7 @@ do NOT invent new structures or add extra skulls. Keep everything else
 unchanged.
 ```
 
-### 3a. 左場景背景小樹(極高遮擋 — 必須先「緊裁換主角」)
+### 3a. 左場景背景小樹(極高遮擋 — 必須先「緊裁換主角」;實跑 → gen-05,gen-06 為同 prompt reroll)
 
 前置:以小樹為中心緊裁 — 小樹 = 畫面唯一完整樹形、佔比 ≥50%;
 遮擋主樹只留無頭無根的柱狀前景(從左/右緣進場,方位詞跟著改)。
