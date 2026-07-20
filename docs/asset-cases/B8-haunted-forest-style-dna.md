@@ -203,6 +203,24 @@ in the same muted teal-green grade.
 - 結論:**雙圖角色分派融合(SOURCE / LIGHTING REF)+ GEOMETRY LOCK +
   定性句「RELIGHTING pass, NOT a repaint」一次命中,路線 B 無需啟用**
 
+### 提示詞來源引用(prompt 引用鏈)
+
+> 本配方不是新發明 — 每段都有出處,日後改寫時回源頭查最新版。
+
+| Prompt 段落 | 來源 | 借了什麼 |
+|---|---|---|
+| 雙圖角色分派(`IMAGE 1 = SOURCE SCENE` / `IMAGE 2 = LIGHTING & MOOD REFERENCE ONLY`) | [depth-relight-pipeline.md](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md) | 核心骨架:多重參考融合必須明確分派角色防打架;「深景深場景」路線(森林不硬轉 depth 工具)也出自此 |
+| 逐項點名禁抄(`do NOT copy its moons, cloud faces, skulls...`) | 本檔母題清單 | 有具體清單才能逐項禁止 — 泛寫 `ignore objects` 擋不住高顯著性母題滲漏 |
+| RELIGHT 段目標描述(頂部中央冷月光/rim light/深青綠/地面霧/low-key grading) | 本檔風格 DNA(PALETTE/LIGHTING LOCK) | 風格鎖句的重打光版改寫 |
+| 定性句 `This is a RELIGHTING pass, NOT a repaint` | [B1 鎖句字典](B1-forest-bg-4k-detail.md#鎖句字典可複用)「定性句」 | 「定性句 > 禁令堆疊」心法;原句 `TEXTURE-FIDELITY pass, NOT an object pass` 換皮沿用 |
+| GEOMETRY LOCK(`EXACT position, size and silhouette... do not crop or zoom`) | B1 鎖句字典:畫框鎖 + 輪廓鎖 | 合併改寫成場景版 |
+| 前處理三條(裁下緣雜訊/滿版輸入/Leonardo Enhance・Style None) | B1 踩坑 #2/#5(letterbox=outpaint)、#6(歧義物件被補完)+ B1 平台設定表 | 鏡像樹/地板斷面 = #6 的「歧義物件」 |
+| 母題另開 pass、勿與 relight 同鍋 | B1 可複用結論「一 pass 一件事(打地鼠)」 | 分工原則 |
+| 整體格式(英文自然段、80–180 字、無 `--params`) | [community-prompt-patterns.md](../../.claude/skills/ai-media-generator/references/community-prompt-patterns.md) Nano Banana 章節 + SKILL.md 硬規則 | NB 簽名:自然段落 + 多圖參考 superpower;具體 token > 泛詞 |
+
+一句話:**結構**來自 depth-relight 管線、**風格內容**來自本檔 DNA、
+**鎖句與防坑**來自 B1、**平台格式**來自 community-prompt-patterns。
+
 ---
 
 ## 待辦
