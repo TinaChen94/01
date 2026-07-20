@@ -1,0 +1,117 @@
+# SOP — 風格母本重打光公式(兩段式,可跨風格複用)
+
+> 把「拿一張參考圖,將任意場景算成它的打光方向跟氣氛」固化成固定流程。
+> 首個驗證實例:[B8 萬聖夜魔森](B8-haunted-forest-style-dna.md)(2026-07-20 路線 A 一次過)。
+> 管線依據:`ai-media-generator` [depth-relight-pipeline](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)。
+
+**🔑 叫用方式(對 Claude 說):**
+- `照打光公式,風格建檔:<貼母本圖>` → 跑 Phase 1
+- `照打光公式,母本=B8,場景=<貼場景圖>` → 跑 Phase 2(已建檔風格)
+- `照打光公式:<貼場景圖+母本圖>` → 未建檔風格,Phase 1 簡化版 + Phase 2 一次做
+
+---
+
+## 全貌
+
+```
+Phase 1(每個風格只做一次)          Phase 2(每個場景重複 N 次)
+┌─────────────────────┐            ┌──────────────────────────────┐
+│ 輸入:風格母本 ×1     │            │ 輸入:場景圖 ×1 + 母本 ×1      │
+│ 產出:B* 風格案例建檔  │──供查──▶  │ 前處理 → 雙圖融合 prompt →     │
+│ (DNA/母題/鎖句)      │            │ 生成 → 驗收 →(不穩)路線 B     │
+└─────────────────────┘            └──────────────────────────────┘
+```
+
+- **Phase 1 的產物是「檔」不是「答案」** — 建一次,之後所有衍生圖/重打光共用。
+- **Phase 2 生成時母本圖一定要掛上平台**(IMAGE 2);案例編號只是讓 Claude
+  免重新分析、直接調鎖句寫 prompt。
+- 母本只用一次、不出系列 → Phase 1 可省略建檔,Claude 臨場分析直接進 Phase 2。
+
+---
+
+## Phase 1 — 風格建檔(每個風格一次)
+
+**輸入:** 風格母本 1 張(完成度高的目標風格圖)。
+
+**產出:** `docs/asset-cases/B*-<slug>.md` 案例,必含四件套:
+
+1. **五層風格 DNA** — 定位 / 構圖文法 / 色彩(主宰色+點綴色) / 光(主光向+
+   發光體規則) / 筆觸材質
+2. **母題清單**(編號列表)— 衍生圖抽換用;**同時是 Phase 2 的逐項禁抄清單**
+3. **風格鎖句**(逐字英文)— STYLE / PALETTE LOCK / LIGHTING LOCK / COMPOSITION
+   四段,無 artist name(Flux/NB 系才吃)
+4. **平台路線表** — image-grounded 首選 + MJ `--sref` 參數 + 純文字平台備援
+
+更新索引:`README.md` 案例表 + `CLAUDE.md`(如為常用風格)。
+
+---
+
+## Phase 2 — 場景重打光(每個場景重複)
+
+**輸入:** 圖 1 = 要打光的場景(灰盒 render / 引擎拼裝 viewport / 白天圖皆可);
+圖 2 = 風格母本。
+
+### 2a. 前處理(必做,B1 踩坑防線)
+
+1. 裁掉歧義雜訊(viewport 地板斷面/鏡像物/UI)— 會被模型「補完」
+2. 裁到目標比例**滿版無 letterbox**;輸出 Dimensions = 輸入比例
+3. 灰底/空區定調:要 AI 補(prompt 明示)或維持素色之後摳掉
+4. Leonardo:Nano Banana 2、Prompt Enhance **None**、Style **None**
+
+### 2b. 雙圖融合 prompt 模板(佔位符版 — 逐段換皮即用)
+
+> B8 驗證過的逐字實例見 [B8 衍生應用 1](B8-haunted-forest-style-dna.md#衍生應用-1--引擎拼裝場景重打光成-b8-氣氛-路線-a-一次過2026-07-20)。
+
+```text
+Two reference images. IMAGE 1 = SOURCE SCENE: [一句話描述場景內容].
+IMAGE 2 = LIGHTING & MOOD REFERENCE ONLY — take its lighting direction,
+color grade and atmosphere; IGNORE its objects and composition: do NOT
+copy its [母題清單逐項點名,如 moons, cloud faces, skulls...].
+
+RELIGHT the source scene to match the reference mood: [時段/天氣],
+single [色溫] key light from [光向,如 the top-center of the sky];
+[場景主體] become [明暗定位,如 dark massed silhouettes] with a thin
+[rim light 描述] on their lit edges; the ground falls into deep shadow,
+desaturated to the [母本色盤名] of IMAGE 2; [大氣元素,如 low ground
+fog]; [整體 grading,如 heavy low-key horror grading] — do not leave
+any [原圖光殘留,如 daylight brightness].
+
+GEOMETRY LOCK: every object keeps its EXACT position, size and
+silhouette from IMAGE 1 — do not move, add, remove or reshape anything;
+do not crop or zoom. This is a RELIGHTING pass, NOT a repaint: same
+brushwork, same shapes — only lighting and color change.
+
+[空區處理,二選一:
+The flat gray backdrop is empty sky: fill it with [母本天空描述] in the
+same [色盤] grade.
+/ Keep the flat gray backdrop untouched — do not paint anything into it.]
+```
+
+**分工鐵律:relight pass 只管光和色。** 母題/物件另開 pass 或引擎放資產卡
+(一 pass 一件事,B1 打地鼠教訓)。
+
+### 2c. 驗收(5 條)
+
+- ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
+- ☐ 暗部是「壓暗」不是「塗黑」— 陰影裡紋理仍可讀
+- ☐ 色盤與母本並排一致,無原圖光殘留
+- ☐ 光向單一:rim light 方向與 key light 一致,無多光源矛盾
+- ☐ 無母題滲漏、無擅自加入物件(空區授權補繪除外 — 需另行確認可用性)
+
+### 2d. 失敗分流
+
+| 症狀 | 處置 |
+|---|---|
+| 光向亂飄(連跑不穩) | 升級**路線 B**:NB 生 depth map → `depth-relight.html`(場景:Cutoff 0、Depth 低)拖光向 → 控制圖+圖1+圖2 三圖融合 |
+| 母題滲漏(月亮/骷髏跑進來) | 禁抄清單逐項點名補齊(泛寫 ignore 無效) |
+| 輪廓漂移/構圖被動 | 檢查前處理(letterbox?雜訊?)→ 再犯就加強 GEOMETRY LOCK 逐物件點名 |
+| 變成重繪(筆觸/材質換掉) | 確認定性句在場;仍犯 → 降低期待幅度,分兩次小步走(先壓暗調色、再加大氣) |
+
+---
+
+## 引用鏈(改公式前回源頭查最新版)
+
+- 角色分派融合 + 深景深場景路線 → [depth-relight-pipeline.md](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)
+- 定性句/畫框鎖/曝光鎖 + letterbox・歧義物件踩坑 → [B1 鎖句字典](B1-forest-bg-4k-detail.md#鎖句字典可複用)
+- NB 平台簽名(自然段/多圖參考/無 --params) → skill `community-prompt-patterns.md`
+- 首個完整實例(含實測結果與觀察) → [B8](B8-haunted-forest-style-dna.md)

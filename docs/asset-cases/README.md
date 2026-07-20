@@ -20,6 +20,12 @@
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
 
+## 固定公式(SOP)
+
+| 公式 | 檔案 | 內容 |
+|---|---|---|
+| **風格母本重打光(兩段式)** | [SOP-style-relight.md](SOP-style-relight.md) | Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複):前處理 + 佔位符 prompt 模板 + 驗收 + 失敗分流;叫用詞「照打光公式」 |
+
 ## 最新預覽 — A1 陵墓正視參考板
 
 ![A1 mausoleum front orthographic](images/mausoleum-front-ortho.png)
