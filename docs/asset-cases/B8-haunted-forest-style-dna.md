@@ -129,8 +129,74 @@ lower third, 16:9.
 
 ---
 
+## 衍生應用 1 — 引擎拼裝場景重打光成 B8 氣氛(⏳ 待實測)
+
+> 輸入:引擎裡用去背資產拼好的場景 viewport(灰底,白天平光,樹+中央小徑)。
+> 目標:光向與氣氛「算成」B8 母本 — 頂部中央冷月光、低調恐怖夜、地面霧。
+> 管線依據:`ai-media-generator` [depth-relight-pipeline](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)
+> 的「深景深場景」路線(森林前後景分離大,工具高度場會拉平 → 光向交給參考圖/文字,遮擋交給 NB 世界知識)。
+
+### 前處理(餵圖前必做)
+
+1. **裁掉下緣雜訊** — viewport 底部的地板斷面/鏡像樹是歧義物件,會被模型「補完」;
+   裁到實際要的 16:9 構圖,滿版無 letterbox(B1 鐵律)
+2. **灰底定調** — prompt 明示灰底=空天空要補;若引擎天空另有 skydome,
+   改要求維持素色之後摳掉
+3. Leonardo 設定照 B1 表:Dimensions = 輸入比例、Enhance None、Style None
+
+### 路線 A — NB2 雙圖融合重打光(先試這個)
+
+餵兩張圖 + 角色分派(多參考防打架的關鍵),逐字:
+
+```text
+Two reference images. IMAGE 1 = SOURCE SCENE: a hand-painted forest
+scene with large trees on both sides and a dirt path in the center.
+IMAGE 2 = LIGHTING & MOOD REFERENCE ONLY — take its lighting direction,
+color grade and atmosphere; IGNORE its objects and composition: do NOT
+copy its moons, cloud faces, skulls, glowing runes or red eyes.
+
+RELIGHT the source scene to match the reference mood: night, single
+cold moonlight key from the top-center of the sky; the trees become
+dark massed silhouettes with a thin cool rim light on their moonlit
+edges; grass and path fall into deep shadow, desaturated to the muted
+dark teal-green night palette of IMAGE 2; low ground fog drifts between
+the tree trunks; heavy low-key horror grading — do not leave any
+daylight brightness.
+
+GEOMETRY LOCK: every tree, bush and the path keeps its EXACT position,
+size and silhouette from IMAGE 1 — do not move, add, remove or reshape
+any object; do not crop or zoom. This is a RELIGHTING pass, NOT a
+repaint: same brushwork, same shapes — only lighting and color change.
+
+The flat gray backdrop is empty sky: fill it with an overcast night sky
+in the same muted teal-green grade.
+```
+
+- 要月亮 → 末段加 `with the large moon high in the top-center`;
+  引擎天空另管 → 末段整段換成「keep the gray backdrop untouched」
+- **分工原則:relight pass 只管光和色。** 母題(雙月/臉雲/紅眼/骷髏/符文)
+  另開 pass 或引擎放資產卡 — 一個 pass 塞兩件事 = 打地鼠(B1 教訓)
+
+### 路線 B — 光向不穩再上 depth 控制圖
+
+路線 A 連跑光向亂飄時:NB 生 depth map(prompt 見 depth-relight-pipeline §①)
+→ `tools/depth-relight.html`(場景:Cutoff 0、Depth 調低)拖出頂部中央月光
+→ 控制圖 + 圖1 + 圖2 三圖融合,角色分派同上。
+
+### 驗收
+
+- ☐ 50% 透明度疊回圖1:樹/路輪廓完全重合(要投影回 3D,像素對位是硬需求)
+- ☐ 暗部是「壓暗」不是「塗黑」— 樹皮/草地紋理在陰影裡仍可讀
+- ☐ 色盤與 B8 母本並排一致(深青綠、無殘留白天高飽和綠)
+- ☐ 光向單一:rim light 全部朝頂部中央,無多光源矛盾
+- ☐ 無擅自加入的母題物件
+
+---
+
 ## 待辦
 
-- ☐ 源圖入庫 `images/b8-haunted-forest-source.png`
-- ☐ 首張衍生圖試產(建議先做「同構圖換母題」最小變異,驗風格鎖句有效性)
+- ☐ 源圖入庫 `images/b8-haunted-forest-source.png`;
+  引擎拼裝場景 viewport 入庫 `images/b8-engine-scene-source.png`
+- ☐ 衍生應用 1 實測(路線 A → 不穩再路線 B),成敗與逐字修正記回本檔
+- ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/筆觸密度一致,僅內容不同
