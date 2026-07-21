@@ -90,6 +90,22 @@ same [色盤] grade.
 **分工鐵律:relight pass 只管光和色。** 母題/物件另開 pass 或引擎放資產卡
 (一 pass 一件事,B1 打地鼠教訓)。
 
+### 2b-plus. 選配句庫(✅ 實測驗證,按需插入模板)
+
+| 情境 | 逐字句 | 驗證 |
+|---|---|---|
+| **板邊黑線**(引擎資產卡接縫關不掉) | `The thin black seam lines along the top edges of the terrain are render artifacts: blend them into the adjacent terrain — do not interpret them as walls, shadows or new objects.` | ✅ B8 場景 3(2026-07-21):黑線被融進地形,未生成牆/溝 |
+| **中央缺口授權**(構圖有大片空區在地平線上,想補遠景) | `fill the central gap beyond the path with a distant silhouetted treeline dissolving into fog, matching the misty midground of IMAGE 2.` | ✅ B8 場景 3:補繪風格一致;⚠️ 授權補繪區不可用於投影對位 |
+| **地面紋理保讀**(前景地面佔畫面大、怕壓暗成死黑) | `darken them WITHOUT losing the grass and soil texture, which must stay readable inside the shadow; a faint cool sheen of moonlight may touch the path` | ✅ B8 場景 3(低相機大前景):暗部紋理可讀、路面留月光微光 |
+
+### 實測記錄(場景累計)
+
+| # | 場景 | 特徵/風險點 | 結果 |
+|---|---|---|---|
+| 1 | 引擎拼裝(標準視角) | 灰底+下緣鏡像雜訊 | ✅ 路線 A 一次過(詳見 [B8 衍生應用 1](B8-haunted-forest-style-dna.md)) |
+| 2 | 引擎拼裝(遠景窄帶) | 上下雙灰區+板邊黑線 | (與場景 3 同批驗證) |
+| 3 | 引擎拼裝(低相機大前景) | 大面積地面壓暗+板邊黑線+中央缺口 | ✅ 一次過:紋理保讀/板邊句/缺口授權句全數生效 |
+
 ### 2c. 驗收(5 條)
 
 - ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
