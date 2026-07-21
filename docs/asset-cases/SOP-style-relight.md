@@ -90,21 +90,23 @@ same [色盤] grade.
 **分工鐵律:relight pass 只管光和色。** 母題/物件另開 pass 或引擎放資產卡
 (一 pass 一件事,B1 打地鼠教訓)。
 
-### 2b-plus. 選配句庫(✅ 實測驗證,按需插入模板)
+### 2b-plus. 選配句庫(按需插入模板)
 
 | 情境 | 逐字句 | 驗證 |
 |---|---|---|
-| **板邊黑線**(引擎資產卡接縫關不掉) | `The thin black seam lines along the top edges of the terrain are render artifacts: blend them into the adjacent terrain — do not interpret them as walls, shadows or new objects.` | ✅ B8 場景 3(2026-07-21):黑線被融進地形,未生成牆/溝 |
-| **中央缺口授權**(構圖有大片空區在地平線上,想補遠景) | `fill the central gap beyond the path with a distant silhouetted treeline dissolving into fog, matching the misty midground of IMAGE 2.` | ✅ B8 場景 3:補繪風格一致;⚠️ 授權補繪區不可用於投影對位 |
-| **地面紋理保讀**(前景地面佔畫面大、怕壓暗成死黑) | `darken them WITHOUT losing the grass and soil texture, which must stay readable inside the shadow; a faint cool sheen of moonlight may touch the path` | ✅ B8 場景 3(低相機大前景):暗部紋理可讀、路面留月光微光 |
+| **板邊黑線**(引擎資產卡接縫關不掉) | `The thin black seam lines along the top edges of the terrain are render artifacts: blend them into the adjacent terrain — do not interpret them as walls, shadows or new objects.` | ✅ 場景 2(2026-07-21):細線被融進地形。⚠️ **侷限:只治細線** — 大面積卡斷面仍會被重新解釋(場景 3 失敗),治本走輸入端消歧義 |
+| **中央缺口授權**(構圖有大片空區在地平線上,想補遠景) | `fill the central gap beyond the path with a distant silhouetted treeline dissolving into fog, matching the misty midground of IMAGE 2.` | ✅ 場景 2:補繪風格一致;⚠️ 授權補繪區不可用於投影對位 |
+| **地面紋理保讀**(前景地面佔畫面大、怕壓暗成死黑) | `darken them WITHOUT losing the grass and soil texture, which must stay readable inside the shadow` | ⚠️ 場景 3 中句子本身生效(暗部紋理可讀),但該次整體因幾何誤會判失敗 |
+| **路面月光微光**(選配,要氛圍才加) | `a faint cool sheen of moonlight may touch the path` | ⚠️ 場景 3 被放大成濕地/水感;不要水感就改成 `the path stays dry — no water, no puddles, no reflections` |
+| **地形定調**(卡斷面遮不掉時的補救,⏳ 待實測) | `TERRAIN CLARIFICATION: the raised areas at left and right are gentle grassy banks — their edges slope softly down into the field, covered with the same grass and moss. Do NOT draw exposed dirt cliffs, rock ledges, terraces or floating platforms; no sharp elevation cuts.` | ⏳ 補救性質 — 對歧義幾何下指令仍是邀請解釋(B1 #6),優先治本 |
 
 ### 實測記錄(場景累計)
 
 | # | 場景 | 特徵/風險點 | 結果 |
 |---|---|---|---|
 | 1 | 引擎拼裝(標準視角) | 灰底+下緣鏡像雜訊 | ✅ 路線 A 一次過(詳見 [B8 衍生應用 1](B8-haunted-forest-style-dna.md)) |
-| 2 | 引擎拼裝(遠景窄帶) | 上下雙灰區+板邊黑線 | (與場景 3 同批驗證) |
-| 3 | 引擎拼裝(低相機大前景) | 大面積地面壓暗+板邊黑線+中央缺口 | ✅ 一次過:紋理保讀/板邊句/缺口授權句全數生效 |
+| 2 | 引擎拼裝(中距離空地) | 雙灰區+板邊黑線+中央缺口 | ✅ 一次過:板邊句/缺口授權句生效 |
+| 3 | 引擎拼裝(低相機大前景) | **資產卡大斷面**+大面積地面壓暗 | ❌ **幾何誤會**:卡斷面被補完成土崖/浮台,路面微光被放大成水感;光/色/紋理本身合格 → 治本 = 輸入端消歧義(見失敗分流) |
 
 ### 2c. 驗收(5 條)
 
@@ -122,6 +124,8 @@ same [色盤] grade.
 | 母題滲漏(月亮/骷髏跑進來) | 禁抄清單逐項點名補齊(泛寫 ignore 無效) |
 | 輪廓漂移/構圖被動 | 檢查前處理(letterbox?雜訊?)→ 再犯就加強 GEOMETRY LOCK 逐物件點名 |
 | 變成重繪(筆觸/材質換掉) | 確認定性句在場;仍犯 → 降低期待幅度,分兩次小步走(先壓暗調色、再加大氣) |
+| **卡斷面被補完成懸崖/浮台(幾何誤會)** | 模型必須解釋高低差 → 發明了崖面。**治本 = 輸入端消歧義**(場景 3 實證,文字治不了):① 引擎端 — 相機微調避開斷面/高地前緣用地面卡遮住/卡加裙邊;② PS 端 — 粗筆刷 30 秒把斷面塗成草坡漸變草稿(不用精細,只給解讀方向)→ 重跑。補救(輸入改不了才用)= 地形定調句(見句庫,⏳)。板邊句只治細線,對大斷面無效 |
+| 路面/地面出現水感反光 | 「月光微光」句被放大 → 移除該句或改 `the path stays dry — no water, no puddles, no reflections` |
 
 ---
 
