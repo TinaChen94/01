@@ -111,10 +111,14 @@
 
 ## 圖檔
 
-> 待補(檔名預留):
-> - `images/b8-tree-original.png` — 圖1 原始夜樹
-> - `images/b8-style-source-dead-tree.webp` — 風格來源:整棵枯樹(路線 1 的參考圖、材質特寫的裁切來源)
-> - `images/b8-bark-texture-ref.png` — 圖2 樹皮材質特寫(勝利參考)
-> - `images/b8-fail-geometry-leak.png` — 路線 1 幾何滲漏
-> - `images/b8-fail-full-repaint.png` — 路線 2 整張重畫
-> - `images/b8-restyle-final.png` — 路線 4 成品
+### 輸入
+
+| 圖1 — 原始夜樹(要編輯的底圖) | 風格來源 — 整棵枯樹(路線 1 的參考圖) | 圖2 — 樹皮材質特寫(勝利參考,從左圖裁下) |
+|---|---|---|
+| ![b8 tree original](images/b8-tree-original.webp) | ![b8 style source dead tree](images/b8-style-source-dead-tree.webp) | ![b8 bark texture ref](images/b8-bark-texture-ref.png) |
+
+### 失敗 vs 成功
+
+| 路線 1 ❌ 幾何滲漏(枯枝嫁接、樹幹被改形) | 路線 2 ❌ 整張重畫(樹冠重排、樹幹改形) | 路線 4 ✅ 成品(構圖保持、樹幹吃進樹皮畫法) |
+|---|---|---|
+| ![b8 fail geometry leak](images/b8-fail-geometry-leak.webp) | ![b8 fail full repaint](images/b8-fail-full-repaint.webp) | ![b8 restyle final](images/b8-restyle-final.webp) |
