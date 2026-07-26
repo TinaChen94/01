@@ -18,6 +18,8 @@
 - **平台:** Leonardo.ai AI Creation / **Nano Banana 2**
 - **Leonardo 生成連結(OBJECT-PLACEMENT pass 批次,含 v1–v4 迭代):**
   `https://app.leonardo.ai/generation/image/reference-image-1-base-finished-hand-painted-night-2e55e168-3d40-4102-98fb-a0a75b1e99b5`
+- **Claude 對話連結(本案全程:配方設計 → 逐輪驗收 → 尺寸震盪診斷 → 紀錄):**
+  `https://claude.ai/code/session_01CRZQW5ipb1WGWPJJuKHTUG`
 - **需求:** 依畫面主題 + 周圍光線 + 材質,在紅圈處生成量體大的障礙物 —
   左:石堆 / 中:倒木堆 / 右:石堆
 - **日期:** 2026-07-26
