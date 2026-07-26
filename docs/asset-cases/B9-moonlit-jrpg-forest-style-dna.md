@@ -154,8 +154,12 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 **體積 pass**(silhouette-lock + 內部重畫),代價是失去像素對位 —
 完整對照與逐字 prompt 見 [SOP §2b-alt 鎖的高度](SOP-style-relight.md#2b-alt-鎖的高度--relight-pass-vs-體積-passfont-重要分岔)。
 ✅ 實測 2026-07-23:relight 扁平 → 體積 pass 得到 B9 級葉團/樹幹體積。
-✅ 定案 2026-07-24:體積 pass 加 COMPOSITION LOCK(最高優先)後,一次同時拿到
-構圖對位 + 圖 2 級體積 + B9 明亮 mid-key 藍月光色 — 引擎灰盒場景 → B9 成品成功。
+✅ 定案 2026-07-24(2026-07-26 更正:**實測需兩 pass,非一次到位**):
+- **Pass 1** = COMPOSITION LOCK + SOURCE LAYOUT/TRUNK DETAIL authoritative → 保構圖 + 保樹幹細節
+  ([b9-pass1-trunk-detail.jpg](images/b9-pass1-trunk-detail.jpg))
+- **Pass 2** = Repaint ONLY the leaf canopies(葉團值域/體積重畫)
+  ([b9-pass2-foliage-repaint.jpg](images/b9-pass2-foliage-repaint.jpg))
+- 兩 pass 疊出:構圖對位 + 圖 2 級體積 + B9 藍月光色。**樹幹與葉團要分兩 pass 才兩全**(部位分治,見 SOP §2b-alt)。
 
 ---
 
@@ -176,6 +180,7 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
   - **必存:** `b9-moonlit-forest-source`(風格母本)、`b9-foliage-ideal`(葉團理想參考)、
     `b9-volume-composition-ok`(體積+構圖鎖成功)、`b9-enhance-before-after`(回引擎資產卡前後對比)、
     `b9-enhance-engine-cards`(強化後樹合成回引擎資產卡,單張成品)
+  - **兩 pass 實證:** `b9-pass1-trunk-detail`(Pass1 保構圖+樹幹)、`b9-pass2-foliage-repaint`(Pass2 葉團重畫)
   - **選存:** `b9-relight-flat`(relight 天花板)、`b9-trunk-preserved`(保樹幹)、`b9-ground-fog`(地面霧)
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證 mid-key 定調
