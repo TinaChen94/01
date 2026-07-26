@@ -180,6 +180,9 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 
 ### 兩 pass 實證(樹幹細節 + 葉團體積分開跑)
 
+首次單段 relight — 光色對但**葉團扁平**(relight 天花板,證明需體積 pass):
+![B9 first relight, flat foliage](images/b9-relight-flat.jpg)
+
 Pass 1 — 保構圖 + 保樹幹細節:
 ![B9 pass 1 trunk detail preserved](images/b9-pass1-trunk-detail.jpg)
 
@@ -190,15 +193,18 @@ Pass 2 — 只重畫葉團(值域/體積):
 ![B9 with low ground fog](images/b9-ground-fog.jpg)
 
 ### 強化前後對比(回引擎資產卡)
-![B9 enhance before vs after on engine cards](images/b9-enhance-before-after.png)
 
-### 強化後引擎資產卡(單張成品)
-![B9 enhanced trees composited back to engine cards](images/b9-enhance-engine-cards.jpg)
+強化**前**(原始引擎卡,扁平均勻青綠):
+![B9 before enhancement, raw engine cards](images/b9-enhance-before.jpg)
+
+強化**後**(葉團體積層次+樹幹 bark 暖調立體+厚塗質感):
+![B9 after enhancement on engine cards](images/b9-enhance-after.png)
 
 ## 待辦
 
-- ☑ 圖檔入庫(7 張):母本 / 葉團理想 / Pass1 / Pass2 / 地面霧 /
-  強化前後對比(`.png`)/ 強化後引擎卡 — 皆已接上顯示
+- ☑ 圖檔入庫(8 張):母本 / 葉團理想 / Pass1 / Pass2 / 地面霧 /
+  強化前 `b9-enhance-before.jpg` / 強化後 `b9-enhance-after.png` / relight 天花板 `b9-relight-flat.jpg`
+  — 皆已接上顯示(⚠️ before/after 原上傳檔名對調,已更正)
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證 mid-key 定調
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/筆觸密度一致,僅內容不同
