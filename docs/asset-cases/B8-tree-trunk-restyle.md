@@ -109,6 +109,13 @@
 
 ---
 
+## 產圖連結(Gemini 對話)
+
+- [血月2_參考圖樹木樹幹上色變化1](https://gemini.google.com/u/2/app/4b181209a61e4716?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all)
+- [血月2_參考圖樹木樹幹上色變化2](https://gemini.google.com/u/2/app/b7839bb89dccb74a?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all)
+
+---
+
 ## 圖檔
 
 ### 輸入
