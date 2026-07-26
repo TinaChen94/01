@@ -10,11 +10,13 @@
 
 ## 來源(索引)
 
-- **素材:** 月夜 RPG 森林插畫(16:9 橫幅,約 2K)— 源圖檔待入庫
-  `images/b9-moonlit-forest-source.png`(⚠️ 待補:從對話上傳存檔)
+- **素材:** 月夜 RPG 森林插畫(16:9 橫幅,約 2K)= 風格母本
 - **用途:** 當**風格母本(STYLE TRUTH)**,產生同風格衍生背景圖 + 場景重打光
 - **日期:** 2026-07-22
-- **狀態:** ✅ 風格分析定案;✅ 引擎灰盒場景重打光+體積 pass 成功(2026-07-24,見下方)
+- **狀態:** ✅ 風格分析定案;✅ 引擎灰盒場景重打光+體積兩 pass 成功(2026-07-24,見下方)
+
+### 風格母本(STYLE TRUTH)
+![B9 moonlit JRPG forest style source](images/b9-moonlit-forest-source.jpg)
 
 ---
 
@@ -68,6 +70,8 @@
 - **團塊分明 + 枝幹從葉隙透出** — 樹冠鬆散有深度,非實心一坨
 - 光**柔和低對比、情緒感**,非硬邊 rim light
 - 📌 反面教訓:葉子「黯淡」先查**色溫太藍 / 筆觸太平滑**,別反射性加亮(加亮→塑膠感)
+
+![B9 foliage rendering ideal reference](images/b9-foliage-ideal.jpg)
 
 ---
 
@@ -174,14 +178,27 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 - 意義:整條「風格分析 → 重打光 → 體積 → 樹幹保留 → 葉團理想 → 合成收尾 → 回引擎卡」
   管線驗證至**可用素材**,非僅出圖。
 
+### 兩 pass 實證(樹幹細節 + 葉團體積分開跑)
+
+Pass 1 — 保構圖 + 保樹幹細節:
+![B9 pass 1 trunk detail preserved](images/b9-pass1-trunk-detail.jpg)
+
+Pass 2 — 只重畫葉團(值域/體積):
+![B9 pass 2 foliage canopies repainted](images/b9-pass2-foliage-repaint.jpg)
+
+### 加地面霧版
+![B9 with low ground fog](images/b9-ground-fog.jpg)
+
+### 強化前後對比(回引擎資產卡)
+![B9 enhance before vs after on engine cards](images/b9-enhance-before-after.png)
+
+### 強化後引擎資產卡(單張成品)
+![B9 enhanced trees composited back to engine cards](images/b9-enhance-engine-cards.jpg)
+
 ## 待辦
 
-- ☐ 圖檔入庫(檔名固定,勿改;jpg/png 皆可):
-  - **必存:** `b9-moonlit-forest-source`(風格母本)、`b9-foliage-ideal`(葉團理想參考)、
-    `b9-volume-composition-ok`(體積+構圖鎖成功)、`b9-enhance-before-after`(回引擎資產卡前後對比)、
-    `b9-enhance-engine-cards`(強化後樹合成回引擎資產卡,單張成品)
-  - **兩 pass 實證:** `b9-pass1-trunk-detail`(Pass1 保構圖+樹幹)、`b9-pass2-foliage-repaint`(Pass2 葉團重畫)
-  - **選存:** `b9-relight-flat`(relight 天花板)、`b9-trunk-preserved`(保樹幹)、`b9-ground-fog`(地面霧)
+- ☑ 圖檔入庫(7 張):母本 / 葉團理想 / Pass1 / Pass2 / 地面霧 /
+  強化前後對比(`.png`)/ 強化後引擎卡 — 皆已接上顯示
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證 mid-key 定調
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/筆觸密度一致,僅內容不同
