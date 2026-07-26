@@ -14,6 +14,8 @@
 - **素材:** Blender 灰盒(平面模組,行走區+緩坡區)、深度圖(Mist pass)、分色圖、
   貼材質灰盒;風格參考 = B1 夜森林成品
 - **平台:** Leonardo.ai AI Creation / **Nano Banana 2**(主力)、Phoenix/SDXL + Image Guidance(深度路線,已棄)
+- **Claude 對話連結(本案全程:三路線攻關 → 逐輪判讀 → 收斂 → 紀錄;同串亦產出 B1):**
+  `https://claude.ai/code/session_011YGmpRjwkgusd3tkm9wMuj`
 - **日期:** 2026-07-03
 - **使用者條件:** 無 3D 技能(Blender 僅能出基本渲染),分佈設計靠貼圖與 Photoshop
 - **結果:** ✅ 貼材質灰盒路線收斂,master tile 完成(待引擎投影最終驗收)
