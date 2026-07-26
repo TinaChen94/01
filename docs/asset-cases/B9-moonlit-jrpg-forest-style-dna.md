@@ -218,6 +218,20 @@ blue-hazed misty treeline in the central gap.
 Pass 2 — 只重畫葉團(值域/體積):
 ![B9 pass 2 foliage canopies repainted](images/b9-pass2-foliage-repaint.jpg)
 
+```text
+Repaint ONLY the leaf canopies. Give each canopy a FULL value range and
+clear layered depth, matching a bright moonlit night:
+- the top-facing clumps catch BRIGHT cool moonlight — near-white cyan
+  highlights on the uppermost leaves;
+- mid-height clumps are luminous saturated teal-green;
+- only the deep interior and the undersides fall into dark blue shadow.
+Separate individual leaf clumps with clear self-shadow gaps so they read
+as rounded masses stacked front-to-back, layered and deep — NOT one flat
+dark silhouette. Push the contrast and brightness: bright moonlit
+highlights must sparkle across the tops of the canopies. Do NOT leave
+the foliage sitting in a single uniform dark band.
+```
+
 ### 加地面霧版
 ![B9 with low ground fog](images/b9-ground-fog.jpg)
 
