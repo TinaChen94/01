@@ -154,6 +154,9 @@ lower third, 16:9.
 
 ### 路線 A — NB2 雙圖融合重打光(先試這個)
 
+> ✅ **下面這段就是產出 [b8-relight-result.jpg](images/b8-relight-result.jpg) 的確切 prompt**
+> (2026-07-26 使用者確認)— 逐字可直接複用。
+
 餵兩張圖 + 角色分派(多參考防打架的關鍵),逐字:
 
 ```text
