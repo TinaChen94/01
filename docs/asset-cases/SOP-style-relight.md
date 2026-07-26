@@ -215,6 +215,20 @@ image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡�
 NOT greyed-out or muted; keep strong contrast and glowing highlights; moody, not dull`。
 ⚠️ **禁用** B8 那句 `muted ... do not brighten` 於博奕用途(會壓成灰沉)。
 
+**現成配方 — 整張 dark saturated regrade(單張輸入,image guidance 調高只動色/光):**
+```text
+Regrade and relight THIS image to a dark-but-vivid casino/slot-game mood — moody and
+mysterious but RICH, saturated and high-contrast, NOT dull or greyed-out. Lower overall
+brightness into a deeper night (darken sky, tree masses, ground) BUT push saturation and
+contrast UP: shadows deep saturated midnight-blue and teal, NEVER black or grey; foliage
+rich blue-green with luminous cool-cyan rim light; warm ochre path stays a warm glowing
+accent; keep the full moon glow as the brightest pop and keep the ground fog; subtle darker
+vignette at the edges. GEOMETRY & CONTENT LOCK: only lighting/value/color change — REGRADE
+pass, not a repaint.
+```
+微調:不夠暗 → PS 疊 Multiply / 加 `darker deep night`;變灰沉 → 加重 `boost saturation, vivid`。
+📌 差別能讀出來因為色調詞這次管**整張**(對比「只加霧」局部無感)。
+
 ### 2c. 驗收(5 條)
 
 - ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
