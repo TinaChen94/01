@@ -113,6 +113,7 @@
 
 > 待補(檔名預留):
 > - `images/b8-tree-original.png` — 圖1 原始夜樹
+> - `images/b8-style-source-dead-tree.webp` — 風格來源:整棵枯樹(路線 1 的參考圖、材質特寫的裁切來源)
 > - `images/b8-bark-texture-ref.png` — 圖2 樹皮材質特寫(勝利參考)
 > - `images/b8-fail-geometry-leak.png` — 路線 1 幾何滲漏
 > - `images/b8-fail-full-repaint.png` — 路線 2 整張重畫
