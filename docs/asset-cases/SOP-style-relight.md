@@ -185,6 +185,13 @@ same [色盤] grade.
 📌 **正解是前移:光向在第一個 relight pass 就用 depth 控制圖鎖定**,讓所有樹幹一開始服從同一光源,
 不要等最後才補局部 —— 事後補光正是第一步沒鎖光向的症狀。
 
+**✅「走道側亮」定向配方(從第一個 pass 烙入,2026-07-26):** 加一段 **LIGHT DIRECTION LOCK**:
+`single cool moonlight key from the upper-center, from the far end of the path where the moon sits;
+therefore the PATH-FACING (inner) side of every tree is the lit side — left group lit on RIGHT faces,
+right group lit on LEFT faces; outer sides fall to deep blue shadow; light both groups symmetrically
+toward the path`。月亮放 **top-center 走道盡頭**(非 B9 慣例的 upper-right,對稱打光才成立)。
+image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡像固有光 → 路線 B depth 控制圖強制。
+
 ### 2c. 驗收(5 條)
 
 - ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
