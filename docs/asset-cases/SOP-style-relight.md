@@ -127,6 +127,18 @@ same [色盤] grade.
   - 平台 image guidance 調高 / creativity 調低,讓「保留」部位更貼原圖
   - **樹幹要零漂移(投影對位)** → 連 relight 都別讓 AI 碰:PS 收尾,取體積 pass 的葉團+天空,
     遮罩把原樹幹像素貼回 + 曲線對齊月光亮度(B1「確定性工具收尾、把骰子收走」)。
+- ⚠️ **葉團「暗成一片、層次不足」的真因(2026-07-25 理想圖校正):不是不夠亮,是①太冷藍 ②沒葉片筆觸 ③團塊沒分隔。**
+  一開始誤判為「衝青白高光 sparkle」→ 貼理想圖後校正。層次**不靠加亮**,靠三件事:
+  - **暖苔綠/橄欖綠中間調**(NOT 冷青藍;只在最深陰影袋才轉 blue-green)
+  - **葉片筆觸**:`many small individual leaf dabs and sprigs catching soft light on edges — NOT smooth blobs, NOT flat dark mass`
+  - **團塊分隔 + 枝幹透出**:`distinct rounded clumps with soft self-shadow gaps; dark branches show through gaps in the foliage`
+  - 光要**柔和低對比**(soft gentle moonlight, gradual falloff),不是硬邊 rim light
+  - 📌 教訓:「黯淡」先查**色溫(太藍?)+ 筆觸(太平滑?)**,不要反射性加亮 → 加亮會變塑膠感。
+- ⚠️ **全局強度自我打架(關鍵):** 高 image guidance 保住樹幹的同時,也把**原本扁暗的葉子凍住**;
+  單張 img2img 一個全局強度無法「樹幹貼緊 + 葉子大幅重塑」兼得。解法:
+  ① **遮罩/inpaint 只重畫樹冠**(樹幹地面天空遮住,葉團區高創意度重畫)= 最乾淨;
+  ② 無 inpaint → **兩步法**:保樹幹版當底,再整張跑一次 creativity 調高/guidance 調低,只聚焦葉團值域。
+  ✅ 實測 2026-07-25:B9 保樹幹版葉子偏暗 → 樹冠 inpaint 值域重畫救回層次。
 
 ### 2b-plus. 選配句庫(按需插入模板)
 
