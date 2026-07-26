@@ -172,7 +172,10 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 
 ## 待辦
 
-- ☐ 源圖入庫 `images/b9-moonlit-forest-source.png`;強化前後對比圖入庫 `images/b9-enhance-before-after.png`
+- ☐ 圖檔入庫(檔名固定,勿改;jpg/png 皆可):
+  - **必存:** `b9-moonlit-forest-source`(風格母本)、`b9-foliage-ideal`(葉團理想參考)、
+    `b9-volume-composition-ok`(體積+構圖鎖成功)、`b9-enhance-before-after`(回引擎資產卡前後對比)
+  - **選存:** `b9-relight-flat`(relight 天花板)、`b9-trunk-preserved`(保樹幹)、`b9-ground-fog`(地面霧)
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證 mid-key 定調
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/筆觸密度一致,僅內容不同
