@@ -186,6 +186,35 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 Pass 1 — 保構圖 + 保樹幹細節:
 ![B9 pass 1 trunk detail preserved](images/b9-pass1-trunk-detail.jpg)
 
+```text
+Two reference images. IMAGE 1 = SOURCE LAYOUT + TRUNK DETAIL
+(authoritative for composition AND for all bark). IMAGE 2 = FOLIAGE
+VOLUME REFERENCE ONLY — match how its canopy leaves are modeled.
+
+COMPOSITION LOCK (highest priority): reproduce IMAGE 1's layout exactly
+— same tree count, positions, sizes, the path S-shape and width, banks
+and gap. Do not add, remove, move or reshape anything.
+
+TRUNKS, BRANCHES & ROOTS — PRESERVE, do NOT repaint: keep the EXACT
+bark texture, grooves, knots and silhouette of every trunk, branch and
+root from IMAGE 1. Only RELIGHT them to the moonlight — cool white rim
+light on the moonlit edges, deep blue shadow on the far side. Do NOT
+redraw, reinvent or add new bark detail; the wood stays exactly as
+painted in IMAGE 1.
+
+FOLIAGE ONLY — volume pass: repaint the leaf canopies to give them
+volume like IMAGE 2 — clustered rounded masses, brightly moonlit tops,
+deep blue shadowed undersides, layered front-to-back with self-shadowing.
+
+LIGHTING: bright mid-key moonlit night, cold moonlight from the upper-
+right; saturated midnight-blue and teal, warm ochre path; shadows deep
+blue and readable, not black.
+
+Fill the flat gray backdrop with IMAGE 2's midnight-blue swirled-cloud
+sky and a full moon with a cool glow halo in the upper-right; add a
+blue-hazed misty treeline in the central gap.
+```
+
 Pass 2 — 只重畫葉團(值域/體積):
 ![B9 pass 2 foliage canopies repainted](images/b9-pass2-foliage-repaint.jpg)
 
