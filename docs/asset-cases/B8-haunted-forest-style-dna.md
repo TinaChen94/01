@@ -225,9 +225,11 @@ in the same muted teal-green grade.
 
 ## 待辦
 
-- ☐ 圖檔入庫:風格母本 `images/b8-haunted-forest-source.png`、
-  引擎拼裝場景 `images/b8-engine-scene-source.png`、
-  重打光成品 `images/b8-relight-result.png`
+- ☐ 圖檔入庫(檔名固定,勿改):
+  - 風格母本 `images/b8-haunted-forest-source.png`
+  - 引擎拼裝場景 `images/b8-engine-scene-source.png`
+  - 重打光成品 `images/b8-relight-result.png`
+  - 地面霧版(選配) `images/b8-ground-fog.png`
 - ☑ 衍生應用 1 實測 — ✅ 路線 A 一次過(見上方實測結果)
 - ☐ 投影回 3D 前補跑 50% 疊圖對位驗收
 - ☐ 母題 pass(如需雙月/紅眼/骷髏):另開 pass 或引擎放資產卡,勿與 relight 同鍋
