@@ -140,6 +140,14 @@ glowing swirled-cloud sky; horizon in the lower-middle, 16:9.
 > 🔑 **B8 vs B9 打光速記:** 同是青綠夜森林,但 **B8 = 壓暗壓灰 low-key horror,暗部塗黑**;
 > **B9 = 高明度高飽和 mid-key,暗部深藍通透**。選錯母本 = 氣氛完全跑掉。
 
+### ⚠️ B9 特有:平資產卡要「像 B9 一樣立體」= 體積 pass,不是 relight
+
+B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的引擎資產卡跑 relight,
+光色會對但**葉子仍扁平**(relight 的筆觸鎖保住原卡的平面內部)。要圖 2 級體積必須改走
+**體積 pass**(silhouette-lock + 內部重畫),代價是失去像素對位 —
+完整對照與逐字 prompt 見 [SOP §2b-alt 鎖的高度](SOP-style-relight.md#2b-alt-鎖的高度--relight-pass-vs-體積-passfont-重要分岔)。
+✅ 實測 2026-07-23:relight 扁平 → 體積 pass 得到 B9 級葉團/樹幹體積。
+
 ---
 
 ## 待辦

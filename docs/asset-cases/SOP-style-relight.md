@@ -90,6 +90,27 @@ same [色盤] grade.
 **分工鐵律:relight pass 只管光和色。** 母題/物件另開 pass 或引擎放資產卡
 (一 pass 一件事,B1 打地鼠教訓)。
 
+### 2b-alt. 鎖的高度 — relight pass vs 體積 pass(⚠️ 重要分岔)
+
+「重打光」和「變立體」是**兩種不同的 pass,鎖的高度不同**,選錯 = 效果不對還以為公式壞了。
+
+| | relight pass(預設) | 體積 pass(form pass) |
+|---|---|---|
+| **要什麼** | 只換光向/色調/氣氛 | 平的資產卡長出 3D 體積(葉團球化、樹幹圓柱化) |
+| **鎖什麼** | 輪廓+位置+**筆觸/內部明暗**全鎖 | **只鎖外輪廓+位置**,放開內部重畫 |
+| **定性句** | `RELIGHTING pass, NOT a repaint — same brushwork, same shapes` | `FORM & LIGHTING pass — REPAINT the interior for volume, keep only the outer silhouette` |
+| **對位** | ✅ 逐像素對位保留,可投影回 3D | ❌ 內部紋理會漂移,**不可投影對位** |
+| **代價** | 平的資產卡重上色後**仍是平的**(葉子扁) | 換來體積,失去像素級對位 |
+
+- **症狀對照**:relight 後「光色對了但樹葉/樹皮還是扁平、像原卡換色」→ 不是 relight 沒做好,
+  是**你要的其實是體積 pass**,relight 的筆觸鎖本來就會保住原本的扁平內部。
+- **體積 pass 要具體描述塑形**(光靠「make it 3D」無效):
+  葉團 = `clustered rounded masses, moonlit top + deep shadowed underside, layered front-to-back with self-shadowing`;
+  樹幹 = `rounded cylindrical volume, raised ridges catch rim light, grooves in shadow, AO where roots meet ground`。
+- **要又立體又能投影對位 = 做不到**:AI 這邊二選一。對位需求 → 立體感回引擎端換有厚度的樹模型;
+  看起來像參考圖 → 走體積 pass 放棄對位。
+- ✅ 實測:B9 場景(2026-07-23)relight 後樹葉扁平 → 改體積 pass(silhouette-lock + 內部重畫)得到圖 2 級體積。
+
 ### 2b-plus. 選配句庫(按需插入模板)
 
 | 情境 | 逐字句 | 驗證 |
@@ -124,6 +145,7 @@ same [色盤] grade.
 | 母題滲漏(月亮/骷髏跑進來) | 禁抄清單逐項點名補齊(泛寫 ignore 無效) |
 | 輪廓漂移/構圖被動 | 檢查前處理(letterbox?雜訊?)→ 再犯就加強 GEOMETRY LOCK 逐物件點名 |
 | 變成重繪(筆觸/材質換掉) | 確認定性句在場;仍犯 → 降低期待幅度,分兩次小步走(先壓暗調色、再加大氣) |
+| **relight 後樹葉/樹皮仍扁平(像原卡換色)** | 這是要**體積 pass 不是 relight**(見 2b-alt):放開筆觸鎖只鎖外輪廓,具體描述葉團球化+樹幹圓柱化。代價:失去像素對位,要對位改回引擎端換立體樹模型 |
 | **卡斷面被補完成懸崖/浮台(幾何誤會)** | 模型必須解釋高低差 → 發明了崖面。**治本 = 輸入端消歧義**(場景 3 實證,文字治不了):① 引擎端 — 相機微調避開斷面/高地前緣用地面卡遮住/卡加裙邊;② PS 端 — 粗筆刷 30 秒把斷面塗成草坡漸變草稿(不用精細,只給解讀方向)→ 重跑。補救(輸入改不了才用)= 地形定調句(見句庫,⏳)。板邊句只治細線,對大斷面無效 |
 | 路面/地面出現水感反光 | 「月光微光」句被放大 → 移除該句或改 `the path stays dry — no water, no puddles, no reflections` |
 
