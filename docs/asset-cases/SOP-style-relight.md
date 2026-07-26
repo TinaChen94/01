@@ -192,6 +192,16 @@ right group lit on LEFT faces; outer sides fall to deep blue shadow; light both 
 toward the path`。月亮放 **top-center 走道盡頭**(非 B9 慣例的 upper-right,對稱打光才成立)。
 image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡像固有光 → 路線 B depth 控制圖強制。
 
+**❌ 實測結論(2026-07-26):prompt 層級 LIGHT DIRECTION LOCK 壓不過烙入的資產卡固有光 = 天花板。**
+氣氛/構圖/葉子都對,但樹幹光向仍不服(img2img 重打光 = 在既有畫上疊光,模型保留原光)。
+**別再用文字硬凹,只剩兩條確定性路:**
+- **A. 生成階段鎖光向 = 路線 B**:NB 生 depth map → `depth-relight.html`(場景 Cutoff 0/Depth 低)
+  key light 拖正中上方 → 下載控制圖 → 控制圖(光向)+場景(內容)+B9(風格)三圖融合。
+  控制圖用**像素結構強制**受光面 = 唯一保證。適合**整批量產**。
+- **B. 單張收尾 = PS dodge & burn**(推薦單張):圖已 95% 好時別為光向重擲整圖;
+  樹幹靠走道側 dodge 冷白、外側 burn 深藍,吸左樹高光色當標準。零風險 2 分鐘。
+📌 **判斷:單張缺光向 → B;整批要自動打對光 → 才值得建 A。**
+
 ### 2c. 驗收(5 條)
 
 - ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
