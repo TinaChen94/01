@@ -16,6 +16,8 @@
 - **場景:** 30×24m 走道模組(+前緣 6m 泥土條,bbox 總深 30m)、Blender、
   Unity 匯入相機 rig
 - **平台:** Blender(相機/投影/攤平)+ Leonardo.ai NB2(生成)
+- **Claude 對話連結(本案全程:相機解耦發想 → 反解推導 → 深度假設除錯 → 鎖檔 → 紀錄;同串亦產出 B4、B5):**
+  `https://claude.ai/code/session_01McptxmyoZ38F6SvbgpnK5Y`
 - **日期:** 2026-07-06 ~ 07
 - **結果:** ✅ 三相機系統定案,[B4](B4-master-variant-tileset.md) 森林 master 與
   [B5](B5-theme-translation-snow.md) 雪地系列皆由此產出
