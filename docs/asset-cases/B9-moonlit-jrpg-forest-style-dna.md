@@ -14,6 +14,7 @@
 - **用途:** 當**風格母本(STYLE TRUTH)**,產生同風格衍生背景圖 + 場景重打光
 - **日期:** 2026-07-22
 - **狀態:** ✅ 風格分析定案;✅ 引擎灰盒場景重打光+體積兩 pass 成功(2026-07-24,見下方)
+- **開發對話:** https://claude.ai/code/session_01QQg5a3hT1ZgRG8AF2bt3QT
 
 ### 風格母本(STYLE TRUTH)
 ![B9 moonlit JRPG forest style source](images/b9-moonlit-forest-source.jpg)
@@ -217,6 +218,7 @@ blue-hazed misty treeline in the central gap.
 
 > **輸入圖(2 張):** IMAGE 1 = `b9-enhance-before.jpg`(引擎拼裝卡 = source layout + trunk detail 權威)、
 > IMAGE 2 = `b9-moonlit-forest-source.jpg`(B9 母本 = foliage volume 參考)。→ 輸出 `b9-pass1-trunk-detail.jpg`。
+> **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/two-reference-images-image-1-source-layout-trunk-f383fbc8-b202-474c-ab45-185b140b7fd1
 
 Pass 2 — 只重畫葉團(值域/體積):
 ![B9 pass 2 foliage canopies repainted](images/b9-pass2-foliage-repaint.jpg)
@@ -237,6 +239,7 @@ the foliage sitting in a single uniform dark band.
 
 > **輸入圖(1 張):** Pass 1 成品 `b9-pass1-trunk-detail.jpg`(接續加強,不重餵母本)。
 > → 輸出 `b9-pass2-foliage-repaint.jpg`。**兩 pass 串接:Pass 1 定樹幹+構圖 → Pass 2 只加強葉團。**
+> **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/repaint-leaf-canopies-give-each-canopy-full-value-251d85f9-e4b1-4805-958f-05c2c7dc6598
 
 ### 加地面霧版
 ![B9 with low ground fog](images/b9-ground-fog.jpg)
@@ -255,6 +258,7 @@ the muted dark low-key teal-green palette; do NOT brighten the scene.
 > ⚠️ 此段結尾是 **B8 暗黑版**(`muted dark low-key ... do NOT brighten`)。
 > 用於 B9 明亮版時改結尾為 `cool blue-white fog softly lit by the moon; keep the scene bright, do not darken`。
 > 遮罩下半部 inpaint;或 PS 更可控(見 [SOP 句庫](SOP-style-relight.md))。
+> **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/inpaint-lower-portion-scene-near-ground-add-thin-59f6b7f8-c928-4add-98d1-42f15d31ebec
 
 ### 強化前後對比(回引擎資產卡)
 
