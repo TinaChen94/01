@@ -203,6 +203,18 @@ image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡�
   樹幹靠走道側 dodge 冷白、外側 burn 深藍,吸左樹高光色當標準。零風險 2 分鐘。
 📌 **判斷:單張缺光向 → B;整批要自動打對光 → 才值得建 A。**
 
+### 2b-biz. 用途調性:博奕遊戲 =「暗但不黯淡」(dark saturated)
+
+**博奕/slot 遊戲美術要暗得有吸引力,不能壓灰壓沉。** 「暗」≠「黯淡」:
+- **暗(dark/moody)= 明度低、氣氛神秘 → 要**
+- **黯淡(muted/dull)= 飽和度低、灰撲撲 → 不要**(畫面沉下去沒吸引力)
+
+**做法 = dark saturated**:明度壓暗,但**飽和度+對比拉住、高光/月亮保留發光**。
+取 **B8 的暗 + B9 的飽和**之間。relight/霧結尾句改用:
+`keep the palette dark and moody but RICH and saturated — deep saturated teal and blue,
+NOT greyed-out or muted; keep strong contrast and glowing highlights; moody, not dull`。
+⚠️ **禁用** B8 那句 `muted ... do not brighten` 於博奕用途(會壓成灰沉)。
+
 ### 2c. 驗收(5 條)
 
 - ☐ 50% 透明度疊回圖 1:輪廓完全重合(要投影回 3D 為硬需求)
