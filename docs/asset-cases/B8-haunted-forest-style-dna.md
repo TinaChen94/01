@@ -11,11 +11,13 @@
 
 ## 來源(索引)
 
-- **素材:** 萬聖夜恐怖魔法森林完成插畫(16:9 橫幅,約 2K)— 源圖檔待入庫
-  `images/b8-haunted-forest-source.png`(⚠️ 待補:從對話上傳存檔)
+- **素材:** 萬聖夜恐怖魔法森林完成插畫(16:9 橫幅,約 2K)= 風格母本
 - **用途:** 當**風格母本(STYLE TRUTH)**,產生同風格衍生背景圖
 - **日期:** 2026-07-19
-- **狀態:** ✅ 風格分析定案;⏳ 衍生圖生產待開工
+- **狀態:** ✅ 風格分析定案;✅ 引擎場景重打光成功(路線 A)
+
+### 風格母本(STYLE TRUTH)
+![B8 haunted forest style source](images/b8-haunted-forest-source.jpg)
 
 ---
 
@@ -136,6 +138,12 @@ lower third, 16:9.
 > 管線依據:`ai-media-generator` [depth-relight-pipeline](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)
 > 的「深景深場景」路線(森林前後景分離大,工具高度場會拉平 → 光向交給參考圖/文字,遮擋交給 NB 世界知識)。
 
+**前(引擎拼裝場景,灰底平光)→ 後(重打光成 B8 氣氛):**
+
+![B8 engine assembled scene before relight](images/b8-engine-scene-source.jpg)
+
+![B8 relight result matching haunted forest mood](images/b8-relight-result.jpg)
+
 ### 前處理(餵圖前必做)
 
 1. **裁掉下緣雜訊** — viewport 底部的地板斷面/鏡像樹是歧義物件,會被模型「補完」;
@@ -225,11 +233,9 @@ in the same muted teal-green grade.
 
 ## 待辦
 
-- ☐ 圖檔入庫(檔名固定,勿改):
-  - 風格母本 `images/b8-haunted-forest-source.png`
-  - 引擎拼裝場景 `images/b8-engine-scene-source.png`
-  - 重打光成品 `images/b8-relight-result.png`
-  - 地面霧版(選配) `images/b8-ground-fog.png`
+- ☑ 圖檔入庫(3 張,`.jpg`):風格母本 `b8-haunted-forest-source.jpg`、
+  引擎拼裝場景 `b8-engine-scene-source.jpg`、重打光成品 `b8-relight-result.jpg`
+  (地面霧版 `b8-ground-fog.jpg` 選配未上傳)
 - ☑ 衍生應用 1 實測 — ✅ 路線 A 一次過(見上方實測結果)
 - ☐ 投影回 3D 前補跑 50% 疊圖對位驗收
 - ☐ 母題 pass(如需雙月/紅眼/骷髏):另開 pass 或引擎放資產卡,勿與 relight 同鍋
