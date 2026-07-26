@@ -25,6 +25,8 @@
   三路線成敗對照(NB2 幾何滲漏 / SD 畫布填滿症 / 貼材質正解)
 - **B6** — 三相機管線(遊戲/出圖/生成相機解耦、反解相機 homography、
   品質三資源);B7 的上游,B4/B5 在 `claude/b2-greybox-experiment-fgsc06` 分支
+- **B8** — 場景就地生成障礙物(石堆/倒木堆):紅圈定位法(placement map)、
+  OBJECT-PLACEMENT 定性句、整包光影對齊、**尺寸錨定法**(治「大一點」尺寸震盪)
 
 ## 進行中
 
