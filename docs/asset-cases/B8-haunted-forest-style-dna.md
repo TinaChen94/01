@@ -15,6 +15,7 @@
 - **用途:** 當**風格母本(STYLE TRUTH)**,產生同風格衍生背景圖
 - **日期:** 2026-07-19
 - **狀態:** ✅ 風格分析定案;✅ 引擎場景重打光成功(路線 A)
+- **開發對話:** https://claude.ai/code/session_01QQg5a3hT1ZgRG8AF2bt3QT
 
 ### 風格母本(STYLE TRUTH)
 ![B8 haunted forest style source](images/b8-haunted-forest-source.jpg)
@@ -182,6 +183,10 @@ repaint: same brushwork, same shapes — only lighting and color change.
 The flat gray backdrop is empty sky: fill it with an overcast night sky
 in the same muted teal-green grade.
 ```
+
+**Leonardo 生成結果頁(此 prompt 產出):**
+- https://app.leonardo.ai/generation/image/two-reference-images-image-1-source-scene-hand-c0fabbee-e1ce-4703-a35b-7522166aff3e
+- https://app.leonardo.ai/generation/image/two-reference-images-image-1-source-scene-hand-70d4a2c2-14ed-4406-a71a-e8c4b282f6c4
 
 - 要月亮 → 末段加 `with the large moon high in the top-center`;
   引擎天空另管 → 末段整段換成「keep the gray backdrop untouched」
