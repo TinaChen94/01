@@ -18,8 +18,16 @@
 | **B7 三相機 → Unreal 重現** | [B7-unreal-camera-port.md](B7-unreal-camera-port.md) | ✅ 三相機全數通過(UE 5.5,HFOV 91.49°/116.81°/80.93° 零誤差,CAM_GEN2 pitch = 反解俯角原數字):腳本 + 鎖檔 json ×3 + 圖解 SOP + 實戰踩坑(B4/B5 紀錄在 `claude/b2-greybox-experiment-fgsc06` 分支) |
 | **B8 場景就地生成障礙物(石堆/倒木堆)** | [B8-scene-obstacle-placement.md](B8-scene-obstacle-placement.md) | ✅ 紅圈定位法(placement map)+ OBJECT-PLACEMENT 定性句 + 整包光影對齊;含**尺寸錨定法**(治「大一點」震盪)與尺寸迭代實錄 |
 | **B9 樹資產重上色(材質特寫參考)** | [B9-tree-trunk-restyle.md](B9-tree-trunk-restyle.md) | ✅ 幾何滲漏根治法:風格參考圖裁成**無幾何材質特寫** + 極短中文 prompt(`不要改變構圖`);含 prompt 鎖形狀二連敗解剖 + 像素鎖備案(Crop-Gen-Paste + 遮罩) |
+| **B10 萬聖夜魔森背景(風格 DNA + 衍生圖鎖句)** | [B10-haunted-forest-style-dna.md](B10-haunted-forest-style-dna.md) | ✅ 五層風格拆解 + 母題清單 + 逐字風格鎖句 + 平台路線 + 引擎場景重打光實測(✅ 路線 A);暗黑 low-key horror 風 |
+| **B11 月夜 RPG 森林背景(風格 DNA + 衍生圖鎖句)** | [B11-moonlit-jrpg-forest-style-dna.md](B11-moonlit-jrpg-forest-style-dna.md) | ✅ 五層風格拆解 + 母題清單 + 逐字風格鎖句 + 平台路線;明亮夢幻 mid-key JRPG 風(與 B10 反向:暗部深藍通透不塗黑) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
+
+## 固定公式(SOP)
+
+| 公式 | 檔案 | 內容 |
+|---|---|---|
+| **風格母本重打光(兩段式)** | [SOP-style-relight.md](SOP-style-relight.md) | Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複):前處理 + 佔位符 prompt 模板 + 驗收 + 失敗分流;叫用詞「照打光公式」 |
 
 ## 最新預覽 — A1 陵墓正視參考板
 

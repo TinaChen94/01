@@ -27,6 +27,13 @@
   品質三資源);B7 的上游,B4/B5 在 `claude/b2-greybox-experiment-fgsc06` 分支
 - **B8** — 場景就地生成障礙物(石堆/倒木堆):紅圈定位法(placement map)、
   OBJECT-PLACEMENT 定性句、整包光影對齊、**尺寸錨定法**(治「大一點」尺寸震盪)
+- **B10** — 萬聖夜魔森背景:風格 DNA 五層拆解 + 母題清單 + 風格鎖句 +
+  引擎場景重打光實測(✅ 路線 A 一次過)
+- **B11** — 月夜 RPG 森林背景:明亮 mid-key 風格 DNA + 葉團渲染理想 +
+  體積兩 pass(樹幹細節/葉團分開跑)+ PS 合成回引擎資產卡
+- **SOP 打光公式** — `docs/asset-cases/SOP-style-relight.md`:
+  Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複)。
+  使用者說「照打光公式」「打光公式」「風格建檔」即指此 SOP — 先讀檔再動手。
 
 ## 進行中
 
