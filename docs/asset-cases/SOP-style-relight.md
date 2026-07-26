@@ -118,6 +118,15 @@ same [色盤] grade.
 - ✅ **定案(2026-07-24):體積 pass 完整配方 = COMPOSITION LOCK(最高優先,逐項點名樹數/
   位置/小徑形狀 + 「IMAGE 1 = 構圖權威」)+ 體積重畫收窄到「鎖定版面之內每棵既有樹的內部」。**
   一次同時拿到:構圖對位 + 圖 2 級葉團/樹幹體積 + B9 明亮 mid-key 藍月光色。兩步法未啟用。
+- ⚠️ **體積 pass 二次副作用:樹幹 bark 細節漂移。** 體積 pass 重畫「內部」= 連樹幹的
+  紋理/凹槽/節疤也被重畫。**根因:樹幹本來就有細節+半立體,不需要體積 pass;扁的只有葉團。**
+  修法 = **按部位拆 pass**(一 pass 一件事的部位版):
+  - **樹幹/枝/根 = PRESERVE + relight only**:`keep the EXACT bark texture, grooves, knots
+    from IMAGE 1, only relight — do NOT redraw or add bark detail`
+  - **葉團 = volume pass**:只對 canopy 重畫體積
+  - 平台 image guidance 調高 / creativity 調低,讓「保留」部位更貼原圖
+  - **樹幹要零漂移(投影對位)** → 連 relight 都別讓 AI 碰:PS 收尾,取體積 pass 的葉團+天空,
+    遮罩把原樹幹像素貼回 + 曲線對齊月光亮度(B1「確定性工具收尾、把骰子收走」)。
 
 ### 2b-plus. 選配句庫(按需插入模板)
 
