@@ -168,25 +168,25 @@ the muted dark teal-green night palette. No new objects.
 ## 產出對照
 
 ### 輸入 — 背景成品(BASE)
-![b8 base](images/b8-base.png)
+![b8 base](images/b8-base.jpg)
 
 ### 輸入 — 紅圈 placement map
-![b8 placement map](images/b8-placement-map.png)
+![b8 placement map](images/b8-placement-map.jpg)
 
 ### 輸出 v1 — 三障礙物一次 pass(✅ 物件本體全數合格)
-![b8 obstacles generated](images/b8-obstacles-generated.png)
+![b8 obstacles generated](images/b8-obstacles-generated.jpg)
 
 ### 輸出 v2 — 「倒木變多 + 石堆矮一點」(石堆 ✅ / 倒木橫向蔓延 ⚠️)
-![b8 iter v2 sprawl](images/b8-iter-v2-sprawl.png)
+石堆降高成功,但倒木從路口十字堆變成**橫貫整個中景的木牆**,兩端融進左右樹線:
+![b8 iter v2 sprawl](images/b8-iter-v2-sprawl.jpg)
 
 ### 輸出 v3 — 「倒木堆大一點」(❌ 爆炸成蓋住月亮的巨型金字塔)
-![b8 iter v3 oversized](images/b8-iter-v3-oversized.png)
+同一句「大一點」得到 +300% — 木堆長成高過樹冠、遮住月亮下緣的金字塔,壓垮構圖:
+![b8 iter v3 oversized](images/b8-iter-v3-oversized.jpg)
 
 ### 輸出 v4 — 「比現在大一點點」(❌ 過度回縮)
-![b8 iter v4 undersized](images/b8-iter-v4-undersized.png)
-
-> 📌 圖檔待補:上述 v2/v3/v4 與 base/placement map 請從 Leonardo 另存後
-> 放入 `images/`,檔名依上方引用名稱。
+從 v3 一路縮回,倒木剩路口一小撮十字木,比左右石堆還矮 — 震盪的另一端:
+![b8 iter v4 undersized](images/b8-iter-v4-undersized.jpg)
 
 ---
 
