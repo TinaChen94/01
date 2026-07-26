@@ -241,6 +241,21 @@ the foliage sitting in a single uniform dark band.
 ### 加地面霧版
 ![B9 with low ground fog](images/b9-ground-fog.jpg)
 
+```text
+Inpaint ONLY the lower portion of the scene near the ground. Add a thin
+layer of low ground fog drifting just above the soil and grass, hugging
+the ground and curling between the roots and along the path. Cool
+desaturated teal-grey, semi-transparent, wispy and soft, catching only
+a faint touch of the moonlight from above. Keep it LOW and thin — do
+NOT cover or hide the skulls, roots or foreground detail; the fog thins
+out upward and does not rise above the base of the tree trunks. Match
+the muted dark low-key teal-green palette; do NOT brighten the scene.
+```
+
+> ⚠️ 此段結尾是 **B8 暗黑版**(`muted dark low-key ... do NOT brighten`)。
+> 用於 B9 明亮版時改結尾為 `cool blue-white fog softly lit by the moon; keep the scene bright, do not darken`。
+> 遮罩下半部 inpaint;或 PS 更可控(見 [SOP 句庫](SOP-style-relight.md))。
+
 ### 強化前後對比(回引擎資產卡)
 
 強化**前**(原始引擎卡,扁平均勻青綠):
