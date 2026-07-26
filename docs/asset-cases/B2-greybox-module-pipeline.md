@@ -202,6 +202,77 @@ No new objects, no fog, muted dark night palette.
 | **角色標籤+PRIORITY** | 多參考各司其職 | 每張一個角色+except 條款+衝突優先權;參考圖數量最小化,冗餘資訊的圖寧缺勿掛 |
 | **texel 尺度標定法** | 材質顆粒 vs 角色比例對齊 | ①引擎放角色+tile,縮放 tile 到尺度對(苔丘≈腳掌),讀 scale 值 S ②佔位貼圖 tiling × (1/S) 重渲 ③重跑活化+頂光,tile 以原尺寸擺回即對。**尺度修在佔位貼圖,不修參考圖**(圖案是真相,尺度確定性傳遞);開工前用角色高的方塊同框快篩定錨 |
 
+## 量產階段:prompt 驗證與修正(2026-07-05 討論定案)
+
+> 目標:master tile 配方 → 橫/直/十字/T 套圖量產。開跑前把三連 prompt
+> 重新過一遍 4 題自檢(查平台簽名/token 對簽名/避禁忌/長度甜蜜點),
+> 結論如下。**歷史逐字 prompt(上方)不動,量產用本節 v2。**
+
+### 驗證結論(對照 NB2 簽名 + B1 鎖句字典 + 本篇踩坑表)
+
+- ✅ NB2 簽名合規:自然段落、多圖參考各司其職(角色標籤+except)、無 flag 語法。
+- ⚠️ 長度:活化 pass ~230 字,超過 NB2 t2i 甜蜜點(80–150 字)— 但鎖句型
+  multi-ref edit pass 屬例外,B1/B2 均已實證有效。**量產鐵律:只做下方
+  三個最小修正,不再加長** — 每加一鎖都稀釋注意力(B1 踩坑 #8)。
+- ❌ 發現缺口 3 處 → 修正 A/B/C。
+
+### 修正 A — 活化 pass 補「禁草句」(缺口:紀錄註記有、逐字 prompt 沒有)
+
+上方註記寫了「不要草就同時在 LIMITS 加 no standing grass tufts」,但定稿
+prompt 只刪允許句、未加禁句 → 除草 pass(會糊)在 master tile 輪仍被迫跑。
+量產版在 LIGHTING 段的禁止清單加:
+
+```text
+No standing grass tufts or grass blades — only low, ground-hugging
+moss and flat leaf litter.
+```
+
+目的:讓除草 pass 在量產中降級為「例外時才跑」,主線二連(活化→頂光)收斂。
+
+### 修正 B — 兩 pass 補畫框鎖動詞禁令(B1 鎖句字典移植)
+
+活化與頂光 pass 都只有 `Keep ... camera ... EXACTLY`,缺 B1 畫框鎖的
+動詞禁令。master tile 一次過可能只是沒被踩到;量產 4 張抽獎次數變多,
+補上成本極低。兩個 pass 的 camera 鎖句尾各加:
+
+```text
+— do NOT crop, zoom, extend or outpaint.
+```
+
+### 修正 C — 活化 pass 補尺度鎖(⚠️ 未驗證,重跑 master tile 時先驗)
+
+texel 標定後佔位貼圖 tiling × 1/S 重渲,但活化 prompt 的苔蘚顆粒度寫
+`matching reference 2's moss` — ref 2 的苔丘尺寸可能壓過重渲後的佔位
+尺度,標定白做。提議加:
+
+```text
+Moss cushion size and soil grain SCALE follow reference 1's placeholder
+pattern; reference 2 defines material fidelity only, NOT feature size.
+```
+
+驗法:重跑 master tile 時疊回佔位貼圖比對苔丘尺寸;若仍被 ref 2 帶走,
+退一步把 ref 2 裁成與目標 texel 尺度一致的特寫(材質色票板技法變體)。
+
+> 頂光 pass 第 4 條 `Remove the standing grass blades` 在無草輸入時為
+> 空指令 — 保留當保險,不動。
+
+### 量產 SOP(橫/直/十字/T)
+
+1. **順序鐵律:** 讀出引擎 S 值 → 佔位貼圖 tiling × 1/S 重渲 →
+   master tile 重跑(v2 prompt,順驗修正 C)→ 引擎投影驗收 →
+   **通過才開量產**。順序反了 = 四張全重做。
+2. **接口一致性(新需求,master tile 配方沒覆蓋):** 模組拼接處的苔/土
+   分佈必須連續 — AI 各張獨立生成不會自己對齊。解法 = 確定性前置:
+   四張佔位貼圖的**接口帶用同一段貼圖素材畫**,苔土交錯畫成過渡帶
+   (「分佈設計交給人」原則的延伸)。
+3. **同配方紀律(B1 套圖結論移植):** 四張同一天、同模型版本、同 prompt
+   逐字、同參數;逐張跑;開 4 挑 1,同張兩輪差異大再升開 8 挑 1。
+4. **十字/T 空角像素預算:** 模組佔畫面比下降是形狀固有,Crop-Gen-Paste
+   裁到模組 bounding box 即可;空角若長東西 → 掛 B1 黑鎖句
+   (`pure black stays exactly pure black — do NOT add noise, fog, stars, gradient`)。
+5. **色調一致性:** 四張並排驗 palette;偏色重抽,不後製硬拉。
+6. 全套過驗收後補 B1 穩定度矩陣 #4「模組成品」格。
+
 ## 驗收 checklist
 
 - ☐ 疊回灰盒:輪廓/分區邊界對齊
@@ -211,6 +282,9 @@ No new objects, no fog, muted dark night palette.
 - ☐ 行走區:微潮霧面深色泥土,無反光
 - ☐ 外緣乾淨平直(投影需求;毛邊用灰盒剪影收)
 - ☐ 引擎投影最終驗收(遊戲相機)
+- ☐ (量產)苔丘尺寸 vs 角色比例正確(texel 標定生效,修正 C 未被 ref 2 帶走)
+- ☐ (量產)相鄰模組拼接處 moss/soil 分佈連續
+- ☐ (量產)四張並排色調一致
 
 ## 學到的(可複用結論)
 
@@ -219,4 +293,4 @@ No new objects, no fog, muted dark night palette.
 - ✅ **像素預算三度應驗**(B1 白邊、SD 緊框、本輪模組佔比):主體佔畫面比例 = 材質品質上限。Crop-Gen-Paste 讓它與投影對位相容。
 - ✅ **均勻光的代價是立體感;頂光是兩全解。** 「無方向光」規格的本意是可旋轉 — 垂直打的頂光同樣可旋轉,卻保住光影調變。規格要鎖的是「水平方向性」,不是「一切方向性」。
 - ✅ **AI 大面積、確定性工具收尾**(B1 結論在灰盒管線再次成立):分佈設計交給人(貼圖/PS)、材質升級交給 AI、邊界隔離交給遮罩。
-- 📌 **待辦:** ①texel 尺度標定(引擎中 tile 需縮約 70% 才符角色 — 待讀出精確 S 值,佔位貼圖 tiling × 1/S 重跑)②引擎投影驗收 → 通過後以本模組為 master,量產橫/直/十字/T(每張:貼材質灰盒同配方 + 同三連 prompt;B1 穩定度矩陣最後一格同時補上)
+- 📌 **待辦:** ①texel 尺度標定(引擎中 tile 需縮約 70% 才符角色 — 待讀出精確 S 值,佔位貼圖 tiling × 1/S 重跑)②引擎投影驗收 → 通過後以本模組為 master,量產橫/直/十字/T — **量產一律用上方〈量產階段〉的 v2 prompt 與 SOP**(接口帶一致性、開 4 挑 1、色調並排驗收;B1 穩定度矩陣最後一格同時補上)
