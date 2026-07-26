@@ -1,11 +1,11 @@
-# 實戰紀錄 — B9 月夜 RPG 森林背景:風格 DNA 分析 + 衍生圖風格鎖句
+# 實戰紀錄 — B11 月夜 RPG 森林背景:風格 DNA 分析 + 衍生圖風格鎖句
 
 > 一張「明亮浪漫月夜森林」完成插畫的風格拆解,目的 = 之後用它產生**同風格衍生圖**。
 > 對應工作流:`ai-media-generator` + [SOP 打光公式](SOP-style-relight.md) Phase 1。
-> ⚠️ 與 B8 魔森**不同風格** — B8 是暗黑恐怖(低調/枯木/骷髏/紅眼),
+> ⚠️ 與 B10 魔森**不同風格** — B10 是暗黑恐怖(低調/枯木/骷髏/紅眼),
 > 本圖是明亮夢幻日式 RPG(高明度藍月夜/繁茂綠葉/暖泥徑/童話蘑菇),風格 DNA 獨立記錄。
 
-**🔑 關鍵字:** `B9`、`月夜森林`、`RPG 森林`、`明亮夜森林`、`夢幻月夜`、
+**🔑 關鍵字:** `B11`、`月夜森林`、`RPG 森林`、`明亮夜森林`、`夢幻月夜`、
 `JRPG background`、`painterly night`、`風格 DNA`、`風格鎖句`、`--sref`
 
 ## 來源(索引)
@@ -17,7 +17,7 @@
 - **開發對話:** https://claude.ai/code/session_01QQg5a3hT1ZgRG8AF2bt3QT
 
 ### 風格母本(STYLE TRUTH)
-![B9 moonlit JRPG forest style source](images/b9-moonlit-forest-source.jpg)
+![B11 moonlit JRPG forest style source](images/b11-moonlit-forest-source.jpg)
 
 ---
 
@@ -29,7 +29,7 @@
 氣質**明亮、浪漫、寧靜**,而非恐怖 — 是「冒險者夜間紮營」的溫柔感,不是驚悚。
 渲染 = 柔和厚塗(soft painterly / semi-cel),葉團與雲以團塊筆刷帶高光邊,
 樹皮/樹根中筆觸半寫實,整體乾淨、飽和、可讀性高。**非照片寫實、非 3D、非暗黑。**
-與 B8 的核心差:B8 壓灰壓暗走 low-key horror;B9 高明度、高飽和、月光普照。
+與 B10 的核心差:B10 壓灰壓暗走 low-key horror;B11 高明度、高飽和、月光普照。
 
 ### 2. 構圖文法(可套用到所有衍生圖)
 
@@ -44,12 +44,12 @@
 
 ### 3. 色彩
 
-- **主宰色:飽和的午夜藍 + 青綠**(saturated midnight blue + teal),明度比 B8 高一大截
+- **主宰色:飽和的午夜藍 + 青綠**(saturated midnight blue + teal),明度比 B10 高一大截
 - **天空:** 藍→青綠漸層漩渦雲,月周泛冷白光暈(發光感)
 - **點綴/暖色:** 中央泥徑暖黃褐(warm ochre/tan)— 全圖唯一大面積暖色,與藍天成互補對比
 - **植被:** 藍綠~墨綠葉團,受光緣帶青白高光;草地黃綠
 - **點景色:** 蘑菇的紅/米白(小面積跳色)
-- 整體**中高飽和**,不壓灰 — 這是與 B8 最大的色彩分界
+- 整體**中高飽和**,不壓灰 — 這是與 B10 最大的色彩分界
 
 ### 4. 光
 
@@ -72,7 +72,7 @@
 - 光**柔和低對比、情緒感**,非硬邊 rim light
 - 📌 反面教訓:葉子「黯淡」先查**色溫太藍 / 筆觸太平滑**,別反射性加亮(加亮→塑膠感)
 
-![B9 foliage rendering ideal reference](images/b9-foliage-ideal.jpg)
+![B11 foliage rendering ideal reference](images/b11-foliage-ideal.jpg)
 
 ---
 
@@ -132,7 +132,7 @@ glowing swirled-cloud sky; horizon in the lower-middle, 16:9.
 
 **沿用 B1 鎖句字典:** 光暈半徑鎖(月不變大)、深度鎖(藍霧後不銳化)、
 畫框鎖(16:9 不 outpaint)— 逐字見 [B1 紀錄](B1-forest-bg-4k-detail.md#鎖句字典可複用)。
-**⚠️ 曝光鎖要改寫:** B8 用「不准提亮暗部」;B9 相反,暗部本來就通透 —
+**⚠️ 曝光鎖要改寫:** B10 用「不准提亮暗部」;B11 相反,暗部本來就通透 —
 改鎖「shadows stay deep blue and readable, do not crush to black」(見 PALETTE/LIGHTING LOCK)。
 
 ---
@@ -140,37 +140,37 @@ glowing swirled-cloud sky; horizon in the lower-middle, 16:9.
 ## 用本圖做場景重打光(SOP Phase 2)
 
 本圖可當 **LIGHTING & MOOD REFERENCE(IMAGE 2)** 給灰盒/引擎場景重打光成「明亮月夜 RPG 氛圍」。
-照 [SOP 打光公式](SOP-style-relight.md) Phase 2 走,但把 relight 段的定調換成 B9 方向:
+照 [SOP 打光公式](SOP-style-relight.md) Phase 2 走,但把 relight 段的定調換成 B11 方向:
 
 - 時段/氣氛:`bright serene moonlit night, mid-key`(**不要**寫 low-key / horror)
 - 光向:`cold moonlight key from the upper-right sky`
-- 暗部:`shadows deep blue and readable — do NOT crush to black`(與 B8 相反,關鍵差異)
+- 暗部:`shadows deep blue and readable — do NOT crush to black`(與 B10 相反,關鍵差異)
 - 色盤:`saturated midnight-blue and teal, warm ochre path`
 - 大氣:`blue atmospheric haze in the midground`
 - 母題授權:想要 RPG 感 → 缺口授權句補「misty treeline with a faint distant spire silhouette」
 
-> 🔑 **B8 vs B9 打光速記:** 同是青綠夜森林,但 **B8 = 壓暗壓灰 low-key horror,暗部塗黑**;
-> **B9 = 高明度高飽和 mid-key,暗部深藍通透**。選錯母本 = 氣氛完全跑掉。
+> 🔑 **B10 vs B11 打光速記:** 同是青綠夜森林,但 **B10 = 壓暗壓灰 low-key horror,暗部塗黑**;
+> **B11 = 高明度高飽和 mid-key,暗部深藍通透**。選錯母本 = 氣氛完全跑掉。
 
-### ⚠️ B9 特有:平資產卡要「像 B9 一樣立體」= 體積 pass,不是 relight
+### ⚠️ B11 特有:平資產卡要「像 B11 一樣立體」= 體積 pass,不是 relight
 
-B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的引擎資產卡跑 relight,
+B11 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的引擎資產卡跑 relight,
 光色會對但**葉子仍扁平**(relight 的筆觸鎖保住原卡的平面內部)。要圖 2 級體積必須改走
 **體積 pass**(silhouette-lock + 內部重畫),代價是失去像素對位 —
 完整對照與逐字 prompt 見 [SOP §2b-alt 鎖的高度](SOP-style-relight.md#2b-alt-鎖的高度--relight-pass-vs-體積-passfont-重要分岔)。
-✅ 實測 2026-07-23:relight 扁平 → 體積 pass 得到 B9 級葉團/樹幹體積。
+✅ 實測 2026-07-23:relight 扁平 → 體積 pass 得到 B11 級葉團/樹幹體積。
 ✅ 定案 2026-07-24(2026-07-26 更正:**實測需兩 pass,非一次到位**):
 - **Pass 1** = COMPOSITION LOCK + SOURCE LAYOUT/TRUNK DETAIL authoritative → 保構圖 + 保樹幹細節
-  ([b9-pass1-trunk-detail.jpg](images/b9-pass1-trunk-detail.jpg))
+  ([b11-pass1-trunk-detail.jpg](images/b11-pass1-trunk-detail.jpg))
 - **Pass 2** = Repaint ONLY the leaf canopies(葉團值域/體積重畫)
-  ([b9-pass2-foliage-repaint.jpg](images/b9-pass2-foliage-repaint.jpg))
-- 兩 pass 疊出:構圖對位 + 圖 2 級體積 + B9 藍月光色。**樹幹與葉團要分兩 pass 才兩全**(部位分治,見 SOP §2b-alt)。
+  ([b11-pass2-foliage-repaint.jpg](images/b11-pass2-foliage-repaint.jpg))
+- 兩 pass 疊出:構圖對位 + 圖 2 級體積 + B11 藍月光色。**樹幹與葉團要分兩 pass 才兩全**(部位分治,見 SOP §2b-alt)。
 
 ---
 
 ## ✅ 里程碑 — AI 強化 → PS 合成回引擎資產卡(2026-07-26)
 
-完整閉環走通:引擎灰盒場景 → B9 重打光/體積/樹幹/葉團多 pass → **PS 合成各版最佳部位
+完整閉環走通:引擎灰盒場景 → B11 重打光/體積/樹幹/葉團多 pass → **PS 合成各版最佳部位
 → 去背回引擎資產卡格式(灰底 + 地面條)**。前後對比:原始卡(扁平均勻青綠)→ 強化後
 (葉團有體積層次+頂端青白亮團、樹幹 bark 暖調立體、繪本厚塗質感)。
 
@@ -182,10 +182,10 @@ B9 的招牌是**葉團球化 + 樹幹圓柱化的厚塗體積感**。用平的�
 ### 兩 pass 實證(樹幹細節 + 葉團體積分開跑)
 
 首次單段 relight — 光色對但**葉團扁平**(relight 天花板,證明需體積 pass):
-![B9 first relight, flat foliage](images/b9-relight-flat.jpg)
+![B11 first relight, flat foliage](images/b11-relight-flat.jpg)
 
 Pass 1 — 保構圖 + 保樹幹細節:
-![B9 pass 1 trunk detail preserved](images/b9-pass1-trunk-detail.jpg)
+![B11 pass 1 trunk detail preserved](images/b11-pass1-trunk-detail.jpg)
 
 ```text
 Two reference images. IMAGE 1 = SOURCE LAYOUT + TRUNK DETAIL
@@ -216,12 +216,12 @@ sky and a full moon with a cool glow halo in the upper-right; add a
 blue-hazed misty treeline in the central gap.
 ```
 
-> **輸入圖(2 張):** IMAGE 1 = `b9-enhance-before.jpg`(引擎拼裝卡 = source layout + trunk detail 權威)、
-> IMAGE 2 = `b9-moonlit-forest-source.jpg`(B9 母本 = foliage volume 參考)。→ 輸出 `b9-pass1-trunk-detail.jpg`。
+> **輸入圖(2 張):** IMAGE 1 = `b11-enhance-before.jpg`(引擎拼裝卡 = source layout + trunk detail 權威)、
+> IMAGE 2 = `b11-moonlit-forest-source.jpg`(B11 母本 = foliage volume 參考)。→ 輸出 `b11-pass1-trunk-detail.jpg`。
 > **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/two-reference-images-image-1-source-layout-trunk-f383fbc8-b202-474c-ab45-185b140b7fd1
 
 Pass 2 — 只重畫葉團(值域/體積):
-![B9 pass 2 foliage canopies repainted](images/b9-pass2-foliage-repaint.jpg)
+![B11 pass 2 foliage canopies repainted](images/b11-pass2-foliage-repaint.jpg)
 
 ```text
 Repaint ONLY the leaf canopies. Give each canopy a FULL value range and
@@ -237,12 +237,12 @@ highlights must sparkle across the tops of the canopies. Do NOT leave
 the foliage sitting in a single uniform dark band.
 ```
 
-> **輸入圖(1 張):** Pass 1 成品 `b9-pass1-trunk-detail.jpg`(接續加強,不重餵母本)。
-> → 輸出 `b9-pass2-foliage-repaint.jpg`。**兩 pass 串接:Pass 1 定樹幹+構圖 → Pass 2 只加強葉團。**
+> **輸入圖(1 張):** Pass 1 成品 `b11-pass1-trunk-detail.jpg`(接續加強,不重餵母本)。
+> → 輸出 `b11-pass2-foliage-repaint.jpg`。**兩 pass 串接:Pass 1 定樹幹+構圖 → Pass 2 只加強葉團。**
 > **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/repaint-leaf-canopies-give-each-canopy-full-value-251d85f9-e4b1-4805-958f-05c2c7dc6598
 
 ### 加地面霧版
-![B9 with low ground fog](images/b9-ground-fog.jpg)
+![B11 with low ground fog](images/b11-ground-fog.jpg)
 
 ```text
 Inpaint ONLY the lower portion of the scene near the ground. Add a thin
@@ -255,23 +255,23 @@ out upward and does not rise above the base of the tree trunks. Match
 the muted dark low-key teal-green palette; do NOT brighten the scene.
 ```
 
-> ⚠️ 此段結尾是 **B8 暗黑版**(`muted dark low-key ... do NOT brighten`)。
-> 用於 B9 明亮版時改結尾為 `cool blue-white fog softly lit by the moon; keep the scene bright, do not darken`。
+> ⚠️ 此段結尾是 **B10 暗黑版**(`muted dark low-key ... do NOT brighten`)。
+> 用於 B11 明亮版時改結尾為 `cool blue-white fog softly lit by the moon; keep the scene bright, do not darken`。
 > 遮罩下半部 inpaint;或 PS 更可控(見 [SOP 句庫](SOP-style-relight.md))。
 > **Leonardo 生成頁:** https://app.leonardo.ai/generation/image/inpaint-lower-portion-scene-near-ground-add-thin-59f6b7f8-c928-4add-98d1-42f15d31ebec
 
 ### 強化前後對比(回引擎資產卡)
 
 強化**前**(原始引擎卡,扁平均勻青綠):
-![B9 before enhancement, raw engine cards](images/b9-enhance-before.jpg)
+![B11 before enhancement, raw engine cards](images/b11-enhance-before.jpg)
 
 強化**後**(葉團體積層次+樹幹 bark 暖調立體+厚塗質感):
-![B9 after enhancement on engine cards](images/b9-enhance-after.png)
+![B11 after enhancement on engine cards](images/b11-enhance-after.png)
 
 ## 待辦
 
 - ☑ 圖檔入庫(8 張):母本 / 葉團理想 / Pass1 / Pass2 / 地面霧 /
-  強化前 `b9-enhance-before.jpg` / 強化後 `b9-enhance-after.png` / relight 天花板 `b9-relight-flat.jpg`
+  強化前 `b11-enhance-before.jpg` / 強化後 `b11-enhance-after.png` / relight 天花板 `b11-relight-flat.jpg`
   — 皆已接上顯示(⚠️ before/after 原上傳檔名對調,已更正)
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證 mid-key 定調

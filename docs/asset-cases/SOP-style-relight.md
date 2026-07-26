@@ -1,12 +1,12 @@
 # SOP — 風格母本重打光公式(兩段式,可跨風格複用)
 
 > 把「拿一張參考圖,將任意場景算成它的打光方向跟氣氛」固化成固定流程。
-> 首個驗證實例:[B8 萬聖夜魔森](B8-haunted-forest-style-dna.md)(2026-07-20 路線 A 一次過)。
+> 首個驗證實例:[B10 萬聖夜魔森](B10-haunted-forest-style-dna.md)(2026-07-20 路線 A 一次過)。
 > 管線依據:`ai-media-generator` [depth-relight-pipeline](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)。
 
 **🔑 叫用方式(對 Claude 說):**
 - `照打光公式,風格建檔:<貼母本圖>` → 跑 Phase 1
-- `照打光公式,母本=B8,場景=<貼場景圖>` → 跑 Phase 2(已建檔風格)
+- `照打光公式,母本=B10,場景=<貼場景圖>` → 跑 Phase 2(已建檔風格)
 - `照打光公式:<貼場景圖+母本圖>` → 未建檔風格,Phase 1 簡化版 + Phase 2 一次做
 
 ---
@@ -60,7 +60,7 @@ Phase 1(每個風格只做一次)          Phase 2(每個場景重複 N 次)
 
 ### 2b. 雙圖融合 prompt 模板(佔位符版 — 逐段換皮即用)
 
-> B8 驗證過的逐字實例見 [B8 衍生應用 1](B8-haunted-forest-style-dna.md#衍生應用-1--引擎拼裝場景重打光成-b8-氣氛-路線-a-一次過2026-07-20)。
+> B10 驗證過的逐字實例見 [B10 衍生應用 1](B10-haunted-forest-style-dna.md#衍生應用-1--引擎拼裝場景重打光成-b10-氣氛-路線-a-一次過2026-07-20)。
 
 ```text
 Two reference images. IMAGE 1 = SOURCE SCENE: [一句話描述場景內容].
@@ -109,7 +109,7 @@ same [色盤] grade.
   樹幹 = `rounded cylindrical volume, raised ridges catch rim light, grooves in shadow, AO where roots meet ground`。
 - **要又立體又能投影對位 = 做不到**:AI 這邊二選一。對位需求 → 立體感回引擎端換有厚度的樹模型;
   看起來像參考圖 → 走體積 pass 放棄對位。
-- ✅ 實測:B9 場景(2026-07-23)relight 後樹葉扁平 → 改體積 pass(silhouette-lock + 內部重畫)得到圖 2 級體積。
+- ✅ 實測:B11 場景(2026-07-23)relight 後樹葉扁平 → 改體積 pass(silhouette-lock + 內部重畫)得到圖 2 級體積。
 - ⚠️ **體積 pass 副作用:構圖漂移。** 鎖鬆到只剩外輪廓時,模型常連版面一起重排
   (樹數/位置變、小徑改道)。修法:**加一段 COMPOSITION LOCK(最高優先)**逐項點名
   樹數/位置/小徑形狀,並宣告「IMAGE 1 = 構圖權威,有疑慮聽 IMAGE 1 不聽 IMAGE 2」,
@@ -117,7 +117,7 @@ same [色盤] grade.
   就**調高**(creativity 調低)。✅ 實測 2026-07-23 重出修正構圖漂移。
 - ✅ **定案(2026-07-24):體積 pass 完整配方 = COMPOSITION LOCK(最高優先,逐項點名樹數/
   位置/小徑形狀 + 「IMAGE 1 = 構圖權威」)+ 體積重畫收窄到「鎖定版面之內每棵既有樹的內部」。**
-  構圖對位 + 圖 2 級葉團/樹幹體積 + B9 明亮 mid-key 藍月光色。
+  構圖對位 + 圖 2 級葉團/樹幹體積 + B11 明亮 mid-key 藍月光色。
   ⚠️ **2026-07-26 更正:實測需兩 pass 才兩全,非一次到位** — Pass 1 保構圖+保樹幹細節
   (SOURCE LAYOUT/TRUNK DETAIL authoritative),Pass 2 只重畫葉團(Repaint ONLY the leaf canopies)。
   樹幹細節與葉團體積在同一 pass 會互搶,分兩 pass 是穩定解(部位分治的實作版)。
@@ -141,7 +141,7 @@ same [色盤] grade.
   單張 img2img 一個全局強度無法「樹幹貼緊 + 葉子大幅重塑」兼得。解法:
   ① **遮罩/inpaint 只重畫樹冠**(樹幹地面天空遮住,葉團區高創意度重畫)= 最乾淨;
   ② 無 inpaint → **兩步法**:保樹幹版當底,再整張跑一次 creativity 調高/guidance 調低,只聚焦葉團值域。
-  ✅ 實測 2026-07-25:B9 保樹幹版葉子偏暗 → 樹冠 inpaint 值域重畫救回層次。
+  ✅ 實測 2026-07-25:B11 保樹幹版葉子偏暗 → 樹冠 inpaint 值域重畫救回層次。
 
 ### 2b-plus. 選配句庫(按需插入模板)
 
@@ -158,7 +158,7 @@ same [色盤] grade.
 
 | # | 場景 | 特徵/風險點 | 結果 |
 |---|---|---|---|
-| 1 | 引擎拼裝(標準視角) | 灰底+下緣鏡像雜訊 | ✅ 路線 A 一次過(詳見 [B8 衍生應用 1](B8-haunted-forest-style-dna.md)) |
+| 1 | 引擎拼裝(標準視角) | 灰底+下緣鏡像雜訊 | ✅ 路線 A 一次過(詳見 [B10 衍生應用 1](B10-haunted-forest-style-dna.md)) |
 | 2 | 引擎拼裝(中距離空地) | 雙灰區+板邊黑線+中央缺口 | ✅ 一次過:板邊句/缺口授權句生效 |
 | 3 | 引擎拼裝(低相機大前景) | **資產卡大斷面**+大面積地面壓暗 | ❌ **幾何誤會**:卡斷面被補完成土崖/浮台,路面微光被放大成水感;光/色/紋理本身合格 → 治本 = 輸入端消歧義(見失敗分流) |
 
@@ -173,7 +173,7 @@ same [色盤] grade.
   (例:冷青葉 → 色彩平衡往綠/黃、降 cyan,拉回暖苔綠理想)
 - **補雜訊**:水感倒影/多餘元素從乾版補回
 - **收邊**:接縫羽化 2–4px
-- ✅ 實測 2026-07-26:B9 體積版(葉冠夠但偏青+水感)+ 保樹幹版 → 合成定案。
+- ✅ 實測 2026-07-26:B11 體積版(葉冠夠但偏青+水感)+ 保樹幹版 → 合成定案。
 
 ### 2b-dir. 局部光向不一致(某幾棵樹幹亮錯面)
 
@@ -193,14 +193,14 @@ same [色盤] grade.
 `single cool moonlight key from the upper-center, from the far end of the path where the moon sits;
 therefore the PATH-FACING (inner) side of every tree is the lit side — left group lit on RIGHT faces,
 right group lit on LEFT faces; outer sides fall to deep blue shadow; light both groups symmetrically
-toward the path`。月亮放 **top-center 走道盡頭**(非 B9 慣例的 upper-right,對稱打光才成立)。
+toward the path`。月亮放 **top-center 走道盡頭**(非 B11 慣例的 upper-right,對稱打光才成立)。
 image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡像固有光 → 路線 B depth 控制圖強制。
 
 **❌ 實測結論(2026-07-26):prompt 層級 LIGHT DIRECTION LOCK 壓不過烙入的資產卡固有光 = 天花板。**
 氣氛/構圖/葉子都對,但樹幹光向仍不服(img2img 重打光 = 在既有畫上疊光,模型保留原光)。
 **別再用文字硬凹,只剩兩條確定性路:**
 - **A. 生成階段鎖光向 = 路線 B**:NB 生 depth map → `depth-relight.html`(場景 Cutoff 0/Depth 低)
-  key light 拖正中上方 → 下載控制圖 → 控制圖(光向)+場景(內容)+B9(風格)三圖融合。
+  key light 拖正中上方 → 下載控制圖 → 控制圖(光向)+場景(內容)+B11(風格)三圖融合。
   控制圖用**像素結構強制**受光面 = 唯一保證。適合**整批量產**。
 - **B. 單張收尾 = PS dodge & burn**(推薦單張):圖已 95% 好時別為光向重擲整圖;
   樹幹靠走道側 dodge 冷白、外側 burn 深藍,吸左樹高光色當標準。零風險 2 分鐘。
@@ -213,10 +213,10 @@ image guidance 給**中等**(太高鎖住鏡像固有光+扁葉)。壓不過鏡�
 - **黯淡(muted/dull)= 飽和度低、灰撲撲 → 不要**(畫面沉下去沒吸引力)
 
 **做法 = dark saturated**:明度壓暗,但**飽和度+對比拉住、高光/月亮保留發光**。
-取 **B8 的暗 + B9 的飽和**之間。relight/霧結尾句改用:
+取 **B10 的暗 + B11 的飽和**之間。relight/霧結尾句改用:
 `keep the palette dark and moody but RICH and saturated — deep saturated teal and blue,
 NOT greyed-out or muted; keep strong contrast and glowing highlights; moody, not dull`。
-⚠️ **禁用** B8 那句 `muted ... do not brighten` 於博奕用途(會壓成灰沉)。
+⚠️ **禁用** B10 那句 `muted ... do not brighten` 於博奕用途(會壓成灰沉)。
 
 **現成配方 — 整張 dark saturated regrade(單張輸入,image guidance 調高只動色/光):**
 ```text
@@ -272,4 +272,4 @@ PS「暗但不黯淡」配方(全調整圖層,非破壞):
 - 角色分派融合 + 深景深場景路線 → [depth-relight-pipeline.md](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)
 - 定性句/畫框鎖/曝光鎖 + letterbox・歧義物件踩坑 → [B1 鎖句字典](B1-forest-bg-4k-detail.md#鎖句字典可複用)
 - NB 平台簽名(自然段/多圖參考/無 --params) → skill `community-prompt-patterns.md`
-- 首個完整實例(含實測結果與觀察) → [B8](B8-haunted-forest-style-dna.md)
+- 首個完整實例(含實測結果與觀察) → [B10](B10-haunted-forest-style-dna.md)

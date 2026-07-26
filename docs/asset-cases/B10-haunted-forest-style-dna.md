@@ -1,4 +1,4 @@
-# 實戰紀錄 — B8 萬聖夜魔森背景:風格 DNA 分析 + 衍生圖風格鎖句
+# 實戰紀錄 — B10 萬聖夜魔森背景:風格 DNA 分析 + 衍生圖風格鎖句
 
 > 一張「萬聖夜恐怖魔法森林」完成插畫的風格拆解,目的 = 之後用它產生**同風格衍生圖**
 > (換場景/換母題,但色盤、光、筆觸、構圖文法不變)。
@@ -6,7 +6,7 @@
 > ⚠️ 與 B1 夜霧森林**不是同一系列** — 同屬深青綠夜森林色系,但本圖是敘事插畫
 > (雙月、臉雲、紅眼、發光符文、骷髏),風格 DNA 獨立記錄。
 
-**🔑 關鍵字:** `B8`、`魔森`、`萬聖森林`、`風格 DNA`、`風格鎖句`、
+**🔑 關鍵字:** `B10`、`魔森`、`萬聖森林`、`風格 DNA`、`風格鎖句`、
 `haunted forest`、`衍生圖`、`style reference`、`--sref`
 
 ## 來源(索引)
@@ -18,7 +18,7 @@
 - **開發對話:** https://claude.ai/code/session_01QQg5a3hT1ZgRG8AF2bt3QT
 
 ### 風格母本(STYLE TRUTH)
-![B8 haunted forest style source](images/b8-haunted-forest-source.jpg)
+![B10 haunted forest style source](images/b10-haunted-forest-source.jpg)
 
 ---
 
@@ -132,18 +132,18 @@ lower third, 16:9.
 
 ---
 
-## 衍生應用 1 — 引擎拼裝場景重打光成 B8 氣氛(✅ 路線 A 一次過,2026-07-20)
+## 衍生應用 1 — 引擎拼裝場景重打光成 B10 氣氛(✅ 路線 A 一次過,2026-07-20)
 
 > 輸入:引擎裡用去背資產拼好的場景 viewport(灰底,白天平光,樹+中央小徑)。
-> 目標:光向與氣氛「算成」B8 母本 — 頂部中央冷月光、低調恐怖夜、地面霧。
+> 目標:光向與氣氛「算成」B10 母本 — 頂部中央冷月光、低調恐怖夜、地面霧。
 > 管線依據:`ai-media-generator` [depth-relight-pipeline](../../.claude/skills/ai-media-generator/references/depth-relight-pipeline.md)
 > 的「深景深場景」路線(森林前後景分離大,工具高度場會拉平 → 光向交給參考圖/文字,遮擋交給 NB 世界知識)。
 
-**前(引擎拼裝場景,灰底平光)→ 後(重打光成 B8 氣氛):**
+**前(引擎拼裝場景,灰底平光)→ 後(重打光成 B10 氣氛):**
 
-![B8 engine assembled scene before relight](images/b8-engine-scene-source.jpg)
+![B10 engine assembled scene before relight](images/b10-engine-scene-source.jpg)
 
-![B8 relight result matching haunted forest mood](images/b8-relight-result.jpg)
+![B10 relight result matching haunted forest mood](images/b10-relight-result.jpg)
 
 ### 前處理(餵圖前必做)
 
@@ -155,7 +155,7 @@ lower third, 16:9.
 
 ### 路線 A — NB2 雙圖融合重打光(先試這個)
 
-> ✅ **下面這段就是產出 [b8-relight-result.jpg](images/b8-relight-result.jpg) 的確切 prompt**
+> ✅ **下面這段就是產出 [b10-relight-result.jpg](images/b10-relight-result.jpg) 的確切 prompt**
 > (2026-07-26 使用者確認)— 逐字可直接複用。
 
 餵兩張圖 + 角色分派(多參考防打架的關鍵),逐字:
@@ -203,7 +203,7 @@ in the same muted teal-green grade.
 
 - ☐ 50% 透明度疊回圖1:樹/路輪廓完全重合(要投影回 3D,像素對位是硬需求)
 - ☑ 暗部是「壓暗」不是「塗黑」— 樹皮/草地紋理在陰影裡仍可讀
-- ☑ 色盤與 B8 母本並排一致(深青綠、無殘留白天高飽和綠)
+- ☑ 色盤與 B10 母本並排一致(深青綠、無殘留白天高飽和綠)
 - ☑ 光向單一:rim light 全部朝頂部中央,無多光源矛盾
 - ☑ 無擅自加入的母題物件(雙月/臉雲/紅眼/骷髏/符文全數未滲漏)
 
@@ -241,9 +241,9 @@ in the same muted teal-green grade.
 
 ## 待辦
 
-- ☑ 圖檔入庫(3 張,`.jpg`):風格母本 `b8-haunted-forest-source.jpg`、
-  引擎拼裝場景 `b8-engine-scene-source.jpg`、重打光成品 `b8-relight-result.jpg`
-  (地面霧版 `b8-ground-fog.jpg` 選配未上傳)
+- ☑ 圖檔入庫(3 張,`.jpg`):風格母本 `b10-haunted-forest-source.jpg`、
+  引擎拼裝場景 `b10-engine-scene-source.jpg`、重打光成品 `b10-relight-result.jpg`
+  (地面霧版 `b10-ground-fog.jpg` 選配未上傳)
 - ☑ 衍生應用 1 實測 — ✅ 路線 A 一次過(見上方實測結果)
 - ☐ 投影回 3D 前補跑 50% 疊圖對位驗收
 - ☐ 母題 pass(如需雙月/紅眼/骷髏):另開 pass 或引擎放資產卡,勿與 relight 同鍋
