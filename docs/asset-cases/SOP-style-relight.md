@@ -148,6 +148,7 @@ same [色盤] grade.
 | **中央缺口授權**(構圖有大片空區在地平線上,想補遠景) | `fill the central gap beyond the path with a distant silhouetted treeline dissolving into fog, matching the misty midground of IMAGE 2.` | ✅ 場景 2:補繪風格一致;⚠️ 授權補繪區不可用於投影對位 |
 | **地面紋理保讀**(前景地面佔畫面大、怕壓暗成死黑) | `darken them WITHOUT losing the grass and soil texture, which must stay readable inside the shadow` | ⚠️ 場景 3 中句子本身生效(暗部紋理可讀),但該次整體因幾何誤會判失敗 |
 | **路面月光微光**(選配,要氛圍才加) | `a faint cool sheen of moonlight may touch the path` | ⚠️ 場景 3 被放大成濕地/水感;不要水感就改成 `the path stays dry — no water, no puddles, no reflections` |
+| **地面霧(局部加法)** | 遮罩下半部:`add a thin layer of low ground fog hugging the soil, curling between roots and along the path; cool teal-grey, semi-transparent, wispy; keep it LOW — do not cover foreground detail, thins upward, does not rise above the trunk bases; do not brighten` | ⚙️ PS 更可控(柔筆低流量+橫向 smudge+遮罩露前景)。⚠️ 壓低壓薄別糊掉前景看點;low-key 圖霧要悶青灰不要發亮白霧 |
 | **地形定調**(卡斷面遮不掉時的補救,⏳ 待實測) | `TERRAIN CLARIFICATION: the raised areas at left and right are gentle grassy banks — their edges slope softly down into the field, covered with the same grass and moss. Do NOT draw exposed dirt cliffs, rock ledges, terraces or floating platforms; no sharp elevation cuts.` | ⏳ 補救性質 — 對歧義幾何下指令仍是邀請解釋(B1 #6),優先治本 |
 
 ### 實測記錄(場景累計)
