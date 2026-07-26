@@ -16,6 +16,8 @@
   - 圖 1(BASE)= 夜森林月下背景成品(16:9 滿版,含枯樹群/土路/月亮)
   - 圖 2(PLACEMENT MAP)= 同一張圖用**紅筆圈出三個要放障礙物的區域**
 - **平台:** Leonardo.ai AI Creation / **Nano Banana 2**
+- **Leonardo 生成連結(OBJECT-PLACEMENT pass 批次,含 v1–v4 迭代):**
+  `https://app.leonardo.ai/generation/image/reference-image-1-base-finished-hand-painted-night-2e55e168-3d40-4102-98fb-a0a75b1e99b5`
 - **需求:** 依畫面主題 + 周圍光線 + 材質,在紅圈處生成量體大的障礙物 —
   左:石堆 / 中:倒木堆 / 右:石堆
 - **日期:** 2026-07-26
