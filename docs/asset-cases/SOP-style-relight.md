@@ -227,7 +227,18 @@ vignette at the edges. GEOMETRY & CONTENT LOCK: only lighting/value/color change
 pass, not a repaint.
 ```
 微調:不夠暗 → PS 疊 Multiply / 加 `darker deep night`;變灰沉 → 加重 `boost saturation, vivid`。
-📌 差別能讀出來因為色調詞這次管**整張**(對比「只加霧」局部無感)。
+
+**❌ 實測(2026-07-26):prompt regrade 幾乎無效 = 天花板。** img2img **錨定輸入曝光**,
+高 guidance 又把明度/飽和一起鎖住 → 整張看不出差異(同「光向壓不過固有光」的天花板家族)。
+**✅ 正解:調色歸 PS,別靠生成**(調色調光是 PS 最擅長最可控的事,最不該丟 AI)。
+PS「暗但不黯淡」配方(全調整圖層,非破壞):
+1. **Curves** 中間下拉(壓暗)+ 緩 S 曲線(對比)
+2. **Vibrance/Saturation** +飽和(「不黯淡」關鍵:壓暗同時提飽和)
+3. **Color Balance/Selective Color** 陰影推藍/青(暗部深藍非灰)
+4. **Multiply 層**(低透明)不夠暗再疊
+5. **Vignette** 邊緣壓暗聚焦月亮+走道
+6. **月亮保亮**:壓暗層加遮罩擦回月亮 / 月周疊 Screen 白光
+順序:壓暗 → 提飽和 → vignette+保月亮;在「壓暗」與「提飽和」間找平衡 = 暗但不黯淡。
 📌 **順序:regrade 永遠是收尾,疊在最完整的圖上**(構圖/霧/前景都做完才調色);
 別先調色再加內容 → 新內容顏色對不上調過的底。選底圖用「前景+霧分佈」不用「色調結尾」(regrade 會覆蓋)。
 
