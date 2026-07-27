@@ -17,6 +17,10 @@
 > 📖 **本檔結構:上半 = 生產區(流程 + 逐字 prompt,拿了就用);
 > 下半 = 查詢區(風格解剖/踩坑/鎖句字典/版本歷程,給日後 Claude 與除錯用)。**
 
+**🔗 連結:**
+[Leonardo 產圖](https://app.leonardo.ai/generation/image/reference-image-1-layout-guide-seamless-tileable-8d8b1b2a-e121-49da-8d13-abc896ac3cbf)
+· [對話紀錄(攻關全程)](https://claude.ai/code/session_01Gif5qPYdeoPTbF7HyHv9Ka)
+
 ---
 
 # 🟢 生產區
