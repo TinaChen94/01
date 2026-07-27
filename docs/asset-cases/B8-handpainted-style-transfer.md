@@ -9,9 +9,10 @@
 `hand-painted`、`Ruined King 風`、`四方連續風格化`、`tileable 風格轉換`、
 `筆觸化`、`寫實轉手繪`
 
-**狀態:✅ 配方定版(2026-07-14)** — v3(定調)+ v4.2(量產)兩段式,
-`_H` master 與 `_F` 已通過。歷程 v1→v4.2 的七次踩坑在下方查詢區。
-**待辦:`B/Bb/Bc/Fb/C` 量產、Match Color、雙層驗縫、引擎 3×3 驗收、成品圖入庫 `images/b8-*`。**
+**狀態:✅ 配方定版 + 七張套圖量產完成(2026-07-14)** — v3(定調)+ v4.2(量產)
+兩段式;master(`_H`)+ 六張 tile + 色票板庫(通用 ×3 / `_C` 專屬 / v3 風格板)
+全數入庫(見〈產出對照〉)。歷程 v1→v4.2 的七次踩坑在下方查詢區。
+**待辦:Match Color 對齊、雙層驗縫(Offset + 套內互拼)、引擎 3×3 鋪排驗收。**
 
 > 📖 **本檔結構:上半 = 生產區(流程 + 逐字 prompt,拿了就用);
 > 下半 = 查詢區(風格解剖/踩坑/鎖句字典/版本歷程,給日後 Claude 與除錯用)。**
@@ -304,6 +305,30 @@ scale or detail density — this is a finish-unification pass only.
 - ☐ 無越界物件(蘑菇/花/立草/石堆/腳印)
 - ☐ 引擎 3×3 鋪排:無高對比筆觸造成的週期重複感
   (若有 → 該區 PS 壓對比,或換候選)
+
+## 產出對照(成品 + 素材圖)
+
+### master(`_H`,v3 定調通過 — 整套基因)
+![b8 master H](images/b8-master-h.jpg)
+
+### 量產 tile 定稿(v4.2)
+| B | Bb | Bc |
+|---|---|---|
+| ![b8 tile B](images/b8-tile-b.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
+| **F** | **Fb** | **C** |
+| ![b8 tile F](images/b8-tile-f.png) | ![b8 tile Fb](images/b8-tile-fb.png) | ![b8 tile C](images/b8-tile-c.png) |
+
+### 色票板庫(ref 2 素材)
+| 通用板 1 | 通用板 2 | 通用板 3 |
+|---|---|---|
+| ![b8 swatch general 1](images/b8-swatch-general-1.jpg) | ![b8 swatch general 2](images/b8-swatch-general-2.jpg) | ![b8 swatch general 3](images/b8-swatch-general-3.jpg) |
+
+- **`_C` 棕紅土專屬板**(治通用板把棕紅土 clamp 成土黃,踩坑見拼板庫表):
+  ![b8 swatch C redsoil](images/b8-swatch-c-redsoil.jpg)
+- **泛用風格板(v3 定調用)**:![b8 style board v3](images/b8-style-board-v3.jpg)
+
+### 輸入寫實 tile 一覽
+![b8 input tiles](images/b8-input-tiles.jpg)
 
 ---
 
