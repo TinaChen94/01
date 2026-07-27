@@ -16,6 +16,10 @@
 
 > 📖 **本檔結構:上半 = 生產區(流程 + 逐字 prompt,拿了就用);
 > 下半 = 查詢區(風格解剖/踩坑/鎖句字典/版本歷程,給日後 Claude 與除錯用)。**
+>
+> **狀態標記:`✅ 實戰驗證` = 本輪真的跑通(v3/v4.2/master 色票板/拼板庫/
+> 相機距離分區合成);`📝 提案未驗證` = 我預先備妥、尚未實測(縫帶修復、
+> 備援 A 拼貼統一法、備援 B 全圖透明度版與輕量統一 pass)— 別當成已驗證。**
 
 **🔗 連結:**
 [Leonardo 產圖](https://app.leonardo.ai/generation/image/reference-image-1-layout-guide-seamless-tileable-8d8b1b2a-e121-49da-8d13-abc896ac3cbf)
@@ -231,7 +235,10 @@ toward the borders, even if the layout guide has darker edges.
 
 某張連抽不順(特別是轉角 `_C`)→ 別硬耗,切「拼貼統一法」(下方備援)。
 
-## 縫帶修復(驗縫後)
+## 縫帶修復(驗縫後)　📝 提案未驗證
+
+> **狀態:此段是提案,尚未實戰** — 本輪還沒做過 offset 50/50 驗縫,
+> 下方 prompt 為預先備妥,真正跑過後再改標 ✅ 並補踩坑。
 
 縫帶小破 → PS 仿製印章/內容感知(首選,確定性);大面積風格斷裂才走 AI,
 且只在 offset 版上**有遮罩的 inpaint 工具**(Leonardo Canvas)跑:
@@ -249,7 +256,10 @@ style, same texture scale. Do not add anything new.
 
 ## 備援方案
 
-### A. master 拼貼統一法(逐張重繪不穩時的最穩解 — 任務推回「增強」區間)
+### A. master 拼貼統一法(逐張重繪不穩時的最穩解 — 任務推回「增強」區間)　📝 提案未驗證
+
+> **狀態:此段是提案,從未執行** — 當初為「連抽失敗」備的退路,
+> 但本輪 v4.2 錨鏈就成功了,沒走到這條;下方 prompt 未實測。
 
 1. PS 開 master 成品,「苔區/土區/路面」當素材庫;
 2. 照該張 tile 寫實版分佈,粗拼出手繪版(套索+蓋章,接縫醜沒關係);
@@ -273,17 +283,26 @@ objects.
 
 優點:色盤/筆觸 100% 同套、零 genre 漂移;代價:每張 10–20 分鐘手工。
 
-### B. PS 透明度混合(風格強度旋鈕,零抽獎)
+### B. 原圖 × 產出 遮罩混合(風格強度旋鈕,零抽獎)
 
-風格 pass 輸出疊在原寫實圖上,圖層不透明度 50–70% 手動調強度
-(同構圖天然對位)。混完筆觸與照片噪點打架時,選配輕量統一 pass:
+核心 = 風格 pass 輸出疊在原寫實圖上,靠遮罩/透明度控制「露多少原圖細節」
+(同構圖天然對位,零抽獎)。**兩種施用形式:**
 
-```text
-Unify this ground texture into a consistent hand-painted finish:
-remove the remaining photographic noise so every area shows the same
-tight, small brushwork. Do NOT change the layout, colors, texture
-scale or detail density — this is a finish-unification pass only.
-```
+- **✅ 相機距離分區遮罩(實戰驗證 — master 完成圖即用此法)**:
+  近相機處(前方走道)mask 透原圖增精緻、遠相機處用產出 100%。
+  見 master 段〈製作程序〉;這是本案例真正用到的收尾手法。
+- **📝 全圖 50–70% 透明度(提案未驗證)**:整張統一一個透明度手動調強度 —
+  概念上可行、未在本輪單獨實測(實戰是走上面的分區遮罩版)。
+
+> 📝 **輕量統一 pass(未驗證)**:分區混合後若筆觸與照片噪點打架,
+> 理論上可再跑此 pass 統一,但本輪未用到:
+>
+> ```text
+> Unify this ground texture into a consistent hand-painted finish:
+> remove the remaining photographic noise so every area shows the same
+> tight, small brushwork. Do NOT change the layout, colors, texture
+> scale or detail density — this is a finish-unification pass only.
+> ```
 
 ## 管線總覽
 
