@@ -381,6 +381,18 @@ scale or detail density — this is a finish-unification pass only.
 | 6 | (v4.1 跑 `_F`)風格全對(色盤/筆觸/苔形同 master,消歧成功),但 ref 1 的貫穿直路中段消失、底部長出 master 的橫向沙帶 — **layout 被錨滲漏**,直路未出下緣,tile 接不了縫 | **成品錨 = 整張 tile = 帶構圖的圖** → B2 踩坑 #1 幾何滲漏在錨身上發作;`Nothing about its layout may be copied` 文字鎖不住(B2 已證);「路徑淡出」是模型對長路徑的慣性,需獨立鎖 | **v4.2:master 色票板化**(風格像素全保留、構圖歸零)+ **路徑連續鎖**(`every path must enter and exit the canvas edges exactly where it does in reference 1 — must NOT fade out or stop mid-tile`) |
 | 7 | (v4.2 跑 `_F`)三大驗收全過(路貫穿/無橫帶滲漏/風格同套 — 色票板錨成立),殘餘:左右暗色漸層帶 + 左右苔丘鏡像;第二抽反而照片感回歸(重繪不足) | 暗帶**事後確認源自 ref 1 原圖**(非模型發明 — layout 鎖忠實重現,行為正確);鏡像 = 生成對稱性 artifact(B1 踩坑 #4 同型);照片感回歸 = 拼板未修(暗糊塊仍在)+ 抽卡變異 | 暗帶:**決策點在源頭** — 原套件引擎鋪排 OK 就保留;想洗掉才加 UNIFORM EXPOSURE 鎖。鏡像:反鏡像鎖(已入 v4.2 常駐)。照片感:修拼板(暗糊塊/照片塊優先)+ 回第一抽收檔 |
 
+### 踩坑證據圖
+
+| #1 v1 過度寫意 | #2 v2 零變化 |
+|---|---|
+| ![b8 fail v1 loose](images/b8-fail-v1-loose.jpg) | ![b8 fail v2 nochange](images/b8-fail-v2-nochange.png) |
+| 筆觸爆大、苔變側視蕨葉叢、土路寫意漩渦 | 輸出≈原圖,風格完全沒轉(edit 定性認同解)|
+
+| #4 v4 卡通地圖 genre | #5 4 合 1 生成 |
+|---|---|
+| ![b8 fail v4 genre](images/b8-fail-v4-genre.png) | ![b8 fail 4in1](images/b8-fail-4in1.webp) |
+| 苔變青綠灌木球、路變奶黃、掉進 RPG 地圖 genre | 材質糊、交界暈接、土路被合理化成石板路 |
+
 ## 鎖句字典(B8 新增)
 
 | 鎖 | 用途 | 關鍵句 |
