@@ -343,7 +343,7 @@ scale or detail density — this is a finish-unification pass only.
 ![b8 master B raw](images/b8-master-b.jpg)
 
 ### ⭐ 完成圖(相機距離分區合成後 — 升格為 master)
-![b8 master B final](images/b8-master-b-final.jpg)
+![b8 master B final](images/b8-master-b-final.png)
 
 ### 量產 tile 定稿(v4.2)
 | H | Bb | Bc |
