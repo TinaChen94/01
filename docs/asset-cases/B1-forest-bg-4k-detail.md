@@ -24,6 +24,8 @@
     物件有漂移但參考用途合格)
 - **平台:** Leonardo.ai — AI Creation **Nano Banana 2**(材質保真 pass,直出 4K)。
   Universal Upscaler 僅於前期測試驗證(可作「純保真放大」分支工具),**不在最終定案管線內**
+- **Claude 對話連結(本案全程:管線驗證 → 穩定度樣本壓測 → 鎖句字典 → 紀錄;同串亦產出 B2):**
+  `https://claude.ai/code/session_011YGmpRjwkgusd3tkm9wMuj`
 - **日期:** 2026-07-02
 - **結果:** ✅ 最終版「材質保真 pass」達成期望 — 地面紋理細節提升至 UE5 掃描質感,構圖/色調/景深零漂移
 
