@@ -10,7 +10,7 @@
 `筆觸化`、`寫實轉手繪`
 
 **狀態:✅ 配方定版 + 七張套圖量產完成(2026-07-14)** — v3(定調)+ v4.2(量產)
-兩段式;master(`_H`)+ 六張 tile + 色票板庫(通用 ×3 / `_C` 專屬 / v3 風格板)
+兩段式;master(`_B`)+ 六張 tile + 色票板庫(通用 ×3 / `_C` 專屬 / v3 風格板)
 全數入庫(見〈產出對照〉)。歷程 v1→v4.2 的七次踩坑在下方查詢區。
 **待辦:Match Color 對齊、雙層驗縫(Offset + 套內互拼)、引擎 3×3 鋪排驗收。**
 
@@ -215,14 +215,14 @@ toward the borders, even if the layout guide has darker edges.
 > ~585px,像素預算死(B1 鐵律)。一致性由錨鏈承擔。
 
 1. **輸入檢查:** 每張寫實 tile 滿版 1:1;同日、同設定跑完全套。
-2. **定 master:** 已通過的成品(`_H` 橫路)= master,裁色票板。
-3. **排程(由易到難):** `B → Bb → Bc`(純苔)→ `F → Fb`(直路)→ `C`(轉角)。
+2. **定 master:** 已通過的成品(`_B`)= master,裁色票板。
+3. **排程(由易到難):** `H → Bb → Bc`(純苔)→ `F → Fb`(直路)→ `C`(轉角)。
 4. **每張:** v4.2 逐字不動(通用寫法,無需逐張改字),只換 ref 1;
    **開 4 挑 1**(挑卡三看:筆觸尺度貼 master、無套外色相、路貫穿到邊)。
 5. **全套出完 → PS Match Color:** 以 master 為 source 拉齊色盤
    (輕微色偏不重抽;重抽只留給路形/苔丘位置的形狀級變異)。
 6. **驗縫兩層(排最後):** ①每張自身 Offset 50/50 驗 wrap
-   ②套內互拼(F 接 B、H 接 C…)只修縫帶 — PS 仿製印章優先。
+   ②套內互拼(F 接 H、B 接 C…)只修縫帶 — PS 仿製印章優先。
 7. **要 4096:** 全套同一個純保真放大器同參數 2×,禁回鍋 NB2。
 
 某張連抽不順(特別是轉角 `_C`)→ 別硬耗,切「拼貼統一法」(下方備援)。
@@ -308,13 +308,13 @@ scale or detail density — this is a finish-unification pass only.
 
 ## 產出對照(成品 + 素材圖)
 
-### master(`_H`,v3 定調通過 — 整套基因)
-![b8 master H](images/b8-master-h.jpg)
+### master(`_B`,v3 定調通過 — 整套基因)
+![b8 master B](images/b8-master-b.jpg)
 
 ### 量產 tile 定稿(v4.2)
-| B | Bb | Bc |
+| H | Bb | Bc |
 |---|---|---|
-| ![b8 tile B](images/b8-tile-b.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
+| ![b8 tile H](images/b8-tile-h.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
 | **F** | **Fb** | **C** |
 | ![b8 tile F](images/b8-tile-f.png) | ![b8 tile Fb](images/b8-tile-fb.png) | ![b8 tile C](images/b8-tile-c.png) |
 
