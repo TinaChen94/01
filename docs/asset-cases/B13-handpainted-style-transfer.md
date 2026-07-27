@@ -9,6 +9,11 @@
 `hand-painted`、`Ruined King 風`、`四方連續風格化`、`tileable 風格轉換`、
 `筆觸化`、`寫實轉手繪`
 
+> ⭐ **開頭必讀 — 為什麼要兩段式:**
+> **v3 每次算出來筆觸感無法統一、大小每次不同**(泛用風格參考只給方向 + 抽卡變異)。
+> 所以每個不同關卡的流程,**該先用 v3 算出想要的筆觸大小,再用 v4.2 量產**
+> (v4.2 拿 v3 選中那張當色票板錨,筆觸就釘死了)。
+
 **狀態:✅ 配方定版 + 七張套圖量產完成(2026-07-14)** — v3(定調)+ v4.2(量產)
 兩段式;master(`_B`)+ 六張 tile + 色票板庫(通用 ×3 / `_C` 專屬 / v3 風格板)
 全數入庫(見〈產出對照〉)。歷程 v1→v4.2 的七次踩坑在下方查詢區。
@@ -105,13 +110,17 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 > (呼應「**板的色域 = 輸出色域上限**」— 板涵蓋不到的材質色會被 clamp。)
 
 ### 色票板庫(ref 2 素材)
+
+**通用板 1~3(v4.2 量產用)** — 📌 **1~3 張都可用;但原圖剛好有跟某板相似的色塊時會被牽引 → 換另一張通用板試。**
+
 | 通用板 1 | 通用板 2 | 通用板 3 |
 |---|---|---|
 | ![b13 swatch general 1](images/b13-swatch-general-1.jpg) | ![b13 swatch general 2](images/b13-swatch-general-2.jpg) | ![b13 swatch general 3](images/b13-swatch-general-3.jpg) |
 
-- **`_C` 棕紅土專屬板**(治通用板把棕紅土 clamp 成土黃,踩坑見拼板庫表):
+- **`_C` 棕紅土專屬板** — 📌 **`_C` 用的;用通用板 1~3 會一直把泥土地從棕紅色長成土黃色,故做這塊專屬板補棕紅色域。**
   ![b13 swatch C redsoil](images/b13-swatch-c-redsoil.jpg)
-- **泛用風格板(v3 定調用)**:![b13 style board v3](images/b13-style-board-v3.jpg)
+- **泛用風格板(v3 定調用)** — 📌 **配 v3 提示詞用,生不同大小筆觸;或當 v4.2 用通用板 1~3 都失敗時,退回 v3 提示詞用這塊處理看看。**
+  ![b13 style board v3](images/b13-style-board-v3.jpg)
 
 ### 輸入寫實 tile 一覽
 ![b13 input tiles](images/b13-input-tiles.jpg)
