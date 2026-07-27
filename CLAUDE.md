@@ -44,6 +44,11 @@
 
 ## 進行中
 
+- **B13 — 寫實貼圖 → 手繪風格化(style transfer):✅ 定版 + 七張套圖量產**
+  (Ruined King 級厚塗;v3 定調 + v4.2 量產兩段式,master 色票板庫)。
+  完整配方/七次踩坑/成品圖在
+  `docs/asset-cases/B13-handpainted-style-transfer.md`(此分支新增;
+  main 已有他人的 B8,故編為 B13);待辦:Match Color、驗縫、引擎 3×3 驗收。
 - **B7 — 三相機 → Unreal 重現:✅ 三相機全數通過**(UE 5.5,數值直搬
   零誤差)。腳本與鎖檔 json ×3 在 `tools/unreal-camera-port/`,
   定案值/SOP/踩坑在 `docs/asset-cases/B7-unreal-camera-port.md` —
