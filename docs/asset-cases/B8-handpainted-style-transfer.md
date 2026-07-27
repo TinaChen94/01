@@ -43,6 +43,81 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 
 ---
 
+## 產出對照(成品 + 素材圖)
+
+> 📸 **先看成品**(嫌字多可只看這段);完整流程/prompt 在下方〈🟢 生產區〉。
+
+### master(`_B`,v3 定調通過 — 整套基因)
+
+> 此段為 master 的**完整定調實錄**:v3 提示詞 + 兩張參考圖 + 相機距離分區合成程序。
+
+### ① v3 定調提示詞
+
+> **逐字見生產區〈① v3 — 定調用完整提示詞〉;此 master 即用該 prompt 產出
+> (ref 1 = 原圖、ref 2 = 泛用風格板)。**
+
+### ② 兩張參考圖
+
+| 圖1 原圖(寫實 ref 1) | 圖2 風格板 ref 2(`b8-style-board-v3`) |
+|---|---|
+| ![b8 master b source](images/b8-master-b-source.jpg) | ![b8 style board v3](images/b8-style-board-v3.jpg) |
+
+### ⭐ 製作程序(相機距離分區合成 — 定調 + 精緻度兩全)
+
+> **1. v3 定調:1 原圖 + 1 遊戲風格拼板 → 先算出筆觸大小**
+>
+> **2. 開好幾張 → 選擇 / 合成**(挑筆觸對的,必要時多張合成)
+>
+> **3. 前方走道(近相機)→ mask 透出原圖,增加精緻度**
+>    (配合遊戲鏡頭近景實際看到的清晰度)
+>
+> **4. 走道後方(遠相機)→ 用產出物 100%**(風格化,配合鏡頭遠景)
+>
+> **5. 調整成 tile**
+
+> 💡 **心法:近相機處要細節 → 混原圖;遠相機處可放心風格化 → 純產出。**
+> 本質 = 備援 B(PS 透明度混合)**按「相機距離」分區施用** — 不是全圖統一強度。
+
+### v3 產出圖(raw — 定調成品,合成前)
+![b8 master B raw](images/b8-master-b.jpg)
+
+### ⭐ 完成圖(相機距離分區合成後 — 升格為 master)
+![b8 master B final](images/b8-master-b-final.png)
+
+### 量產 tile 定稿(v4.2)
+| H | Bb | Bc |
+|---|---|---|
+| ![b8 tile H](images/b8-tile-h.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
+| **F** | **Fb** | **C** |
+| ![b8 tile F](images/b8-tile-f.png) | ![b8 tile Fb](images/b8-tile-fb.png) | ![b8 tile C](images/b8-tile-c.png) |
+
+### ⭐ 製作程序(v4.2 量產 — 對照 master 段的 (1) v3)
+
+> **1. 輸入:地板原圖(ref 1)+ 1 參考拼圖(ref 2 = v3 產出截圖裁的 4 塊)→ 改圖**
+>
+> **2. 拼圖也會影響產出 → 換著給**(不同拼板出不同結果,見〈拼板庫制〉)
+>
+> **3. 產出後調整成 tile**
+
+> ### ⚠️ 拼圖跟原圖差太多 → 重出素材
+> **色域/材質對不上時(如 `_C` 棕紅土),重新用 v3 產出該色域的素材圖,
+> 或從既有素材裡找出適合的拼圖重拼。**
+> (呼應「**板的色域 = 輸出色域上限**」— 板涵蓋不到的材質色會被 clamp。)
+
+### 色票板庫(ref 2 素材)
+| 通用板 1 | 通用板 2 | 通用板 3 |
+|---|---|---|
+| ![b8 swatch general 1](images/b8-swatch-general-1.jpg) | ![b8 swatch general 2](images/b8-swatch-general-2.jpg) | ![b8 swatch general 3](images/b8-swatch-general-3.jpg) |
+
+- **`_C` 棕紅土專屬板**(治通用板把棕紅土 clamp 成土黃,踩坑見拼板庫表):
+  ![b8 swatch C redsoil](images/b8-swatch-c-redsoil.jpg)
+- **泛用風格板(v3 定調用)**:![b8 style board v3](images/b8-style-board-v3.jpg)
+
+### 輸入寫實 tile 一覽
+![b8 input tiles](images/b8-input-tiles.jpg)
+
+---
+
 # 🟢 生產區
 
 ## 🎯 定調 → 量產 兩段式流程(核心)
@@ -373,77 +448,6 @@ objects.
 - ☐ 無越界物件(蘑菇/花/立草/石堆/腳印)
 - ☐ 引擎 3×3 鋪排:無高對比筆觸造成的週期重複感
   (若有 → 該區 PS 壓對比,或換候選)
-
-## 產出對照(成品 + 素材圖)
-
-### master(`_B`,v3 定調通過 — 整套基因)
-
-> 此段為 master 的**完整定調實錄**:v3 提示詞 + 兩張參考圖 + 相機距離分區合成程序。
-
-### ① v3 定調提示詞
-
-> **逐字見生產區〈① v3 — 定調用完整提示詞〉;此 master 即用該 prompt 產出
-> (ref 1 = 原圖、ref 2 = 泛用風格板)。**
-
-### ② 兩張參考圖
-
-| 圖1 原圖(寫實 ref 1) | 圖2 風格板 ref 2(`b8-style-board-v3`) |
-|---|---|
-| ![b8 master b source](images/b8-master-b-source.jpg) | ![b8 style board v3](images/b8-style-board-v3.jpg) |
-
-### ⭐ 製作程序(相機距離分區合成 — 定調 + 精緻度兩全)
-
-> **1. v3 定調:1 原圖 + 1 遊戲風格拼板 → 先算出筆觸大小**
->
-> **2. 開好幾張 → 選擇 / 合成**(挑筆觸對的,必要時多張合成)
->
-> **3. 前方走道(近相機)→ mask 透出原圖,增加精緻度**
->    (配合遊戲鏡頭近景實際看到的清晰度)
->
-> **4. 走道後方(遠相機)→ 用產出物 100%**(風格化,配合鏡頭遠景)
->
-> **5. 調整成 tile**
-
-> 💡 **心法:近相機處要細節 → 混原圖;遠相機處可放心風格化 → 純產出。**
-> 本質 = 備援 B(PS 透明度混合)**按「相機距離」分區施用** — 不是全圖統一強度。
-
-### v3 產出圖(raw — 定調成品,合成前)
-![b8 master B raw](images/b8-master-b.jpg)
-
-### ⭐ 完成圖(相機距離分區合成後 — 升格為 master)
-![b8 master B final](images/b8-master-b-final.png)
-
-### 量產 tile 定稿(v4.2)
-| H | Bb | Bc |
-|---|---|---|
-| ![b8 tile H](images/b8-tile-h.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
-| **F** | **Fb** | **C** |
-| ![b8 tile F](images/b8-tile-f.png) | ![b8 tile Fb](images/b8-tile-fb.png) | ![b8 tile C](images/b8-tile-c.png) |
-
-### ⭐ 製作程序(v4.2 量產 — 對照 master 段的 (1) v3)
-
-> **1. 輸入:地板原圖(ref 1)+ 1 參考拼圖(ref 2 = v3 產出截圖裁的 4 塊)→ 改圖**
->
-> **2. 拼圖也會影響產出 → 換著給**(不同拼板出不同結果,見〈拼板庫制〉)
->
-> **3. 產出後調整成 tile**
-
-> ### ⚠️ 拼圖跟原圖差太多 → 重出素材
-> **色域/材質對不上時(如 `_C` 棕紅土),重新用 v3 產出該色域的素材圖,
-> 或從既有素材裡找出適合的拼圖重拼。**
-> (呼應「**板的色域 = 輸出色域上限**」— 板涵蓋不到的材質色會被 clamp。)
-
-### 色票板庫(ref 2 素材)
-| 通用板 1 | 通用板 2 | 通用板 3 |
-|---|---|---|
-| ![b8 swatch general 1](images/b8-swatch-general-1.jpg) | ![b8 swatch general 2](images/b8-swatch-general-2.jpg) | ![b8 swatch general 3](images/b8-swatch-general-3.jpg) |
-
-- **`_C` 棕紅土專屬板**(治通用板把棕紅土 clamp 成土黃,踩坑見拼板庫表):
-  ![b8 swatch C redsoil](images/b8-swatch-c-redsoil.jpg)
-- **泛用風格板(v3 定調用)**:![b8 style board v3](images/b8-style-board-v3.jpg)
-
-### 輸入寫實 tile 一覽
-![b8 input tiles](images/b8-input-tiles.jpg)
 
 ---
 
