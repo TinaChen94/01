@@ -13,7 +13,7 @@
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |
 | **B6 三相機管線(遊戲/出圖/生成)** | [B6-three-camera-pipeline.md](B6-three-camera-pipeline.md) | ✅ 相機解耦架構 + 反解相機(homography)+ 品質三資源 + 踩坑 ×8;B7 的上游(注:文中 B4/B5 連結仍在 `claude/b2-greybox-experiment-fgsc06` 分支) |
 | **B7 三相機 → Unreal 重現** | [B7-unreal-camera-port.md](B7-unreal-camera-port.md) | ✅ 三相機全數通過(UE 5.5,HFOV 91.49°/116.81°/80.93° 零誤差,CAM_GEN2 pitch = 反解俯角原數字):腳本 + 鎖檔 json ×3 + 圖解 SOP + 實戰踩坑(B4/B5 紀錄在 `claude/b2-greybox-experiment-fgsc06` 分支) |
-| **B8 寫實貼圖 → 手繪風格化(style transfer)** | [B8-handpainted-style-transfer.md](B8-handpainted-style-transfer.md) | ✅ 定版 + 七張套圖量產 — v3 定調/v4.2 量產兩段式 + master 色票板庫 + 逐字 prompt + 七次踩坑全歷程(生產區/查詢區雙結構;含成品圖) |
+| **B13 寫實貼圖 → 手繪風格化(style transfer)** | [B13-handpainted-style-transfer.md](B13-handpainted-style-transfer.md) | ✅ 定版 + 七張套圖量產 — v3 定調/v4.2 量產兩段式 + master 色票板庫 + 逐字 prompt + 七次踩坑全歷程(生產區/查詢區雙結構;含成品圖) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
 

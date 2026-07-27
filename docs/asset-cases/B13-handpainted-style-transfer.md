@@ -1,11 +1,11 @@
-# 實戰紀錄 — B8 寫實貼圖 → 手繪風格化(style transfer)提示詞配方
+# 實戰紀錄 — B13 寫實貼圖 → 手繪風格化(style transfer)提示詞配方
 
 > 寫實風四方連續地面貼圖 → 《Ruined King》/ Battle Chasers 級手繪厚塗風格。
 > 對應工作流:`ai-media-generator`;前置知識:[B1](B1-forest-bg-4k-detail.md)(鎖句字典)、
 > [B2](B2-greybox-module-pipeline.md)(圖案活化/材質色票板/頂光)、
 > [B3](B3-fenske-painterly-4k.md)(手繪風 × NB2 保真 pass 禁忌)。
 
-**🔑 關鍵字:** `B8`、`風格轉換`、`手繪風格化`、`style transfer`、`厚塗`、
+**🔑 關鍵字:** `B13`、`風格轉換`、`手繪風格化`、`style transfer`、`厚塗`、
 `hand-painted`、`Ruined King 風`、`四方連續風格化`、`tileable 風格轉換`、
 `筆觸化`、`寫實轉手繪`
 
@@ -27,8 +27,8 @@
 
 ## 🪄 日後複用:一句話召喚本流程
 
-> **對 Claude 說:「照 B8 配方做一套新套圖」**(或 `B8`／`手繪風格化`／
-> `風格轉換套圖`)+ 一句主題,例:「照 B8 做一套**雪地**地磚套圖,X 張,
+> **對 Claude 說:「照 B13 配方做一套新套圖」**(或 `B13`／`手繪風格化`／
+> `風格轉換套圖`)+ 一句主題,例:「照 B13 做一套**雪地**地磚套圖,X 張,
 > 目標風格 OO」。
 
 **附帶給 Claude 4 樣(缺了會被問):**
@@ -58,9 +58,9 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 
 ### ② 兩張參考圖
 
-| 圖1 原圖(寫實 ref 1) | 圖2 風格板 ref 2(`b8-style-board-v3`) |
+| 圖1 原圖(寫實 ref 1) | 圖2 風格板 ref 2(`b13-style-board-v3`) |
 |---|---|
-| ![b8 master b source](images/b8-master-b-source.jpg) | ![b8 style board v3](images/b8-style-board-v3.jpg) |
+| ![b13 master b source](images/b13-master-b-source.jpg) | ![b13 style board v3](images/b13-style-board-v3.jpg) |
 
 ### ⭐ 製作程序(相機距離分區合成 — 定調 + 精緻度兩全)
 
@@ -79,17 +79,17 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 > 本質 = 備援 B(PS 透明度混合)**按「相機距離」分區施用** — 不是全圖統一強度。
 
 ### v3 產出圖(raw — 定調成品,合成前)
-![b8 master B raw](images/b8-master-b.jpg)
+![b13 master B raw](images/b13-master-b.jpg)
 
 ### ⭐ 完成圖(相機距離分區合成後 — 升格為 master)
-![b8 master B final](images/b8-master-b-final.png)
+![b13 master B final](images/b13-master-b-final.png)
 
 ### 量產 tile 定稿(v4.2)
 | H | Bb | Bc |
 |---|---|---|
-| ![b8 tile H](images/b8-tile-h.png) | ![b8 tile Bb](images/b8-tile-bb.png) | ![b8 tile Bc](images/b8-tile-bc.png) |
+| ![b13 tile H](images/b13-tile-h.png) | ![b13 tile Bb](images/b13-tile-bb.png) | ![b13 tile Bc](images/b13-tile-bc.png) |
 | **F** | **Fb** | **C** |
-| ![b8 tile F](images/b8-tile-f.png) | ![b8 tile Fb](images/b8-tile-fb.png) | ![b8 tile C](images/b8-tile-c.png) |
+| ![b13 tile F](images/b13-tile-f.png) | ![b13 tile Fb](images/b13-tile-fb.png) | ![b13 tile C](images/b13-tile-c.png) |
 
 ### ⭐ 製作程序(v4.2 量產 — 對照 master 段的 (1) v3)
 
@@ -107,14 +107,14 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 ### 色票板庫(ref 2 素材)
 | 通用板 1 | 通用板 2 | 通用板 3 |
 |---|---|---|
-| ![b8 swatch general 1](images/b8-swatch-general-1.jpg) | ![b8 swatch general 2](images/b8-swatch-general-2.jpg) | ![b8 swatch general 3](images/b8-swatch-general-3.jpg) |
+| ![b13 swatch general 1](images/b13-swatch-general-1.jpg) | ![b13 swatch general 2](images/b13-swatch-general-2.jpg) | ![b13 swatch general 3](images/b13-swatch-general-3.jpg) |
 
 - **`_C` 棕紅土專屬板**(治通用板把棕紅土 clamp 成土黃,踩坑見拼板庫表):
-  ![b8 swatch C redsoil](images/b8-swatch-c-redsoil.jpg)
-- **泛用風格板(v3 定調用)**:![b8 style board v3](images/b8-style-board-v3.jpg)
+  ![b13 swatch C redsoil](images/b13-swatch-c-redsoil.jpg)
+- **泛用風格板(v3 定調用)**:![b13 style board v3](images/b13-style-board-v3.jpg)
 
 ### 輸入寫實 tile 一覽
-![b8 input tiles](images/b8-input-tiles.jpg)
+![b13 input tiles](images/b13-input-tiles.jpg)
 
 ---
 
@@ -146,7 +146,7 @@ Claude 自動跑:`v3 定調(挑 master)→ 裁 master 色票板 → v4.2 逐張�
 |---|---|---|
 | Model | Nano Banana 2 | |
 | Image Dimensions | **1:1(2048×2048)** | 輸入 1:1 → 輸出比例對齊(B1 鐵律);1024→2048 = 2× 安全倍率 |
-| Prompt Enhance | None(首選)/ Auto 可接受 | 🆕 實測(2026-07-14):**Auto 依 prompt 長度判斷,B8 這種 300 字級鎖句長文不會被改寫**,v3/v4.2 全程 Auto 下通過。但 Auto 門檻是黑盒,能選 None 就選 None |
+| Prompt Enhance | None(首選)/ Auto 可接受 | 🆕 實測(2026-07-14):**Auto 依 prompt 長度判斷,B13 這種 300 字級鎖句長文不會被改寫**,v3/v4.2 全程 Auto 下通過。但 Auto 門檻是黑盒,能選 None 就選 None |
 | Style | None | 避免疊色調,與色盤指令衝突 |
 | **Use Fixed Seed**(Advanced Settings) | **On,全套同一 seed** | 🆕 2026-07-14 實戰發現:Leonardo 介面有固定 seed(先前誤判 NB2 無 seed)。固定 seed 可稍降輪間變異、提高成功率 — **定調段抽中 master 時把 seed 記進紀錄,量產全套沿用**。注意:seed 只是降變異,錨鏈(master 色票板)仍是主防線 |
 | Private Mode | On | |
@@ -506,15 +506,15 @@ objects.
 
 | #1 v1 過度寫意 | #2 v2 零變化 |
 |---|---|
-| ![b8 fail v1 loose](images/b8-fail-v1-loose.jpg) | ![b8 fail v2 nochange](images/b8-fail-v2-nochange.png) |
+| ![b13 fail v1 loose](images/b13-fail-v1-loose.jpg) | ![b13 fail v2 nochange](images/b13-fail-v2-nochange.png) |
 | 筆觸爆大、苔變側視蕨葉叢、土路寫意漩渦 | 輸出≈原圖,風格完全沒轉(edit 定性認同解)|
 
 | #4 v4 卡通地圖 genre | #5 4 合 1 生成 |
 |---|---|
-| ![b8 fail v4 genre](images/b8-fail-v4-genre.png) | ![b8 fail 4in1](images/b8-fail-4in1.webp) |
+| ![b13 fail v4 genre](images/b13-fail-v4-genre.png) | ![b13 fail 4in1](images/b13-fail-4in1.webp) |
 | 苔變青綠灌木球、路變奶黃、掉進 RPG 地圖 genre | 材質糊、交界暈接、土路被合理化成石板路 |
 
-## 鎖句字典(B8 新增)
+## 鎖句字典(B13 新增)
 
 | 鎖 | 用途 | 關鍵句 |
 |---|---|---|
@@ -555,8 +555,8 @@ Match Color/雙層驗縫)**主題無關,直接沿用**。換主題只換三個�
 | **火山熔岩** | 中 | 發光裂縫 = emissive → 搬 B1 光暈半徑鎖;palette 明文允許高飽和橙紅;防「熔岩流動」場景化(鎖成靜態材質) |
 | **地磚 / 人造建築** | **高** | ①磚縫是幾何非紋理,人眼對直線錯位極敏感 → layout 鎖升級成磚縫網格 pixel 級跟 ref 1,必做 overlay ②AI 畫長直線會歪/斷 ③wrap 邊磚縫要跨邊對齊,驗縫嚴一級 ④防砌法被重新解釋(亂石↔方磚)。可考慮先出線稿層當幾何真相(B2 貼材質灰盒邏輯)|
 
-> 新主題沿用 B8 開新案例檔(B9 雪地、B10 地磚…),只記「槽位怎麼填 + 該主題踩的坑」,
-> 框架引用 B8,不整份重寫。
+> 新主題沿用 B13 開新案例檔(B14 雪地、B15 地磚…),只記「槽位怎麼填 + 該主題踩的坑」,
+> 框架引用 B13,不整份重寫。
 
 ## 學到的(累積中)
 
@@ -571,7 +571,7 @@ Match Color/雙層驗縫)**主題無關,直接沿用**。換主題只換三個�
   「尺度/形態/版面」這些框架量,不能鎖「跟輸入一樣」這種認同量。
 - ✅ **B2「增強模式極穩」不適用於風格轉換**:增強(材質變高清)與
   風格轉換(渲染方式整個換掉)是相反方向 — 前者要 edit 定性,
-  後者必須重繪定性,拿錯定性就掉進對應的坑(B1 #7 / B8 #2 同型)。
+  後者必須重繪定性,拿錯定性就掉進對應的坑(B1 #7 / B13 #2 同型)。
 - ✅ **風格化 pass 的量產一致性要靠「成品錨鏈」,不能靠重抽紀律**:
   重繪定性的輪間變異是結構性的 — B1 套圖鐵律只對保真 pass 有效。
   正解 = 定調 master → master 色票板錨 → Match Color 收尾;
