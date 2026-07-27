@@ -339,8 +339,11 @@ scale or detail density — this is a finish-unification pass only.
 > 💡 **心法:近相機處要細節 → 混原圖;遠相機處可放心風格化 → 純產出。**
 > 本質 = 備援 B(PS 透明度混合)**按「相機距離」分區施用** — 不是全圖統一強度。
 
-### v3 產出圖(= 升格為 master 的定調成品)
-![b8 master B](images/b8-master-b.jpg)
+### v3 產出圖(raw — 定調成品,合成前)
+![b8 master B raw](images/b8-master-b.jpg)
+
+### ⭐ 完成圖(相機距離分區合成後 — 升格為 master)
+![b8 master B final](images/b8-master-b-final.jpg)
 
 ### 量產 tile 定稿(v4.2)
 | H | Bb | Bc |
