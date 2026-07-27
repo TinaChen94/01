@@ -29,6 +29,7 @@
 **🔗 連結:**
 [Leonardo 產圖](https://app.leonardo.ai/generation/image/reference-image-1-layout-guide-seamless-tileable-8d8b1b2a-e121-49da-8d13-abc896ac3cbf)
 · [對話紀錄(攻關全程)](https://claude.ai/code/session_01Gif5qPYdeoPTbF7HyHv9Ka)
+· [PR #19(併入 main)](https://github.com/TinaChen94/01/pull/19)
 
 ## 🪄 日後複用:一句話召喚本流程
 
@@ -469,6 +470,7 @@ objects.
 - **平台:** Leonardo.ai AI Creation / **Nano Banana 2**(沿用 B1/B2 主力)
 - **產圖連結(Leonardo):** <https://app.leonardo.ai/generation/image/reference-image-1-layout-guide-seamless-tileable-8d8b1b2a-e121-49da-8d13-abc896ac3cbf>
 - **對話紀錄(本案例攻關全程):** <https://claude.ai/code/session_01Gif5qPYdeoPTbF7HyHv9Ka>
+- **合併 PR:** <https://github.com/TinaChen94/01/pull/19>(B13 併入 main)
 - **任務定性:** ~~B2 的「增強」模式~~ → **修正(踩坑 #2):風格轉換必須用
   「重繪」定性**(照版面從空白畫布重畫),edit/保留定性會得到零變化的認同解;
   分佈真相由 layout 鎖承擔,不由 edit 定性承擔
