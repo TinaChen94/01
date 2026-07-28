@@ -184,9 +184,14 @@ treeline; deepen the top canopy into shadow.
 - **B14 relight 三要點**(對比 B10/B11):① 質感鎖 `PBR/UE5, NOT illustration/anime`
   ② 光靈魂 = god rays + 中央亮塘 + vignette ③ 扎實 AO 接觸陰影(物件坐地有重量)
 - 驗收(照 SOP 5 條)+ 特別盯:壓暗後**苔地/樹皮紋理可讀**(別塗死黑)、god rays 方向單一。
-- ⚠️ **實測 2026-07-28:氣氛對但構圖漂移**(樹位置/樹牆重排)。修法(照 SOP 2b-alt):
+- ⚠️ **實測 2026-07-28 ①:氣氛對但構圖漂移**(樹位置/樹牆重排)。修法(照 SOP 2b-alt):
   **COMPOSITION LOCK 移最前、逐項點名樹數/位置/樹牆/苔地/土路 + 「IMAGE 1=構圖權威,有疑慮聽 IMAGE 1」**,
   平台 image guidance 調高 / creativity 調低。根因:IMAGE 2(母本)版面滲進來帶跑構圖。
+- ⚠️ **實測 2026-07-28 ②:構圖鎖住了但氣氛沒吃進去**(偏亮偏綠,丟 B14 暗黑大地色)。
+  根因 = **兩鎖互打**:高 guidance 鎖構圖的同時把原圖亮固有光凍住,IMAGE 2 暗調套不進(同 SOP regrade 天花板)。
+  **正解:構圖既對就凍住,氣氛交給 PS**(壓暗 Curves → 降飽和 → 陰影推冷藍灰 → vignette 保中央亮塘 →
+  Screen 層加 god rays)。生成硬追兩鎖=打架;調色/氣氛歸 PS(全流程結論)。或兩步法:此版當底、
+  第二 pass 降 guidance 只換氣氛(構圖可能微鬆)。
 
 ## 待辦
 
