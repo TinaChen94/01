@@ -227,6 +227,12 @@ realistic PBR / UE5 look; do NOT turn it into flat illustration or anime.
 - ⚠️ **真正可靠 = PS**:「暗」與「不黯淡」是**兩個獨立旋鈕**,生成端綁在一起、PS 才能分開:
   **Curves 壓暗(暗)+ Vibrance 往上(不黯淡)+ S 曲線對比 + Screen 層 god rays + vignette**。
   一批套圖 → 錄成 PS Action 一鍵套全批,每張一致、零變異,勝過逐張生成擺盪在「不夠暗/太黯淡」之間。
+- ⚠️ **god rays + 霧被壓掉(2026-07-28 實證):** 高 guidance 鎖構圖時**抗拒加入源圖沒有的新元素**
+  → god rays / 霧(新增物)被丟。修法 = **另開 pass 加,別擠進鎖構圖 pass**(一 pass 一件事):
+  - **PS(批次友善)**:god rays = Screen 層右上柔白光束 + 動態模糊 + 遮罩樹冠縫隙;
+    霧 = 柔筆低流量青灰 + 橫向動態模糊 + 遮罩露前景。兩層一起錄進 Action 套全批。
+  - **生成第二 pass**:此版當底、guidance 調低,prompt 只寫 `ONLY add god rays from upper-right +
+    low ground fog, do not change composition/colors`。第一 pass 鎖構圖+光色,第二 pass 專加光束+霧。
 
 ## 待辦
 
