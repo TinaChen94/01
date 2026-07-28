@@ -145,9 +145,50 @@ upper third, 16:9.
 
 ---
 
+## 衍生應用 1 — 引擎拼裝場景重打光成 B14 氣氛(⏳ 待實測)
+
+> 輸入:圖1 = 引擎森林場景(樹牆 + 苔地 + 前景土路,較亮平光);圖2 = B14 母本。
+> 目標:暗黑半寫實 + god rays + 大地色氛圍。前處理:裁雜訊 / 滿版 / NB2·Enhance None·Style None。
+
+```text
+Two reference images. IMAGE 1 = SOURCE SCENE: a semi-realistic forest —
+a row of mossy buttress-root tree trunks across the mid-horizon, a green
+moss ground, and a dirt path in the foreground. IMAGE 2 = LIGHTING &
+MOOD REFERENCE ONLY — take its lighting direction, color grade and
+atmosphere; IGNORE its objects and layout: do NOT copy its rune stone,
+specific trees or plants.
+
+RELIGHT the source scene to match the reference mood: a dark, moody,
+low-key semi-realistic forest at dusk; soft overcast ambient with NO
+hard key light; gentle volumetric god rays (Tyndall light shafts)
+slanting from the upper-right through the canopy; a soft pool of light
+on the central moss ground with the edges falling into shadow (natural
+vignette); firm ambient-occlusion contact shadows under the tree roots
+and along the ground so everything sits grounded; damp sheen on the
+darker soil. Desaturate to the muted earthy palette of IMAGE 2 — mossy
+yellow-green ground, brown-grey soil and bark, cool blue-grey haze
+behind the treeline; low-key mid-tones, do NOT leave any bright daylight
+look, but keep the ground and bark texture readable in shadow.
+
+GEOMETRY LOCK: every tree, root, the moss ground and the foreground path
+keep their EXACT position, size and silhouette from IMAGE 1 — do not
+move, add, remove or reshape anything; do not crop or zoom. This is a
+RELIGHTING pass, NOT a repaint: same shapes and materials — only
+lighting and color change. Keep the semi-realistic PBR / UE5 render
+look; do NOT turn it into flat illustration or anime.
+
+Add cool blue atmospheric haze between the distant trunks behind the
+treeline; deepen the top canopy into shadow.
+```
+
+- **B14 relight 三要點**(對比 B10/B11):① 質感鎖 `PBR/UE5, NOT illustration/anime`
+  ② 光靈魂 = god rays + 中央亮塘 + vignette ③ 扎實 AO 接觸陰影(物件坐地有重量)
+- 驗收(照 SOP 5 條)+ 特別盯:壓暗後**苔地/樹皮紋理可讀**(別塗死黑)、god rays 方向單一。
+
 ## 待辦
 
-- ☐ 源圖入庫 `images/b14-forest-floor-source.png`
+- ☐ 源圖入庫 `images/b14-forest-floor-source.png`;引擎場景 `images/b14-engine-scene-source.png`
+- ☐ 衍生應用 1 實測(路線 A;不穩再走 SOP 路線 B depth 控制圖)
 - ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證半寫實定調
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/材質保真度一致,僅內容不同
