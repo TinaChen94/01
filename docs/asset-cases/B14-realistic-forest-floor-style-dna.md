@@ -145,10 +145,10 @@ upper third, 16:9.
 
 ---
 
-## 衍生應用 1 — 引擎拼裝場景重打光成 B14 氣氛(⏳ 待實測)
+## 衍生應用 1 — 引擎場景重打光成 B14 氣氛(✅ 實測收錄)
 
 > 輸入:圖1 = 引擎森林場景(樹牆 + 苔地 + 前景土路,較亮平光);圖2 = B14 母本。
-> 目標:暗黑半寫實 + god rays + 大地色氛圍。前處理:裁雜訊 / 滿版 / NB2·Enhance None·Style None。
+> 前處理:裁雜訊 / 滿版 / NB2·Enhance None·Style None;image guidance 調高、creativity 調低。
 
 ```text
 Two reference images. IMAGE 1 = SOURCE SCENE: a semi-realistic forest —
@@ -181,71 +181,26 @@ Add cool blue atmospheric haze between the distant trunks behind the
 treeline; deepen the top canopy into shadow.
 ```
 
-- **B14 relight 三要點**(對比 B10/B11):① 質感鎖 `PBR/UE5, NOT illustration/anime`
-  ② 光靈魂 = god rays + 中央亮塘 + vignette ③ 扎實 AO 接觸陰影(物件坐地有重量)
-- 驗收(照 SOP 5 條)+ 特別盯:壓暗後**苔地/樹皮紋理可讀**(別塗死黑)、god rays 方向單一。
-- ⚠️ **實測 2026-07-28 ①:氣氛對但構圖漂移**(樹位置/樹牆重排)。修法(照 SOP 2b-alt):
-  **COMPOSITION LOCK 移最前、逐項點名樹數/位置/樹牆/苔地/土路 + 「IMAGE 1=構圖權威,有疑慮聽 IMAGE 1」**,
-  平台 image guidance 調高 / creativity 調低。根因:IMAGE 2(母本)版面滲進來帶跑構圖。
-- ⚠️ **實測 2026-07-28 ②:構圖鎖住了但氣氛沒吃進去**(偏亮偏綠,丟 B14 暗黑大地色)。
-  根因 = **兩鎖互打**:高 guidance 鎖構圖的同時把原圖亮固有光凍住,IMAGE 2 暗調套不進(同 SOP regrade 天花板)。
-- ⚠️ **實測 2026-07-28 ③:很不穩,跑 3-4 次構圖一直往 IMAGE 2 跑,不收斂。**
-  根因 = NB 無 seed + **IMAGE 2 是完整場景圖,構圖會滲入** + 兩鎖互打(三因相乘)。
-  **正解(拆開氣氛與幾何,見 [SOP 2b-stab](SOP-style-relight.md#2b-stab-用完整場景圖當-image-2-氣氛來源--不穩定2026-07-28-b14-實證)):**
-  - **A 最穩 = 氣氛歸 PS**(構圖對的版本進 PS:壓暗/降飽和/陰影推冷/vignette/Screen 層 god rays)。
-  - **B 留生成 = 單張 + 文字氣氛**(拿掉 IMAGE 2,只餵源圖,B14 氣氛用文字鎖句)。
-  - **C 硬鎖 = Route B depth 控制圖**。
-  📌 兩張圖融合只適合 IMAGE 2 = 緊裁材質/色卡;完整場景當 IMAGE 2 必污染構圖。
+**用法:跑 3-4 張挑最好的一張**(NB 無 seed 每次會變;背景霧林/前景是它最自由的地方,挑圖比改 prompt 有效)。
+批次要完全一致 → 挑一張當色彩範本,其餘在 PS 對照調色。
 
-### 穩定批次版 relight prompt(單張輸入 + 文字氣氛,拿掉 IMAGE 2 — 後續套圖用)
+## 衍生應用 2 — 移除指定樹木(紅圈畫記,✅ 實測收錄)
 
-> 一批圖要統一風格時用這版:只餵源圖,B14 氣氛用文字,構圖無第二張可跑 → 穩定。
-> image guidance 調高 / creativity 調低。
+> 在圖上紅圈畫記要移除的樹 → 餵畫記版。
 
 ```text
-Relight and regrade THIS forest background to a dark, moody, low-key
-semi-realistic dusk. Keep the composition and every element EXACTLY as
-it is — same trees, roots, ground, path and stones; do not move, add,
-remove, reshape, crop or zoom. ONLY lighting and color change.
+Remove ONLY the tree trunks inside the red circles, and remove the red
+circle marks themselves. Fill the gaps with the continuation of the
+mossy embankment/bank and the hazy background forest behind them,
+seamlessly matching the surrounding ground, moss, roots and lighting.
 
-Mood: soft overcast/night ambient, NO hard key light; gentle volumetric
-god rays (Tyndall light shafts) slanting from the upper-right through
-the canopy; a soft pool of light on the central ground, edges falling
-into deep shadow (natural vignette); firm ambient-occlusion contact
-shadows under roots, stones and along the ground so everything sits
-grounded; damp sheen on darker soil. Keep the palette earthy but RICH
-and alive — the moss stays a living saturated green, hold strong
-contrast and the god-ray highlights; dark and moody but NOT washed-out,
-NOT grey, NOT dull; deepen only the VALUES, do NOT desaturate the moss.
-Cool blue-grey haze behind the treeline; keep ground and bark texture
-readable in shadow. Deepen the top canopy into shadow. Keep the semi-
-realistic PBR / UE5 look; do NOT turn it into flat illustration or anime.
+Keep EVERYTHING else exactly as it is — the embankment, the moss ground,
+the remaining trees at the edges, the god rays and the overall mood. Do
+not move or add anything; do not change the colors or lighting.
 ```
-
-- ⚠️ **「暗 ≠ 黯淡」(2026-07-28 實證):** 生成端「變暗」= 降飽和+壓值一起下 → 一暗就洗掉苔綠/對比 = 黯淡(灰撲撲)。
-  博奕要 **dark saturated**。prompt 用上面防黯淡句(`deepen only VALUES, do NOT desaturate the moss`)。
-- ⚠️ **真正可靠 = PS**:「暗」與「不黯淡」是**兩個獨立旋鈕**,生成端綁在一起、PS 才能分開:
-  **Curves 壓暗(暗)+ Vibrance 往上(不黯淡)+ S 曲線對比 + Screen 層 god rays + vignette**。
-  一批套圖 → 錄成 PS Action 一鍵套全批,每張一致、零變異,勝過逐張生成擺盪在「不夠暗/太黯淡」之間。
-- ⚠️ **god rays + 霧被壓掉(2026-07-28 實證):** 高 guidance 鎖構圖時**抗拒加入源圖沒有的新元素**
-  → god rays / 霧(新增物)被丟。修法 = **另開 pass 加,別擠進鎖構圖 pass**(一 pass 一件事):
-  - **PS(批次友善)**:god rays = Screen 層右上柔白光束 + 動態模糊 + 遮罩樹冠縫隙;
-    霧 = 柔筆低流量青灰 + 橫向動態模糊 + 遮罩露前景。兩層一起錄進 Action 套全批。
-  - **生成第二 pass**:此版當底、guidance 調低,prompt 只寫 `ONLY add god rays from upper-right +
-    low ground fog, do not change composition/colors`。第一 pass 鎖構圖+光色,第二 pass 專加光束+霧。
-  - ⚠️ **白霧陷阱(2026-07-28 實證,同 SOP 霧句):** 暗場景霧易生成成「太白+太濃+太高」蓋住地面 = 仙氣不是陰森。
-    B14 霧要 **薄、低、冷青灰**:`thin low subtle cool blue-grey haze hugging the ground, semi-transparent,
-    moss visible through it, NOT white/bright/thick/opaque, not above the roots`。霧濃度/亮度/高度是連續旋鈕
-    → **PS 最好調**(降不透明度+改冷青灰+遮罩露前景+壓低)。
-- 🎯 **母本 = 氛圍驗收標準(2026-07-28 使用者定調):氣氛是「克制」的。**
-  霧 = **只遠景樹幹間一層極淡背景霧,前景地面乾淨清晰**(細節全見,無滿地厚霧);
-  god rays = **淡,右上一縷**(非戲劇強光束);苔綠活、中央亮塘、邊緣 vignette、根部扎實接觸陰影。
-  📌 修正過頭的結果 = **往回收**:遠景薄霧 + 一縷淡光,**前景不碰**;PS 低不透明度極淡補,生成端一加就過頭。
 
 ## 待辦
 
-- ☐ 源圖入庫 `images/b14-forest-floor-source.png`;引擎場景 `images/b14-engine-scene-source.png`
-- ☐ 衍生應用 1 實測(路線 A;不穩再走 SOP 路線 B depth 控制圖)
-- ☐ 首張「同構圖換母題」衍生圖試產,驗風格鎖句有效性
+- ☐ 圖檔入庫:母本 `b14-forest-floor-source`、重打光成品、移除樹木成品
 - ☐(如需)用本圖當 IMAGE 2 跑一次場景重打光,驗證半寫實定調
 - ☐ 驗收:衍生圖與母本並排 — 色盤/明度分佈/材質保真度一致,僅內容不同
