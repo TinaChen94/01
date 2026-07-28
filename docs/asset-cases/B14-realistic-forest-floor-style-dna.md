@@ -213,17 +213,20 @@ god rays (Tyndall light shafts) slanting from the upper-right through
 the canopy; a soft pool of light on the central ground, edges falling
 into deep shadow (natural vignette); firm ambient-occlusion contact
 shadows under roots, stones and along the ground so everything sits
-grounded; damp sheen on darker soil. Desaturate to a muted earthy
-palette — mossy yellow-green ground, brown-grey soil and bark, cool
-blue-grey haze behind the treeline; low-key mid-tones, NO daylight
-brightness, but keep ground and bark texture readable in shadow. Deepen
-the top canopy into shadow. Keep the semi-realistic PBR / UE5 look; do
-NOT turn it into flat illustration or anime.
+grounded; damp sheen on darker soil. Keep the palette earthy but RICH
+and alive — the moss stays a living saturated green, hold strong
+contrast and the god-ray highlights; dark and moody but NOT washed-out,
+NOT grey, NOT dull; deepen only the VALUES, do NOT desaturate the moss.
+Cool blue-grey haze behind the treeline; keep ground and bark texture
+readable in shadow. Deepen the top canopy into shadow. Keep the semi-
+realistic PBR / UE5 look; do NOT turn it into flat illustration or anime.
 ```
 
-- ⚠️ 單張版構圖穩,但暗度可能套不夠(img2img 錨定原圖亮度)→ **批次最可靠 = 生成只鎖構圖,
-  B14 暗黑氣氛用 PS「動作(Action)」批次套**(壓暗→降飽和→陰影推冷→vignette→god rays 錄一次一鍵套全批),
-  每張氣氛完全一致、零變異,勝過逐張生成。
+- ⚠️ **「暗 ≠ 黯淡」(2026-07-28 實證):** 生成端「變暗」= 降飽和+壓值一起下 → 一暗就洗掉苔綠/對比 = 黯淡(灰撲撲)。
+  博奕要 **dark saturated**。prompt 用上面防黯淡句(`deepen only VALUES, do NOT desaturate the moss`)。
+- ⚠️ **真正可靠 = PS**:「暗」與「不黯淡」是**兩個獨立旋鈕**,生成端綁在一起、PS 才能分開:
+  **Curves 壓暗(暗)+ Vibrance 往上(不黯淡)+ S 曲線對比 + Screen 層 god rays + vignette**。
+  一批套圖 → 錄成 PS Action 一鍵套全批,每張一致、零變異,勝過逐張生成擺盪在「不夠暗/太黯淡」之間。
 
 ## 待辦
 
