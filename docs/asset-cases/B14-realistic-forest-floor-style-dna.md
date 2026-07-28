@@ -189,9 +189,13 @@ treeline; deepen the top canopy into shadow.
   平台 image guidance 調高 / creativity 調低。根因:IMAGE 2(母本)版面滲進來帶跑構圖。
 - ⚠️ **實測 2026-07-28 ②:構圖鎖住了但氣氛沒吃進去**(偏亮偏綠,丟 B14 暗黑大地色)。
   根因 = **兩鎖互打**:高 guidance 鎖構圖的同時把原圖亮固有光凍住,IMAGE 2 暗調套不進(同 SOP regrade 天花板)。
-  **正解:構圖既對就凍住,氣氛交給 PS**(壓暗 Curves → 降飽和 → 陰影推冷藍灰 → vignette 保中央亮塘 →
-  Screen 層加 god rays)。生成硬追兩鎖=打架;調色/氣氛歸 PS(全流程結論)。或兩步法:此版當底、
-  第二 pass 降 guidance 只換氣氛(構圖可能微鬆)。
+- ⚠️ **實測 2026-07-28 ③:很不穩,跑 3-4 次構圖一直往 IMAGE 2 跑,不收斂。**
+  根因 = NB 無 seed + **IMAGE 2 是完整場景圖,構圖會滲入** + 兩鎖互打(三因相乘)。
+  **正解(拆開氣氛與幾何,見 [SOP 2b-stab](SOP-style-relight.md#2b-stab-用完整場景圖當-image-2-氣氛來源--不穩定2026-07-28-b14-實證)):**
+  - **A 最穩 = 氣氛歸 PS**(構圖對的版本進 PS:壓暗/降飽和/陰影推冷/vignette/Screen 層 god rays)。
+  - **B 留生成 = 單張 + 文字氣氛**(拿掉 IMAGE 2,只餵源圖,B14 氣氛用文字鎖句)。
+  - **C 硬鎖 = Route B depth 控制圖**。
+  📌 兩張圖融合只適合 IMAGE 2 = 緊裁材質/色卡;完整場景當 IMAGE 2 必污染構圖。
 
 ## 待辦
 
