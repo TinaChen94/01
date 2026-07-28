@@ -233,6 +233,14 @@ realistic PBR / UE5 look; do NOT turn it into flat illustration or anime.
     霧 = 柔筆低流量青灰 + 橫向動態模糊 + 遮罩露前景。兩層一起錄進 Action 套全批。
   - **生成第二 pass**:此版當底、guidance 調低,prompt 只寫 `ONLY add god rays from upper-right +
     low ground fog, do not change composition/colors`。第一 pass 鎖構圖+光色,第二 pass 專加光束+霧。
+  - ⚠️ **白霧陷阱(2026-07-28 實證,同 SOP 霧句):** 暗場景霧易生成成「太白+太濃+太高」蓋住地面 = 仙氣不是陰森。
+    B14 霧要 **薄、低、冷青灰**:`thin low subtle cool blue-grey haze hugging the ground, semi-transparent,
+    moss visible through it, NOT white/bright/thick/opaque, not above the roots`。霧濃度/亮度/高度是連續旋鈕
+    → **PS 最好調**(降不透明度+改冷青灰+遮罩露前景+壓低)。
+- 🎯 **母本 = 氛圍驗收標準(2026-07-28 使用者定調):氣氛是「克制」的。**
+  霧 = **只遠景樹幹間一層極淡背景霧,前景地面乾淨清晰**(細節全見,無滿地厚霧);
+  god rays = **淡,右上一縷**(非戲劇強光束);苔綠活、中央亮塘、邊緣 vignette、根部扎實接觸陰影。
+  📌 修正過頭的結果 = **往回收**:遠景薄霧 + 一縷淡光,**前景不碰**;PS 低不透明度極淡補,生成端一加就過頭。
 
 ## 待辦
 
