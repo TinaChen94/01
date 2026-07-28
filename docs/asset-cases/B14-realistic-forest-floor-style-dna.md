@@ -197,6 +197,34 @@ treeline; deepen the top canopy into shadow.
   - **C 硬鎖 = Route B depth 控制圖**。
   📌 兩張圖融合只適合 IMAGE 2 = 緊裁材質/色卡;完整場景當 IMAGE 2 必污染構圖。
 
+### 穩定批次版 relight prompt(單張輸入 + 文字氣氛,拿掉 IMAGE 2 — 後續套圖用)
+
+> 一批圖要統一風格時用這版:只餵源圖,B14 氣氛用文字,構圖無第二張可跑 → 穩定。
+> image guidance 調高 / creativity 調低。
+
+```text
+Relight and regrade THIS forest background to a dark, moody, low-key
+semi-realistic dusk. Keep the composition and every element EXACTLY as
+it is — same trees, roots, ground, path and stones; do not move, add,
+remove, reshape, crop or zoom. ONLY lighting and color change.
+
+Mood: soft overcast/night ambient, NO hard key light; gentle volumetric
+god rays (Tyndall light shafts) slanting from the upper-right through
+the canopy; a soft pool of light on the central ground, edges falling
+into deep shadow (natural vignette); firm ambient-occlusion contact
+shadows under roots, stones and along the ground so everything sits
+grounded; damp sheen on darker soil. Desaturate to a muted earthy
+palette — mossy yellow-green ground, brown-grey soil and bark, cool
+blue-grey haze behind the treeline; low-key mid-tones, NO daylight
+brightness, but keep ground and bark texture readable in shadow. Deepen
+the top canopy into shadow. Keep the semi-realistic PBR / UE5 look; do
+NOT turn it into flat illustration or anime.
+```
+
+- ⚠️ 單張版構圖穩,但暗度可能套不夠(img2img 錨定原圖亮度)→ **批次最可靠 = 生成只鎖構圖,
+  B14 暗黑氣氛用 PS「動作(Action)」批次套**(壓暗→降飽和→陰影推冷→vignette→god rays 錄一次一鍵套全批),
+  每張氣氛完全一致、零變異,勝過逐張生成。
+
 ## 待辦
 
 - ☐ 源圖入庫 `images/b14-forest-floor-source.png`;引擎場景 `images/b14-engine-scene-source.png`
