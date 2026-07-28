@@ -184,6 +184,9 @@ treeline; deepen the top canopy into shadow.
 - **B14 relight 三要點**(對比 B10/B11):① 質感鎖 `PBR/UE5, NOT illustration/anime`
   ② 光靈魂 = god rays + 中央亮塘 + vignette ③ 扎實 AO 接觸陰影(物件坐地有重量)
 - 驗收(照 SOP 5 條)+ 特別盯:壓暗後**苔地/樹皮紋理可讀**(別塗死黑)、god rays 方向單一。
+- ⚠️ **實測 2026-07-28:氣氛對但構圖漂移**(樹位置/樹牆重排)。修法(照 SOP 2b-alt):
+  **COMPOSITION LOCK 移最前、逐項點名樹數/位置/樹牆/苔地/土路 + 「IMAGE 1=構圖權威,有疑慮聽 IMAGE 1」**,
+  平台 image guidance 調高 / creativity 調低。根因:IMAGE 2(母本)版面滲進來帶跑構圖。
 
 ## 待辦
 
