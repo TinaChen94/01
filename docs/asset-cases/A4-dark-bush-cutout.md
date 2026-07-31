@@ -55,19 +55,23 @@
 4. 被前景穿過的缺口小 → PS 仿製章手補;缺口大 → 改走路線 B
 ```
 
-### 路線 B — 去背 + 補遮擋(保真鎖,餵裁好的單圈)
+### 路線 B — 去背 + 補遮擋(保真鎖,餵裁好的單圈)· 定版
+
+> 目標鎖定:**三圈裡的「深色叢灌木」那一團**(非整區、非亮蕨)。
+> 治「假圓球」關鍵:**拿掉** `reconstruct / complete rounded silhouette`,
+> **改成** `Do NOT turn it into a smooth round bush` + `keep its natural silhouette`。
 
 ```text
-This is a hand-painted game-background crop. Keep ALL the foliage and plants in
-it EXACTLY as painted — every leaf, fern frond, branch and brushstroke, with
-their exact original colors and shading. Do NOT repaint, redraw, smooth,
-re-render, or restyle any plant. ONLY change the background showing BEHIND and
-BETWEEN the plants to a flat, solid, uniform magenta #FF00FF (RGB 255,0,255) —
-no gradient, no vignette, no shadow. Where a tree trunk or branch passes IN
-FRONT of the plants, or the plants are cut off at an edge, fill ONLY those
-covered gaps with leaves matching the adjacent foliage so the clump is complete
-— do NOT add new plants or flowers, and do NOT change the overall silhouette.
+Keep the dark leafy shrub exactly as it is painted in this image — same shape,
+same leaves, same dark teal-green colors and brushstrokes. Do NOT repaint it,
+do NOT turn it into a smooth round bush. Remove everything else — the bright
+ferns, tree trunks, ivy, grass, mushrooms, background forest — and put the
+shrub on a solid magenta #FF00FF background. Only where the shrub is hidden
+behind a trunk or fern, fill that gap with matching dark leaves so it stays in
+one piece. Keep its natural silhouette.
 ```
+
+三圈深叢定位:左圈=亮蕨右後那團 · 中圈=鳥巢蕨後方那團 · 右圈=最完整那團。
 
 ### 負面
 
