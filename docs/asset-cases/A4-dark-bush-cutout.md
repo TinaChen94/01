@@ -45,3 +45,6 @@ Ignore the red circle lines themselves.
 ## 收尾 / 限制
 - ✨ 浮水印手動擦(套索填 `#FF00FF`);要獨立資產切 N 張 PNG;色鍵開 spill、關 Decontaminate。
 - ⛔ 精準只留深叢、排同色蕨/藤 = AI 做不到(同色無邊)→ Photopea 手動套索。
+- ⚠️ **洋紅底 key 出紫暈 = defringe 沒做,不是洋紅的錯**。別換底色救(換暗綠 → 暗叢融進底、認不出;死路)。
+  正解:Photopea 開洋紅圖 → `色彩範圍`點洋紅 → `擴張 1px` → Delete → `圖層→修邊 Defringe 1–2px` → 透明 PNG。
+  或 remove.bg 上傳(平色底自動去+修邊)。**要透明就走語意去背/defringe,底色換來換去都不對。**
