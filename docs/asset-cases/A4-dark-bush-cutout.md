@@ -114,6 +114,27 @@ changed silhouette, gradient background, vignette, cast shadow, watermark, text
    `Also remove every bright light-green fern, grass blade, and low ground plant — keep ONLY the dark teal-green shrub masses. Remove any sparkle or watermark.`
    或孤立殘留直接手動擦(套索填 #FF00FF,10 秒)。
 
+## ✅ 關鍵發現 — 「3 red circles」寫法自動分叢(2026-07-31 第二版)
+
+改用**指名紅圈**的整圖 prompt(不裁圈、不用單數 "the shrub"),一次跑出**三叢乾淨分開**的成品:
+
+```text
+This image has 3 red circles. Extract only the plants inside the red circles.
+Remove everything else and put them on a solid magenta #FF00FF background.
+Keep the plants exactly as painted — do not repaint or restyle them. Where a
+plant is hidden behind a tree trunk, fill in that part so it looks complete.
+Ignore the red circle lines themselves.
+```
+
+- ✅ **三圈自動分成三叢**(左/中/右),不黏連 —— 比單數 "the shrub"(會合併成一條)更會分件。
+- ✅ 植物原筆觸/葉形/色值完整保留,**未重繪**。
+- ⚠️ 抽的是**圈內整叢**(蕨 + 寬葉 + 深叢都在),非只深叢;深叢集中在中叢。只要深叢 → 尾巴加
+  `Keep ONLY the dark rounded shrub masses in each circle; remove the bright ferns and broad-leaf plants.`
+- ⚠️ 右下 ✨ 浮水印仍在 → 手動擦;要三個獨立資產 → 成品畫布切成 3 張 PNG。
+
+> **教訓:** 用「紅圈標記 + 指名 N red circles」讓模型自己分件,比裁圈逐張跑更省;
+> 單數主詞(the shrub)會合併,複數/指名圈數(3 red circles)會分開。
+
 ### 圖檔索引(待補)
 
 | 檔名 | 內容 | 狀態 |
