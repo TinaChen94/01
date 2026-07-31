@@ -3,6 +3,10 @@
 > 概念圖拆資產 / concept→3D 案例。對應工作流:`ai-media-generator` 的 concept-to-3D pipeline(`templates/concept-to-3d-pipeline.md`)。
 > 資產分類:**[B] 場景模組件**(大型、結構性、淺浮雕牆板 → 2 視圖 + height pass)。
 
+**思路:** **→3D 重繪**(可重繪、灰 `#808080` 底、餵 multiview-to-3D)。
+**觸發:** 浮雕牆·牆板·場景模組件 / turnaround·2 視圖 / height·displacement map / re-orient 轉正·IGNORE camera angle / de-lit·清場 / multiview-to-3D。
+**引用 SKILL:** `ai-media-generator`(concept-to-3D pipeline)+ `asset-cutout`(清場/去背前處理)。
+
 ## 來源(索引)
 - **生成平台:** [Leonardo.ai](https://leonardo.ai/) —— **模型(Model)選 Auto;平台/引擎(Platform)選 Nano Banana**。〔對上 skill 推薦的 Nano Banana 系——拆概念圖結構一致性最強〕
 - **日期:** 2026-06-24

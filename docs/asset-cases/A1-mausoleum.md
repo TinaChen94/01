@@ -2,6 +2,10 @@
 
 > 概念圖拆資產 / 去背案例。對應工作流:`/asset-cutout`(去背 SOP)+ `ai-media-generator` 的 concept-to-3D pipeline。
 
+**思路:** 兩用 —— **→3D 重繪**(灰 `#808080` 正視參考板)+ **2D 去背**(橘 `#FF6A00`,綠苔+紫窗的缺席色)。
+**觸發:** 陵墓·建築拆件 / 正視參考板·front orthographic / image-to-3D / 缺席色去背 / 發光彩窗·紫窗保留。
+**引用 SKILL:** `asset-cutout`(去背 SOP,模式 1.1/1.2b)+ `ai-media-generator`(concept-to-3D pipeline)。
+
 ## 來源(索引)
 - **生成平台:** Google Gemini(Nano Banana Pro)/ Flux Kontext · Seedream edit 思路
 - **Gemini 對話連結(⚠️ 私人,僅本人登入可開,連結可能失效 → 真正內容見下方):**
