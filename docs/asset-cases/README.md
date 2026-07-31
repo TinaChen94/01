@@ -10,7 +10,7 @@
 | **A1 哥德陵墓 Mausoleum** | [A1-mausoleum.md](A1-mausoleum.md) | ✅ 逐字 prompt + 成品圖 + 可複用結論 |
 | **A2 中式石窟佛教浮雕牆** | [A2-buddhist-relief-wall.md](A2-buddhist-relief-wall.md) | ✅ concept→3D:2 視圖 + height pass(場景模組件) |
 | **A3 夜森林枯樹拆件 — 去背 + 補圖(洋紅底)** | [A3-forest-tree-cutout-inpaint.md](A3-forest-tree-cutout-inpaint.md) | ✅ 模式 1.1 六件拆件 + 洋紅工作底 + 逐字 prompt ×7(實跑原文)+ 踩坑 ×8(緊裁換主角/殘留分流/浮水印) |
-| **A4 明亮森林植被叢「忠實區域去背」(三圈原樣拆件)** | [A4-dark-bush-cutout.md](A4-dark-bush-cutout.md) | ⏳ 配方修正完成待實跑:三圈原樣去背(非單株重建)+ 路線 A 純 matting／B 保真 edit 分流 + **忠實鎖 prompt**(keep ALL as painted, only change bg + only fill covered gaps)+ 錯 vs 對對照;含「重繪成通用圓球」失真教訓 |
+| **A4 明亮森林植被叢去背(概念圖拆件)** | [A4-dark-bush-cutout.md](A4-dark-bush-cutout.md) | ✅ 兩版實測成功可用:版1「dark shrub」保真去背(合併成背景牆)+ 版2「3 red circles」指名分件(三叢分開);含關鍵鎖句(keep natural silhouette 治假圓球、指名圈數自動分件)|
 | **A10+A11 墓園地面材質(苔蘚草地/石板路)** | [A10-A11-ground-tiles.md](A10-A11-ground-tiles.md) | ✅ top-down 平拍 → PBR 材質(可平鋪模組,不生 mesh) |
 | **B1 夜霧森林地面背景(4K 放大 + 材質細節)** | [B1-forest-bg-4k-detail.md](B1-forest-bg-4k-detail.md) | ✅ 定案管線 + 逐字 prompt + 鎖句字典 + 踩坑紀錄 + 驗收 checklist |
 | **B2 灰盒 → 夜森林地面模組(master tile)** | [B2-greybox-module-pipeline.md](B2-greybox-module-pipeline.md) | ✅ 貼材質灰盒管線 + 三路線成敗對照 + 逐字 prompt 三連 + 技法字典 |
