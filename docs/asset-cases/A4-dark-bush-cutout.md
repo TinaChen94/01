@@ -105,8 +105,14 @@ changed silhouette, gradient background, vignette, cast shadow, watermark, text
 
 ## 狀態
 
-⏳ **配方修正完成、待實跑。** 已從「單株品種重建」轉正為「三圈忠實區域去背」;
-路線 A(純 matting)/ B(保真 edit)依遮擋分流。實際生成在使用者端跑,跑完回填成品圖與逐張判定。
+✅ **保真 prompt 首次實測成功(2026-07-31,使用者端 Gemini)。** 深叢保留原筆觸/葉形/暗色,
+**未再變假圓球** → 定版 prompt(拿掉 reconstruct/complete silhouette + 加 keep natural silhouette)有效。
+
+**本輪待收兩點:**
+1. **整張圖丟進去 → 三圈深叢黏成一整條**(模型合併)。要各圈獨立資產 → 先裁單圈再跑;要一整條背景牆 → 可直接用。
+2. **底部殘留亮綠小草叢 + 右下 ✨ 浮水印**。收尾句:
+   `Also remove every bright light-green fern, grass blade, and low ground plant — keep ONLY the dark teal-green shrub masses. Remove any sparkle or watermark.`
+   或孤立殘留直接手動擦(套索填 #FF00FF,10 秒)。
 
 ### 圖檔索引(待補)
 
