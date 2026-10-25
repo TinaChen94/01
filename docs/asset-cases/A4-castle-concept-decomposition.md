@@ -74,6 +74,9 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 - `https://app.leonardo.ai/generation/image/use-first-image-source-second-locate-target-3ae9ea32-bf46-41cd-8a8c-545c68985206`
 
 ### 改善版 ①(反裁切 + 只還原框內,把兩個病一起治)
+
+<img src="images/a4-wall-in-source.png" width="25%" alt="乾淨原圖"> <img src="images/a4-wall-in-redframe.png" width="25%" alt="紅框圖">
+
 **第一張 = 乾淨原圖｜第二張 = 紅框圖｜比例改 9:16(高瘦,給上下留白空間)**
 
 ```text
@@ -143,6 +146,9 @@ High-resolution orthographic game asset plate.
 | `FRAMING` 整段 + `70% height` + `margin` + `nothing touch frame edge` | 治上下被切——強制留白、要求完整高度 |
 | 比例 2:3 → 9:16 | bay 又高又窄,畫布給高一點才不會擠到切邊 |
 
+<img src="images/a4-wall-01.png" width="25%" alt="成果1"> <img src="images/a4-wall-02.png" width="25%" alt="成果2 master"> <img src="images/a4-wall-03.png" width="25%" alt="成果3">
+<img src="images/a4-wall-04.png" width="25%" alt="成果4 含道具"> <img src="images/a4-wall-05.png" width="25%" alt="成果5"> <img src="images/a4-wall-06.png" width="25%" alt="成果6">
+
 **QA 驗收(四張排序):** 第1張(上下微切、右柱殘留)淘汰;**第2張最乾淨 → 建議當 master**(純牆模組、可鏡像);第3張好但側牆 return 略 3/4;第4張含道具(龍紋垂幔+吊燈+更寬柱拱)= 帶裝飾複合塊。
 
 **#1 收法(二選一):** 要乾淨可鏡像牆模組 → 收**第2張**(master),垂幔留 A5 單拆;要帶氣氛成品牆 → 收**第4張**(垂幔+吊燈已綁進去)。
@@ -150,11 +156,6 @@ High-resolution orthographic game asset plate.
 **收檔前兩提醒:** ① 這是 re-render(重繪)非像素級保留,磚縫/花窗是模型重畫,疊回原圖比例與窗花數量可接受才收;② 正交嚴格度:第2張頂拱腳/底欄杆仍帶一點透視收斂,貼簡單 3D mock 反而有利,要 image-to-3D 精修才需更平。
 
 > **過程註記:** 中途使用者問「是不是用 PS 合成 / 角度太傾斜 / 元素跟原本有差異」;Claude Code 一度提議「自己做」結果失敗,使用者喊停 → 回到「4 個紅框範圍、修正提示詞、一個一個產出」的作法(本案例定調)。
-
-<img src="images/a4-wall-in-source.png" width="25%" alt="輸入 原圖"> <img src="images/a4-wall-in-redframe.png" width="25%" alt="輸入 紅框">
-
-<img src="images/a4-wall-01.png" width="25%" alt="成果1"> <img src="images/a4-wall-02.png" width="25%" alt="成果2 master"> <img src="images/a4-wall-03.png" width="25%" alt="成果3">
-<img src="images/a4-wall-04.png" width="25%" alt="成果4 含道具"> <img src="images/a4-wall-05.png" width="25%" alt="成果5"> <img src="images/a4-wall-06.png" width="25%" alt="成果6">
 
 ---
 
