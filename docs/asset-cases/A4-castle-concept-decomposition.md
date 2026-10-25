@@ -54,6 +54,11 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 
 <img src="images/a4-prop-redframe.png" width="25%" alt="道具紅框:垂幔 + 吊燈">
 
+> Q：「我會使用簡單的3 d模型  搭建mock 所以要有 不需要再打光  不需要大氣的遊戲asset 貼圖」
+
+清楚了——簡單 3D model 搭 mock + 不受光材質,所以貼圖要「光已烘死、但不要大氣」。這句把前面的 A/B 張力解決了:全部走同一規格——烘 AO + 材質 + 立體光感,但移除霧/大氣/遠近漸層,做成乾淨可用的 game asset 貼圖。不用再分檔,直接開跑。
+以下 6 張,平台 Nano Banana Pro,每張都餵這張原圖當 reference。
+
 > **使用者段尾反思:** 「是有釐清一些製作出圖的選項,但這一步後面浪費了一些製作方式的討論。」
 
 ---
@@ -155,6 +160,8 @@ High-resolution orthographic game asset plate.
 
 ## 場景拆解 2 — #2 交叉尖拱天花 · 結構 + 鎖色成功
 
+<img src="images/a4-vault-in-source.png" width="25%" alt="乾淨原圖"> <img src="images/a4-vault-in-redframe.png" width="25%" alt="#2 紅框">
+
 > Q：「交叉尖拱 請幫我出遊戲素材提示詞,維持原光影」
 > 同一套修正配方(只還原框內 + 排除其餘 + 反裁切 + 維持原光影),視角改成由下往上仰視的單一 bay 單元。
 
@@ -191,6 +198,8 @@ other scene elements. High-resolution overhead orthographic game asset plate.
 ```
 
 溯源:`https://app.leonardo.ai/generation/image/use-first-image-source-second-locate-target-2eb79d93-dbcf-4662-81d9-3d694699f1a0`
+
+<img src="images/a4-vault-grey-structure.png" width="25%" alt="§2a 結果"> <img src="images/a4-vault-coloref.png" width="25%" alt="色調對照">
 
 > Q：「結構對了,光影跟原來不同,我要照設定圖產生相同的光影色調 AO」
 
@@ -239,6 +248,8 @@ source.
 
 溯源:`https://app.leonardo.ai/generation/image/use-first-image-source-second-locate-target-65797100-663a-47c5-aee2-36e957ce1fb2`
 
+<img src="images/a4-vault-2b-recolor.png" width="25%" alt="§2b 結果">
+
 > Q：「結構跑掉了」 → 調子對了但結構被重畫複雜(肋變雙線、多雜肋)。**最穩解:別再重生成,把「第一版乾淨灰結構」當 Image A,只換色調。**
 
 ### 2c 鎖結構 + 轉色調(雙參考)
@@ -267,6 +278,9 @@ structure, Image B's dark moody material and lighting.
 ```
 
 **心法:** 結構鎖在「已經對的那張灰圖」→ 治結構漂移;色調從原圖搬 → 拿回暗調 AO。這招「鎖結構 + 轉色調」後來也救了 #3。
+
+<img src="images/a4-vault-2c-dualref.png" width="25%" alt="§2c 結果">
+<img src="images/a4-vault-hex-compare.png" width="25%" alt="調色比照">
 
 > Q：「顏色還是跟我要的不同」 → 直接從原圖天花抽實際色值鎖 HEX。
 
@@ -324,13 +338,10 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 
 溯源(定案):`https://app.leonardo.ai/generation/image/use-first-image-source-second-locate-target-b84f7c5a-b596-446c-9ed3-331eb8b47fb3`
 
+<img src="images/a4-vault-final.png" width="25%" alt="§2d 定案">
+
 > **#2 完美收線** 🎯 結構乾淨(X 對角肋 + 十字肋 + 中央 boss + 四角 boss + 磚蹼)、暗調對上原圖、可平鋪、隔離乾淨。HEX 鎖色成功。**#2 定案。**
 > ⚠️ 若 HEX 還壓不住:最後手段 = 上傳結構圖,用 Python 逐階對映色盤 100% 鎖死。
-
-<img src="images/a4-vault-in-source.png" width="25%" alt="輸入 原圖"> <img src="images/a4-vault-in-redframe.png" width="25%" alt="輸入 #2 紅框">
-
-<img src="images/a4-vault-grey-structure.png" width="25%" alt="§2a 灰結構"> <img src="images/a4-vault-coloref.png" width="25%" alt="調色對照"> <img src="images/a4-vault-2b-recolor.png" width="25%" alt="§2b 結構錯">
-<img src="images/a4-vault-2c-dualref.png" width="25%" alt="§2c 鎖結構換色調"> <img src="images/a4-vault-hex-compare.png" width="25%" alt="調色比照HEX"> <img src="images/a4-vault-final.png" width="25%" alt="§2d 定案">
 
 ---
 
