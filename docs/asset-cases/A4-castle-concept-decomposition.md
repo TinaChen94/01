@@ -51,7 +51,7 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 > **使用者段尾反思:** 「是有釐清一些製作出圖的選項,但這一步後面浪費了一些製作方式的討論。」
 
 ![A4 概念原圖](images/a4-concept-source.jpg)
-<!-- 待補:a4-redframe-placement.png(4 區紅框 placement map)、a4-sketch-4units.png(4 張手繪草圖) -->
+<!-- 待補:№2 a4-redframe-placement.png(4區紅框 placement)、№3 a4-sketch-a.png(草圖①②)、№4 a4-sketch-b.png(草圖③④) -->
 
 ---
 
@@ -143,7 +143,7 @@ High-resolution orthographic game asset plate.
 
 > **過程註記:** 中途使用者問「是不是用 PS 合成 / 角度太傾斜 / 元素跟原本有差異」;Claude Code 一度提議「自己做」結果失敗,使用者喊停 → 回到「4 個紅框範圍、修正提示詞、一個一個產出」的作法(本案例定調)。
 
-<!-- 待補:a4-wall-bay-master.png(第2張 master)、a4-wall-bay-decorated.png(第4張含道具) -->
+<!-- 待補:#1牆 輸入№5 a4-wall-in-source(=№1)/ №6 a4-wall-in-redframe(=№2);成果№7-12 a4-wall-01..06.png(№8=master、№10=含道具) -->
 
 ---
 
@@ -321,7 +321,7 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 > **#2 完美收線** 🎯 結構乾淨(X 對角肋 + 十字肋 + 中央 boss + 四角 boss + 磚蹼)、暗調對上原圖、可平鋪、隔離乾淨。HEX 鎖色成功。**#2 定案。**
 > ⚠️ 若 HEX 還壓不住:最後手段 = 上傳結構圖,用 Python 逐階對映色盤 100% 鎖死。
 
-<!-- 待補:a4-vault-grey-structure.png(第一版灰結構)、a4-vault-final.png(HEX 定案暗調) -->
+<!-- 待補:#2 輸入№13 a4-vault-in-source(=№1)/ №14 a4-vault-in-redframe;№15 a4-vault-grey-structure(§2a 結果)、№16 a4-vault-coloref(調色對照)、№17 a4-vault-2b-recolor(§2b 結構錯)、№18 a4-vault-2c-dualref(§2c)、№19 a4-vault-hex-compare(調色比照)、№20 a4-vault-final(§2d 定案) -->
 
 ---
 
@@ -431,7 +431,7 @@ nothing cropped. High-resolution symmetric crossing-section plate.
 > **#3 天井完整收線** 🎯 上下暗調一致、窗孔冷光、結構完整對稱。救援鏈「**廢墟參考 → 修復完整 → 鎖結構換色調 → 局部壓亮**」成立。
 > 💡 (上方壓暗這步 PS 30 秒也能做:上方塔框選區 → 曲線/色階拉暗 → 貼合下半。)
 
-<!-- 待補:a4-crossing-ruin-ref.png(Gemini 廢墟參考)、a4-crossing-restored-grey.png(修復結構灰)、a4-crossing-recolored.png(換暗色)、a4-crossing-final.png(壓上方終版) -->
+<!-- 待補:#3 Gemini№21-26 a4-crossing-gem-{ceiling,struct,back}-{before,after}.png;№27 a4-crossing-ruin-ref、№28 a4-crossing-restored-grey、№29-31 a4-crossing-qa-{result,toneref,ruinref}、№32 a4-crossing-recolored、№33 a4-crossing-final-v1、№34 a4-crossing-final-v2 -->
 
 ---
 
@@ -491,7 +491,7 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 
 > **🎉 地磚完美收線** —— 10×10 格準、裂痕/倒角/磨損銳利、暗冷石板色對上大廳。格準 + 細節 + 色調三全,可直接進引擎。
 
-<!-- 待補:a4-floor-fail.png(4_1 失敗)、a4-floor-warm-10x10.png(暖色素材)、a4-floor-final.png(鎖格換暗冷色定案) -->
+<!-- 待補:#4 №35 a4-floor-fail、№36 a4-floor-concept-source、№37 a4-floor-warm-10x10、№38 a4-floor-warm-10x10-ref、№39 a4-floor-final -->
 
 ---
 
@@ -523,21 +523,48 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 
 ## 圖檔清單(待補 — 請依名存入 `docs/asset-cases/images/`)
 
-| 檔名 | 內容 | 狀態 |
-|---|---|---|
-| `a4-concept-source.jpg` | 哥德大廳乾淨原圖 | ✅ 已入庫 |
-| `a4-redframe-placement.png` | 4 區紅框 placement map | ☐ 待補 |
-| `a4-sketch-4units.png` | 4 張手繪草圖(單元形狀) | ☐ 待補 |
-| `a4-wall-bay-master.png` | #1 第2張 master(純牆模組) | ☐ 待補 |
-| `a4-wall-bay-decorated.png` | #1 第4張(含垂幔+吊燈複合塊) | ☐ 待補 |
-| `a4-vault-grey-structure.png` | #2 第一版乾淨灰結構 | ☐ 待補 |
-| `a4-vault-final.png` | #2 HEX 鎖色定案(暗調) | ☐ 待補 |
-| `a4-crossing-ruin-ref.png` | #3 Gemini 廢墟參考 | ☐ 待補 |
-| `a4-crossing-restored-grey.png` | #3 修復結構(灰) | ☐ 待補 |
-| `a4-crossing-recolored.png` | #3 換暗色調 | ☐ 待補 |
-| `a4-crossing-final.png` | #3 壓上方塔終版 | ☐ 待補 |
-| `a4-floor-fail.png` | #4 4_1 失敗 | ☐ 待補 |
-| `a4-floor-warm-10x10.png` | #4 暖色 10×10 素材 | ☐ 待補 |
-| `a4-floor-final.png` | #4 鎖格換暗冷色定案 | ☐ 待補 |
+> 紅筆 № = 使用者原始紀錄的圖序(逐圖點數,一張截圖多圖就多名)。共 **39 圖**;№5/6/13 為輸入重貼(= №1/№2),實際上傳約 36 檔。
+
+| № | 檔名 | 內容 | 狀態 |
+|---|---|---|---|
+| 1 | `a4-concept-source.jpg` | 哥德大廳乾淨原圖 | ✅ 已入庫 |
+| 2 | `a4-redframe-placement.png` | 4 區紅框 placement map | ☐ 待補 |
+| 3 | `a4-sketch-a.png` | 手繪草圖 ① ② | ☐ 待補 |
+| 4 | `a4-sketch-b.png` | 手繪草圖 ③ ④ | ☐ 待補 |
+| 5 | `a4-wall-in-source.png` | #1 改善版① 輸入:原圖(= №1) | ☐ 重貼 |
+| 6 | `a4-wall-in-redframe.png` | #1 改善版① 輸入:紅框(= №2) | ☐ 重貼 |
+| 7 | `a4-wall-01.png` | #1 改善版① 成果 1 | ☐ 待補 |
+| 8 | `a4-wall-02.png` | #1 成果 2 = **master**(純牆模組) | ☐ 待補 |
+| 9 | `a4-wall-03.png` | #1 成果 3(側牆 return 略 3/4) | ☐ 待補 |
+| 10 | `a4-wall-04.png` | #1 成果 4 = **含道具**(垂幔+吊燈) | ☐ 待補 |
+| 11 | `a4-wall-05.png` | #1 成果 5 | ☐ 待補 |
+| 12 | `a4-wall-06.png` | #1 成果 6 | ☐ 待補 |
+| 13 | `a4-vault-in-source.png` | #2 定稿 輸入:原圖(= №1) | ☐ 重貼 |
+| 14 | `a4-vault-in-redframe.png` | #2 定稿 輸入:#2 紅框 | ☐ 待補 |
+| 15 | `a4-vault-grey-structure.png` | #2 §2a 結果(乾淨灰結構) | ☐ 待補 |
+| 16 | `a4-vault-coloref.png` | #2 需再調色的對照圖 | ☐ 待補 |
+| 17 | `a4-vault-2b-recolor.png` | #2 §2b 重跑(結構錯) | ☐ 待補 |
+| 18 | `a4-vault-2c-dualref.png` | #2 §2c 鎖結構 + 轉色調 | ☐ 待補 |
+| 19 | `a4-vault-hex-compare.png` | #2 調顏色比照(HEX) | ☐ 待補 |
+| 20 | `a4-vault-final.png` | #2 §2d HEX 鎖色定案(暗調) | ☐ 待補 |
+| 21 | `a4-crossing-gem-ceiling-before.png` | #3 Gemini 移天花板 before | ☐ 待補 |
+| 22 | `a4-crossing-gem-ceiling-after.png` | #3 Gemini 移天花板 after | ☐ 待補 |
+| 23 | `a4-crossing-gem-struct-before.png` | #3 Gemini 移圈選結構 before | ☐ 待補 |
+| 24 | `a4-crossing-gem-struct-after.png` | #3 Gemini 移圈選結構 after | ☐ 待補 |
+| 25 | `a4-crossing-gem-back-before.png` | #3 Gemini 看後方結構 before | ☐ 待補 |
+| 26 | `a4-crossing-gem-back-after.png` | #3 Gemini 看後方結構 after | ☐ 待補 |
+| 27 | `a4-crossing-ruin-ref.png` | #3 霧藍廢墟(修復來源) | ☐ 待補 |
+| 28 | `a4-crossing-restored-grey.png` | #3 修復成完整(灰結構) | ☐ 待補 |
+| 29 | `a4-crossing-qa-result.png` | #3 Q/A 圖1(結果) | ☐ 待補 |
+| 30 | `a4-crossing-qa-toneref.png` | #3 Q/A 圖2(色調來源) | ☐ 待補 |
+| 31 | `a4-crossing-qa-ruinref.png` | #3 Q/A 圖3(廢墟參考) | ☐ 待補 |
+| 32 | `a4-crossing-recolored.png` | #3 §3_2b 換暗色(上方差一點) | ☐ 待補 |
+| 33 | `a4-crossing-final-v1.png` | #3 §3_2c 終版 a | ☐ 待補 |
+| 34 | `a4-crossing-final-v2.png` | #3 §3_2c 終版 b | ☐ 待補 |
+| 35 | `a4-floor-fail.png` | #4 §4_1 原圖拆地板失敗 | ☐ 待補 |
+| 36 | `a4-floor-concept-source.png` | #4 §4_2 概念源(top-down prompt) | ☐ 待補 |
+| 37 | `a4-floor-warm-10x10.png` | #4 暖色 10×10 高細節磚 | ☐ 待補 |
+| 38 | `a4-floor-warm-10x10-ref.png` | #4 暖磚參考(Q「之前算過」) | ☐ 待補 |
+| 39 | `a4-floor-final.png` | #4 鎖格換暗冷色定案 | ☐ 待補 |
 
 > 圖補齊後,把上面各段的 `<!-- 待補 -->` 換成 `![說明](images/a4-xxx.png)` 即可。
