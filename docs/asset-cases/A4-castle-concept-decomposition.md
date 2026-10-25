@@ -360,7 +360,7 @@ Gemini 重製(移除天花板 / 移除圈選建物結構 / 看到後方建物結
 
 <img src="images/a4-crossing-gem-ceiling-before.png" width="25%" alt="移天花板 before"> <img src="images/a4-crossing-gem-ceiling-after.png" width="25%" alt="移天花板 after">
 <img src="images/a4-crossing-gem-struct-before.png" width="25%" alt="移圈選結構 before"> <img src="images/a4-crossing-gem-struct-after.png" width="25%" alt="移圈選結構 after">
-<img src="images/a4-crossing-gem-back-before.png" width="25%" alt="看後方結構 before"> <!-- №26 a4-crossing-gem-back-after 待補上傳 -->
+<img src="images/a4-crossing-gem-back-before.png" width="25%" alt="看後方結構 before"> <img src="images/a4-crossing-gem-back-after.png" width="25%" alt="看後方結構 after">
 
 > Q：「我想把這個建物恢復成完整的天井剖面結構,請給我提示詞」
 > 這張(廢墟圖)真的畫出了天井結構(四大拱交會、上方 lantern、側邊圓頂),有真實結構可依據,「修復成完整」就成立。
@@ -593,7 +593,7 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 | 23 | `a4-crossing-gem-struct-before.png` | #3 Gemini 移圈選結構 before | ✅ |
 | 24 | `a4-crossing-gem-struct-after.png` | #3 Gemini 移圈選結構 after | ✅ |
 | 25 | `a4-crossing-gem-back-before.png` | #3 Gemini 看後方結構 before | ✅ |
-| 26 | `a4-crossing-gem-back-after.png` | #3 Gemini 看後方結構 after | ☐ **待補上傳** |
+| 26 | `a4-crossing-gem-back-after.png` | #3 Gemini 看後方結構 after(= №27 同圖) | ✅ |
 | 27 | `a4-crossing-ruin-ref.png` | #3 霧藍廢墟(修復來源) | ✅ |
 | 28 | `a4-crossing-restored-grey.png` | #3 修復成完整(灰結構) | ✅ |
 | 29 | `a4-crossing-qa-result.png` | #3 Q/A 圖1(結果) | ✅ |
