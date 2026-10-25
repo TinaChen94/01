@@ -51,7 +51,12 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 > **使用者段尾反思:** 「是有釐清一些製作出圖的選項,但這一步後面浪費了一些製作方式的討論。」
 
 ![A4 概念原圖](images/a4-concept-source.jpg)
-<!-- 待補:№2 a4-redframe-placement.png(4區紅框 placement)、№3 a4-sketch-a.png(草圖①②)、№4 a4-sketch-b.png(草圖③④) -->
+**4 區紅框 placement(№2):**
+![4區紅框 placement map](images/a4-redframe-placement.png)
+
+**手繪草圖確認(№3 ①② ｜ №4 ③④):**
+![手繪草圖 ①②](images/a4-sketch-a.png)
+![手繪草圖 ③④](images/a4-sketch-b.png)
 
 ---
 
@@ -143,7 +148,17 @@ High-resolution orthographic game asset plate.
 
 > **過程註記:** 中途使用者問「是不是用 PS 合成 / 角度太傾斜 / 元素跟原本有差異」;Claude Code 一度提議「自己做」結果失敗,使用者喊停 → 回到「4 個紅框範圍、修正提示詞、一個一個產出」的作法(本案例定調)。
 
-<!-- 待補:#1牆 輸入№5 a4-wall-in-source(=№1)/ №6 a4-wall-in-redframe(=№2);成果№7-12 a4-wall-01..06.png(№8=master、№10=含道具) -->
+**改善版① 輸入(№5 原圖 ｜ №6 紅框):**
+![輸入 原圖](images/a4-wall-in-source.png)
+![輸入 紅框](images/a4-wall-in-redframe.png)
+
+**改善版① 成果 ×6(№7–12;№8 = master、№10 = 含道具):**
+![成果1 №7](images/a4-wall-01.png)
+![成果2 №8 master ⭐](images/a4-wall-02.png)
+![成果3 №9](images/a4-wall-03.png)
+![成果4 №10 含道具 ⭐](images/a4-wall-04.png)
+![成果5 №11](images/a4-wall-05.png)
+![成果6 №12](images/a4-wall-06.png)
 
 ---
 
@@ -321,7 +336,17 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 > **#2 完美收線** 🎯 結構乾淨(X 對角肋 + 十字肋 + 中央 boss + 四角 boss + 磚蹼)、暗調對上原圖、可平鋪、隔離乾淨。HEX 鎖色成功。**#2 定案。**
 > ⚠️ 若 HEX 還壓不住:最後手段 = 上傳結構圖,用 Python 逐階對映色盤 100% 鎖死。
 
-<!-- 待補:#2 輸入№13 a4-vault-in-source(=№1)/ №14 a4-vault-in-redframe;№15 a4-vault-grey-structure(§2a 結果)、№16 a4-vault-coloref(調色對照)、№17 a4-vault-2b-recolor(§2b 結構錯)、№18 a4-vault-2c-dualref(§2c)、№19 a4-vault-hex-compare(調色比照)、№20 a4-vault-final(§2d 定案) -->
+**#2 輸入(№13 原圖 ｜ №14 #2 紅框):**
+![輸入 原圖](images/a4-vault-in-source.png)
+![輸入 #2 紅框](images/a4-vault-in-redframe.png)
+
+**過程 → 定案:**
+![№15 §2a 灰結構(結構正確,becomes Image A)](images/a4-vault-grey-structure.png)
+![№16 需再調色的對照圖](images/a4-vault-coloref.png)
+![№17 §2b 重跑(調子對但結構錯)](images/a4-vault-2b-recolor.png)
+![№18 §2c 鎖結構 + 轉色調](images/a4-vault-2c-dualref.png)
+![№19 調顏色比照(HEX)](images/a4-vault-hex-compare.png)
+![№20 §2d HEX 鎖色定案 ⭐](images/a4-vault-final.png)
 
 ---
 
@@ -528,25 +553,25 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 | № | 檔名 | 內容 | 狀態 |
 |---|---|---|---|
 | 1 | `a4-concept-source.jpg` | 哥德大廳乾淨原圖 | ✅ 已入庫 |
-| 2 | `a4-redframe-placement.png` | 4 區紅框 placement map | ☐ 待補 |
-| 3 | `a4-sketch-a.png` | 手繪草圖 ① ② | ☐ 待補 |
-| 4 | `a4-sketch-b.png` | 手繪草圖 ③ ④ | ☐ 待補 |
-| 5 | `a4-wall-in-source.png` | #1 改善版① 輸入:原圖(= №1) | ☐ 重貼 |
-| 6 | `a4-wall-in-redframe.png` | #1 改善版① 輸入:紅框(= №2) | ☐ 重貼 |
-| 7 | `a4-wall-01.png` | #1 改善版① 成果 1 | ☐ 待補 |
-| 8 | `a4-wall-02.png` | #1 成果 2 = **master**(純牆模組) | ☐ 待補 |
-| 9 | `a4-wall-03.png` | #1 成果 3(側牆 return 略 3/4) | ☐ 待補 |
-| 10 | `a4-wall-04.png` | #1 成果 4 = **含道具**(垂幔+吊燈) | ☐ 待補 |
-| 11 | `a4-wall-05.png` | #1 成果 5 | ☐ 待補 |
-| 12 | `a4-wall-06.png` | #1 成果 6 | ☐ 待補 |
-| 13 | `a4-vault-in-source.png` | #2 定稿 輸入:原圖(= №1) | ☐ 重貼 |
-| 14 | `a4-vault-in-redframe.png` | #2 定稿 輸入:#2 紅框 | ☐ 待補 |
-| 15 | `a4-vault-grey-structure.png` | #2 §2a 結果(乾淨灰結構) | ☐ 待補 |
-| 16 | `a4-vault-coloref.png` | #2 需再調色的對照圖 | ☐ 待補 |
-| 17 | `a4-vault-2b-recolor.png` | #2 §2b 重跑(結構錯) | ☐ 待補 |
-| 18 | `a4-vault-2c-dualref.png` | #2 §2c 鎖結構 + 轉色調 | ☐ 待補 |
-| 19 | `a4-vault-hex-compare.png` | #2 調顏色比照(HEX) | ☐ 待補 |
-| 20 | `a4-vault-final.png` | #2 §2d HEX 鎖色定案(暗調) | ☐ 待補 |
+| 2 | `a4-redframe-placement.png` | 4 區紅框 placement map | ✅ |
+| 3 | `a4-sketch-a.png` | 手繪草圖 ① ② | ✅ |
+| 4 | `a4-sketch-b.png` | 手繪草圖 ③ ④ | ✅ |
+| 5 | `a4-wall-in-source.png` | #1 改善版① 輸入:原圖(= №1) | ✅ |
+| 6 | `a4-wall-in-redframe.png` | #1 改善版① 輸入:紅框(= №2) | ✅ |
+| 7 | `a4-wall-01.png` | #1 改善版① 成果 1 | ✅ |
+| 8 | `a4-wall-02.png` | #1 成果 2 = **master**(純牆模組) | ✅ |
+| 9 | `a4-wall-03.png` | #1 成果 3(側牆 return 略 3/4) | ✅ |
+| 10 | `a4-wall-04.png` | #1 成果 4 = **含道具**(垂幔+吊燈) | ✅ |
+| 11 | `a4-wall-05.png` | #1 成果 5 | ✅ |
+| 12 | `a4-wall-06.png` | #1 成果 6 | ✅ |
+| 13 | `a4-vault-in-source.png` | #2 定稿 輸入:原圖(= №1) | ✅ |
+| 14 | `a4-vault-in-redframe.png` | #2 定稿 輸入:#2 紅框 | ✅ |
+| 15 | `a4-vault-grey-structure.png` | #2 §2a 結果(乾淨灰結構) | ✅ |
+| 16 | `a4-vault-coloref.png` | #2 需再調色的對照圖 | ✅ |
+| 17 | `a4-vault-2b-recolor.png` | #2 §2b 重跑(結構錯) | ✅ |
+| 18 | `a4-vault-2c-dualref.png` | #2 §2c 鎖結構 + 轉色調 | ✅ |
+| 19 | `a4-vault-hex-compare.png` | #2 調顏色比照(HEX) | ✅ |
+| 20 | `a4-vault-final.png` | #2 §2d HEX 鎖色定案(暗調) | ✅ |
 | 21 | `a4-crossing-gem-ceiling-before.png` | #3 Gemini 移天花板 before | ☐ 待補 |
 | 22 | `a4-crossing-gem-ceiling-after.png` | #3 Gemini 移天花板 after | ☐ 待補 |
 | 23 | `a4-crossing-gem-struct-before.png` | #3 Gemini 移圈選結構 before | ☐ 待補 |
