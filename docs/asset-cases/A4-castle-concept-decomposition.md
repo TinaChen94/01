@@ -50,13 +50,13 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 
 > **使用者段尾反思:** 「是有釐清一些製作出圖的選項,但這一步後面浪費了一些製作方式的討論。」
 
-![A4 概念原圖](images/a4-concept-source.jpg)
+<img src="images/a4-concept-source.jpg" width="25%" alt="A4 概念原圖">
 **4 區紅框 placement(№2):**
-![4區紅框 placement map](images/a4-redframe-placement.png)
+<img src="images/a4-redframe-placement.png" width="25%" alt="4區紅框 placement map">
 
 **手繪草圖確認(№3 ①② ｜ №4 ③④):**
-![手繪草圖 ①②](images/a4-sketch-a.png)
-![手繪草圖 ③④](images/a4-sketch-b.png)
+<img src="images/a4-sketch-a.png" width="25%" alt="手繪草圖 ①②">
+<img src="images/a4-sketch-b.png" width="25%" alt="手繪草圖 ③④">
 
 ---
 
@@ -149,16 +149,16 @@ High-resolution orthographic game asset plate.
 > **過程註記:** 中途使用者問「是不是用 PS 合成 / 角度太傾斜 / 元素跟原本有差異」;Claude Code 一度提議「自己做」結果失敗,使用者喊停 → 回到「4 個紅框範圍、修正提示詞、一個一個產出」的作法(本案例定調)。
 
 **改善版① 輸入(№5 原圖 ｜ №6 紅框):**
-![輸入 原圖](images/a4-wall-in-source.png)
-![輸入 紅框](images/a4-wall-in-redframe.png)
+<img src="images/a4-wall-in-source.png" width="25%" alt="輸入 原圖">
+<img src="images/a4-wall-in-redframe.png" width="25%" alt="輸入 紅框">
 
 **改善版① 成果 ×6(№7–12;№8 = master、№10 = 含道具):**
-![成果1 №7](images/a4-wall-01.png)
-![成果2 №8 master ⭐](images/a4-wall-02.png)
-![成果3 №9](images/a4-wall-03.png)
-![成果4 №10 含道具 ⭐](images/a4-wall-04.png)
-![成果5 №11](images/a4-wall-05.png)
-![成果6 №12](images/a4-wall-06.png)
+<img src="images/a4-wall-01.png" width="25%" alt="成果1 №7">
+<img src="images/a4-wall-02.png" width="25%" alt="成果2 №8 master ⭐">
+<img src="images/a4-wall-03.png" width="25%" alt="成果3 №9">
+<img src="images/a4-wall-04.png" width="25%" alt="成果4 №10 含道具 ⭐">
+<img src="images/a4-wall-05.png" width="25%" alt="成果5 №11">
+<img src="images/a4-wall-06.png" width="25%" alt="成果6 №12">
 
 ---
 
@@ -337,16 +337,16 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 > ⚠️ 若 HEX 還壓不住:最後手段 = 上傳結構圖,用 Python 逐階對映色盤 100% 鎖死。
 
 **#2 輸入(№13 原圖 ｜ №14 #2 紅框):**
-![輸入 原圖](images/a4-vault-in-source.png)
-![輸入 #2 紅框](images/a4-vault-in-redframe.png)
+<img src="images/a4-vault-in-source.png" width="25%" alt="輸入 原圖">
+<img src="images/a4-vault-in-redframe.png" width="25%" alt="輸入 #2 紅框">
 
 **過程 → 定案:**
-![№15 §2a 灰結構(結構正確,becomes Image A)](images/a4-vault-grey-structure.png)
-![№16 需再調色的對照圖](images/a4-vault-coloref.png)
-![№17 §2b 重跑(調子對但結構錯)](images/a4-vault-2b-recolor.png)
-![№18 §2c 鎖結構 + 轉色調](images/a4-vault-2c-dualref.png)
-![№19 調顏色比照(HEX)](images/a4-vault-hex-compare.png)
-![№20 §2d HEX 鎖色定案 ⭐](images/a4-vault-final.png)
+<img src="images/a4-vault-grey-structure.png" width="25%" alt="№15 §2a 灰結構(結構正確,becomes Image A)">
+<img src="images/a4-vault-coloref.png" width="25%" alt="№16 需再調色的對照圖">
+<img src="images/a4-vault-2b-recolor.png" width="25%" alt="№17 §2b 重跑(調子對但結構錯)">
+<img src="images/a4-vault-2c-dualref.png" width="25%" alt="№18 §2c 鎖結構 + 轉色調">
+<img src="images/a4-vault-hex-compare.png" width="25%" alt="№19 調顏色比照(HEX)">
+<img src="images/a4-vault-final.png" width="25%" alt="№20 §2d HEX 鎖色定案 ⭐">
 
 ---
 
