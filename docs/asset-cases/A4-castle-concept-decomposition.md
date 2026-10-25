@@ -581,7 +581,7 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 
 ---
 
-## 圖檔清單(待補 — 請依名存入 `docs/asset-cases/images/`)
+## 圖檔清單(全數入庫 ✅,共 39 圖)
 
 > 紅筆 № = 使用者原始紀錄的圖序(逐圖點數,一張截圖多圖就多名)。共 **39 圖**;№5/6/13 為輸入重貼(= №1/№2),實際上傳約 36 檔。
 
@@ -627,4 +627,4 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 | 38 | `a4-floor-warm-10x10-ref.png` | #4 暖磚參考(Q「之前算過」) | ✅ |
 | 39 | `a4-floor-final.png` | #4 鎖格換暗冷色定案 | ✅ |
 
-> 圖補齊後,把上面各段的 `<!-- 待補 -->` 換成 `![說明](images/a4-xxx.png)` 即可。
+> 39 張圖已全數 `<img width="25%">` 內嵌到各段對應步驟(#3 Gemini 前後對照用 30%)。
