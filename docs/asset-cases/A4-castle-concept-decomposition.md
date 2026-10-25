@@ -358,9 +358,14 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 Gemini 重製(移除天花板 / 移除圈選建物結構 / 看到後方建物結構):
 `https://gemini.google.com/u/1/app/1e4f3ed6bd0bf288`
 
-<img src="images/a4-crossing-gem-ceiling-before.png" width="25%" alt="移天花板 before"> <img src="images/a4-crossing-gem-ceiling-after.png" width="25%" alt="移天花板 after">
-<img src="images/a4-crossing-gem-struct-before.png" width="25%" alt="移圈選結構 before"> <img src="images/a4-crossing-gem-struct-after.png" width="25%" alt="移圈選結構 after">
-<img src="images/a4-crossing-gem-back-before.png" width="25%" alt="看後方結構 before"> <img src="images/a4-crossing-gem-back-after.png" width="25%" alt="看後方結構 after">
+移除天花板
+<img src="images/a4-crossing-gem-ceiling-before.png" width="30%" alt="移除天花板 before"> <img src="images/a4-crossing-gem-ceiling-after.png" width="30%" alt="移除天花板 after">
+
+移除圈選的建物結構
+<img src="images/a4-crossing-gem-struct-before.png" width="30%" alt="移除圈選建物結構 before"> <img src="images/a4-crossing-gem-struct-after.png" width="30%" alt="移除圈選建物結構 after">
+
+移除圈選的建物結構 看到後方的建物結構
+<img src="images/a4-crossing-gem-back-before.png" width="30%" alt="看到後方建物結構 before"> <img src="images/a4-crossing-gem-back-after.png" width="30%" alt="看到後方建物結構 after">
 
 > Q：「我想把這個建物恢復成完整的天井剖面結構,請給我提示詞」
 > 這張(廢墟圖)真的畫出了天井結構(四大拱交會、上方 lantern、側邊圓頂),有真實結構可依據,「修復成完整」就成立。
