@@ -357,8 +357,14 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 Gemini 重製(移除天花板 / 移除圈選建物結構 / 看到後方建物結構):
 `https://gemini.google.com/u/1/app/1e4f3ed6bd0bf288`
 
+<img src="images/a4-crossing-gem-ceiling-before.png" width="25%" alt="移天花板 before"> <img src="images/a4-crossing-gem-ceiling-after.png" width="25%" alt="移天花板 after">
+<img src="images/a4-crossing-gem-struct-before.png" width="25%" alt="移圈選結構 before"> <img src="images/a4-crossing-gem-struct-after.png" width="25%" alt="移圈選結構 after">
+<img src="images/a4-crossing-gem-back-before.png" width="25%" alt="看後方結構 before"> <!-- №26 a4-crossing-gem-back-after 待補上傳 -->
+
 > Q：「我想把這個建物恢復成完整的天井剖面結構,請給我提示詞」
 > 這張(廢墟圖)真的畫出了天井結構(四大拱交會、上方 lantern、側邊圓頂),有真實結構可依據,「修復成完整」就成立。
+
+<img src="images/a4-crossing-ruin-ref.png" width="25%" alt="廢墟圖(來源)">
 
 **3_2a 天井剖面修復｜第一張 = 廢墟圖(來源/結構依據)｜比例 1:1 或 4:5**
 
@@ -390,8 +396,12 @@ section plate.
 溯源:`https://app.leonardo.ai/generation/image/use-attached-image-source-ruined-gothic-cathedral-44eac512-69e1-42b9-99f2-494898244f05`
 **為什麼成功:** 結構清楚 → 修復+補完有東西可抄;`FRONT orthographic section + 對稱 + flatten 3/4` 拉成正對剖面;`remove rubble / close holes / no sky` 從廢墟變完整。
 
+<img src="images/a4-crossing-restored-grey.png" width="25%" alt="修復成完整(灰結構)">
+
 > Q：「我要的是不改變色調跟打光,幫我調整提示詞。打光跟色調要依照圖2;圖3 是算出圖1 的參考圖;圖1 是結果。」
 > 結構終於對(圖1),只差色調(偏灰,要圖2 暗藍調)。**不要重跑,把圖1 鎖結構 + 換圖2 色調。**
+
+<img src="images/a4-crossing-qa-result.png" width="25%" alt="圖1 結果"> <img src="images/a4-crossing-qa-toneref.png" width="25%" alt="圖2 色調來源"> <img src="images/a4-crossing-qa-ruinref.png" width="25%" alt="圖3 參考">
 
 **3_2b 換色調版｜第一張 = 圖1(結構正確,鎖它)｜第二張 = 圖2(暗調來源)**
 
@@ -422,6 +432,8 @@ moody colour and lighting.
 
 溯源:`https://app.leonardo.ai/generation/image/image-first-finished-crossing-section-structure-3d8579fe-4db6-480c-be54-21e99405be5a`
 
+<img src="images/a4-crossing-recolored.png" width="25%" alt="§3_2b 換暗色(上方偏亮)">
+
 > Q：「上方還是差了一點」 → 下半暗調對,只有上方 lantern 塔偏亮偏灰(採光區亮度被 recolor 留住)。**補一刀,只壓上方。**
 
 **3_2c 只壓上方塔 · 局部 recolor｜第一張 = 剛才暗調結果(鎖它)**
@@ -448,10 +460,10 @@ nothing cropped. High-resolution symmetric crossing-section plate.
 - `https://app.leonardo.ai/generation/image/image-first-crossing-section-keep-its-geometry-0186852d-baf8-483b-a418-b8940e005fbe`
 - `https://app.leonardo.ai/generation/image/image-first-crossing-section-keep-its-geometry-55351957-4532-495e-b481-db859cc53780`(終版)
 
+<img src="images/a4-crossing-final-v1.png" width="25%" alt="終版 a"> <img src="images/a4-crossing-final-v2.png" width="25%" alt="終版 b">
+
 > **#3 天井完整收線** 🎯 上下暗調一致、窗孔冷光、結構完整對稱。救援鏈「**廢墟參考 → 修復完整 → 鎖結構換色調 → 局部壓亮**」成立。
 > 💡 (上方壓暗這步 PS 30 秒也能做:上方塔框選區 → 曲線/色階拉暗 → 貼合下半。)
-
-<!-- 待補:#3 Gemini№21-26 a4-crossing-gem-{ceiling,struct,back}-{before,after}.png;№27 a4-crossing-ruin-ref、№28 a4-crossing-restored-grey、№29-31 a4-crossing-qa-{result,toneref,ruinref}、№32 a4-crossing-recolored、№33 a4-crossing-final-v1、№34 a4-crossing-final-v2 -->
 
 ---
 
@@ -462,7 +474,11 @@ nothing cropped. High-resolution symmetric crossing-section plate.
 **#4 地面(top-down 可平鋪)— 原圖拆地板｜第一張 = 乾淨原圖｜第二張 = #4 地面紅框圖｜比例 1:1**
 > **失敗原因(使用者原話):** 「可能素材品質不好,產出來都不優。」原圖地板斜角 + 解析度不足,拉成 top-down 偏糊。
 
+<img src="images/a4-floor-fail.png" width="25%" alt="§4_1 原圖拆地板失敗">
+
 ### 4_2 用其他素材 → 鎖格換色 · 成功
+
+<img src="images/a4-floor-concept-source.png" width="25%" alt="概念源(top-down prompt 用)">
 
 **top-down 地板 prompt**(⚠️ 使用者註記「提示詞要找出處 / 不知道從哪來,但要記錄」;比對本串後**疑為早期地面版本之改寫**,出處待考):
 
@@ -484,8 +500,12 @@ image-to-3D / a tileable floor texture.
 - `https://app.leonardo.ai/generation/image/f0b1ef74-3d4b-4791-9a66-d58ec34e9e7d`
 - `https://gemini.google.com/u/1/app/b5e4e09a101c765d`
 
+<img src="images/a4-floor-warm-10x10.png" width="25%" alt="暖色 10×10 高細節磚">
+
 > Q：「我之前有算這張,也可以提供當參考嗎?」(一張暖砂岩 10×10 高細節磚)
 > 這張超棒——**10×10 格準 + 裂痕/磨損/倒角細節豐富又銳利**,唯一問題只有顏色(暖砂岩+青苔)。拿它當「格線 + 細節」來源,**只換色、不動格不動細節**(最穩的一種 pass)。
+
+<img src="images/a4-floor-warm-10x10-ref.png" width="25%" alt="暖磚參考(再引用)">
 
 **4_2 地磚終收 · 鎖格鎖細節 + 換暗冷色｜第一張 = 暖色 10×10 高細節磚(鎖它)｜Style None｜Enhance None**
 
@@ -509,9 +529,9 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 **為什麼這張是正解:** 格 ✅(10×10 準)+ 細節 ✅(裂痕/倒角/磨損銳利)——兩個最難的已在圖裡,只差顏色,而換色是最穩的一種 pass(不動幾何、不重畫)。
 **青苔:** 哥德陰森大廳通常去綠苔;要潮濕苔痕把 `remove the green moss` 改成 `keep sparse dark moss in the joints only`。
 
-> **🎉 地磚完美收線** —— 10×10 格準、裂痕/倒角/磨損銳利、暗冷石板色對上大廳。格準 + 細節 + 色調三全,可直接進引擎。
+<img src="images/a4-floor-final.png" width="25%" alt="§4_2 鎖格換暗冷色定案">
 
-<!-- 待補:#4 №35 a4-floor-fail、№36 a4-floor-concept-source、№37 a4-floor-warm-10x10、№38 a4-floor-warm-10x10-ref、№39 a4-floor-final -->
+> **🎉 地磚完美收線** —— 10×10 格準、裂痕/倒角/磨損銳利、暗冷石板色對上大廳。格準 + 細節 + 色調三全,可直接進引擎。
 
 ---
 
@@ -567,24 +587,24 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 | 18 | `a4-vault-2c-dualref.png` | #2 §2c 鎖結構 + 轉色調 | ✅ |
 | 19 | `a4-vault-hex-compare.png` | #2 調顏色比照(HEX) | ✅ |
 | 20 | `a4-vault-final.png` | #2 §2d HEX 鎖色定案(暗調) | ✅ |
-| 21 | `a4-crossing-gem-ceiling-before.png` | #3 Gemini 移天花板 before | ☐ 待補 |
-| 22 | `a4-crossing-gem-ceiling-after.png` | #3 Gemini 移天花板 after | ☐ 待補 |
-| 23 | `a4-crossing-gem-struct-before.png` | #3 Gemini 移圈選結構 before | ☐ 待補 |
-| 24 | `a4-crossing-gem-struct-after.png` | #3 Gemini 移圈選結構 after | ☐ 待補 |
-| 25 | `a4-crossing-gem-back-before.png` | #3 Gemini 看後方結構 before | ☐ 待補 |
-| 26 | `a4-crossing-gem-back-after.png` | #3 Gemini 看後方結構 after | ☐ 待補 |
-| 27 | `a4-crossing-ruin-ref.png` | #3 霧藍廢墟(修復來源) | ☐ 待補 |
-| 28 | `a4-crossing-restored-grey.png` | #3 修復成完整(灰結構) | ☐ 待補 |
-| 29 | `a4-crossing-qa-result.png` | #3 Q/A 圖1(結果) | ☐ 待補 |
-| 30 | `a4-crossing-qa-toneref.png` | #3 Q/A 圖2(色調來源) | ☐ 待補 |
-| 31 | `a4-crossing-qa-ruinref.png` | #3 Q/A 圖3(廢墟參考) | ☐ 待補 |
-| 32 | `a4-crossing-recolored.png` | #3 §3_2b 換暗色(上方差一點) | ☐ 待補 |
-| 33 | `a4-crossing-final-v1.png` | #3 §3_2c 終版 a | ☐ 待補 |
-| 34 | `a4-crossing-final-v2.png` | #3 §3_2c 終版 b | ☐ 待補 |
-| 35 | `a4-floor-fail.png` | #4 §4_1 原圖拆地板失敗 | ☐ 待補 |
-| 36 | `a4-floor-concept-source.png` | #4 §4_2 概念源(top-down prompt) | ☐ 待補 |
-| 37 | `a4-floor-warm-10x10.png` | #4 暖色 10×10 高細節磚 | ☐ 待補 |
-| 38 | `a4-floor-warm-10x10-ref.png` | #4 暖磚參考(Q「之前算過」) | ☐ 待補 |
-| 39 | `a4-floor-final.png` | #4 鎖格換暗冷色定案 | ☐ 待補 |
+| 21 | `a4-crossing-gem-ceiling-before.png` | #3 Gemini 移天花板 before | ✅ |
+| 22 | `a4-crossing-gem-ceiling-after.png` | #3 Gemini 移天花板 after | ✅ |
+| 23 | `a4-crossing-gem-struct-before.png` | #3 Gemini 移圈選結構 before | ✅ |
+| 24 | `a4-crossing-gem-struct-after.png` | #3 Gemini 移圈選結構 after | ✅ |
+| 25 | `a4-crossing-gem-back-before.png` | #3 Gemini 看後方結構 before | ✅ |
+| 26 | `a4-crossing-gem-back-after.png` | #3 Gemini 看後方結構 after | ☐ **待補上傳** |
+| 27 | `a4-crossing-ruin-ref.png` | #3 霧藍廢墟(修復來源) | ✅ |
+| 28 | `a4-crossing-restored-grey.png` | #3 修復成完整(灰結構) | ✅ |
+| 29 | `a4-crossing-qa-result.png` | #3 Q/A 圖1(結果) | ✅ |
+| 30 | `a4-crossing-qa-toneref.png` | #3 Q/A 圖2(色調來源) | ✅ |
+| 31 | `a4-crossing-qa-ruinref.png` | #3 Q/A 圖3(廢墟參考) | ✅ |
+| 32 | `a4-crossing-recolored.png` | #3 §3_2b 換暗色(上方差一點) | ✅ |
+| 33 | `a4-crossing-final-v1.png` | #3 §3_2c 終版 a | ✅ |
+| 34 | `a4-crossing-final-v2.png` | #3 §3_2c 終版 b | ✅ |
+| 35 | `a4-floor-fail.png` | #4 §4_1 原圖拆地板失敗 | ✅ |
+| 36 | `a4-floor-concept-source.png` | #4 §4_2 概念源(top-down prompt) | ✅ |
+| 37 | `a4-floor-warm-10x10.png` | #4 暖色 10×10 高細節磚 | ✅ |
+| 38 | `a4-floor-warm-10x10-ref.png` | #4 暖磚參考(Q「之前算過」) | ✅ |
+| 39 | `a4-floor-final.png` | #4 鎖格換暗冷色定案 | ✅ |
 
 > 圖補齊後,把上面各段的 `<!-- 待補 -->` 換成 `![說明](images/a4-xxx.png)` 即可。
