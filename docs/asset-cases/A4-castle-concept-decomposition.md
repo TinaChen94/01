@@ -36,7 +36,11 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 > 使用者需求起手:「我要拆這張圖 / concept→3D / 三視圖重建 / 我要先確定框選處的幾個物件正交鏡頭、遊戲物件設定圖清單」
 > (CTRL+F 定位詞:`我要拆這張圖`)
 
+<img src="images/a4-concept-source.jpg" width="25%" alt="概念原圖"> <img src="images/a4-redframe-placement.png" width="25%" alt="4區紅框">
+
 使用者另附 4 張手繪草圖確認框選,逐張對齊零分歧:
+
+<img src="images/a4-sketch-a.png" width="25%" alt="4區手繪草圖">
 
 | 你的草圖 | = 框選區 | 草圖多告訴我的事 |
 |---|---|---|
@@ -48,15 +52,9 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 **出圖策略:** ①③ 走正交立面、② 走仰視單元(underside ortho)、④ 走 top-down 可平鋪材質;每件都餵原圖 + 明確否定原圖低角/透視相機。
 **道具 / 平台決策:** 道具納吊燈 + 垂幔;平台 Nano Banana Pro。
 
+<img src="images/a4-prop-redframe.png" width="25%" alt="道具紅框:垂幔 + 吊燈">
+
 > **使用者段尾反思:** 「是有釐清一些製作出圖的選項,但這一步後面浪費了一些製作方式的討論。」
-
-<img src="images/a4-concept-source.jpg" width="25%" alt="A4 概念原圖">
-**4 區紅框 placement(№2):**
-<img src="images/a4-redframe-placement.png" width="25%" alt="4區紅框 placement map">
-
-**手繪草圖確認(№3 ①② ｜ №4 ③④):**
-<img src="images/a4-sketch-a.png" width="25%" alt="手繪草圖 ①②">
-<img src="images/a4-sketch-b.png" width="25%" alt="手繪草圖 ③④">
 
 ---
 
@@ -148,17 +146,10 @@ High-resolution orthographic game asset plate.
 
 > **過程註記:** 中途使用者問「是不是用 PS 合成 / 角度太傾斜 / 元素跟原本有差異」;Claude Code 一度提議「自己做」結果失敗,使用者喊停 → 回到「4 個紅框範圍、修正提示詞、一個一個產出」的作法(本案例定調)。
 
-**改善版① 輸入(№5 原圖 ｜ №6 紅框):**
-<img src="images/a4-wall-in-source.png" width="25%" alt="輸入 原圖">
-<img src="images/a4-wall-in-redframe.png" width="25%" alt="輸入 紅框">
+<img src="images/a4-wall-in-source.png" width="25%" alt="輸入 原圖"> <img src="images/a4-wall-in-redframe.png" width="25%" alt="輸入 紅框">
 
-**改善版① 成果 ×6(№7–12;№8 = master、№10 = 含道具):**
-<img src="images/a4-wall-01.png" width="25%" alt="成果1 №7">
-<img src="images/a4-wall-02.png" width="25%" alt="成果2 №8 master ⭐">
-<img src="images/a4-wall-03.png" width="25%" alt="成果3 №9">
-<img src="images/a4-wall-04.png" width="25%" alt="成果4 №10 含道具 ⭐">
-<img src="images/a4-wall-05.png" width="25%" alt="成果5 №11">
-<img src="images/a4-wall-06.png" width="25%" alt="成果6 №12">
+<img src="images/a4-wall-01.png" width="25%" alt="成果1"> <img src="images/a4-wall-02.png" width="25%" alt="成果2 master"> <img src="images/a4-wall-03.png" width="25%" alt="成果3">
+<img src="images/a4-wall-04.png" width="25%" alt="成果4 含道具"> <img src="images/a4-wall-05.png" width="25%" alt="成果5"> <img src="images/a4-wall-06.png" width="25%" alt="成果6">
 
 ---
 
@@ -336,17 +327,10 @@ orthographic ceiling tile — same dark moody material and lighting as the sourc
 > **#2 完美收線** 🎯 結構乾淨(X 對角肋 + 十字肋 + 中央 boss + 四角 boss + 磚蹼)、暗調對上原圖、可平鋪、隔離乾淨。HEX 鎖色成功。**#2 定案。**
 > ⚠️ 若 HEX 還壓不住:最後手段 = 上傳結構圖,用 Python 逐階對映色盤 100% 鎖死。
 
-**#2 輸入(№13 原圖 ｜ №14 #2 紅框):**
-<img src="images/a4-vault-in-source.png" width="25%" alt="輸入 原圖">
-<img src="images/a4-vault-in-redframe.png" width="25%" alt="輸入 #2 紅框">
+<img src="images/a4-vault-in-source.png" width="25%" alt="輸入 原圖"> <img src="images/a4-vault-in-redframe.png" width="25%" alt="輸入 #2 紅框">
 
-**過程 → 定案:**
-<img src="images/a4-vault-grey-structure.png" width="25%" alt="№15 §2a 灰結構(結構正確,becomes Image A)">
-<img src="images/a4-vault-coloref.png" width="25%" alt="№16 需再調色的對照圖">
-<img src="images/a4-vault-2b-recolor.png" width="25%" alt="№17 §2b 重跑(調子對但結構錯)">
-<img src="images/a4-vault-2c-dualref.png" width="25%" alt="№18 §2c 鎖結構 + 轉色調">
-<img src="images/a4-vault-hex-compare.png" width="25%" alt="№19 調顏色比照(HEX)">
-<img src="images/a4-vault-final.png" width="25%" alt="№20 §2d HEX 鎖色定案 ⭐">
+<img src="images/a4-vault-grey-structure.png" width="25%" alt="§2a 灰結構"> <img src="images/a4-vault-coloref.png" width="25%" alt="調色對照"> <img src="images/a4-vault-2b-recolor.png" width="25%" alt="§2b 結構錯">
+<img src="images/a4-vault-2c-dualref.png" width="25%" alt="§2c 鎖結構換色調"> <img src="images/a4-vault-hex-compare.png" width="25%" alt="調色比照HEX"> <img src="images/a4-vault-final.png" width="25%" alt="§2d 定案">
 
 ---
 
@@ -554,8 +538,8 @@ brighten. Seamless tileable, top-down, no perspective. High-resolution PBR floor
 |---|---|---|---|
 | 1 | `a4-concept-source.jpg` | 哥德大廳乾淨原圖 | ✅ 已入庫 |
 | 2 | `a4-redframe-placement.png` | 4 區紅框 placement map | ✅ |
-| 3 | `a4-sketch-a.png` | 手繪草圖 ① ② | ✅ |
-| 4 | `a4-sketch-b.png` | 手繪草圖 ③ ④ | ✅ |
+| 3 | `a4-sketch-a.png` | 4 區手繪草圖(① ② ③ ④) | ✅ |
+| 4 | `a4-prop-redframe.png` | 道具紅框(垂幔 + 吊燈) | ✅ |
 | 5 | `a4-wall-in-source.png` | #1 改善版① 輸入:原圖(= №1) | ✅ |
 | 6 | `a4-wall-in-redframe.png` | #1 改善版① 輸入:紅框(= №2) | ✅ |
 | 7 | `a4-wall-01.png` | #1 改善版① 成果 1 | ✅ |
