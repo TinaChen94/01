@@ -34,6 +34,7 @@
 | 公式 | 檔案 | 內容 |
 |---|---|---|
 | **風格母本重打光(兩段式)** | [SOP-style-relight.md](SOP-style-relight.md) | Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複):前處理 + 佔位符 prompt 模板 + 驗收 + 失敗分流;叫用詞「照打光公式」 |
+| **AI 去光 → PBR 整套貼圖** | [SOP-ai-delight-pbr.md](SOP-ai-delight-pbr.md) | 帶光材質/場景圖 → 不受光 PBR 整套(base/height/normal/roughness/metallic/AO)→ Blender 重打光:分型(場景板/tileable)+ 去光模板(列點刪)+ 各 map 模板(對齊鎖/擋 albedo 汙染)+ **normal 一律從 height 派生(生成三連敗實證)** + Blender 踩坑(Metallic=1/AO 雙乘/AgX/綠通道)+ 三 worked example(牆/拱頂/地板,含 Leonardo 連結)+ 程序工具;叫用詞「AI PBR」「照 AI PBR 配方」 |
 
 ## 最新預覽 — A1 陵墓正視參考板
 
