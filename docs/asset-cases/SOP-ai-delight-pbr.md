@@ -160,7 +160,18 @@ height/normal/roughness/metallic/AO 只由**形狀與材質**決定,**與 albedo
 
 ### B-ceiling — 交叉肋拱頂([B] 場景板,暖褐/灰石兩版,無金屬)
 去光出**暖褐 + 中性灰**兩版(同場景用選灰)。metallic = 純黑。
-- [去光·暖褐](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-d39ced0b-b48c-40c9-aee6-d421b2e1e542) · [去光·灰石](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-8d490406-018e-4e46-b9b6-a5b2e2389904) · [HEIGHT](https://app.leonardo.ai/generation/image/convert-attached-image-into-height-displacement-e27e9371-9f8e-4d4a-b07d-960f82ec2068) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-2ceb20e5-36b3-4c53-b8e0-7330a6e067d8) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-image-into-roughness-map-bb5bd918-1384-480c-8ae7-bf3468dea20c) · [AO](https://app.leonardo.ai/generation/image/convert-attached-image-into-ambient-occlusion-map-5f775332-7f36-4a79-a81c-9c5053109196)
+
+**成品圖(repo 內嵌):**
+
+| 素材(帶光) | 去光·暖褐 | 去光·灰石(採用) |
+|---|---|---|
+| ![source](images/vault-14-source.jpg) | ![delit-brown](images/vault-15-delit-brown.jpg) | ![delit-grey](images/vault-16-delit-grey.jpg) |
+
+| height | normal | roughness | AO |
+|---|---|---|---|
+| ![height](images/vault-19-height.jpg) | ![normal](images/vault-20-make-normal.jpg) | ![roughness](images/vault-22-make-roughness.jpg) | ![ao](images/vault-24-make-ao.jpg) |
+
+**原圖連結(Leonardo):** [去光·暖褐](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-d39ced0b-b48c-40c9-aee6-d421b2e1e542) · [去光·灰石](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-8d490406-018e-4e46-b9b6-a5b2e2389904) · [HEIGHT](https://app.leonardo.ai/generation/image/convert-attached-image-into-height-displacement-e27e9371-9f8e-4d4a-b07d-960f82ec2068) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-2ceb20e5-36b3-4c53-b8e0-7330a6e067d8) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-image-into-roughness-map-bb5bd918-1384-480c-8ae7-bf3468dea20c) · [AO](https://app.leonardo.ai/generation/image/convert-attached-image-into-ambient-occlusion-map-5f775332-7f36-4a79-a81c-9c5053109196)
 
 ### B-floor — 方石地板([C] tileable,seamless,無金屬)
 tileable 材質。去光 → **提亮** → height **軟邊失敗 → 改硬邊切石**(flat top+steep drop)→ normal **生成三連敗 → 從 height 派生才對**。
