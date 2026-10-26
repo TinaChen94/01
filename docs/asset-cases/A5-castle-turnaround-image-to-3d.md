@@ -257,36 +257,170 @@ shadow. This is a moody dark statue, not an evenly-lit bright render.
 
 ---
 
-## 道具 2 — 火把(Torch)
+## 道具 2 — 火把(Torch)· 流程 1(保光影 turnaround)
 
-> 需求:「我要拆火把…」
+**拆圖起手式**
 
-### A 保光影軌 · 正交 + 結構補強
+> Q 我要拆火把 拆掉這張概念圖」「concept→3D」「三視圖重建 保留原來的光影 不要改變色調 也不要改變打光
 
-📌 **待貼:火把 保光影 逐字 prompt**
+火把跟石像鬼同套(獨立道具、turnaround、保原光影)。差別:它有活焰 + 暖光暈——這在你的不受光材質裡就是烘進去的自發光,要保留。一樣兩支左右鏡像,做左邊那支、右邊鏡射。
 
-```text
-(貼這裡)
-```
+**先確認 2 件:**
+1. 只抽壁式火把(鐵托座 + 火把柄 + 火焰),排除牆、壁龕、石像鬼、窗。
+2. 火焰要一起留(含它的暖光暈)——它是道具的自發光部分。日後若要在引擎做動態火焰,可把火焰當獨立 emissive 層另拆,但這批先整支含焰烘進去。
 
-**過程 / 踩坑:**
-- **轉正交:** 「我要改成正交鏡頭,上方還是彎彎的」→ 反覆壓平上緣。
-- **餵圖方式:** 「我只給一張,1 是素材、2 是結果」。
-- **補結構 + 火焰:** 「我想增加結構,並補上火焰」。
-- **尺寸(紅線):** 「太大了,我要沿著紅線做出調整」—— 紅線定尺寸。
-- **統一畫風:** 「我要統一畫風,上方跟下方統一」。
-- **下方仍透視:** 「我要調整成正交視角,下方仍有透視」→ 再壓。
-- **⚠️ 畫風崩掉:** 「失敗了,整個畫風跑掉」→ **止損回退**到最佳版,再分支(edit-chain drift 教訓)。
-- **側面正交 + 指定結構**(跑了兩次);**補 3/4**。
-- **側面光源:** 「我要側面的火把,光源跟正面有所區別」(半側光)。
+### A 保光影軌 · turnaround
 
-📌 待貼:正交 / 補結構補火焰 / 側面正交 / 3-4 等逐字 prompt(各步)
+#### ① 正面 plate(保留原光影 + 火焰)
+第一張 = 乾淨概念圖 ｜(可選)第二張 = 紅框指左邊那支 ｜ 比例 3:4(直幅)
 
 ```text
-(貼這裡)
+From the attached concept art, extract ONLY the LEFT wall-mounted torch sconce — the
+iron wall bracket, the torch shaft, and its burning flame. Do NOT include the wall, the
+niche, the gargoyle, the window or the balustrade. Everything else becomes empty flat
+dark background.
+Re-orient to a true head-on FRONT view of the sconce, facing the viewer; IGNORE the
+concept's angle and perspective — do NOT copy any tilt or 3/4 view. One complete,
+isolated, centered torch with its wall bracket.
+CRITICAL — preserve the source's baked lighting, colour and tone EXACTLY as painted:
+keep the burning flame glowing warm, the warm firelight falling on the iron bracket and
+shaft, the exact metal colour and the ambient occlusion in the crevices. Do NOT relight,
+do NOT change the tone or palette, do NOT flatten to neutral studio light, do NOT remove
+the flame or its warm glow. This is a PRE-LIT asset for an UNLIT / emissive material —
+reproduce the original firelit look as-is, flame emissive.
+FRAMING: the complete torch fully in frame, generous margin on all sides, nothing
+cropped or touching the edge, centered on empty dark background. High-resolution game
+asset plate.
 ```
 
-<!-- 待補圖:火把 正面(正交)/ 側面(半側光)/ 3-4;尺寸紅線修正;畫風崩掉反例 -->
+溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-d33e911f-443e-4db5-9e74-ac669f596a61`
+
+<!-- 待補圖:火把 正面 plate -->
+
+#### ① 正面(正交修正:上方「彎彎的」→ 碗口變直線)
+> Q:「我要改成正交鏡頭 上方還是彎彎的」
+> A:對,這張還是有透視——上方火盆是從斜上方看,所以碗口變成橢圓「彎彎的」。正交正面應該是平視火盆、碗口變一條水平直線(看不到碗內)。修正=堆正交鎖 + 專門講碗口。
+
+第一張 = 剛才的火把 plate(當錨)｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4
+
+```text
+Re-render the SAME torch sconce as a TRUE ORTHOGRAPHIC FRONT elevation.
+
+TRUE ORTHOGRAPHIC PROJECTION (parallel projection), like a technical model-sheet
+elevation: NO perspective, NO foreshortening, NO vanishing point, NO lens distortion,
+NO looking down from above, NO 3/4 or high angle. The camera axis is perfectly
+horizontal, at the height of the torch bowl, perpendicular to the front. Every part at
+the same scale, parallel edges stay parallel, flat and undistorted.
+
+IMPORTANT — the torch bowl / cup is seen EDGE-ON from the front at eye level: its rim
+reads as a straight horizontal line, NOT an ellipse; do NOT reveal the inside of the
+bowl, do NOT tilt it to show the opening. The iron bracket arms and shaft are seen
+straight from the front.
+
+SAME torch — identical bracket, bowl, shaft, scrollwork and flame as the reference;
+do NOT redesign or resize. Preserve the source's baked firelit look EXACTLY — the warm
+glowing flame (emissive), the warm firelight on the iron, the exact metal colour and AO.
+Do NOT relight to neutral, do NOT change the palette, do NOT remove the flame.
+
+Complete, isolated, centered, generous margin, nothing cropped, empty flat dark
+background. High-resolution orthographic front-view asset plate.
+```
+
+> 關鍵兩句:`NO looking down from above` + `bowl rim = straight horizontal line, NOT an ellipse, do NOT reveal the inside` → 治「上方彎彎的」。
+> 老話一句:生成模型只能逼近正交(壓平透視),要數學上真正交得建模後用正交相機 render。這張逼近版當建模參考夠用。
+
+溯源:`https://app.leonardo.ai/generation/image/re-render-same-torch-sconce-true-orthographic-53108c11-83aa-4e34-8415-7b32121bab41`
+
+<!-- 待補圖:火把 正面(正交修正) -->
+
+#### 增加結構 + 補火焰 → 失敗走 PS
+> Q:「我想增加結構 並補上火焰」
+> ⚠️ **結果失敗,後來使用 PS 調整。**
+
+<!-- 待補圖:火把 增加結構(失敗)/ PS -->
+
+#### ② 側面正交 + 牆架(指定結構)
+> Q:「火把 側面正交 + 指定結構」
+> A:照這張更清楚的紅標——牆架 = 兩根水平托臂(一根接上方束環、一根接下方束環)+ 右側一片直立壁掛板。給你精準版:
+
+FIRST = 風格統一好圖(造型/畫風基準)｜SECOND = 這張紅標(牆架)｜比例 3:4
+
+```text
+Using the FIRST image (finished front torch) as the style and proportion reference,
+render the SAME torch as a LEFT-SIDE elevation (90° side profile).
+
+TOP PRIORITY — keep the FIRST image's rich hand-painted bronze look: same detailed
+painterly metal, patina, warm firelit dark tone and level of detail. Do NOT simplify,
+flatten, darken or reduce it to a plain silhouette. Same asset, same artist, just
+turned to the side.
+
+ADD the wall-mounting bracket exactly as the RED markup in the SECOND image shows:
+- TWO horizontal iron support arms projecting sideways from the torch — the upper arm
+  from the top collar, the lower arm from the lower collar/band,
+- both arms connecting to ONE vertical rectangular wall-mounting plate standing behind
+  the torch (the fixture bolted to the wall).
+Make it clean carved bronze matching the torch. Do NOT draw or keep the red lines
+(guide only).
+
+Orthographic side elevation — keep it as flat and side-on as possible, collars roughly
+edge-on, minimal perspective. (Approximate ortho is fine — do NOT sacrifice the
+painterly detail to force it.)
+
+SAME torch proportions as the FIRST image. Dark bronze, UNLIT / emissive baked look,
+no relight. No text, no labels. Isolated, centered, generous margin, nothing cropped,
+empty background.
+```
+
+> 重點:
+> - 牆架結構明確描述(兩水平臂:上接頂環、下接下環 + 一片直立壁板)→ NB 才組對。
+> - 保畫風寫最前 + 正交 approximate → 不重蹈上次崩 style。
+> - `do NOT draw the red lines` 必留。
+
+> ✅ 側面 + 牆架成功 👍 兩根托臂(上接頂環、下接下環)+ 直立壁板都到位,而且畫風這次沒崩(保細節寫前面 + 正交只求逼近的策略對了)。
+
+溯源:`https://app.leonardo.ai/generation/image/using-first-image-finished-front-torch-style-f83006e6-bf2d-4a5b-8c58-9c6412eb7864`
+
+> **實務點(壁掛火把通常不用背視):** 它背面貼牆(壁板那面就是靠牆),所以 model sheet 正面 + 側面就夠建模了——背視看不到、3/4 有需要才補。
+> 收法:
+> - 收正 + 側(含牆架)← 建議,壁掛件夠用
+> - 要更完整 → 再補 3/4 iso(看立體關係),我給 prompt
+> - 要更平的正交 → 拿好圖 PS 微調(別再讓 NB 壓)
+
+<!-- 待補圖:火把 側面 + 牆架 -->
+
+#### ② 側面 · 差異化打光(固定世界光)
+> Q:「我要側面的火把 光源跟正面有所區別」
+> A:對,跟石像鬼同邏輯——光固定在世界空間,側面看到的明暗就該跟正面不同,不能整支平均打光。火把掛牆上,光從房間側(正面、離牆那側)來,所以側視:朝房間的前緣受光、靠牆的後側(牆架/壁板那面)入陰。
+
+FIRST = 風格統一正面(畫風基準)｜(可選)SECOND = 側面含牆架那張(結構參考)｜比例 3:4
+
+```text
+Render the SAME torch as a LEFT-SIDE elevation with the wall-mounting bracket (two
+horizontal arms to a vertical wall plate) behind it, matching the FIRST image's
+painterly bronze style and proportions.
+
+TOP PRIORITY — keep the rich hand-painted bronze detail of the FIRST image; do NOT
+simplify, flatten or darken into a plain silhouette.
+
+CRITICAL LIGHTING — the light source is FIXED in world space, coming from the FRONT
+(the room side, away from the wall). Because this is the SIDE view, light it DIFFERENTLY
+from the front plate: the front-facing surfaces of the torch (the front of the bowl,
+collar and shaft, facing away from the wall) are warmly lit, while the REAR surfaces
+near the wall — the back of the bracket, the wall plate and the wall-side of the shaft —
+fall into deeper shadow. A clear light-to-shadow gradient across the depth, front bright
+→ back dark. Do NOT light it flat or evenly like the front view.
+
+Orthographic side elevation, approximate ortho is fine (do NOT sacrifice detail to force
+it). Dark bronze, UNLIT / emissive baked look, no relight beyond the fixed front light.
+No text, no labels. Isolated, centered, generous margin, nothing cropped, empty background.
+```
+
+> 關鍵:`light fixed from the FRONT` + `front surfaces lit / rear (wall side) in shadow` + `do NOT light flat like the front view` → 側面明暗跟正面拉開,連戲。
+> 📌 **通則:** 「固定世界光 → 各視角明暗不同」是 turnaround 保光影的通則:正面迎光、側面前亮後暗、背面背光(石像鬼也是這樣收的)。
+
+溯源:`https://app.leonardo.ai/generation/image/render-same-torch-left-side-elevation-wall-09083647-a11f-4b64-b780-7f81e48b10e3`
+
+<!-- 待補圖:火把 側面 差異化打光 -->
 
 ### B de-lit 軌 · image-to-3D
 
