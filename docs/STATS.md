@@ -34,12 +34,12 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 指標 | 數字 |
 |---|---|
 | 觀測期間 | 2026-06-17 → 2026-10-26(約 4 個月) |
-| 分支(分流) | 10(9 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
+| 分支(分流) | 11(10 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
 | 參與 session | ~20 |
 | Skills / 框架 | 3 skills + 1 框架 |
-| 原創工作流檔 | 4(含 concept→3D **V2** 雙軌) |
-| 資產案例 | 26 件(分布在 25 個檔) |
-| 不重複成品圖 | 256 張 |
+| 原創工作流檔 | 5(含 concept→3D **V2** 雙軌、去光→PBR `delight-pbr`) |
+| 資產案例 | 27 件(分布在 26 個檔) |
+| 不重複成品圖 | 283 張 |
 
 ---
 
@@ -105,6 +105,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **image-grounded concept→3D 憲法 + V2 雙軌**(原圖=真相;**V2** 升級為保光影 ↔ de-lit 雙軌 + 正交鎖 + A4/A5 救援招式,V1 保留) | `references/concept-to-3d-v2.md`(V1 原版:`concept-to-3d.md`) | `SKILL.md` 硬規則 / 已指向 V2 | 014ecc8 → V2(687e7c0) |
 | **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
 | **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | ✅ 已併入 `main`(PR #9) |
+| **去光 → PBR 整套貼圖(de-light → PBR maps)**(帶光材質/場景圖 → 去光真 albedo → 派生 base/height/normal/rough/metallic/AO;**normal 一律從 height 派生**、Blender 重打光踩坑、場景板 vs 可平鋪分型) | `docs/asset-cases/SOP-ai-delight-pbr.md`(完整案例)+ `references/delight-pbr.md`(自動反射片段)+ `tools/pbr-derive/` | `CLAUDE.md` / `SKILL.md`「delight pbr / delight / AI PBR / 去光出 PBR / 照 AI PBR 配方」 | 三 worked example(牆 / 拱頂 / 地板) |
 | **4K 放大 / 材質保真 pass 管線**(類型分流:純保真 vs 生成式 pass、鎖句字典、letterbox 白邊坑) | `docs/asset-cases/B1-forest-bg-4k-detail.md`(B3 為反例) | 「B1 紀錄 / 4K 放大 / 材質保真」關鍵字 | B1-forest / B3-fenske |
 | **灰盒 → game art 模組管線**(色標灰盒 / 深度 guidance / Crop-Gen-Paste、頂光、幾何滲漏) | `docs/asset-cases/B2-greybox-module-pipeline.md` | 「B2 紀錄 / 灰盒 / greybox」關鍵字 | B2-greybox |
 | **三相機管線 + 引擎移植**(生成/出圖/遊戲相機解耦、homography 投影攤平、相機數值搬 Unreal) | `docs/asset-cases/B6-three-camera-pipeline.md` → `B7-unreal-camera-port.md` | 「三相機 / 相機解耦 / CineCamera / UE 相機」 | B6 / B7 |
@@ -118,7 +119,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ## 📈 自動統計
 
 <!-- AUTO:START -->
-> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 10 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
+> ⏱️ 自動產生於 `scripts/gen_stats.py`,掃描 11 個分支。異動次數 = 觸及該檔的 commit 數(含建立);時間為 UTC。
 
 ### 檔案統計(產生 / 異動 / 最後修改)
 
@@ -157,20 +158,25 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `A4-castle-concept-decomposition.md` | main | 2026-10-25 17:09 | 13 | 2026-10-26 00:54 | `0139cX4Bb` |
 | `A5-castle-turnaround-image-to-3d.md` | main | 2026-10-25 19:23 | 22 | 2026-10-26 06:59 | `0139cX4Bb` |
 | `concept-to-3d-v2.md` | main | 2026-10-26 06:57 | 1 | 2026-10-26 06:57 | `0139cX4Bb` |
+| `SOP-ai-delight-pbr.md` | main | 2026-10-26 10:59 | 10 | 2026-10-26 12:31 | `01JNKQQWf` |
+| `delight-pbr.md` | main | 2026-10-26 12:08 | 3 | 2026-10-26 12:20 | `01JNKQQWf` |
+| `color_mask.py` | main | 2026-10-26 12:38 | 2 | 2026-10-26 12:39 | `017KFxVMr` |
+| `A12-door-color-range-mask.md` | main | 2026-10-26 12:39 | 1 | 2026-10-26 12:39 | `017KFxVMr` |
 
 ### 成品圖
 
-- **不重複圖檔(blob)**:256 張
+- **不重複圖檔(blob)**:283 張
 - **依案例**:A1 哥德陵墓 2 · A10 苔蘚草地 1 · A11 石板路 11 · A2 佛教浮雕牆 6
-- **各分支圖檔數(含複本)**:claude/a10-a11-a2-assets-fv7p41 191 · claude/image-style-analysis-72zhrh 191 · claude/light-branches-background-removal-24n9sf 30 · claude/object-placement-lighting-6gat9k 25 · claude/plant-concept-breakdown-n8y1o1 191 · claude/trusting-knuth-f11ltb 14 · claude/unity-camera-unreal-export-m50ht8 100 · main 277
+- **各分支圖檔數(含複本)**:claude/a10-a11-a2-assets-fv7p41 299 · claude/great-davinci-7u4stk 304 · claude/image-style-analysis-72zhrh 191 · claude/light-branches-background-removal-24n9sf 30 · claude/object-placement-lighting-6gat9k 25 · claude/plant-concept-breakdown-n8y1o1 191 · claude/trusting-knuth-f11ltb 14 · claude/unity-camera-unreal-export-m50ht8 100 · main 304
 
 ### 各分支貢獻(相對 main 的獨有 commit)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 216 | 全部 merge 線 |
-| claude/a10-a11-a2-assets-fv7p41 | 2 | 2026-09-10 → 2026-09-10 |
+| main | 239 | 全部 merge 線 |
+| claude/a10-a11-a2-assets-fv7p41 | 0 | — |
 | claude/adoring-lamport-sh6fgh | 7 | 2026-06-17 → 2026-06-23 |
+| claude/great-davinci-7u4stk | 0 | — |
 | claude/image-style-analysis-72zhrh | 10 | 2026-07-28 → 2026-07-28 |
 | claude/inspiring-darwin-hm3u4u | 21 | 2026-06-17 → 2026-06-23 |
 | claude/light-branches-background-removal-24n9sf | 36 | 2026-06-17 → 2026-07-01 |
@@ -187,7 +193,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 - 本頁為「快照 + 可重跑腳本」混合:**機器算時間/次數,人工標完成度**。完整刷新請跑腳本後再請 Claude 補人工欄位。
 - 🔎 倉庫健檢:`python3 scripts/gen_stats.py --lint`(0 圖案例 / 孤兒圖 / 散落圖 / 多路徑重複 / 斷掉內嵌,數字以即時跑為準)。🧹 fetch 已加 `--prune` → **遠端刪掉的分支會自動從統計移除**。
-- ✅ **大多已收斂在 `main`**:約 23 案例 + 多數 SOP 在 `main`(統計頁 / `gen_stats.py` 亦以 main 為正本);**B4 / B5 已補進 main**(7/11 曾標 WIP,現已完成)。仍在分支未併 main:**A3 / A4-bush**(`plant-concept-breakdown`)、**B14 / SOP 打光公式**(`image-style-analysis`)。
-- 🧹 **分支現況**:現存 **10 條**(9 `claude/*` + `main`)+ `TinaChen94-patch-1`。活躍:`plant-concept-breakdown`(A3/A4-bush)、`image-style-analysis`(B14 / 打光公式 SOP)、`a10-a11-a2-assets`。可清(內容已在 main):`adoring` / `inspiring` / `trusting` / `light-branches` / `object-placement` / `unity-camera-unreal-export`。
+- ✅ **大多已收斂在 `main`**:約 27 案例 + 多數 SOP 在 `main`(統計頁 / `gen_stats.py` 亦以 main 為正本);**B4 / B5 已補進 main**;**新進 main:A12 顏色範圍遮罩 + SOP 去光→PBR(delight-pbr,含三 worked example 與 `tools/pbr-derive/`)**。仍在分支未併 main:**A3 / A4-bush**(`plant-concept-breakdown`)、**B14 / SOP 打光公式**(`image-style-analysis`)。
+- 🧹 **分支現況**:現存 **11 條**(10 `claude/*` + `main`)+ `TinaChen94-patch-1`。活躍:`plant-concept-breakdown`(A3/A4-bush)、`image-style-analysis`(B14 / 打光公式 SOP)。可清(獨有 commit = 0、內容已在 main):`a10-a11-a2-assets` / `great-davinci` / `unity-camera-unreal-export`;另舊分支 `adoring` / `inspiring` / `trusting` / `light-branches` / `object-placement` 內容亦已在 main。
 - ✅ **depth-relight 打光管線 + 2 工具已併入 `main`**(PR #9 / `3760178`)。
 - ⚠️ **`main` 仍 pre-cleanup**:根目錄 9 張散圖保留作備份(`--lint` 可查)。要清跟我說。

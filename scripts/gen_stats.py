@@ -38,6 +38,7 @@ TRACK = [
     ".claude/skills/ai-media-generator/references/concept-to-3d.md",
     ".claude/skills/ai-media-generator/references/concept-to-3d-v2.md",
     ".claude/skills/ai-media-generator/references/depth-relight-pipeline.md",
+    ".claude/skills/ai-media-generator/references/delight-pbr.md",
     ".claude/skills/asset-cutout/SKILL.md",
     "tools/color-range-mask/*.py",
 ]
