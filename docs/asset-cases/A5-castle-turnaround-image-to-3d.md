@@ -280,7 +280,7 @@ detail. High-resolution clean de-lit albedo reference plate for image-to-3D.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-gargoyle-statue-re-render-it-one-complete-079615d4-d2a8-4e8d-b5d0-4e3098625e15`
 
-<!-- 待補圖:石像鬼 de-lit 正面 -->
+<img src="images/a5-gargoyle-delit-front-ref.png" width="25%" alt="正面素材"> <img src="images/a5-gargoyle-delit-front.png" width="25%" alt="正面 de-lit 結果">
 
 #### de-lit ② 側面 平光板
 > Q:「側面提示詞」
@@ -306,7 +306,7 @@ detail. High-resolution clean de-lit albedo reference plate for image-to-3D.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-left-side-view-gargoyle-statue-re-render-065ab35d-41a9-43d6-b033-542368147a27`
 
-<!-- 待補圖:石像鬼 de-lit 側面 -->
+<img src="images/a5-gargoyle-delit-side-ref.png" width="25%" alt="側面素材"> <img src="images/a5-gargoyle-delit-side.png" width="25%" alt="側面 de-lit 結果">
 
 #### de-lit ③ 3/4 平光板
 > Q:「3/4提示詞」
@@ -338,7 +338,7 @@ plate for image-to-3D.
 > ✅ 石像鬼 de-lit 有 正 / 側 / 3-4 三張,整組餵 multi-view image-to-3D。
 > ⚠️ 註:使用者原文此步 URL 與側面同(`065ab35d`),疑貼錯;待補圖時以實際 3/4 de-lit 圖為準。
 
-<!-- 待補圖:石像鬼 de-lit 3/4 -->
+<img src="images/a5-gargoyle-delit-34-ref.png" width="25%" alt="3/4 素材"> <img src="images/a5-gargoyle-delit-34.png" width="25%" alt="3/4 de-lit 結果">
 
 ---
 
@@ -548,7 +548,7 @@ reference plate for image-to-3D.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-torch-re-render-it-one-complete-isolated-daca856c-6a68-4acc-a3fd-adefcf6f43c9`
 
-<!-- 待補圖:火把 de-lit 正面 -->
+<img src="images/a5-torch-delit-front-ref.png" width="25%" alt="正面素材"> <img src="images/a5-torch-delit-front.png" width="25%" alt="正面 de-lit 結果">
 
 #### de-lit ② 側面(含牆架)平光板
 > Q:「過來是處理這張」
@@ -577,7 +577,7 @@ High-resolution clean de-lit albedo reference plate for image-to-3D.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-left-side-view-torch-its-wall-mounting-5b9442c7-5175-481e-9b55-f08e54f631a6`
 
-<!-- 待補圖:火把 de-lit 側面(含牆架) -->
+<img src="images/a5-torch-delit-side-ref.png" width="25%" alt="側面素材"> <img src="images/a5-torch-delit-side.png" width="25%" alt="側面 de-lit 結果">
 
 #### de-lit ③ 3/4 平光板
 > Q:「我也要一張3/4 我會用正面跟側面產生」
@@ -610,7 +610,7 @@ reference plate for image-to-3D.
 
 溯源:`https://app.leonardo.ai/generation/image/using-first-front-second-side-wall-bracket-lit-b24ad770-096d-4d94-99f7-d3a086132130`
 
-<!-- 待補圖:火把 de-lit 3/4 -->
+<img src="images/a5-torch-delit-34-front-in.png" width="25%" alt="3/4 輸入:正面"> <img src="images/a5-torch-delit-34-side-in.png" width="25%" alt="3/4 輸入:側面"> <img src="images/a5-torch-delit-34.png" width="25%" alt="3/4 de-lit 結果">
 
 ---
 
@@ -672,8 +672,8 @@ reference plate for image-to-3D.
 
 | 道具 | A 保光影軌(mock 貼圖) | B de-lit 軌(image-to-3D) | 狀態 |
 |---|---|---|---|
-| **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | ✅ de-lit prompt(正/側/3-4)· 圖待補 | 保光影 21 圖入庫 |
-| **火把** | ✅ 正面 / 正交 / 側面+牆架 / 側面差異化打光 + 結構(PS) | ✅ de-lit prompt(正/側牆架/3-4)· 圖待補 | 保光影 12 圖入庫 |
+| **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | ✅ de-lit 正 / 側 / 3-4(圖入庫) | ✅ 保光影 21 + de-lit 6 圖 |
+| **火把** | ✅ 正面 / 正交 / 側面+牆架 / 側面差異化打光 + 結構(PS) | ✅ de-lit 正 / 側牆架 / 3-4(圖入庫) | ✅ 保光影 12 + de-lit 7 圖 |
 | **吊燈** | 八角重設計 / 正交正視 / 3-4 / 填背板 | de-lit + 去雜訊 + 填洞成浮雕 | ⏳ 待補 prompt / 圖 |
 
 ---
