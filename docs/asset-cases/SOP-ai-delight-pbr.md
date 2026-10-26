@@ -462,3 +462,15 @@ light, NO cast shadows, NO color, NO highlights. Seamless and TILEABLE on all 4 
 ---
 
 > **共用 negative(灰階 data map 類):** `color tint, hue, albedo detail, baked lighting, cast shadows, highlights, directional light, seams, misaligned, perspective, blurry, watermark, text`
+
+---
+
+## 📌 原始需求 / 叫用詞紀錄
+
+> 這條 SOP 的起點 —— 使用者最初的完整需求原文:
+>
+> 「**這張圖我想要處理成不受光的 pbr 整套貼圖,要分 2 步驟:1 是去掉打光,2 是出 pbr 貼圖。**」
+>
+> 之後導入 Blender / 引擎重新打光。
+>
+> **簡稱 = `delight pbr`**(或 `delight`)。以後使用者說「delight pbr [附圖]」即指這整套 2 步驟流程 —— 1 去打光 → 2 出 PBR 整套貼圖。
