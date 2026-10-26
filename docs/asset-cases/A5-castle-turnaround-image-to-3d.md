@@ -382,7 +382,7 @@ asset plate.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-d33e911f-443e-4db5-9e74-ac669f596a61`
 
-<img src="images/a5-torch-concept.png" width="25%" alt="素材(概念圖)"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
+<img src="images/a5-torch-front-ref.png" width="25%" alt="素材(概念圖)"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
 
 #### ① 正面(正交修正:上方「彎彎的」→ 碗口變直線)
 > Q:「我要改成正交鏡頭 上方還是彎彎的」
