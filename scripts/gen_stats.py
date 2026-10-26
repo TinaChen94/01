@@ -36,8 +36,10 @@ TRACK = [
     "asset-cutout-jobs/*/*.md",  # 去背 job 紀錄:graveyard-props/RECORD.md、output/README.md 等
     ".claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md",
     ".claude/skills/ai-media-generator/references/concept-to-3d.md",
+    ".claude/skills/ai-media-generator/references/concept-to-3d-v2.md",
     ".claude/skills/ai-media-generator/references/depth-relight-pipeline.md",
     ".claude/skills/asset-cutout/SKILL.md",
+    "tools/color-range-mask/*.py",
 ]
 EXCLUDE = {"docs/asset-cases/README.md", "docs/asset-cases/images/README.md"}
 IMG_RE = re.compile(r"\.(png|jpe?g|webp|tga|exr)$", re.IGNORECASE)

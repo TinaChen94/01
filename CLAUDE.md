@@ -43,6 +43,14 @@
 - **SOP 打光公式** — `docs/asset-cases/SOP-style-relight.md`:
   Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複)。
   使用者說「照打光公式」「打光公式」「風格建檔」即指此 SOP — 先讀檔再動手。
+- **SOP AI PBR** — `docs/asset-cases/SOP-ai-delight-pbr.md`:
+  帶光材質/場景圖 → 去光 → PBR 整套貼圖 → Blender 重打光。
+  含去光模板(列點刪)、各 map 模板(對齊鎖/擋 albedo 汙染)、
+  **normal 一律從 height 派生**(生成式三連敗實證)、Blender 踩坑
+  (Metallic=1 變金屬 / AO 雙乘變黑 / AgX / 綠通道)、三 worked example
+  (牆/拱頂/地板)與程序工具 `tools/pbr-derive/`。
+  使用者說「delight pbr」「delight」「AI PBR」「去光出 PBR」「照 AI PBR 配方」
+  即指此 SOP(= 2 步驟:1 去打光 → 2 出 PBR 整套貼圖)— 先讀檔再動手。
 
 ## 進行中
 
@@ -65,3 +73,14 @@
 - 輸入圖一律滿版無 letterbox;輸出 Dimensions 比例 = 輸入圖比例
 - Prompt Enhance 選 None、Style 選 None(避免改寫鎖句/疊色調)
 - 細節 pass 用 Nano Banana 2;保真放大用 Universal Upscaler 2× 最低 creativity
+
+## 回覆格式:每日日期分隔線
+
+- 每天的第一則回覆,最上方加上日期分隔線,格式為 YYYYMMDD:
+
+  ━━━━━━ 20261020 ━━━━━━
+
+- 同一天之後的回覆不要重複加;隔天繼續同一個工作階段時,第一則回覆換上新日期。
+- 日期以台北時間(Asia/Taipei, UTC+8)為準;不確定今天日期時,先執行
+  `TZ=Asia/Taipei date +%Y%m%d` 確認,不要用猜的。
+- 目的:日後回頭翻查對話時,可以依日期找到當天的討論內容。

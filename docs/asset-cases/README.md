@@ -10,8 +10,10 @@
 | **A1 哥德陵墓 Mausoleum** | [A1-mausoleum.md](A1-mausoleum.md) | ✅ 逐字 prompt + 成品圖 + 可複用結論 |
 | **A2 中式石窟佛教浮雕牆** | [A2-buddhist-relief-wall.md](A2-buddhist-relief-wall.md) | ✅ concept→3D:2 視圖 + height pass(場景模組件) |
 | **A3 夜森林枯樹拆件 — 去背 + 補圖(洋紅底)** | [A3-forest-tree-cutout-inpaint.md](A3-forest-tree-cutout-inpaint.md) | ✅ 模式 1.1 六件拆件 + 洋紅工作底 + 逐字 prompt ×7(實跑原文)+ 踩坑 ×8(緊裁換主角/殘留分流/浮水印) |
-| **A12 哥德雙開門 — 顏色範圍自動遮罩(紅色加強)** | [A12-door-color-range-mask.md](A12-door-color-range-mask.md) | ✅ HSV 門檻逐像素抓遮罩(非 AI)+ 只在遮罩內加強 + PS 調整圖層收尾;腳本 `tools/color-range-mask/`;附雙開門切分防穿模 |
+| **A4 古堡哥德大廳 — 概念圖拆解(建築四件)** | [A4-castle-concept-decomposition.md](A4-castle-concept-decomposition.md) | ✅ 保光影軌:紅框定位/只還原框內/反裁切/HEX鎖色/鎖結構換色調/天井廢墟救援鏈/地面B1 pass;逐字 prompt 全收。姊妹篇 A5 |
+| **A5 古堡哥德大廳 — 三視圖重建(道具)** | [A5-castle-turnaround-image-to-3d.md](A5-castle-turnaround-image-to-3d.md) | ✅ 雙軌(保光影→de-lit):石像鬼(27圖)+ 火把(19圖)逐字 prompt 全收 + 正交鎖 / 固定世界光 / 鏡射左視;吊燈留過程註明不補。姊妹篇 A4 |
 | **A10+A11 墓園地面材質(苔蘚草地/石板路)** | [A10-A11-ground-tiles.md](A10-A11-ground-tiles.md) | ✅ top-down 平拍 → PBR 材質(可平鋪模組,不生 mesh) |
+| **A12 哥德雙開門 — 顏色範圍自動遮罩(紅色加強)** | [A12-door-color-range-mask.md](A12-door-color-range-mask.md) | ✅ HSV 門檻逐像素抓遮罩(非 AI)+ 只在遮罩內加強 + PS 調整圖層收尾;腳本 `tools/color-range-mask/`;附雙開門切分防穿模 |
 | **B1 夜霧森林地面背景(4K 放大 + 材質細節)** | [B1-forest-bg-4k-detail.md](B1-forest-bg-4k-detail.md) | ✅ 定案管線 + 逐字 prompt + 鎖句字典 + 踩坑紀錄 + 驗收 checklist |
 | **B2 灰盒 → 夜森林地面模組(master tile)** | [B2-greybox-module-pipeline.md](B2-greybox-module-pipeline.md) | ✅ 貼材質灰盒管線 + 三路線成敗對照 + 逐字 prompt 三連 + 技法字典 |
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |
@@ -33,6 +35,7 @@
 | 公式 | 檔案 | 內容 |
 |---|---|---|
 | **風格母本重打光(兩段式)** | [SOP-style-relight.md](SOP-style-relight.md) | Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複):前處理 + 佔位符 prompt 模板 + 驗收 + 失敗分流;叫用詞「照打光公式」 |
+| **AI 去光 → PBR 整套貼圖** | [SOP-ai-delight-pbr.md](SOP-ai-delight-pbr.md) | 帶光材質/場景圖 → 不受光 PBR 整套(base/height/normal/roughness/metallic/AO)→ Blender 重打光:分型(場景板/tileable)+ 去光模板(列點刪)+ 各 map 模板(對齊鎖/擋 albedo 汙染)+ **normal 一律從 height 派生(生成三連敗實證)** + Blender 踩坑(Metallic=1/AO 雙乘/AgX/綠通道)+ 三 worked example(牆/拱頂/地板,含 Leonardo 連結)+ 程序工具;叫用詞「AI PBR」「照 AI PBR 配方」 |
 
 ## 最新預覽 — A1 陵墓正視參考板
 
