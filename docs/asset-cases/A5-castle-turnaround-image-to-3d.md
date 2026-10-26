@@ -63,25 +63,172 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 
 ### A 保光影軌 · turnaround(正 / 側 / 背 / 3-4)
 
-📌 **待貼:石像鬼 保光影 turnaround 逐字 prompt**
+#### ① 正面 plate(保留原光影)
+第一張 = 乾淨概念圖 ｜(可選)第二張 = 紅框指左邊那隻 ｜ 比例 3:4
 
 ```text
-(貼這裡)
+From the attached concept art, extract ONLY the LEFT wall-mounted gargoyle statue —
+ the carved winged demon figure sitting on its stone corbel bracket. Do NOT include the
+ wall sconce / torch, the flame, the niche, the window, the balustrade or the wall.
+ Everything else becomes empty flat dark background.
+Re-orient to a true head-on FRONT view of the statue, facing the viewer; IGNORE the
+ concept's angle and perspective — do NOT copy any tilt or 3/4 view. One complete,
+ isolated, centered statue with its corbel.
+CRITICAL — preserve the source's baked lighting, colour and tone EXACTLY as painted:
+ keep the same warm torch-lit glow on one side and cooler shadow on the other, the exact
+ stone colour, the ambient occlusion in every crevice, and the material shading. Do NOT
+ relight, do NOT change the tone or palette, do NOT flatten to neutral studio light, do
+ NOT add or remove shadows. This is a PRE-LIT asset for an UNLIT / emissive material —
+ reproduce the original lighting as-is.
+FRAMING: the complete statue fully in frame, generous margin on all sides, nothing
+ cropped or touching the edge, centered on empty dark background. High-resolution
+ game asset plate.
+The corbel bracket base is smooth, solid and INTACT — no cracks, no fractures, no
+ chips, no weathering damage on the base.
 ```
 
-**過程 / 踩坑:**
-- **底座裂痕:** 第一版底座出現裂痕 → 修掉(「為什麼下面的台子有裂痕」)。
-- **左視 = 右視鏡射:** 「鏡射後就是成功的左視」—— 固定世界光下直接鏡射,不用重算。
-- **背面光源:** 背面應是**背光**的,光從**右前方**打(「光源錯誤 背面是背光的」);一度太亮 → 壓暗。
-- **底座調整:** 讓圓弧更明顯;比照第一張底座改第二張(用紅圈標調整處,「我要給這樣的 3 張圖標示調整 / 其他是正常的」)。
+溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-f77461bd-96d9-40ba-a07e-707202f73d71`
 
-📌 待貼:底座修正 / 鏡射左視 / 背光壓暗 等逐字 prompt(各步)
+<!-- 待補圖:石像鬼 正面 plate -->
+
+#### ② 左視圖(嚴格正側面 → 正交)
+
+> Q:「我要左視圖」
+> A:了解——你要的是正規的「左視圖」= 嚴格 90° 正側面(只看到側剖影:臉的側臉、翅膀、背、蹲姿從側面),不是現在這種還看得到胸口正面的3/4 角。修正重點就是「壓成純側面、禁 3/4」。
+
+第一張 = 正面 plate(一致性錨)｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4 —— **產生非正交圖**
+
+溯源:`https://app.leonardo.ai/generation/image/using-first-image-finished-front-plate-reference-63b342c2-5aa8-408a-b677-cd0ede383b3e`
+
+> Q:「這個不是正交鏡頭 我要正交鏡頭」
+> A:你抓到重點——NB 預設是有透視的戲劇鏡頭(近大遠小、翅膀往後收、略仰角),不是真正交。要壓成正交,得狠狠堆正交詞 + 否定透視。
+
+**🔑 正交鎖(這段之後每個視角都套):**
 
 ```text
-(貼這裡)
+Render in TRUE ORTHOGRAPHIC PROJECTION (parallel projection), like a technical
+model-sheet / turnaround elevation or an engineering orthographic drawing. NO
+perspective, NO perspective foreshortening, NO vanishing point, NO lens distortion,
+NO wide-angle, NO dramatic low-angle or high-angle. The camera axis is perfectly
+horizontal, at the statue's mid-height, perpendicular to the view. Every part is
+drawn at the SAME scale regardless of depth — near and far parts are the same size,
+all parallel edges stay parallel. Flat, even, undistorted elevation.
 ```
 
-<!-- 待補圖:石像鬼 正面 / 左視(鏡射)/ 背面(背光)/ 3-4;底座修正前後 -->
+**左視圖(正交版)** — 第一張 = 正面 plate(錨)｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4
+
+```text
+Using the FIRST image (front plate) as the reference, re-render the SAME gargoyle
+statue as a TRUE ORTHOGRAPHIC LEFT-SIDE elevation.
+
+[貼上上面「正交鎖」整段]
+
+Show ONLY the side silhouette (profile of face/snout, horns, wing edge-on, curved back,
+chest in profile, crouching legs and claws from the side). STRICTLY flat 90° side — do
+NOT show the front of the chest or face, do NOT use a 3/4 angle, do NOT rotate toward
+the viewer.
+
+SAME statue — identical proportions, wings, horns, face, musculature and corbel as the
+reference; do NOT redesign or resize. Keep the SAME warm stone colour, tone and lighting
+mood as the front plate (same warm key + cooler shadow, same AO/material); do NOT
+relight to neutral, do NOT change the palette. PRE-LIT for UNLIT / emissive. Corbel base
+smooth and INTACT, no cracks.
+
+Complete, isolated, centered, generous margin, nothing cropped, empty flat dark
+background. High-resolution orthographic side-view model-sheet plate.
+```
+
+> **老實說(先講清楚):** 生成模型畫不出「數學上真正交」——它本質是透視渲染器,上面這堆詞只能把它逼近正交(壓平透視、減少近大遠小)。要100% 真正交只有一條路:拿去做成 3D 模型,再用正交相機 render(這也正是這張 plate 的用途——當建模參考)。
+> 所以策略是:用這版逼近正交的 plate 當「建模參考」(比例、造型、光影都夠準)→ 建完模在引擎/DCC 裡開正交相機,才有像素級真正交三視。
+> 先跑這版逼近正交的左視圖,夠當參考就收;要更平我再加重 flatten 詞。
+
+> ✅ **讚 👍 側面對了(鏡射即左視)。** 正面 + 左側 兩視到手。補上背視就湊齊三視圖(model sheet 核心)。
+
+溯源:`https://app.leonardo.ai/generation/image/using-first-image-finished-front-plate-reference-cdb64564-08dc-4535-bd85-4b20783ab413`
+
+<!-- 待補圖:石像鬼 左視(非正交反例 / 正交版) -->
+
+#### ③ 背視 · 修正光源(固定右前光 → 背光)
+第一張 = 正面 plate｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4
+
+```text
+Re-render the SAME gargoyle statue as a TRUE ORTHOGRAPHIC BACK view (180° from front),
+seeing the rear of the head/horns, spine, shoulder blades, the outer back of both wings,
+haunches and the back of the corbel.
+
+CRITICAL LIGHTING — the light source is FIXED in world space, coming from the FRONT-RIGHT
+(the same warm key light as the front plate). Because this is the BACK view, the statue
+is BACKLIT: all the back-facing surfaces are in deep shadow / dark, and ONLY a thin warm
+rim-light catches the top edges and silhouette (the tops of the wings, the shoulders, the
+back of the head, the spine ridge) where the light wraps around. Do NOT light the back
+brightly, do NOT put the key light on the back — the back is mostly in shadow with a warm
+edge rim only. Keep the same stone colour and material as the front plate.
+
+TRUE ORTHOGRAPHIC PROJECTION — no perspective, no foreshortening, no vanishing point, no
+dramatic angle; camera axis horizontal at mid-height, parallel projection, flat.
+
+SAME statue — identical proportions, wings, horns, build and corbel as the front plate;
+do NOT redesign or resize. PRE-LIT for UNLIT / emissive material. Corbel base smooth and
+INTACT, no cracks. Complete, isolated, centered, generous margin, nothing cropped, empty
+flat dark background. High-resolution orthographic back-view plate.
+```
+
+溯源:`https://app.leonardo.ai/generation/image/re-render-same-gargoyle-statue-true-orthographic-9082b7a6-e270-41c2-95f0-d15531e9d50f`
+
+> ✅ **背視對了 👍 背光 + 邊緣暖 rim,跟固定右前光完全連戲。** 正 + 左 + 背 三視齊、光源一致。補最後的 3/4 iso,這次把固定右前光的明暗寫進去(右前半受光、左後半入陰)。
+
+<!-- 待補圖:石像鬼 背視(背光) -->
+
+#### ④ 3/4 ISO(固定光連戲)
+第一張 = 正面 plate｜第二張 = 背視 plate｜第三張 = 側視 plate｜固定同 seed｜比例 1:1
+
+```text
+Using the front, back and side plates as references, re-render the SAME gargoyle statue
+in a 3/4 three-quarter view — rotated ~45° between front and left side, seen slightly
+from above, so its full 3D form reads (face, chest, the near wing turned toward the
+viewer, the far wing receding, the crouch and the corbel).
+
+Use ISOMETRIC / PARALLEL projection — no strong perspective, no vanishing point, no lens
+distortion, no foreshortening exaggeration; near and far parts stay close to the same
+scale, a clean 3/4 iso model-sheet pose.
+
+LIGHTING — the SAME fixed world-space warm key light from the FRONT-RIGHT as the plates.
+So the statue's front-right surfaces (right side of the face, chest, near wing) are warmly
+lit, while the left and rear surfaces fall into cooler shadow, with a soft warm rim on the
+upper-right edges. Keep it consistent with the front plate's exact stone colour, tone and
+material. Do NOT relight to neutral, do NOT flatten, do NOT change the palette. PRE-LIT for
+UNLIT / emissive.
+
+SAME statue — identical proportions, wings, horns, face, build and corbel as the references;
+do NOT redesign or resize. Corbel base smooth and INTACT, no cracks. One complete, isolated,
+centered statue, generous margin, nothing cropped, empty flat dark background.
+High-resolution 3/4 isometric model-sheet plate.
+```
+
+溯源:
+- `https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-308230fd-4a6c-444a-a7d6-4e14bcefaaf9`
+- `https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-d1481994-f53f-4b1b-9d5c-9e59bb68b3cc`
+
+> Q:「太亮了」 → 在 3/4 prompt 末尾加 **EXPOSURE LOCK**:
+
+```text
+[同上 3/4 prompt 整段]
+
+EXPOSURE LOCK: keep the same dark, low-key overall exposure as the front plate — do NOT
+brighten. The lit front-right is warm but the left and rear fall into DEEP near-black
+shadow. This is a moody dark statue, not an evenly-lit bright render.
+```
+
+溯源:`https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-111d31cf-1b9a-4317-b9c5-d2ca33a1b58e`
+
+<!-- 待補圖:石像鬼 3/4 ISO(太亮反例 / EXPOSURE LOCK 修正) -->
+
+#### 底座調整 / 標示 → 最後走 PS
+> Q:「我想調整底座 讓圓弧更明顯」
+> Q:「我要給這樣的 3 張圖 標示調整」
+> ⚠️ **這部份後來用 PS 合成,算圖失敗**(底座微調 + 標示改動,NB 重算不穩,改走 PS)。
+
+<!-- 待補圖:底座調整前後、3 張標示圖 -->
 
 ### B de-lit 軌 · image-to-3D
 
