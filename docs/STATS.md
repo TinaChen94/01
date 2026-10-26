@@ -32,7 +32,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | 分支(分流) | 10(9 條 `claude/*` + `main`;另有 1 條 `TinaChen94-patch-1`) |
 | 參與 session | ~20 |
 | Skills / 框架 | 3 skills + 1 框架 |
-| 原創工作流檔 | 3 |
+| 原創工作流檔 | 4(含 concept→3D **V2** 雙軌) |
 | 資產案例 | 26 件(分布在 25 個檔) |
 | 不重複成品圖 | 256 張 |
 
@@ -96,7 +96,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 |---|---|---|---|
 | **物件合成進場景**(物件放進背景圖、鎖位鎖比例、整包對齊環境光照反射) | `references/nano-banana.md` §物件合成進場景 | `SKILL.md` 🪧「物件合成 / 把物件放進場景 / game art background asset」 | B2 案例實測 |
 | **concept→3D 資產 pipeline**(front → 多視 → 3/4 → 45° iso) | `templates/concept-to-3d-pipeline.md` | `SKILL.md`「concept→3D / 拆概念圖 / 三視圖重建」 | inspiring-darwin(18 次迭代) |
-| **image-grounded concept→3D 憲法**(原圖=真相,別用文字代理) | `references/concept-to-3d.md` | `SKILL.md` 硬規則 | session `014ecc8` |
+| **image-grounded concept→3D 憲法 + V2 雙軌**(原圖=真相;**V2** 升級為保光影 ↔ de-lit 雙軌 + 正交鎖 + A4/A5 救援招式,V1 保留) | `references/concept-to-3d-v2.md`(V1 原版:`concept-to-3d.md`) | `SKILL.md` 硬規則 / 已指向 V2 | 014ecc8 → V2(687e7c0) |
 | **去背 / 拆資產 SOP**(三模式 + 缺席色背景 + 正視參考板) | `skills/asset-cutout/` | `/asset-cutout` | A1 案例 |
 | **Depth→Relight→Fusion 打光管線**(depth map + 光向控制圖鎖死光影、解 NB 無 seed;附 2 個 HTML 工具:深度打光器 / prompt 卡片庫) | `references/depth-relight-pipeline.md` + `tools/` | `SKILL.md` 指標 | ✅ 已併入 `main`(PR #9) |
 | **4K 放大 / 材質保真 pass 管線**(類型分流:純保真 vs 生成式 pass、鎖句字典、letterbox 白邊坑) | `docs/asset-cases/B1-forest-bg-4k-detail.md`(B3 為反例) | 「B1 紀錄 / 4K 放大 / 材質保真」關鍵字 | B1-forest / B3-fenske |
@@ -149,6 +149,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | `README.md` | main | 2026-09-02 04:04 | 1 | 2026-09-02 04:04 | `0139cX4Bb` |
 | `A4-castle-concept-decomposition.md` | main | 2026-10-25 17:09 | 13 | 2026-10-26 00:54 | `0139cX4Bb` |
 | `A5-castle-turnaround-image-to-3d.md` | main | 2026-10-25 19:23 | 22 | 2026-10-26 06:59 | `0139cX4Bb` |
+| `concept-to-3d-v2.md` | main | 2026-10-26 06:57 | 1 | 2026-10-26 06:57 | `0139cX4Bb` |
 
 ### 成品圖
 
@@ -160,7 +161,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 
 | 分支 | 獨有 commit | 期間 |
 |---|---:|---|
-| main | 215 | 全部 merge 線 |
+| main | 216 | 全部 merge 線 |
 | claude/a10-a11-a2-assets-fv7p41 | 2 | 2026-09-10 → 2026-09-10 |
 | claude/adoring-lamport-sh6fgh | 7 | 2026-06-17 → 2026-06-23 |
 | claude/image-style-analysis-72zhrh | 10 | 2026-07-28 → 2026-07-28 |
