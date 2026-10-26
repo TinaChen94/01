@@ -145,7 +145,18 @@ height/normal/roughness/metallic/AO 只由**形狀與材質**決定,**與 albedo
 
 ### B-wall — 哥德壁龕牆([B] 場景板,冷灰,有金屬壁燈)
 深浮雕場景,中「4 大殺手」全餐。PBR 全套 ✅(metallic 教科書級:石黑+鐵壁燈白)。normal 待從 height 派生(生成版 512+慣例未知)。
-- 去光 · [HEIGHT](https://app.leonardo.ai/generation/image/height-displacement-map-attached-gothic-wall-plate-685613c6-d7ea-4735-bf68-454b594e92ee) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-abffc0d0-42a9-488b-affc-9182e7939c81) · [ROUGHNESS](https://app.leonardo.ai/generation/image/roughness-map-attached-gothic-wall-plate-grayscale-cd7b90d3-c443-4da4-afb0-432062445605) · [METALLIC](https://app.leonardo.ai/generation/image/metallic-map-attached-gothic-wall-plate-solid-ea81db84-d126-42da-b8fe-842bf9acc70f) · [AO](https://app.leonardo.ai/generation/image/ambient-occlusion-map-attached-gothic-wall-plate-e004a405-b4bd-499d-b1dd-f8a0168e0791)
+
+**成品圖(repo 內嵌):**
+
+| 素材(帶光) | base color(去光) | height |
+|---|---|---|
+| ![source](images/gothic-wall-01-source.jpg) | ![basecolor](images/gothic-wall-04-basecolor.jpg) | ![height](images/gothic-wall-06-height.jpg) |
+
+| normal | roughness | metallic | AO |
+|---|---|---|---|
+| ![normal](images/gothic-wall-07-make-normal.jpg) | ![roughness](images/gothic-wall-09-make-roughness.jpg) | ![metallic](images/gothic-wall-11-make-metallic.jpg) | ![ao](images/gothic-wall-13-make-ao.jpg) |
+
+**原圖連結(Leonardo):** 去光 · [HEIGHT](https://app.leonardo.ai/generation/image/height-displacement-map-attached-gothic-wall-plate-685613c6-d7ea-4735-bf68-454b594e92ee) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-abffc0d0-42a9-488b-affc-9182e7939c81) · [ROUGHNESS](https://app.leonardo.ai/generation/image/roughness-map-attached-gothic-wall-plate-grayscale-cd7b90d3-c443-4da4-afb0-432062445605) · [METALLIC](https://app.leonardo.ai/generation/image/metallic-map-attached-gothic-wall-plate-solid-ea81db84-d126-42da-b8fe-842bf9acc70f) · [AO](https://app.leonardo.ai/generation/image/ambient-occlusion-map-attached-gothic-wall-plate-e004a405-b4bd-499d-b1dd-f8a0168e0791)
 
 ### B-ceiling — 交叉肋拱頂([B] 場景板,暖褐/灰石兩版,無金屬)
 去光出**暖褐 + 中性灰**兩版(同場景用選灰)。metallic = 純黑。
