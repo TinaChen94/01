@@ -348,6 +348,8 @@ plate for image-to-3D.
 
 > Q 我要拆火把 拆掉這張概念圖」「concept→3D」「三視圖重建 保留原來的光影 不要改變色調 也不要改變打光
 
+<img src="images/a5-torch-concept.png" width="25%" alt="拆圖素材(概念圖)">
+
 火把跟石像鬼同套(獨立道具、turnaround、保原光影)。差別:它有活焰 + 暖光暈——這在你的不受光材質裡就是烘進去的自發光,要保留。一樣兩支左右鏡像,做左邊那支、右邊鏡射。
 
 **先確認 2 件:**
@@ -380,7 +382,7 @@ asset plate.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-d33e911f-443e-4db5-9e74-ac669f596a61`
 
-<img src="images/a5-torch-concept.png" width="25%" alt="拆圖素材(概念圖)"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
+<img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
 
 #### ① 正面(正交修正:上方「彎彎的」→ 碗口變直線)
 > Q:「我要改成正交鏡頭 上方還是彎彎的」
