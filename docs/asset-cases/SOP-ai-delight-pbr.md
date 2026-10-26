@@ -150,11 +150,11 @@ height/normal/roughness/metallic/AO 只由**形狀與材質**決定,**與 albedo
 
 | 素材(帶光) | base color(去光) | height |
 |---|---|---|
-| ![source](images/gothic-wall-01-source.jpg) | ![basecolor](images/gothic-wall-04-basecolor.jpg) | ![height](images/gothic-wall-06-height.jpg) |
+| ![source](images/gothic-wall-source.jpg) | ![basecolor](images/gothic-wall-basecolor.jpg) | ![height](images/gothic-wall-height.jpg) |
 
 | normal | roughness | metallic | AO |
 |---|---|---|---|
-| ![normal](images/gothic-wall-07-make-normal.jpg) | ![roughness](images/gothic-wall-09-make-roughness.jpg) | ![metallic](images/gothic-wall-11-make-metallic.jpg) | ![ao](images/gothic-wall-13-make-ao.jpg) |
+| ![normal](images/gothic-wall-normal.jpg) | ![roughness](images/gothic-wall-roughness.jpg) | ![metallic](images/gothic-wall-metallic.jpg) | ![ao](images/gothic-wall-ao.jpg) |
 
 **原圖連結(Leonardo):** 去光 · [HEIGHT](https://app.leonardo.ai/generation/image/height-displacement-map-attached-gothic-wall-plate-685613c6-d7ea-4735-bf68-454b594e92ee) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-abffc0d0-42a9-488b-affc-9182e7939c81) · [ROUGHNESS](https://app.leonardo.ai/generation/image/roughness-map-attached-gothic-wall-plate-grayscale-cd7b90d3-c443-4da4-afb0-432062445605) · [METALLIC](https://app.leonardo.ai/generation/image/metallic-map-attached-gothic-wall-plate-solid-ea81db84-d126-42da-b8fe-842bf9acc70f) · [AO](https://app.leonardo.ai/generation/image/ambient-occlusion-map-attached-gothic-wall-plate-e004a405-b4bd-499d-b1dd-f8a0168e0791)
 
@@ -165,11 +165,11 @@ height/normal/roughness/metallic/AO 只由**形狀與材質**決定,**與 albedo
 
 | 素材(帶光) | 去光·暖褐 | 去光·灰石(採用) |
 |---|---|---|
-| ![source](images/vault-14-source.jpg) | ![delit-brown](images/vault-15-delit-brown.jpg) | ![delit-grey](images/vault-16-delit-grey.jpg) |
+| ![source](images/vault-source.jpg) | ![delit-brown](images/vault-basecolor-brown.jpg) | ![delit-grey](images/vault-basecolor.jpg) |
 
 | height | normal | roughness | AO |
 |---|---|---|---|
-| ![height](images/vault-19-height.jpg) | ![normal](images/vault-20-make-normal.jpg) | ![roughness](images/vault-22-make-roughness.jpg) | ![ao](images/vault-24-make-ao.jpg) |
+| ![height](images/vault-height.jpg) | ![normal](images/vault-normal.jpg) | ![roughness](images/vault-roughness.jpg) | ![ao](images/vault-ao.jpg) |
 
 **原圖連結(Leonardo):** [去光·暖褐](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-d39ced0b-b48c-40c9-aee6-d421b2e1e542) · [去光·灰石](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-8d490406-018e-4e46-b9b6-a5b2e2389904) · [HEIGHT](https://app.leonardo.ai/generation/image/convert-attached-image-into-height-displacement-e27e9371-9f8e-4d4a-b07d-960f82ec2068) · [NORMAL](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-2ceb20e5-36b3-4c53-b8e0-7330a6e067d8) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-image-into-roughness-map-bb5bd918-1384-480c-8ae7-bf3468dea20c) · [AO](https://app.leonardo.ai/generation/image/convert-attached-image-into-ambient-occlusion-map-5f775332-7f36-4a79-a81c-9c5053109196)
 
@@ -180,19 +180,19 @@ tileable 材質。去光 → **提亮** → height **軟邊失敗 → 改硬邊�
 
 | 素材(帶光) | base color(去光+提亮) | height ✅硬邊 |
 |---|---|---|
-| ![source](images/floor-25-source.jpg) | ![basecolor](images/floor-27-basecolor-light.jpg) | ![height](images/floor-30-make-height-hard.jpg) |
+| ![source](images/floor-source.jpg) | ![basecolor](images/floor-basecolor.jpg) | ![height](images/floor-height.jpg) |
 
 | normal | roughness | AO |
 |---|---|---|
-| ![normal](images/floor-34-make-normal-fixed.jpg) | ![roughness](images/floor-36-make-roughness.jpg) | ![ao](images/floor-38-make-ao.jpg) |
+| ![normal](images/floor-normal.jpg) | ![roughness](images/floor-roughness.jpg) | ![ao](images/floor-ao.jpg) |
 
 **失敗反例(存證):**
 
 | ❌ height 太軟(枕頭感) | ❌ 生成 normal 有黑縫(無效向量) |
 |---|---|
-| ![height-soft](images/floor-28-make-height-soft.jpg) | ![normal-bad](images/floor-33-make-normal-bad.jpg) |
+| ![height-soft](images/floor-height-soft-FAIL.jpg) | ![normal-bad](images/floor-normal-bad-FAIL.jpg) |
 
-> metallic = 純黑(無金屬件)。`floor-34` 為生成式「禁黑」normal;**定版 normal 建議從 `floor-30` 硬 height 用 `tools/pbr-derive/height_to_normal.py` 派生**。
+> metallic = 純黑(無金屬件)。`floor-normal.jpg` 為生成式「禁黑」版;**定版 normal 建議從 `floor-height.jpg` 硬 height 用 `tools/pbr-derive/height_to_normal.py` 派生**。
 
 **原圖連結(Leonardo):** [去光](https://app.leonardo.ai/generation/image/attached-stone-tile-texture-keep-every-block-crack-558d8a8f-864d-4a0f-98af-15723f201a96) · [HEIGHT·軟邊失敗](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-4adb440c-ac86-48a7-91a4-9f26d2db4c68) · [HEIGHT·硬邊✅](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-f289844a-6b64-4b89-a53f-06020f17e364) · [NORMAL·禁黑版](https://app.leonardo.ai/generation/image/convert-attached-height-map-into-tangent-space-779abb84-6e15-4fa5-8f56-2fe37eb820ed) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-roughness-a7c0ad58-03ae-4c3c-b14b-0f72e485a790) · [AO](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-ambient-4d7a68b1-d470-4e9b-ac36-7db80dd31189)
 
@@ -211,8 +211,8 @@ python3 tools/pbr-derive/height_to_normal.py <height>.png --outdir <dir> --prefi
 
 ## 8. 待補(TODO)
 
-- [x] 三案**成品圖入庫** `images/`(`gothic-wall-*` 1-13 / `vault-*` 14-24 / `floor-*` 25-38),三案 worked example 皆已內嵌成品圖庫 + 失敗反例。
-- [ ] 三案 normal **程序派生定版**(取代生成版,從各案硬 height 跑 `height_to_normal.py`),各附 QC 平均值。
+- [x] 三案**成品圖入庫** `images/`,乾淨命名 `<案>-<map>.jpg`(`gothic-wall-*` / `vault-*` / `floor-*`;失敗反例加 `-FAIL`),三案 worked example 皆已內嵌成品圖庫 + 失敗反例。
+- [ ] 三案 normal **程序派生定版**(取代生成版,各案跑 `height_to_normal.py <案>-height.jpg`),各附 QC 平均值。
 - [ ] B-floor **四方連續驗縫**(offset 半格)+ 引擎 3×3 驗收。
 - [ ] B-wall 若走 concept→3D:補 3/4 掠射視圖 + image-to-3D 出 mesh 流程。
 - [ ] B-ceiling 暖→灰 **Match Color 程序版**(治「太白」)留檔。

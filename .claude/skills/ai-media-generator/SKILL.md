@@ -168,6 +168,8 @@ Prompt 寫完問自己：
 
 > **💡 穩定打光 / 重打光 / 控制光向 / depth 控制圖 / 場景重打光 / 多重參考融合（風格+光影+姿勢分離）→ 必讀 [references/depth-relight-pipeline.md](references/depth-relight-pipeline.md)**（depth map → 打光工具定光向 → 多參考融合的可重現管線；附 [tools/](tools/) 兩支單檔網頁工具）。**核心：NB 無 seed，靠 depth 鎖形狀 + 工具鎖光向 + 風格圖鎖材質，三維全鎖才穩。**
 
+> **🧱🎨 去光 / de-light / 不受光貼圖 / PBR 整套貼圖 / 出 normal·roughness·height·AO·metallic map / 材質圖轉 PBR / 導入 Blender 重打光 → 必讀 [references/delight-pbr.md](references/delight-pbr.md)**（帶光圖 → 去光 albedo → PBR 整套 → Blender 重打光）。**鐵律：normal 一律從 height 派生(生成式必錯：偏紫/邊亂/黑縫)、列點刪 > 泛詞否定、metallic 純石材=純黑別燒圖、顏色只動 base。Blender 踩坑：Metallic=1 變金屬、AO 雙乘變黑、AgX、綠通道。** 完整三 worked example 在 repo `docs/asset-cases/SOP-ai-delight-pbr.md`。
+
 **音樂 (Music)**
 - Suno v5.5（Personas 已改名 Voices） → [references/suno.md](references/suno.md)
 
