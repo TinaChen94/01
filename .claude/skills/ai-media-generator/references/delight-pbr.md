@@ -2,7 +2,7 @@
 
 **用途:** 把一張**帶打光的材質/場景圖**轉成**不受光的 PBR 整套貼圖**(base / height / normal / roughness / metallic / AO),之後導入 Blender / 引擎**重新打光**。
 
-**觸發詞:** 「去光」「de-light」「不受光貼圖」「PBR 貼圖 / 整套貼圖」「出 normal / roughness / height / AO / metallic map」「材質圖轉 PBR」「導入 Blender 重打光」。
+**觸發詞:** 「**delight pbr**」「**delight**」「去光」「de-light」「不受光貼圖」「PBR 貼圖 / 整套貼圖」「出 normal / roughness / height / AO / metallic map」「材質圖轉 PBR」「導入 Blender 重打光」。(= 2 步驟:1 去打光 → 2 出 PBR 整套貼圖)
 
 > 🤖 **本檔角色 = 自動反射片段(給 Claude 自動用的精簡操作版):** 模板 + 鐵律 + 踩坑表,任務沾到去光/PBR 時自動載入,照這份動手即可。
 > 📒 **完整案例紀錄(給人翻的實戰:三 worked example + 逐字 prompt + 成品圖 + 踩坑全歷程)在 repo:** `docs/asset-cases/SOP-ai-delight-pbr.md` —— 要看「某案怎麼跑、哪張圖、哪次失敗」才翻那份,不必每次載。

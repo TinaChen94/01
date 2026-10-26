@@ -47,7 +47,8 @@
   **normal 一律從 height 派生**(生成式三連敗實證)、Blender 踩坑
   (Metallic=1 變金屬 / AO 雙乘變黑 / AgX / 綠通道)、三 worked example
   (牆/拱頂/地板)與程序工具 `tools/pbr-derive/`。
-  使用者說「AI PBR」「去光出 PBR」「照 AI PBR 配方」即指此 SOP — 先讀檔再動手。
+  使用者說「delight pbr」「delight」「AI PBR」「去光出 PBR」「照 AI PBR 配方」
+  即指此 SOP(= 2 步驟:1 去打光 → 2 出 PBR 整套貼圖)— 先讀檔再動手。
 
 ## 進行中
 
