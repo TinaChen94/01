@@ -3,6 +3,10 @@
 > concept→3D turnaround / 道具三視圖重建案例。對應工作流:`ai-media-generator`(concept-to-3D)。
 > 姊妹篇:**A4 — 古堡概念圖拆解**(建築四件、保光影軌)。
 > 道具:① 石像鬼 ② 火把 ③ 吊燈(環形金屬吊燈)。平台:Nano Banana Pro;Style / Prompt Enhance 一律 None。
+>
+> **相關案例:** [A4 概念圖拆解](A4-castle-concept-decomposition.md)(姊妹篇,保光影軌)· [A2 浮雕牆](A2-buddhist-relief-wall.md)(**de-lit 逐字句 + height pass 模板**)· [A1 陵墓](A1-mausoleum.md) · [A3 枯樹去背](A3-forest-tree-cutout-inpaint.md) · [B6 三相機](B6-three-camera-pipeline.md) / [B7 Unreal 相機重現](B7-unreal-camera-port.md)(turnaround 真正交從 3D)· [B9 樹重上色](B9-tree-trunk-restyle.md)(Crop-Gen-Paste 像素鎖)
+>
+> **相關 SKILL:** `ai-media-generator`(concept-to-3D pipeline:`references/concept-to-3d.md` + `templates/concept-to-3d-pipeline.md`)· `asset-cutout`(去背 SOP)
 
 > 🚧 **此為整理初版** —— 文字/過程/教訓已整理;**逐字 prompt(📌 待貼)與圖片(待補)留空位**,由使用者補上(prompt 一字不改)。
 
