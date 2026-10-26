@@ -1,8 +1,8 @@
 """按色相/飽和度/亮度門檻自動抓顏色遮罩,並只在遮罩內加強。
 
-用法(A4 定案參數 = 預設值):
+用法(A12 定案參數 = 預設值):
     python3 color_mask.py door.webp --out-dir out/
-    python3 color_mask.py door.webp --sat-min 0.35 --hue-min 330   # A4 第一張門用的寬門檻
+    python3 color_mask.py door.webp --sat-min 0.35 --hue-min 330   # A12 第一張門用的寬門檻
 
 輸出:<name>_mask.png(白=選取)、<name>_boost.png(保留原 alpha)、<name>_compare.png(原圖|遮罩|加強)
 """
