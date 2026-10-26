@@ -17,10 +17,15 @@ python3 scripts/gen_stats.py --stdout   # 只印出、不寫檔(預覽)
 python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 ```
 
-- **機器欄位(時間 / 異動次數 / 圖檔數)**:跑腳本即自動刷新。新案例只要放在
-  `docs/asset-cases/*.md`、`.../examples/*.md`、`asset-cutout-jobs/*/RECORD.md` 等
-  追蹤路徑下(見腳本 `TRACK` 清單),就會自動被統計到。
-- **人工欄位(完成度 / 分類 / 結論)**:需要讀檔內容才寫得出來 → 跟我說一句「更新統計」,我重讀後補。
+- ✅ **會自動抓的**:只有 `gen_stats.py` 的 `TRACK` 清單裡的路徑 —— 案例檔
+  `docs/asset-cases/*.md`、`.../examples/*.md`、`asset-cutout-jobs/*/*.md`,外加少數指名的
+  工作流檔(concept-to-3d-pipeline / concept-to-3d(-v2) / asset-cutout SKILL / depth-relight-pipeline)。
+  放進這些路徑,跑腳本就進統計。
+- ⚠️ **不會自動抓 —— 新增下列務必手動處理,否則統計會漏**:
+  **新 skill**、**新 reference / template / tool**、**SKILL 版本升級(例:V2 `concept-to-3d-v2.md`)**、skills 目錄變動。
+  → 把新路徑加進 `gen_stats.py` 的 `TRACK`(之後也會自動刷新),**或**直接跟 Claude 說
+  「**有新增 SKILL / 更新統計**」,我會讀檔、登錄 §1/§3、補 `TRACK`。
+- 🧰 **人工欄位(完成度 / 分類 / 結論、§1 skills、§3 SOP)**:機器算不出、要讀檔內容 → 跟我說「更新統計」我重讀後補。
 
 ---
 
