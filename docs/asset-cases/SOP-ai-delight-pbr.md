@@ -190,14 +190,15 @@ python3 tools/pbr-derive/height_to_normal.py <height>.png --outdir <dir> --prefi
 
 ---
 
-## 9. 逐字 prompt 全集(三案實跑原文)
+## 9. 逐字 prompt 全集 + Leonardo 結果(三案實跑存檔)
 
-> 三案在 Leonardo(Image2Image / Nano Banana 2 / Enhance·Style=None / Creativity 最低)實跑的**逐字 prompt**。模板見 §3.2;此處保存每案真正送出的版本。
+> 三案在 Leonardo(Image2Image / Nano Banana 2 / Prompt Enhance·Style = None / Creativity 最低)實跑的**逐字 prompt**,每段配**它自己的 Leonardo 結果連結**。通用模板見 §3.2。
+
+---
 
 ### 9.1 B-wall 哥德壁龕牆(場景板,seamless 關)
 
-<details><summary>① 去光 de-light(+ 殘留暖光補刀)</summary>
-
+**① 去光 de-light** → [Leonardo 結果](https://app.leonardo.ai/generation/image/attached-image-keep-architecture-exactly-all-68c69df7-895e-49c7-bdf0-0ae4c221abbd)
 ```text
 From the attached image, keep the architecture EXACTLY as-is (all geometry, proportions,
 layout, carvings, the two gargoyle statues, the pointed-arch tracery window, the balustrade
@@ -212,16 +213,14 @@ cast shadows, NO rim light, NO warm or blue color tint, NO glow, NO vignette, NO
 on frontal orthographic, zero added perspective. Clean high-resolution de-lit albedo plate for
 PBR / image-to-3D.
 ```
-殘留暖光補刀 pass:
+殘留暖光補刀 pass(A2 §4 做法):
 ```text
 Edit this plate: neutralize the remaining warm cast on the stone around both sconces to match
 the neutral grey stone elsewhere; extinguish both candle flames, keep the iron sconce cups as
 unlit metal.
 ```
-</details>
 
-<details><summary>② HEIGHT　③ NORMAL(從 height)</summary>
-
+**② HEIGHT / DISPLACEMENT** → [Leonardo 結果](https://app.leonardo.ai/generation/image/height-displacement-map-attached-gothic-wall-plate-685613c6-d7ea-4735-bf68-454b594e92ee)
 ```text
 HEIGHT / DISPLACEMENT map of the attached gothic wall plate, grayscale, aligned pixel-for-
 pixel. Encode real depth: the two gargoyle statues and their corbels projecting forward =
@@ -229,6 +228,8 @@ brightest; pilasters, sconces and balustrade = mid-high; the flat wall face = mi
 arched niches, recessed tracery window and all deep recesses = darkest. Smooth tonal gradient
 following true depth. Pure grayscale, NO color, NO lighting, NO cast shadows.
 ```
+
+**③ NORMAL(從 height)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-abffc0d0-42a9-488b-affc-9182e7939c81)
 ```text
 Convert the attached grayscale HEIGHT map into a tangent-space NORMAL map, aligned pixel-for-
 pixel — keep every element in the EXACT same position and scale, do NOT move, redraw, add or
@@ -240,34 +241,46 @@ outward, every recess, groove and niche edge slopes inward, following the height
 OpenGL convention (green = +Y, up). NO albedo, NO color tint, NO lighting, NO cast shadows, NO
 ambient occlusion. Square 1:1, same framing, zero perspective. Non-color data map.
 ```
-</details>
 
-<details><summary>④ ROUGHNESS　⑤ METALLIC　⑥ AO</summary>
-
+**④ ROUGHNESS** → [Leonardo 結果](https://app.leonardo.ai/generation/image/roughness-map-attached-gothic-wall-plate-grayscale-cd7b90d3-c443-4da4-afb0-432062445605)
 ```text
 ROUGHNESS map of the attached gothic wall plate, grayscale, aligned. Weathered matte stone and
 moss = light grey (high ~0.85); polished stone edges and damp spots = mid grey (~0.55); the
 iron sconce metal = darker grey (~0.4); the window glass = dark (~0.15). NO hue, NO lighting,
 NO highlights.
 ```
+
+**⑤ METALLIC** → [Leonardo 結果](https://app.leonardo.ai/generation/image/metallic-map-attached-gothic-wall-plate-solid-ea81db84-d126-42da-b8fe-842bf9acc70f)
 ```text
 METALLIC map of the attached gothic wall plate: SOLID BLACK (0.0) for all stone, statues,
 tracery and glass; PURE WHITE (1.0) only on the two iron/bronze wall-sconce fixtures. Hard-
 edged mask, no gradient, no lighting, no color.
 ```
+
+**⑥ AMBIENT OCCLUSION** → [Leonardo 結果](https://app.leonardo.ai/generation/image/ambient-occlusion-map-attached-gothic-wall-plate-e004a405-b4bd-499d-b1dd-f8a0168e0791)
 ```text
 AMBIENT OCCLUSION map of the attached gothic wall plate, grayscale, aligned. Exposed forward
 faces (gargoyle tops, pilaster fronts, wall face) = white; deep arched niches, recessed window
 bay, corbel undersides and tight crevices = soft dark grey. Soft contact occlusion only, NO
 directional light, NO cast shadows, NO color.
 ```
-</details>
+
+**全套 QC:**
+
+| Map | 判定 | 備註 |
+|---|---|---|
+| ① base color | ✅ | 去光板 |
+| ② HEIGHT | ✅ 讚 | 石像鬼/柱前凸亮、壁龕/窗深黑,凸凹對 |
+| ③ ROUGHNESS | ✅ 堪用 | 石材高糙(淺)+ 縫略暗;要確認鐵壁燈/玻璃有無壓暗 |
+| ④ METALLIC | ✅✅ 完美 | 純黑 + 只兩支鐵壁燈=白,教科書級 |
+| ⑤ AO | ✅ | 凸面白、壁龕/凹縫暗;略帶 render 感但可用 |
+| ⑥ NORMAL | ✅(待派生定版) | 生成版 512 + 慣例未知 → 建議從 ②height 用腳本派生 |
+
+---
 
 ### 9.2 B-ceiling 交叉肋拱頂(場景板,seamless 關)
 
-<details><summary>① 去光 — 暖褐版 / 灰石版</summary>
-
-暖褐(保色):
+**① 去光 — 暖褐版(保色)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-d39ced0b-b48c-40c9-aee6-d421b2e1e542)
 ```text
 From the attached vaulted-ceiling image, keep the architecture EXACTLY as-is (all geometry,
 proportions, layout, the X-crossing ribs, the central and corner carved rosette bosses, and
@@ -282,11 +295,14 @@ NO shading gradient, NO vignette, NO cast shadows, NO highlights, NO ambient occ
 color-temperature shift. Flat top-down orthographic, square 1:1, zero perspective. Clean high-
 resolution de-lit albedo plate for PBR.
 ```
-灰石(中性化):同上,把保色句換成 `ALSO neutralize the warm brown color grade: convert the stone to true neutral cool-grey gothic stone (no brown, no sepia, no warm tint), the ribs a slightly darker neutral grey.`;negative 加 `brown tint, sepia, warm color cast`。
-</details>
+negative:`lighting gradient, vignette, cast shadows, highlights, ambient occlusion, baked light, directional light, perspective, blurry, watermark, text`
 
-<details><summary>② HEIGHT　③ NORMAL　④ ROUGHNESS　⑤ AO</summary>
+**① 去光 — 灰石版(中性化)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/attached-vaulted-ceiling-image-keep-architecture-8d490406-018e-4e46-b9b6-a5b2e2389904)
+> 同暖褐版,`keep the warm brown hue` 換成 → `ALSO neutralize the warm brown color grade: convert the stone to true neutral cool-grey gothic stone (no brown, no sepia, no warm tint), the ribs a slightly darker neutral grey.`
+> negative 加:`brown tint, sepia, warm color cast`。
+> 選版:要跟 B-wall(冷灰)同場景 → 用灰石版;獨立暖調場景 → 暖褐版。
 
+**② HEIGHT** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-image-into-height-displacement-e27e9371-9f8e-4d4a-b07d-960f82ec2068)
 ```text
 Convert the attached image into a HEIGHT / DISPLACEMENT map. Keep every element in the EXACT
 same position and scale, aligned pixel-for-pixel; do NOT redraw or move anything. Pure
@@ -297,6 +313,8 @@ mouldings protruding forward = brightest; the central and corner carved rosette 
 every rib = dark. Smooth tonal gradient following relief only. NO color, NO lighting, NO cast
 shadows, NO albedo texture detail.
 ```
+
+**③ NORMAL(從 height)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-grayscale-height-map-into-tangent-2ceb20e5-36b3-4c53-b8e0-7330a6e067d8)
 ```text
 Convert the attached grayscale HEIGHT map into a tangent-space NORMAL map, aligned pixel-for-
 pixel — keep every element in the EXACT same position and scale, do NOT move, redraw, add or
@@ -309,12 +327,16 @@ following the height gradients. OpenGL convention (green = +Y, up). NO albedo, N
 NO lighting, NO cast shadows, NO ambient occlusion. Square 1:1, same framing, zero perspective.
 Non-color data map.
 ```
+
+**④ ROUGHNESS** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-image-into-roughness-map-bb5bd918-1384-480c-8ae7-bf3468dea20c)
 ```text
 Convert the attached image into a ROUGHNESS map, grayscale, aligned pixel-for-pixel; keep every
 element in place, do NOT redraw. Weathered matte stone bricks = light grey (high ~0.85); the
 smoother rib mouldings and boss tops = mid grey (~0.6); mortar joints = mid-high (~0.8). NO hue,
 NO lighting, NO highlights. Ignore any tonal variation already in the plate.
 ```
+
+**⑤ AMBIENT OCCLUSION** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-image-into-ambient-occlusion-map-5f775332-7f36-4a79-a81c-9c5053109196)
 ```text
 Convert the attached image into an AMBIENT OCCLUSION map, grayscale, aligned pixel-for-pixel;
 keep every element in place, do NOT redraw. Exposed forward faces (rib tops, boss tops, flat
@@ -324,13 +346,12 @@ occlusion ONLY — base it on geometric cavities, IGNORE any tonal shading alrea
 plate. NO directional light, NO cast shadows, NO color.
 ```
 > metallic = 純黑(無金屬件),程序生即可。
-</details>
+
+---
 
 ### 9.3 B-floor 方石地板(tileable,**seamless 開**)
 
-<details><summary>① 去光　base 洗淨/提亮</summary>
-
-去光:
+**① 去光(tileable)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/attached-stone-tile-texture-keep-every-block-crack-558d8a8f-864d-4a0f-98af-15723f201a96)
 ```text
 From the attached stone-tile texture, keep every block, crack, chip and joint EXACTLY in place
 — do NOT move, redraw, add or crop anything; only remove the lighting. DE-LIGHT it into a true
@@ -343,13 +364,22 @@ edge to edge. NO cast shadows, NO highlights, NO ambient occlusion, NO direction
 vignette, NO color shift. Seamless and TILEABLE on all 4 edges, square 1:1, top-down
 orthographic, zero perspective. Clean PBR base color map.
 ```
-提亮 pass(嫌太暗時):`Brighten ... to a LIGHTER mid-grey stone ... block faces ~45-60% grey, mortar joints mid dark grey (not pure black) ... keep the cool blue-grey hue ... do NOT blow out to white ... Seamless tileable.`
-</details>
+> 之後另跑**提亮 pass**(嫌太暗):`Brighten ... to a LIGHTER mid-grey stone, block faces ~45-60% grey, mortar joints mid dark grey (not pure black), keep the cool blue-grey hue, do NOT blow out to white. Seamless tileable.`
 
-<details><summary>② HEIGHT — ❌軟邊 vs ✅硬邊切石</summary>
+**② HEIGHT — ❌ 太軟失敗版(枕頭感)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-4adb440c-ac86-48a7-91a4-9f26d2db4c68)
+```text
+Convert the attached stone-tile image into a HEIGHT / DISPLACEMENT map. Keep every block, crack
+and joint in the EXACT same position and scale, aligned pixel-for-pixel; do NOT redraw or move
+anything. Pure grayscale. Base the brightness ONLY on how far each area protrudes — NOT on the
+stone's own dark/light color: the raised, rounded stone-block tops = brightest/light grey; the
+flat block faces = mid-grey; the mortar joints between blocks and the cracks splitting them =
+darkest/black; smooth tonal falloff over each block's rounded curvature. Seamless and TILEABLE
+on all 4 edges, square 1:1. NO color, NO lighting, NO cast shadows, NO albedo detail. Grayscale
+non-color data.
+```
+> ❌ 問題:`rounded curvature` → 石塊變枕頭鼓起、軟邊。
 
-❌ 軟邊(枕頭感,失敗):`...the raised, rounded stone-block tops = brightest; ... smooth tonal falloff over each block's rounded curvature...`
-✅ 硬邊(正解):
+**② HEIGHT — ✅ 調整堅硬版(正解)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-f289844a-6b64-4b89-a53f-06020f17e364)
 ```text
 Convert the attached stone-tile image into a HEIGHT / DISPLACEMENT map, aligned pixel-for-pixel;
 keep every block, crack and joint in place, do NOT redraw. Pure grayscale. Make it a HARD-EDGED
@@ -359,12 +389,10 @@ into the mortar joints; the joints and cracks are narrow and BLACK. High contras
 tops and deep joints, sharp edges, minimal edge rounding. Seamless and TILEABLE on all 4 edges,
 square 1:1. NO color, NO lighting, NO cast shadows, NO albedo detail.
 ```
-negative 擋軟邊:`rounded, pillow, inflated, dome, bulging, soft edges, bevel too wide, smooth curvature`
-</details>
+> negative 擋軟邊:`rounded, pillow, inflated, dome, bulging, soft edges, bevel too wide, smooth curvature`
 
-<details><summary>③ NORMAL — 禁黑版(生成式天花板實證)</summary>
-
-> 生成式 normal 連三錯(偏紫 / 邊亂 / **縫是黑的**)。此為最後「禁黑」版,仍不保證正確 —— **正解是用 §7 腳本從 height 派生**。
+**③ NORMAL — 禁黑版(生成式天花板實證)** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-height-map-into-tangent-space-779abb84-6e15-4fa5-8f56-2fe37eb820ed)
+> 生成式 normal 連三錯(偏紫 / 邊方向亂 / **縫是黑的**=無效向量)。此為最後「禁黑」版,仍不保證正確 —— **正解是 §7 腳本從 height 派生**。
 ```text
 Convert the attached HEIGHT map into a tangent-space NORMAL map. CRITICAL: the output must
 contain NO black and NO dark pixels anywhere — every pixel is a normal vector, so the whole map
@@ -375,10 +403,8 @@ colors (a bright band on each edge). Do NOT copy the black joints from the heigh
 to blue floor with colored side walls. RED = left-right slope, GREEN = up-down slope, OpenGL
 (green = +Y up). No albedo, no lighting, no shadows. Seamless tileable, 1:1.
 ```
-</details>
 
-<details><summary>④ ROUGHNESS　⑤ AO(metallic = 純黑程序生)</summary>
-
+**④ ROUGHNESS** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-roughness-a7c0ad58-03ae-4c3c-b14b-0f72e485a790)
 ```text
 Convert the attached stone-tile image into a ROUGHNESS map, grayscale, aligned pixel-for-pixel;
 keep every block, crack and joint in place, do NOT redraw. Weathered matte stone block faces =
@@ -387,6 +413,8 @@ light grey (high roughness ~0.85); smoother/polished worn block tops and damp sp
 shading already in the image — base it on material only. NO hue, NO lighting, NO highlights.
 Seamless and TILEABLE on all 4 edges, square 1:1. Linear non-color data.
 ```
+
+**⑤ AMBIENT OCCLUSION** → [Leonardo 結果](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-ambient-4d7a68b1-d470-4e9b-ac36-7db80dd31189)
 ```text
 Convert the attached stone-tile image into an AMBIENT OCCLUSION map, grayscale, aligned pixel-
 for-pixel; keep every block, crack and joint in place, do NOT redraw. Exposed raised block tops
@@ -396,6 +424,8 @@ base it on geometric cavities, IGNORE any tonal shading already in the image. NO
 light, NO cast shadows, NO color, NO highlights. Seamless and TILEABLE on all 4 edges, square
 1:1. Linear non-color data.
 ```
-</details>
+> metallic = 純黑(石材,無金屬),程序生即可。
+
+---
 
 > **共用 negative(灰階 data map 類):** `color tint, hue, albedo detail, baked lighting, cast shadows, highlights, directional light, seams, misaligned, perspective, blurry, watermark, text`
