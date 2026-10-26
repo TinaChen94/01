@@ -382,7 +382,7 @@ asset plate.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-d33e911f-443e-4db5-9e74-ac669f596a61`
 
-<img src="images/a5-torch-concept.png" width="25%" alt="素材(概念圖)"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
+<img src="images/a5-torch-front-ref.png" width="25%" alt="素材"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
 
 #### ① 正面(正交修正:上方「彎彎的」→ 碗口變直線)
 > Q:「我要改成正交鏡頭 上方還是彎彎的」
@@ -473,7 +473,7 @@ empty background.
 > - 要更完整 → 再補 3/4 iso(看立體關係),我給 prompt
 > - 要更平的正交 → 拿好圖 PS 微調(別再讓 NB 壓)
 
-<img src="images/a5-torch-side.png" width="25%" alt="側面 素材1(平 torch,紅標牆架)"> <img src="images/a5-torch-side-ref.png" width="25%" alt="側面 + 牆架 結果">
+<img src="images/a5-torch-side-ref.png" width="25%" alt="側面素材"> <img src="images/a5-torch-side.png" width="25%" alt="側面 結果">
 
 #### ② 側面 · 差異化打光(固定世界光)
 > Q:「我要側面的火把 光源跟正面有所區別」
@@ -507,7 +507,7 @@ No text, no labels. Isolated, centered, generous margin, nothing cropped, empty 
 
 溯源:`https://app.leonardo.ai/generation/image/render-same-torch-left-side-elevation-wall-09083647-a11f-4b64-b780-7f81e48b10e3`
 
-<img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 素材"> <img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源 結果">
+<img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源素材"> <img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 結果">
 
 ### B de-lit 軌 · image-to-3D(流程 2:3D 模型素材)
 
