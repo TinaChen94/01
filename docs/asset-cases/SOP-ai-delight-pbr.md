@@ -187,3 +187,215 @@ python3 tools/pbr-derive/height_to_normal.py <height>.png --outdir <dir> --prefi
 - [ ] B-wall 若走 concept→3D:補 3/4 掠射視圖 + image-to-3D 出 mesh 流程。
 - [ ] B-ceiling 暖→灰 **Match Color 程序版**(治「太白」)留檔。
 - [ ] 把 §3.2 各 map 模板收進 `ai-media-generator` skill 當標準片段。
+
+---
+
+## 9. 逐字 prompt 全集(三案實跑原文)
+
+> 三案在 Leonardo(Image2Image / Nano Banana 2 / Enhance·Style=None / Creativity 最低)實跑的**逐字 prompt**。模板見 §3.2;此處保存每案真正送出的版本。
+
+### 9.1 B-wall 哥德壁龕牆(場景板,seamless 關)
+
+<details><summary>① 去光 de-light(+ 殘留暖光補刀)</summary>
+
+```text
+From the attached image, keep the architecture EXACTLY as-is (all geometry, proportions,
+layout, carvings, the two gargoyle statues, the pointed-arch tracery window, the balustrade
+— unchanged), but fully DE-LIGHT it into a true flat albedo plate. Remove ALL baked lighting:
+the two lit wall-sconce flames and their warm orange glow and cast light on the surrounding
+stone; the cool blue light and rim glow from the window; every cast shadow and ambient-
+occlusion darkening inside the niches, arches and recesses; and the dark vignette at the edges
+and floor. Re-render with perfectly even, flat, shadowless diffuse studio light so every
+surface reads its own true de-lit color — neutral cool-grey weathered gothic stone, the iron
+sconce fixtures as unlit dark metal, the window tracery and glass as their own base tones. NO
+cast shadows, NO rim light, NO warm or blue color tint, NO glow, NO vignette, NO flames. Head-
+on frontal orthographic, zero added perspective. Clean high-resolution de-lit albedo plate for
+PBR / image-to-3D.
+```
+殘留暖光補刀 pass:
+```text
+Edit this plate: neutralize the remaining warm cast on the stone around both sconces to match
+the neutral grey stone elsewhere; extinguish both candle flames, keep the iron sconce cups as
+unlit metal.
+```
+</details>
+
+<details><summary>② HEIGHT　③ NORMAL(從 height)</summary>
+
+```text
+HEIGHT / DISPLACEMENT map of the attached gothic wall plate, grayscale, aligned pixel-for-
+pixel. Encode real depth: the two gargoyle statues and their corbels projecting forward =
+brightest; pilasters, sconces and balustrade = mid-high; the flat wall face = mid-grey; the
+arched niches, recessed tracery window and all deep recesses = darkest. Smooth tonal gradient
+following true depth. Pure grayscale, NO color, NO lighting, NO cast shadows.
+```
+```text
+Convert the attached grayscale HEIGHT map into a tangent-space NORMAL map, aligned pixel-for-
+pixel — keep every element in the EXACT same position and scale, do NOT move, redraw, add or
+crop anything; only translate height into surface normals. Interpret the input as elevation:
+BRIGHT = raised toward the viewer, DARK = recessed. Output a tangent-space normal map that is
+predominantly blue-violet (flat areas ≈ RGB 128,128,255); the RED channel encodes left-right
+slope, the GREEN channel encodes up-down slope; every raised edge and rounded form bulges
+outward, every recess, groove and niche edge slopes inward, following the height gradients.
+OpenGL convention (green = +Y, up). NO albedo, NO color tint, NO lighting, NO cast shadows, NO
+ambient occlusion. Square 1:1, same framing, zero perspective. Non-color data map.
+```
+</details>
+
+<details><summary>④ ROUGHNESS　⑤ METALLIC　⑥ AO</summary>
+
+```text
+ROUGHNESS map of the attached gothic wall plate, grayscale, aligned. Weathered matte stone and
+moss = light grey (high ~0.85); polished stone edges and damp spots = mid grey (~0.55); the
+iron sconce metal = darker grey (~0.4); the window glass = dark (~0.15). NO hue, NO lighting,
+NO highlights.
+```
+```text
+METALLIC map of the attached gothic wall plate: SOLID BLACK (0.0) for all stone, statues,
+tracery and glass; PURE WHITE (1.0) only on the two iron/bronze wall-sconce fixtures. Hard-
+edged mask, no gradient, no lighting, no color.
+```
+```text
+AMBIENT OCCLUSION map of the attached gothic wall plate, grayscale, aligned. Exposed forward
+faces (gargoyle tops, pilaster fronts, wall face) = white; deep arched niches, recessed window
+bay, corbel undersides and tight crevices = soft dark grey. Soft contact occlusion only, NO
+directional light, NO cast shadows, NO color.
+```
+</details>
+
+### 9.2 B-ceiling 交叉肋拱頂(場景板,seamless 關)
+
+<details><summary>① 去光 — 暖褐版 / 灰石版</summary>
+
+暖褐(保色):
+```text
+From the attached vaulted-ceiling image, keep the architecture EXACTLY as-is (all geometry,
+proportions, layout, the X-crossing ribs, the central and corner carved rosette bosses, and
+the brick coursing — unchanged), but fully DE-LIGHT it into a true flat albedo plate. Remove
+ALL baked lighting: the overall light-to-dark shading gradient across the vault (bright center
+fading to dark edges), the dark vignette and shadowed gradients in the four corners where the
+vault curves away, every baked highlight and cast shadow on the ribs and bosses, and the
+ambient-occlusion darkening along the sides of every rib. Re-render with perfectly even, flat,
+shadowless diffuse light so every surface reads its own true de-lit color — keep the warm brown
+sandstone hue of the stone and ribs as their own flat albedo, uniform brightness edge to edge.
+NO shading gradient, NO vignette, NO cast shadows, NO highlights, NO ambient occlusion, NO
+color-temperature shift. Flat top-down orthographic, square 1:1, zero perspective. Clean high-
+resolution de-lit albedo plate for PBR.
+```
+灰石(中性化):同上,把保色句換成 `ALSO neutralize the warm brown color grade: convert the stone to true neutral cool-grey gothic stone (no brown, no sepia, no warm tint), the ribs a slightly darker neutral grey.`;negative 加 `brown tint, sepia, warm color cast`。
+</details>
+
+<details><summary>② HEIGHT　③ NORMAL　④ ROUGHNESS　⑤ AO</summary>
+
+```text
+Convert the attached image into a HEIGHT / DISPLACEMENT map. Keep every element in the EXACT
+same position and scale, aligned pixel-for-pixel; do NOT redraw or move anything. Pure
+grayscale. Base the brightness ONLY on how far each element PROTRUDES from the ceiling surface
+— NOT on the stone's own light/dark color. The X-crossing ribs, the border ribs and their
+mouldings protruding forward = brightest; the central and corner carved rosette bosses = bright
+(boss center highest); the flat brick field = mid-grey; mortar joints and the grooves alongside
+every rib = dark. Smooth tonal gradient following relief only. NO color, NO lighting, NO cast
+shadows, NO albedo texture detail.
+```
+```text
+Convert the attached grayscale HEIGHT map into a tangent-space NORMAL map, aligned pixel-for-
+pixel — keep every element in the EXACT same position and scale, do NOT move, redraw, add or
+crop anything; only translate height into surface normals. Interpret the input as elevation:
+BRIGHT = raised toward the viewer, DARK = recessed. Output a tangent-space normal map that is
+predominantly blue-violet (flat brick field ≈ RGB 128,128,255); the RED channel encodes left-
+right slope, the GREEN channel encodes up-down slope; the raised X-ribs, border ribs and
+rosette bosses bulge outward, the grooves beside each rib and the mortar joints slope inward,
+following the height gradients. OpenGL convention (green = +Y, up). NO albedo, NO color tint,
+NO lighting, NO cast shadows, NO ambient occlusion. Square 1:1, same framing, zero perspective.
+Non-color data map.
+```
+```text
+Convert the attached image into a ROUGHNESS map, grayscale, aligned pixel-for-pixel; keep every
+element in place, do NOT redraw. Weathered matte stone bricks = light grey (high ~0.85); the
+smoother rib mouldings and boss tops = mid grey (~0.6); mortar joints = mid-high (~0.8). NO hue,
+NO lighting, NO highlights. Ignore any tonal variation already in the plate.
+```
+```text
+Convert the attached image into an AMBIENT OCCLUSION map, grayscale, aligned pixel-for-pixel;
+keep every element in place, do NOT redraw. Exposed forward faces (rib tops, boss tops, flat
+brick surface) = white; the grooves alongside the ribs, the mortar joints, the recesses of the
+carved rosettes and the four corners where the vault curves away = soft dark grey. Soft contact
+occlusion ONLY — base it on geometric cavities, IGNORE any tonal shading already painted in the
+plate. NO directional light, NO cast shadows, NO color.
+```
+> metallic = 純黑(無金屬件),程序生即可。
+</details>
+
+### 9.3 B-floor 方石地板(tileable,**seamless 開**)
+
+<details><summary>① 去光　base 洗淨/提亮</summary>
+
+去光:
+```text
+From the attached stone-tile texture, keep every block, crack, chip and joint EXACTLY in place
+— do NOT move, redraw, add or crop anything; only remove the lighting. DE-LIGHT it into a true
+flat albedo: remove ALL baked highlights and specular sheen on the raised stone tops, remove
+the ambient-occlusion shadow darkening inside the mortar joints and cracks (keep the mortar's
+own dark color, but flatten the extra shadow), and even out any overall luminance gradient so
+there are no light/dark patches that would repeat when tiled. Keep the true dark blue-grey
+weathered stone hue. Perfectly even, flat, shadowless diffuse albedo, uniform macro brightness
+edge to edge. NO cast shadows, NO highlights, NO ambient occlusion, NO directional shading, NO
+vignette, NO color shift. Seamless and TILEABLE on all 4 edges, square 1:1, top-down
+orthographic, zero perspective. Clean PBR base color map.
+```
+提亮 pass(嫌太暗時):`Brighten ... to a LIGHTER mid-grey stone ... block faces ~45-60% grey, mortar joints mid dark grey (not pure black) ... keep the cool blue-grey hue ... do NOT blow out to white ... Seamless tileable.`
+</details>
+
+<details><summary>② HEIGHT — ❌軟邊 vs ✅硬邊切石</summary>
+
+❌ 軟邊(枕頭感,失敗):`...the raised, rounded stone-block tops = brightest; ... smooth tonal falloff over each block's rounded curvature...`
+✅ 硬邊(正解):
+```text
+Convert the attached stone-tile image into a HEIGHT / DISPLACEMENT map, aligned pixel-for-pixel;
+keep every block, crack and joint in place, do NOT redraw. Pure grayscale. Make it a HARD-EDGED
+cut-stone floor: each block top is FLAT and uniform light grey (NO rounded pillow bulge, NO
+inflated dome), with a small crisp chamfer at the block edge then a STEEP near-vertical drop
+into the mortar joints; the joints and cracks are narrow and BLACK. High contrast between flat
+tops and deep joints, sharp edges, minimal edge rounding. Seamless and TILEABLE on all 4 edges,
+square 1:1. NO color, NO lighting, NO cast shadows, NO albedo detail.
+```
+negative 擋軟邊:`rounded, pillow, inflated, dome, bulging, soft edges, bevel too wide, smooth curvature`
+</details>
+
+<details><summary>③ NORMAL — 禁黑版(生成式天花板實證)</summary>
+
+> 生成式 normal 連三錯(偏紫 / 邊亂 / **縫是黑的**)。此為最後「禁黑」版,仍不保證正確 —— **正解是用 §7 腳本從 height 派生**。
+```text
+Convert the attached HEIGHT map into a tangent-space NORMAL map. CRITICAL: the output must
+contain NO black and NO dark pixels anywhere — every pixel is a normal vector, so the whole map
+stays in the blue/periwinkle range. Flat block tops = uniform RGB (128,128,255). The mortar
+joints and crack BOTTOMS also face up, so they are ALSO periwinkle blue (128,128,255), NOT
+black. ONLY the thin steep SIDE WALLS between a block top and a joint get strong red/green slope
+colors (a bright band on each edge). Do NOT copy the black joints from the height — convert them
+to blue floor with colored side walls. RED = left-right slope, GREEN = up-down slope, OpenGL
+(green = +Y up). No albedo, no lighting, no shadows. Seamless tileable, 1:1.
+```
+</details>
+
+<details><summary>④ ROUGHNESS　⑤ AO(metallic = 純黑程序生)</summary>
+
+```text
+Convert the attached stone-tile image into a ROUGHNESS map, grayscale, aligned pixel-for-pixel;
+keep every block, crack and joint in place, do NOT redraw. Weathered matte stone block faces =
+light grey (high roughness ~0.85); smoother/polished worn block tops and damp spots = mid grey
+(~0.6); the mortar joints and cracks = mid-high grey (~0.8). Even, no hotspots. Ignore any tonal
+shading already in the image — base it on material only. NO hue, NO lighting, NO highlights.
+Seamless and TILEABLE on all 4 edges, square 1:1. Linear non-color data.
+```
+```text
+Convert the attached stone-tile image into an AMBIENT OCCLUSION map, grayscale, aligned pixel-
+for-pixel; keep every block, crack and joint in place, do NOT redraw. Exposed raised block tops
+= white (no occlusion); the mortar joints between blocks and the cracks splitting them = soft
+dark grey (occluded); a slight darkening where block edges meet. Soft contact occlusion only —
+base it on geometric cavities, IGNORE any tonal shading already in the image. NO directional
+light, NO cast shadows, NO color, NO highlights. Seamless and TILEABLE on all 4 edges, square
+1:1. Linear non-color data.
+```
+</details>
+
+> **共用 negative(灰階 data map 類):** `color tint, hue, albedo detail, baked lighting, cast shadows, highlights, directional light, seams, misaligned, perspective, blurry, watermark, text`
