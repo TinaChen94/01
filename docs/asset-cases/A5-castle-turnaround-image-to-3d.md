@@ -245,15 +245,100 @@ shadow. This is a moody dark statue, not an evenly-lit bright render.
 
 <img src="images/a5-gargoyle-ps-fail.png" width="25%" alt="結果失敗(PS 合成)">
 
-### B de-lit 軌 · image-to-3D
+### B de-lit 軌 · image-to-3D(流程 2:3D 模型素材)
 
-📌 待貼:石像鬼 de-lit 逐字 prompt(均勻漫射 / 去光保 albedo / #808080 無縫底)
+> Q
+> 石像給也給我提示詞  3d ai 模型產生使用
+> 要改成  使用均勻漫射的攝影棚照明，去除真實反照率，無陰影、無輪廓光、無光束
+
+> A:石像鬼同一套 de-lit 平光處理(保石材、去打光),做成 image-to-3D 乾淨板:
+
+#### de-lit ① 正面 平光板
+輸入 = 這張石像鬼正面
 
 ```text
-(貼這裡)
+From the attached gargoyle statue, re-render it as one complete, isolated object,
+centered and fully visible, in a true head-on FRONT orthographic view, on a flat neutral
+grey (#808080) seamless background.
+
+KEEP the real carved-stone material, its true colours and all sculpted surface detail
+(do NOT turn it into flat grey clay, do NOT remove the stone texture). DE-LIT it: remove
+all the baked-in lighting — no warm key light, no cool shadow side, no dramatic
+highlights, no bright/dark direction. Light it ONLY with perfectly even, uniform, flat
+diffuse studio lighting so the whole surface reads at even exposure. NO cast shadows,
+NO rim light, NO god rays or light beams, NO scene elements.
+
+Keep the exact shape, pose, wings, face, proportions, the corbel base and all sculpted
+detail. High-resolution clean de-lit albedo reference plate for image-to-3D.
 ```
 
-<!-- 待補圖:石像鬼 de-lit -->
+> **要點(跟火把同):** 保 albedo(石材色/紋理)、去打光(把之前烘的暖側光/暗面全洗掉,改均勻平光)、`do NOT turn into grey clay`、無影/無rim/無beams、灰底 #808080。
+> **📌 提醒(兩套用途別混用):**
+> - 石像鬼已有 正/左/背/3-4 四視——每張套這段 de-lit(把「輸入」換成該視角)就有整組 de-lit 多視圖。
+> - 之前四視是**固定世界光**(正面迎光、背面背光…);de-lit 後明暗差異會被抹平(這正是 image-to-3D 要的——它不要方向光)。
+> - **保光影版 = 引擎不受光材質直接貼;de-lit 版 = 餵 AI 建模。別混用。**
+
+溯源:`https://app.leonardo.ai/generation/image/attached-gargoyle-statue-re-render-it-one-complete-079615d4-d2a8-4e8d-b5d0-4e3098625e15`
+
+<!-- 待補圖:石像鬼 de-lit 正面 -->
+
+#### de-lit ② 側面 平光板
+> Q:「側面提示詞」
+> A:石像鬼側面同一套 de-lit:
+
+輸入 = 這張側視
+
+```text
+From the attached LEFT-SIDE view of the gargoyle statue, re-render it as one complete,
+isolated object, centered and fully visible, KEEPING the same left-side orthographic
+view, on a flat neutral grey (#808080) seamless background.
+KEEP the real carved-stone material, true colours and all sculpted surface detail (do
+NOT turn it into flat grey clay, do NOT remove the stone texture). DE-LIT it: remove all
+the baked-in lighting — no warm key light, no cool shadow side, no dramatic highlights,
+no bright/dark direction. Light it ONLY with perfectly even, uniform, flat diffuse studio
+lighting so the whole surface reads at even exposure. NO cast shadows, NO rim light, NO
+god rays or light beams, NO scene elements.
+Keep the exact shape, pose, wing, face, proportions, the corbel base and all sculpted
+detail. High-resolution clean de-lit albedo reference plate for image-to-3D.
+```
+
+> 同規格:保石材色/紋理、去打光、均勻平光、無影/rim/beams、灰底 #808080、鎖側視。背視 / 3-4 把 `LEFT-SIDE` 改 `BACK` / `3/4` 即可。
+
+溯源:`https://app.leonardo.ai/generation/image/attached-left-side-view-gargoyle-statue-re-render-065ab35d-41a9-43d6-b033-542368147a27`
+
+<!-- 待補圖:石像鬼 de-lit 側面 -->
+
+#### de-lit ③ 3/4 平光板
+> Q:「3/4提示詞」
+> A:石像鬼 3/4 de-lit,用正面 + 側面當參考出:
+
+FIRST = 正面 de-lit 板｜SECOND = 側面 de-lit 板｜比例 1:1
+
+```text
+Using the FIRST (front) and SECOND (side) de-lit plates as references, render the SAME
+gargoyle statue in a 3/4 three-quarter view — rotated ~45° between front and side,
+slightly from above — so its full 3D form reads (face, chest, the near wing forward, the
+far wing receding, the crouch and the corbel base). SAME statue, identical proportions,
+wings, horns, face and corbel as the references.
+
+Place it centered and fully visible on a flat neutral grey (#808080) seamless background.
+
+KEEP the real carved-stone material, true colours and all sculpted surface detail (do NOT
+turn it into flat grey clay, do NOT remove the stone texture). DE-LIT it: remove all
+baked-in lighting — no warm key, no cool shadow side, no dramatic highlights, no
+bright/dark direction. Light it ONLY with perfectly even, uniform, flat diffuse studio
+lighting. NO cast shadows, NO rim light, NO god rays or light beams, NO scene elements.
+
+Use ISOMETRIC / PARALLEL projection — no strong perspective (approximate is fine). Keep
+the exact shape and all sculpted detail. High-resolution clean de-lit albedo reference
+plate for image-to-3D.
+```
+
+> 同規格:雙參考鎖造型、保石材色/紋理、去打光、均勻平光、無影/rim/beams、灰底 #808080。
+> ✅ 石像鬼 de-lit 有 正 / 側 / 3-4 三張,整組餵 multi-view image-to-3D。
+> ⚠️ 註:使用者原文此步 URL 與側面同(`065ab35d`),疑貼錯;待補圖時以實際 3/4 de-lit 圖為準。
+
+<!-- 待補圖:石像鬼 de-lit 3/4 -->
 
 ---
 
@@ -422,24 +507,108 @@ No text, no labels. Isolated, centered, generous margin, nothing cropped, empty 
 
 <img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源素材"> <img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 結果">
 
-### B de-lit 軌 · image-to-3D
+### B de-lit 軌 · image-to-3D(流程 2:3D 模型素材)
 
-**火把 de-lit(使用者原話,逐字):**
+> Q
+> 我要改變方針 
+> 要改成3d模型使用的素材 
+> https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-wall.md
+>
+> 火把 我要算成
+> 置於平坦的中性灰 (#808080) 無縫背景。使用均勻漫射的攝影棚照明，去除真實反照率，無陰影、無輪廓光、無光束
+
+> ⚠️ 「**去除真實反照率**」= 踩坑句(見開頭「de-lit 規格」註解):實際要的是「**保留本色、只去光影**」,否則會變黏土。
+> A:你要的其實是「去掉原本的打光/高光,不是去掉材質色」。給你這版:
+
+#### de-lit ① 正面 平光板(保材質、去打光)
+輸入 = 這張火把
 
 ```text
-Q
-我要改變方針 
-要改成3d模型使用的素材 
-https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-wall.md
+From the attached torch, re-render it as one complete, isolated object, centered and
+fully visible, in a true head-on FRONT orthographic view, on a flat neutral grey
+(#808080) seamless background.
 
-火把 我要算成
-置於平坦的中性灰 (#808080) 無縫背景。使用均勻漫射的攝影棚照明，去除真實反照率，無陰影、無輪廓光、無光束 
+KEEP the real bronze material and its true colours and surface detail (do NOT turn it
+into grey clay, do NOT remove the metal). But DE-LIT it: remove all the original baked-in
+lighting — no warm firelight, no dramatic highlights, no bright/dark light-and-shadow
+side. Light it ONLY with perfectly even, uniform, flat diffuse studio lighting so the
+whole surface reads at even exposure. NO cast shadows, NO rim light, NO god rays or light
+beams, NO scene elements, NO flame.
+
+Keep the exact shape, proportions and sculpted detail. High-resolution clean de-lit albedo
+reference plate for image-to-3D.
 ```
 
-> ⚠️ 「**去除真實反照率**」= 踩坑句(見上方「de-lit 規格」註解):實際要的是「**保留本色、只去光影**」,否則會變黏土。
-> 📌 這是 de-lit 軌的「改變方針」起點(從保光影軌轉向 3D 素材,參照 A2)。
+> **講清楚術語(避免又跑成黏土):**
+> - 要保留的 = 材質(青銅色、金屬、表面細節)= albedo。
+> - 要去掉的 = 打光(方向光、高光、火光、明暗面)。
+> - 講法是 `KEEP the bronze albedo, DE-LIT the lighting`,不是 `remove albedo`(那會變灰黏土)。
 
-<!-- 待補圖:火把 de-lit -->
+溯源:`https://app.leonardo.ai/generation/image/attached-torch-re-render-it-one-complete-isolated-daca856c-6a68-4acc-a3fd-adefcf6f43c9`
+
+<!-- 待補圖:火把 de-lit 正面 -->
+
+#### de-lit ② 側面(含牆架)平光板
+> Q:「過來是處理這張」
+> A:對,同一套 de-lit 平光處理套到側面(含牆架)這張。保青銅、去打光、平光、灰底、保留牆架:
+
+輸入 = 這張側視
+
+```text
+From the attached LEFT-SIDE view of the torch with its wall-mounting bracket, re-render
+it as one complete, isolated object — the torch AND the full wall bracket (the two
+horizontal arms and the vertical wall plate) — centered and fully visible, KEEPING the
+same left-side orthographic view, on a flat neutral grey (#808080) seamless background.
+
+KEEP the real bronze material, true colours and surface detail (do NOT turn it into grey
+clay, do NOT remove the metal). DE-LIT it: remove all baked-in lighting — no warm
+firelight, no dramatic highlights, no bright side / dark side. Light it ONLY with
+perfectly even, uniform, flat diffuse studio lighting so the whole surface reads at even
+exposure. NO cast shadows, NO rim light, NO god rays or light beams, NO scene elements,
+NO flame.
+
+Keep the exact shape, proportions, the wall bracket and all sculpted detail.
+High-resolution clean de-lit albedo reference plate for image-to-3D.
+```
+
+> 要點(跟正面同):保 albedo(青銅)、去打光、均勻平光、無影/無rim、灰底 #808080,並保留牆架(兩水平臂 + 直立壁板)。
+
+溯源:`https://app.leonardo.ai/generation/image/attached-left-side-view-torch-its-wall-mounting-5b9442c7-5175-481e-9b55-f08e54f631a6`
+
+<!-- 待補圖:火把 de-lit 側面(含牆架) -->
+
+#### de-lit ③ 3/4 平光板
+> Q:「我也要一張3/4 我會用正面跟側面產生」
+> A:好,3/4 用正面 + 側面兩張當參考出,同一套 de-lit 規格:
+
+FIRST = 正面 de-lit 板｜SECOND = 側面(含牆架)de-lit 板｜比例 1:1
+
+```text
+Using the FIRST (front) and SECOND (side with wall bracket) de-lit plates as references,
+render the SAME torch in a 3/4 three-quarter view — rotated ~45° between front and side,
+slightly from above — so its full 3D form reads: the bowl, collar, tapered shaft and base
+knob in front, and the wall-mounting bracket (two horizontal arms + vertical wall plate)
+turning away behind it. SAME object, identical proportions and details as the references.
+
+Place it centered and fully visible on a flat neutral grey (#808080) seamless background.
+
+KEEP the real bronze material, true colours and surface detail (do NOT turn it into grey
+clay, do NOT remove the metal). DE-LIT it: remove all baked-in lighting — no warm
+firelight, no dramatic highlights, no bright/dark side. Light it ONLY with perfectly even,
+uniform, flat diffuse studio lighting. NO cast shadows, NO rim light, NO god rays or light
+beams, NO scene elements, NO flame.
+
+Use ISOMETRIC / PARALLEL projection — no strong perspective (approximate is fine). Keep
+the exact shape, proportions and all sculpted detail. High-resolution clean de-lit albedo
+reference plate for image-to-3D.
+```
+
+> 要點:雙參考(正+側)→ 3/4 造型/牆架跟前兩張一致;de-lit 規格整組沿用;牆架帶著轉。
+> ✅ 火把三張 de-lit 平光板(正 / 側含牆架 / 3-4)整組餵 multi-view image-to-3D 最穩。
+
+溯源:`https://app.leonardo.ai/generation/image/using-first-front-second-side-wall-bracket-lit-b24ad770-096d-4d94-99f7-d3a086132130`
+
+<!-- 待補圖:火把 de-lit 3/4 -->
 
 ---
 
@@ -501,8 +670,8 @@ https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-w
 
 | 道具 | A 保光影軌(mock 貼圖) | B de-lit 軌(image-to-3D) | 狀態 |
 |---|---|---|---|
-| **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | —(無 de-lit,改走 PS) | ✅ 保光影 21 圖入庫 |
-| **火把** | ✅ 正面 / 正交 / 側面+牆架 / 側面差異化打光 + 結構(PS) | de-lit(流程2 prompt 已填) | ✅ 保光影 12 圖入庫 |
+| **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | ✅ de-lit prompt(正/側/3-4)· 圖待補 | 保光影 21 圖入庫 |
+| **火把** | ✅ 正面 / 正交 / 側面+牆架 / 側面差異化打光 + 結構(PS) | ✅ de-lit prompt(正/側牆架/3-4)· 圖待補 | 保光影 12 圖入庫 |
 | **吊燈** | 八角重設計 / 正交正視 / 3-4 / 填背板 | de-lit + 去雜訊 + 填洞成浮雕 | ⏳ 待補 prompt / 圖 |
 
 ---
