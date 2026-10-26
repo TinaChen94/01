@@ -61,10 +61,7 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 
 **拆圖起手式**
 
-> Q
-> 我要拆石像鬼
-> 拆掉這張概念圖」「concept→3D」「三視圖重建
-> 保留原來的光影  不要改變色調 也不要改變打光
+> Q 我要拆石像鬼 拆掉這張概念圖」「concept→3D」「三視圖重建 保留原來的光影 不要改變色調 也不要改變打光
 
 ### A 保光影軌 · turnaround(正 / 側 / 背 / 3-4)
 
