@@ -175,7 +175,26 @@ height/normal/roughness/metallic/AO 只由**形狀與材質**決定,**與 albedo
 
 ### B-floor — 方石地板([C] tileable,seamless,無金屬)
 tileable 材質。去光 → **提亮** → height **軟邊失敗 → 改硬邊切石**(flat top+steep drop)→ normal **生成三連敗 → 從 height 派生才對**。
-- [去光](https://app.leonardo.ai/generation/image/attached-stone-tile-texture-keep-every-block-crack-558d8a8f-864d-4a0f-98af-15723f201a96) · [HEIGHT·軟邊失敗](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-4adb440c-ac86-48a7-91a4-9f26d2db4c68) · [HEIGHT·硬邊✅](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-f289844a-6b64-4b89-a53f-06020f17e364) · [NORMAL·禁黑版](https://app.leonardo.ai/generation/image/convert-attached-height-map-into-tangent-space-779abb84-6e15-4fa5-8f56-2fe37eb820ed) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-roughness-a7c0ad58-03ae-4c3c-b14b-0f72e485a790) · [AO](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-ambient-4d7a68b1-d470-4e9b-ac36-7db80dd31189)
+
+**成品圖(repo 內嵌):**
+
+| 素材(帶光) | base color(去光+提亮) | height ✅硬邊 |
+|---|---|---|
+| ![source](images/floor-25-source.jpg) | ![basecolor](images/floor-27-basecolor-light.jpg) | ![height](images/floor-30-make-height-hard.jpg) |
+
+| normal | roughness | AO |
+|---|---|---|
+| ![normal](images/floor-34-make-normal-fixed.jpg) | ![roughness](images/floor-36-make-roughness.jpg) | ![ao](images/floor-38-make-ao.jpg) |
+
+**失敗反例(存證):**
+
+| ❌ height 太軟(枕頭感) | ❌ 生成 normal 有黑縫(無效向量) |
+|---|---|
+| ![height-soft](images/floor-28-make-height-soft.jpg) | ![normal-bad](images/floor-33-make-normal-bad.jpg) |
+
+> metallic = 純黑(無金屬件)。`floor-34` 為生成式「禁黑」normal;**定版 normal 建議從 `floor-30` 硬 height 用 `tools/pbr-derive/height_to_normal.py` 派生**。
+
+**原圖連結(Leonardo):** [去光](https://app.leonardo.ai/generation/image/attached-stone-tile-texture-keep-every-block-crack-558d8a8f-864d-4a0f-98af-15723f201a96) · [HEIGHT·軟邊失敗](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-4adb440c-ac86-48a7-91a4-9f26d2db4c68) · [HEIGHT·硬邊✅](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-height-f289844a-6b64-4b89-a53f-06020f17e364) · [NORMAL·禁黑版](https://app.leonardo.ai/generation/image/convert-attached-height-map-into-tangent-space-779abb84-6e15-4fa5-8f56-2fe37eb820ed) · [ROUGHNESS](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-roughness-a7c0ad58-03ae-4c3c-b14b-0f72e485a790) · [AO](https://app.leonardo.ai/generation/image/convert-attached-stone-tile-image-into-ambient-4d7a68b1-d470-4e9b-ac36-7db80dd31189)
 
 ---
 
@@ -192,8 +211,8 @@ python3 tools/pbr-derive/height_to_normal.py <height>.png --outdir <dir> --prefi
 
 ## 8. 待補(TODO)
 
-- [ ] 三案**成品圖入庫** `images/`(`gothic-wall-*` / `vault-*` / `floor-tile-*`),把上方 Leonardo 連結換成 repo 內嵌圖。
-- [ ] 三案 normal **程序派生定版**(取代生成版),各附 QC 平均值。
+- [x] 三案**成品圖入庫** `images/`(`gothic-wall-*` 1-13 / `vault-*` 14-24 / `floor-*` 25-38),三案 worked example 皆已內嵌成品圖庫 + 失敗反例。
+- [ ] 三案 normal **程序派生定版**(取代生成版,從各案硬 height 跑 `height_to_normal.py`),各附 QC 平均值。
 - [ ] B-floor **四方連續驗縫**(offset 半格)+ 引擎 3×3 驗收。
 - [ ] B-wall 若走 concept→3D:補 3/4 掠射視圖 + image-to-3D 出 mesh 流程。
 - [ ] B-ceiling 暖→灰 **Match Color 程序版**(治「太白」)留檔。
