@@ -3,6 +3,10 @@
 > 概念圖拆資產 / 背景模組貼圖案例。對應工作流:`ai-media-generator`(concept-to-3D **保光影軌**)。
 > 姊妹篇:**A5 — 古堡三視圖重建**(道具 turnaround + de-lit image-to-3D)。
 > 平台:Leonardo.ai — **Nano Banana Pro**(+ Gemini 重製圖);Style / Prompt Enhance 一律 None。
+>
+> **相關案例:** [A1 陵墓](A1-mausoleum.md) · [A2 浮雕牆](A2-buddhist-relief-wall.md)(concept→3D / de-lit / height)· [A5 三視圖重建](A5-castle-turnaround-image-to-3d.md)(姊妹篇)· [B1 地面 4K 保真](B1-forest-bg-4k-detail.md)(#4 用到)· [B6 三相機](B6-three-camera-pipeline.md) / [B7 Unreal 相機重現](B7-unreal-camera-port.md)(真正交從 3D)· [B9 樹重上色](B9-tree-trunk-restyle.md)(Crop-Gen-Paste 像素鎖)· [B10](B10-haunted-forest-style-dna.md) / [B11](B11-moonlit-jrpg-forest-style-dna.md)(遠景當背景板)
+>
+> **相關 SKILL:** `ai-media-generator`(concept-to-3D pipeline:`references/concept-to-3d.md` + `templates/concept-to-3d-pipeline.md`)· `asset-cutout`(去背 SOP)
 
 ---
 
