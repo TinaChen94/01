@@ -505,7 +505,7 @@ No text, no labels. Isolated, centered, generous margin, nothing cropped, empty 
 
 溯源:`https://app.leonardo.ai/generation/image/render-same-torch-left-side-elevation-wall-09083647-a11f-4b64-b780-7f81e48b10e3`
 
-<img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源素材"> <img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 結果">
+<img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 素材"> <img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源 結果">
 
 ### B de-lit 軌 · image-to-3D(流程 2:3D 模型素材)
 
