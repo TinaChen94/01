@@ -4,7 +4,8 @@
 
 **觸發詞:** 「去光」「de-light」「不受光貼圖」「PBR 貼圖 / 整套貼圖」「出 normal / roughness / height / AO / metallic map」「材質圖轉 PBR」「導入 Blender 重打光」。
 
-> 完整實戰(三 worked example + 逐字 prompt + 成品圖 + Blender 踩坑)在 repo:`docs/asset-cases/SOP-ai-delight-pbr.md`。本檔是精簡操作片段。
+> 🤖 **本檔角色 = 自動反射片段(給 Claude 自動用的精簡操作版):** 模板 + 鐵律 + 踩坑表,任務沾到去光/PBR 時自動載入,照這份動手即可。
+> 📒 **完整案例紀錄(給人翻的實戰:三 worked example + 逐字 prompt + 成品圖 + 踩坑全歷程)在 repo:** `docs/asset-cases/SOP-ai-delight-pbr.md` —— 要看「某案怎麼跑、哪張圖、哪次失敗」才翻那份,不必每次載。
 
 ---
 

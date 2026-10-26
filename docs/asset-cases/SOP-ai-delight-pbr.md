@@ -1,5 +1,8 @@
 # SOP — AI 去光 → PBR 整套貼圖(de-light → PBR maps)
 
+> 📒 **本檔角色 = 案例紀錄(給人翻的實戰):** 完整三 worked example + 逐字 prompt + 成品圖 + 踩坑全歷程。
+> 🤖 **自動反射片段(給 Claude 自動用的精簡版)在:** `.claude/skills/ai-media-generator/references/delight-pbr.md` —— 任務沾到去光/PBR 時 skill 會自動載那份;要查「某案怎麼跑、哪張圖、哪次失敗」才翻這份。
+
 > **叫用詞:** 使用者說「AI PBR」「去光出 PBR」「做整套貼圖」「照 AI PBR 配方」即指此 SOP — 先讀本檔再動手。
 > **用途:** 把一張**帶打光的材質/場景圖**轉成**不受光的 PBR 整套貼圖**(base / height / normal / roughness / metallic / AO),之後導入 Blender / 引擎**重新打光**。
 > **對應工作流:** `ai-media-generator`(de-light / concept→3D / 重打光)+ A10/A11(PBR 派生)+ A2(去光鐵律)。
