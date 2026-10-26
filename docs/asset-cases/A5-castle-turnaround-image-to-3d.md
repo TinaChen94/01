@@ -295,7 +295,7 @@ asset plate.
 
 溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-d33e911f-443e-4db5-9e74-ac669f596a61`
 
-<!-- 待補圖:火把 正面 plate -->
+<img src="images/a5-torch-concept.png" width="25%" alt="拆圖素材(概念圖)"> <img src="images/a5-torch-front-ref.png" width="25%" alt="正面輸入素材"> <img src="images/a5-torch-front.png" width="25%" alt="正面1 結果">
 
 #### ① 正面(正交修正:上方「彎彎的」→ 碗口變直線)
 > Q:「我要改成正交鏡頭 上方還是彎彎的」
@@ -331,13 +331,13 @@ background. High-resolution orthographic front-view asset plate.
 
 溯源:`https://app.leonardo.ai/generation/image/re-render-same-torch-sconce-true-orthographic-53108c11-83aa-4e34-8415-7b32121bab41`
 
-<!-- 待補圖:火把 正面(正交修正) -->
+<img src="images/a5-torch-ortho-ref.png" width="25%" alt="要求正交素材"> <img src="images/a5-torch-ortho.png" width="25%" alt="正交 結果">
 
 #### 增加結構 + 補火焰 → 失敗走 PS
 > Q:「我想增加結構 並補上火焰」
 > ⚠️ **結果失敗,後來使用 PS 調整。**
 
-<!-- 待補圖:火把 增加結構(失敗)/ PS -->
+<img src="images/a5-torch-struct-1.png" width="25%" alt="結構素材1"> <img src="images/a5-torch-struct-2.png" width="25%" alt="結構素材2(紅標)"> <img src="images/a5-torch-ps.png" width="25%" alt="用 PS 調整">
 
 #### ② 側面正交 + 牆架(指定結構)
 > Q:「火把 側面正交 + 指定結構」
@@ -386,7 +386,7 @@ empty background.
 > - 要更完整 → 再補 3/4 iso(看立體關係),我給 prompt
 > - 要更平的正交 → 拿好圖 PS 微調(別再讓 NB 壓)
 
-<!-- 待補圖:火把 側面 + 牆架 -->
+<img src="images/a5-torch-side-ref.png" width="25%" alt="側面素材(牆架紅標)"> <img src="images/a5-torch-side.png" width="25%" alt="側面 + 牆架 結果">
 
 #### ② 側面 · 差異化打光(固定世界光)
 > Q:「我要側面的火把 光源跟正面有所區別」
@@ -420,7 +420,7 @@ No text, no labels. Isolated, centered, generous margin, nothing cropped, empty 
 
 溯源:`https://app.leonardo.ai/generation/image/render-same-torch-left-side-elevation-wall-09083647-a11f-4b64-b780-7f81e48b10e3`
 
-<!-- 待補圖:火把 側面 差異化打光 -->
+<img src="images/a5-torch-side-light-ref.png" width="25%" alt="側面調整光源素材"> <img src="images/a5-torch-side-light.png" width="25%" alt="側面調整光源 結果">
 
 ### B de-lit 軌 · image-to-3D
 
@@ -502,7 +502,7 @@ https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-w
 | 道具 | A 保光影軌(mock 貼圖) | B de-lit 軌(image-to-3D) | 狀態 |
 |---|---|---|---|
 | **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | —(無 de-lit,改走 PS) | ✅ 保光影 21 圖入庫 |
-| **火把** | 正交 / 側(半側光)/ 3-4 + 結構火焰 | de-lit | ⏳ 待補 prompt / 圖 |
+| **火把** | ✅ 正面 / 正交 / 側面+牆架 / 側面差異化打光 + 結構(PS) | de-lit(流程2 prompt 已填) | ✅ 保光影 12 圖入庫 |
 | **吊燈** | 八角重設計 / 正交正視 / 3-4 / 填背板 | de-lit + 去雜訊 + 填洞成浮雕 | ⏳ 待補 prompt / 圖 |
 
 ---
@@ -532,7 +532,7 @@ https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-w
 |---|---|---|
 | `a5-concept-source.*` | 概念圖(標三道具位置) | ☐ 待補 |
 | `a5-gargoyle-*`(21 張) | 石像鬼 保光影 turnaround(正/左/背/3-4 + 底座/標示/PS) | ✅ 入庫 |
-| `a5-torch-*` | 火把 保光影(正 / 側 / 3-4)+ de-lit | ☐ 待補 |
+| `a5-torch-*`(12 張) | 火把 保光影(正面/正交/側面牆架/側面差異化打光/結構PS) | ✅ 入庫 |
 | `a5-chandelier-*` | 吊燈 八角重設計 / 多視圖 / 填背板 + de-lit(去噪 / 浮雕) | ☐ 待補 |
 
 > 補圖時我照「一截圖幾張圖就幾個名」點數、逐步內嵌(同 A4)。
