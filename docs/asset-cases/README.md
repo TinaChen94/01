@@ -1,9 +1,13 @@
-# 資產拆解 / 去背 實戰紀錄
+# 資產案例實戰紀錄索引
 
-各資產「概念圖 → 去背 / 補圖 / 多視圖」的實戰案例。
-對應工作流:`/asset-cutout`(去背 SOP)+ `ai-media-generator` 的 concept-to-3D pipeline。
+遊戲美術資產的實戰案例總索引,兩大類:
 
-## 案例索引
+- **A 群 — 資產拆解 / 去背**:概念圖 → 去背 / 補圖 / 多視圖重建 / 局部調色(對應 `/asset-cutout` + `ai-media-generator` 的 concept→3D pipeline)。
+- **B 群 — 背景 / 模組 / 管線**:灰盒 → game art 背景、4K 放大與材質細節、master 套圖變體 / 主題翻譯、三相機 → 引擎移植、風格 DNA、跨圖天空移植…。
+
+> 📊 **本頁只管「去哪讀哪個案例」。** 要看**數字 / 進度 / 改幾次 / 查重 / 清分支**,見 [`../STATS.md`](../STATS.md) 產出統計總表。
+
+## A 群 — 資產拆解 / 去背
 
 | 資產 | 紀錄 | 內容 |
 |---|---|---|
@@ -14,6 +18,11 @@
 | **A5 古堡哥德大廳 — 三視圖重建(道具)** | [A5-castle-turnaround-image-to-3d.md](A5-castle-turnaround-image-to-3d.md) | ✅ 雙軌(保光影→de-lit):石像鬼(27圖)+ 火把(19圖)逐字 prompt 全收 + 正交鎖 / 固定世界光 / 鏡射左視;吊燈留過程註明不補。姊妹篇 A4 |
 | **A10+A11 墓園地面材質(苔蘚草地/石板路)** | [A10-A11-ground-tiles.md](A10-A11-ground-tiles.md) | ✅ top-down 平拍 → PBR 材質(可平鋪模組,不生 mesh) |
 | **A12 哥德雙開門 — 顏色範圍自動遮罩(紅色加強)** | [A12-door-color-range-mask.md](A12-door-color-range-mask.md) | ✅ HSV 門檻逐像素抓遮罩(非 AI)+ 只在遮罩內加強 + PS 調整圖層收尾;腳本 `tools/color-range-mask/`;附雙開門切分防穿模 |
+
+## B 群 — 背景 / 模組 / 管線
+
+| 資產 | 紀錄 | 內容 |
+|---|---|---|
 | **B1 夜霧森林地面背景(4K 放大 + 材質細節)** | [B1-forest-bg-4k-detail.md](B1-forest-bg-4k-detail.md) | ✅ 定案管線 + 逐字 prompt + 鎖句字典 + 踩坑紀錄 + 驗收 checklist |
 | **B2 灰盒 → 夜森林地面模組(master tile)** | [B2-greybox-module-pipeline.md](B2-greybox-module-pipeline.md) | ✅ 貼材質灰盒管線 + 三路線成敗對照 + 逐字 prompt 三連 + 技法字典 |
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |
@@ -28,7 +37,7 @@
 | **B12 跨圖天空移植(圖1 天空換成圖2 天空)** | [B12-sky-transplant.md](B12-sky-transplant.md) | ✅ NB2 雙參考只搬一層:BASE/SKY DONOR 標籤 + 地平線鐵幕 + 樹冠縫隙透空鎖 + 重調色進 BASE 色盤;含天空 UE5 質感 pass(定性句平移)與紅圈畫記編輯搬光源(原開發分支編 B8,合併時改號) |
 | **B13 寫實貼圖 → 手繪風格化(style transfer)** | [B13-handpainted-style-transfer.md](B13-handpainted-style-transfer.md) | ✅ 定版 + 七張套圖量產 — v3 定調/v4.2 量產兩段式 + master 色票板庫 + 逐字 prompt + 七次踩坑全歷程(生產區/查詢區雙結構;含成品圖) |
 
-> 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在這張表加一列、連到對應的 `*.md`。
+> 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在對應群組的表加一列、連到對應的 `*.md`。
 
 ## 固定公式(SOP)
 
@@ -37,6 +46,6 @@
 | **風格母本重打光(兩段式)** | [SOP-style-relight.md](SOP-style-relight.md) | Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複):前處理 + 佔位符 prompt 模板 + 驗收 + 失敗分流;叫用詞「照打光公式」 |
 | **AI 去光 → PBR 整套貼圖** | [SOP-ai-delight-pbr.md](SOP-ai-delight-pbr.md) | 帶光材質/場景圖 → 不受光 PBR 整套(base/height/normal/roughness/metallic/AO)→ Blender 重打光:分型(場景板/tileable)+ 去光模板(列點刪)+ 各 map 模板(對齊鎖/擋 albedo 汙染)+ **normal 一律從 height 派生(生成三連敗實證)** + Blender 踩坑(Metallic=1/AO 雙乘/AgX/綠通道)+ 三 worked example(牆/拱頂/地板,含 Leonardo 連結)+ 程序工具;叫用詞「AI PBR」「照 AI PBR 配方」 |
 
-## 最新預覽 — A1 陵墓正視參考板
+## 預覽 — A1 陵墓正視參考板
 
 ![A1 mausoleum front orthographic](images/mausoleum-front-ortho.png)
