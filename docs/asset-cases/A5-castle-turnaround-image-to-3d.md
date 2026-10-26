@@ -47,8 +47,10 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 - **原始素材:** 哥德大廳概念圖(同 A4)裡的三個道具:石像鬼、火把、環形金屬吊燈。
 - **用途:** A 保光影軌 → 不受光材質球 mock 貼圖;B de-lit 軌 → image-to-3D 輸入。
 - **平台:** Nano Banana Pro;Style / Prompt Enhance = None。
-- **de-lit 規格(使用者原話 + 修正):** 「使用均勻漫射的攝影棚照明…無陰影、無輪廓光、無光束,置於平坦中性灰 #808080 無縫背景」。
-  → **修正(重要):** de-lit 是「**去光、保 albedo**」,**不是**「去 albedo 變黏土 / matcap」(使用者:「我不是要黏土材質」)。
+- **de-lit 規格(使用者原話,逐字):**
+  > 置於平坦的中性灰 (#808080) 無縫背景。使用均勻漫射的攝影棚照明，去除真實反照率，無陰影、無輪廓光、無光束
+  >
+  > ⚠️ **踩坑 + 正解:** 原句「**去除真實反照率**」被 NB 照字面連**材質本色也去掉 → 變灰黏土**(使用者:「我不是要黏土材質」)。de-lit 真正要的是「**去光但保 albedo**」= 拿掉陰影 / 高光 / 輪廓光 / 反光,**只留材質本色與花紋**(≠ 變黏土 / matcap)。→ 這句應改成「**保留反照率(材質本色),只移除光影**」。
 - **參照:** de-lit 逐字句可對照姊妹案 **A2**(`A2-buddhist-relief-wall.md` STEP 1 的 de-lit 句)。
 
 <!-- 待補圖:a5-concept-source(概念圖,標出三道具位置) -->
@@ -126,11 +128,20 @@ Claude 對話:`https://claude.ai/code/session_0139cX4BbLdhe5fdhLGcUfpF`
 
 ### B de-lit 軌 · image-to-3D
 
-📌 待貼:火把 de-lit 逐字 prompt(均勻漫射 / #808080 無縫底)
+**火把 de-lit(使用者原話,逐字):**
 
 ```text
-(貼這裡)
+Q
+我要改變方針 
+要改成3d模型使用的素材 
+https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-wall.md
+
+火把 我要算成
+置於平坦的中性灰 (#808080) 無縫背景。使用均勻漫射的攝影棚照明，去除真實反照率，無陰影、無輪廓光、無光束 
 ```
+
+> ⚠️ 「**去除真實反照率**」= 踩坑句(見上方「de-lit 規格」註解):實際要的是「**保留本色、只去光影**」,否則會變黏土。
+> 📌 這是 de-lit 軌的「改變方針」起點(從保光影軌轉向 3D 素材,參照 A2)。
 
 <!-- 待補圖:火把 de-lit -->
 
