@@ -109,7 +109,7 @@ Prompt 寫完問自己：
 - ❌ 反模式：把物件翻成一段「文字設計描述」再從零生成 → 文字有損 + 模型用先驗補完 → **造型必漂移**。
 - ✅ 正解：**image-grounded extract**（Nano Banana Pro / Flux Kontext / Seedream 餵原圖）。文字只寫「呈現規格」（視角 + **明確否定來源相機** + 背景 + 平光 + 用途），**物件長相交給圖**。
 - 一致性錨 = 原圖 +（出完一視後）把該 render 也加進 reference + **固定 seed**，不是綁文字描述。
-- 完整 SOP + 勝利模板 + checklist → [references/concept-to-3d.md](references/concept-to-3d.md)
+- 完整 SOP + **雙軌(保光影 / de-lit)** + 正交鎖 + 勝利模板 + checklist → **[references/concept-to-3d-v2.md](references/concept-to-3d-v2.md)**(V1 原版保留於 [concept-to-3d.md](references/concept-to-3d.md))
 
 ## 核心原則
 
@@ -162,7 +162,7 @@ Prompt 寫完問自己：
 - Ideogram 3 → [references/ideogram.md](references/ideogram.md)
 - Stable Diffusion 3.5 / SDXL → [references/stable-diffusion.md](references/stable-diffusion.md)
 
-> **🧱 拆概念圖 / concept→3D / 三視圖重建 / image-to-3D reference plate → 必讀 [references/concept-to-3d.md](references/concept-to-3d.md)**（image-grounded extract SOP + 正交三視勝利模板 + 一致性協議）。**禁止用純文字重述物件。**
+> **🧱 拆概念圖 / concept→3D / 三視圖重建 / image-to-3D reference plate → 必讀 [references/concept-to-3d-v2.md](references/concept-to-3d-v2.md)**（image-grounded extract SOP + **雙軌 保光影/de-lit** + 正交鎖 + 正交三視勝利模板 + 一致性協議;V1 原版保留 [concept-to-3d.md](references/concept-to-3d.md)）。**禁止用純文字重述物件。**
 
 > **🪧 把物件放進場景 / 物件合成 / 指定位置放資產 / game art background asset / 讓物件吃環境光影反射 → 必讀 [references/nano-banana.md](references/nano-banana.md#物件合成進場景-game-asset--把物件放進背景圖--實測通用模板)**（場景圖 + 物件圖 → 鎖位鎖比例、材質光照反射整包對齊的實測通用模板 + 多場景變體技巧）。**核心心法：少寫、讓模型整包對齊光影 > 逐條指定影子方向。**
 
