@@ -20,6 +20,8 @@
 - 新案例:在 `docs/asset-cases/` 加 `<編號>-<slug>.md` 並更新索引表
 - 案例圖檔放 `docs/asset-cases/images/`,檔名前綴對應編號(如 `b1-*.png`)
 
+- **A12** — 哥德雙開門紅色加強:HSV 顏色門檻自動遮罩(碎片化單色區不用手選)
+  + PS 調整圖層收尾;腳本 `tools/color-range-mask/color_mask.py`
 - **B2** — 灰盒 → 夜森林地面模組(master tile):貼材質灰盒管線
   (貼圖烙分佈 → NB2 圖案活化 → 頂光 polish → PS 收邊);
   三路線成敗對照(NB2 幾何滲漏 / SD 畫布填滿症 / 貼材質正解)

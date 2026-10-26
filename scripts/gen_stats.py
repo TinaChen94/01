@@ -39,6 +39,7 @@ TRACK = [
     ".claude/skills/ai-media-generator/references/concept-to-3d-v2.md",
     ".claude/skills/ai-media-generator/references/depth-relight-pipeline.md",
     ".claude/skills/asset-cutout/SKILL.md",
+    "tools/color-range-mask/*.py",
 ]
 EXCLUDE = {"docs/asset-cases/README.md", "docs/asset-cases/images/README.md"}
 IMG_RE = re.compile(r"\.(png|jpe?g|webp|tga|exr)$", re.IGNORECASE)

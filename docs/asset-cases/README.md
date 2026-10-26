@@ -13,6 +13,7 @@
 | **A4 古堡哥德大廳 — 概念圖拆解(建築四件)** | [A4-castle-concept-decomposition.md](A4-castle-concept-decomposition.md) | ✅ 保光影軌:紅框定位/只還原框內/反裁切/HEX鎖色/鎖結構換色調/天井廢墟救援鏈/地面B1 pass;逐字 prompt 全收。姊妹篇 A5 |
 | **A5 古堡哥德大廳 — 三視圖重建(道具)** | [A5-castle-turnaround-image-to-3d.md](A5-castle-turnaround-image-to-3d.md) | ✅ 雙軌(保光影→de-lit):石像鬼(27圖)+ 火把(19圖)逐字 prompt 全收 + 正交鎖 / 固定世界光 / 鏡射左視;吊燈留過程註明不補。姊妹篇 A4 |
 | **A10+A11 墓園地面材質(苔蘚草地/石板路)** | [A10-A11-ground-tiles.md](A10-A11-ground-tiles.md) | ✅ top-down 平拍 → PBR 材質(可平鋪模組,不生 mesh) |
+| **A12 哥德雙開門 — 顏色範圍自動遮罩(紅色加強)** | [A12-door-color-range-mask.md](A12-door-color-range-mask.md) | ✅ HSV 門檻逐像素抓遮罩(非 AI)+ 只在遮罩內加強 + PS 調整圖層收尾;腳本 `tools/color-range-mask/`;附雙開門切分防穿模 |
 | **B1 夜霧森林地面背景(4K 放大 + 材質細節)** | [B1-forest-bg-4k-detail.md](B1-forest-bg-4k-detail.md) | ✅ 定案管線 + 逐字 prompt + 鎖句字典 + 踩坑紀錄 + 驗收 checklist |
 | **B2 灰盒 → 夜森林地面模組(master tile)** | [B2-greybox-module-pipeline.md](B2-greybox-module-pipeline.md) | ✅ 貼材質灰盒管線 + 三路線成敗對照 + 逐字 prompt 三連 + 技法字典 |
 | **B3 手繪筆觸概念圖 NB2 失敗實證** | [B3-fenske-painterly-4k.md](B3-fenske-painterly-4k.md) | ❌「不能強求」範例:筆觸+角色型硬跑 NB2 材質保真 pass = 重繪級漂移(簽名搬家鐵證);此型一律走純保真放大分支 |

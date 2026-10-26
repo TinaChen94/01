@@ -68,6 +68,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **A5-castle** | 古堡哥德大廳 — 三視圖重建(道具 turnaround → image-to-3D) | [A] concept→3D turnaround | ✅(10-26,main) | 多張 |
 | **A10** | 苔蘚草地 | [C] 可平鋪 | base albedo ✅、未派生 PBR | 1 |
 | **A11** | 石板路 cobblestone | [C] 可平鋪 PBR | ⭐ PBR 全套 ✅(含 ORM / Blender bake / de-lit 校正) | 11 |
+| **A12** | 哥德雙開門 — 顏色範圍自動遮罩(紅色區域加強) | [A] 2D 局部調色 / 遮罩 | ✅(10-26,遮罩驗收) | 5 |
 | **B1-gothic** | 哥德陵墓 concept→3D(examples) | [B] 場景模組 | ⚠️ WIP、純 prompt、無圖 | 0 |
 | **B2-statue** | 青銅武將像 物件合成(examples) | [B] 物件合成 | ✅ 完成(森林 / 沼澤 2 變體) | 5 |
 | **B1-forest** | 夜霧森林地面背景 — 4K 放大 + 材質保真管線 | 品質 / 放大管線(game bg) | ✅ 已驗證(16 迭代;A/B 版 + 多場景反例) | 13 |
@@ -110,6 +111,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **master 變體 / 主題翻譯**(區域編輯鏈「老三樣」、換皮、厚度檔位) | `B4-master-variant-tileset.md` / `B5-theme-translation-snow.md` | 「套圖變體 / 材質替換 / 主題翻譯 / 森林轉雪」 | B4 / B5(已併 main) |
 | **風格母本重打光公式**(兩段式:Phase 1 風格建檔一次 → Phase 2 場景重打光,可跨風格複用) | `docs/asset-cases/SOP-style-relight.md` | `CLAUDE.md`「照打光公式 / 打光公式 / 風格建檔」 | B10 首度驗證;`image-style-analysis` |
 | **風格 DNA 拆解 + 衍生鎖句**(色盤 / 光 / 筆觸 / 構圖文法 分層拆解 → 產同風格衍生圖) | `B10` / `B11` / `B14` 案例 | 「風格 DNA / 風格鎖句」 | B10 / B11 / B14 |
+| **顏色範圍自動遮罩**(HSV 門檻逐像素抓遮罩、只在遮罩內加強、保留 alpha;碎片化單色區不用手選) | `docs/asset-cases/A12-door-color-range-mask.md` + `tools/color-range-mask/color_mask.py` | 「照 A12 / 顏色遮罩 / 加強某色」 | A12 |
 
 ---
 
