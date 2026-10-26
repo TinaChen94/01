@@ -89,7 +89,7 @@ The corbel bracket base is smooth, solid and INTACT — no cracks, no fractures,
 
 溯源:`https://app.leonardo.ai/generation/image/attached-concept-art-extract-left-wall-mounted-f77461bd-96d9-40ba-a07e-707202f73d71`
 
-<!-- 待補圖:石像鬼 正面 plate -->
+<img src="images/a5-gargoyle-concept.png" width="25%" alt="石像鬼素材(概念圖)"> <img src="images/a5-gargoyle-front.png" width="25%" alt="正面 plate 結果">
 
 #### ② 左視圖(嚴格正側面 → 正交)
 
@@ -99,6 +99,8 @@ The corbel bracket base is smooth, solid and INTACT — no cracks, no fractures,
 第一張 = 正面 plate(一致性錨)｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4 —— **產生非正交圖**
 
 溯源:`https://app.leonardo.ai/generation/image/using-first-image-finished-front-plate-reference-63b342c2-5aa8-408a-b677-cd0ede383b3e`
+
+<img src="images/a5-gargoyle-left-ref-1.png" width="25%" alt="左視圖素材"> <img src="images/a5-gargoyle-left-nonortho-1.png" width="25%" alt="左視非正交">
 
 > Q:「這個不是正交鏡頭 我要正交鏡頭」
 > A:你抓到重點——NB 預設是有透視的戲劇鏡頭(近大遠小、翅膀往後收、略仰角),不是真正交。要壓成正交,得狠狠堆正交詞 + 否定透視。
@@ -146,7 +148,7 @@ background. High-resolution orthographic side-view model-sheet plate.
 
 溯源:`https://app.leonardo.ai/generation/image/using-first-image-finished-front-plate-reference-cdb64564-08dc-4535-bd85-4b20783ab413`
 
-<!-- 待補圖:石像鬼 左視(非正交反例 / 正交版) -->
+<img src="images/a5-gargoyle-left-ref-2.png" width="25%" alt="左視圖素材"> <img src="images/a5-gargoyle-left-nonortho-2.png" width="25%" alt="左視(側面對了)">
 
 #### ③ 背視 · 修正光源(固定右前光 → 背光)
 第一張 = 正面 plate｜第二張 = 乾淨概念圖｜固定同 seed｜比例 3:4
@@ -177,7 +179,7 @@ flat dark background. High-resolution orthographic back-view plate.
 
 > ✅ **背視對了 👍 背光 + 邊緣暖 rim,跟固定右前光完全連戲。** 正 + 左 + 背 三視齊、光源一致。補最後的 3/4 iso,這次把固定右前光的明暗寫進去(右前半受光、左後半入陰)。
 
-<!-- 待補圖:石像鬼 背視(背光) -->
+<img src="images/a5-gargoyle-back-ref.png" width="25%" alt="背後素材"> <img src="images/a5-gargoyle-back.png" width="25%" alt="背後(背光)">
 
 #### ④ 3/4 ISO(固定光連戲)
 第一張 = 正面 plate｜第二張 = 背視 plate｜第三張 = 側視 plate｜固定同 seed｜比例 1:1
@@ -209,6 +211,9 @@ High-resolution 3/4 isometric model-sheet plate.
 - `https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-308230fd-4a6c-444a-a7d6-4e14bcefaaf9`
 - `https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-d1481994-f53f-4b1b-9d5c-9e59bb68b3cc`
 
+<img src="images/a5-gargoyle-34-material-1.png" width="25%" alt="3/4 素材"> <img src="images/a5-gargoyle-34-material-2.png" width="25%" alt="3/4 素材"> <img src="images/a5-gargoyle-34-material-3.png" width="25%" alt="3/4 素材">
+<img src="images/a5-gargoyle-34-toobright.png" width="25%" alt="3/4 太亮">
+
 > Q:「太亮了」 → 在 3/4 prompt 末尾加 **EXPOSURE LOCK**:
 
 ```text
@@ -221,14 +226,22 @@ shadow. This is a moody dark statue, not an evenly-lit bright render.
 
 溯源:`https://app.leonardo.ai/generation/image/using-front-back-side-plates-references-re-render-111d31cf-1b9a-4317-b9c5-d2ca33a1b58e`
 
-<!-- 待補圖:石像鬼 3/4 ISO(太亮反例 / EXPOSURE LOCK 修正) -->
+<img src="images/a5-gargoyle-34-in-1.png" width="25%" alt="3/4 輸入"> <img src="images/a5-gargoyle-34-in-2.png" width="25%" alt="3/4 輸入"> <img src="images/a5-gargoyle-34-in-3.png" width="25%" alt="3/4 輸入">
+<img src="images/a5-gargoyle-34-darker.png" width="25%" alt="3/4 暗一點(EXPOSURE LOCK 定版)">
 
 #### 底座調整 / 標示 → 最後走 PS
+
 > Q:「我想調整底座 讓圓弧更明顯」
+
+<img src="images/a5-gargoyle-base-src.png" width="25%" alt="要調整底座原圖">
+
 > Q:「我要給這樣的 3 張圖 標示調整」
+
+<img src="images/a5-gargoyle-mark-1.png" width="25%" alt="標示素材1"> <img src="images/a5-gargoyle-mark-2.png" width="25%" alt="標示素材2(底座紅圈)"> <img src="images/a5-gargoyle-mark-3.png" width="25%" alt="標示素材3">
+
 > ⚠️ **這部份後來用 PS 合成,算圖失敗**(底座微調 + 標示改動,NB 重算不穩,改走 PS)。
 
-<!-- 待補圖:底座調整前後、3 張標示圖 -->
+<img src="images/a5-gargoyle-ps-fail.png" width="25%" alt="結果失敗(PS 合成)">
 
 ### B de-lit 軌 · image-to-3D
 
@@ -352,7 +365,7 @@ https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-w
 
 | 道具 | A 保光影軌(mock 貼圖) | B de-lit 軌(image-to-3D) | 狀態 |
 |---|---|---|---|
-| **石像鬼** | 正 / 左(鏡射)/ 背(背光)/ 3-4 + 底座修正 | de-lit | ⏳ 待補 prompt / 圖 |
+| **石像鬼** | ✅ 正 / 左 / 背 / 3-4 + 底座微調(PS) | —(無 de-lit,改走 PS) | ✅ 保光影 21 圖入庫 |
 | **火把** | 正交 / 側(半側光)/ 3-4 + 結構火焰 | de-lit | ⏳ 待補 prompt / 圖 |
 | **吊燈** | 八角重設計 / 正交正視 / 3-4 / 填背板 | de-lit + 去雜訊 + 填洞成浮雕 | ⏳ 待補 prompt / 圖 |
 
@@ -382,7 +395,7 @@ https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A2-buddhist-relief-w
 | 檔名(建議) | 內容 | 狀態 |
 |---|---|---|
 | `a5-concept-source.*` | 概念圖(標三道具位置) | ☐ 待補 |
-| `a5-gargoyle-*` | 石像鬼 保光影 turnaround + de-lit | ☐ 待補 |
+| `a5-gargoyle-*`(21 張) | 石像鬼 保光影 turnaround(正/左/背/3-4 + 底座/標示/PS) | ✅ 入庫 |
 | `a5-torch-*` | 火把 保光影(正 / 側 / 3-4)+ de-lit | ☐ 待補 |
 | `a5-chandelier-*` | 吊燈 八角重設計 / 多視圖 / 填背板 + de-lit(去噪 / 浮雕) | ☐ 待補 |
 
