@@ -17,3 +17,19 @@ Blender 4.x(Cycles)。全部在 **Scripting 分頁 → New → 貼上 → Run** 
 
 前置:World Strength = 0、材質 `GREY_TEST`(#767676、Roughness 0.5)已存在、燈光 Collection 全開。
 Bake 設定:Diffuse / Direct ✅ Indirect ✅ Color ❌ / Render Max Samples 256 / Margin 16 px。
+
+## Blender 文字區塊中文命名(建議)
+
+用 **Text → Open** 開檔後,在文字編輯器上方名稱欄改成中文,自己用時比較好認。
+repo 檔名維持英文(傳給別人不會亂碼);編號保留,清單才會照順序排。
+
+| 英文檔名(repo) | Blender 裡的中文名 |
+|---|---|
+| `01_join_clean.py` | `01_合併模型_清理階層` |
+| `02_force_grey.py` | `02_全部換灰材質` |
+| `03_bake_uv.py` | `03_新增BakeUV_展開` |
+| `04_fix_normals.py` | `04_修正反面` |
+| `05_bake_targets.py` | `05_計算解析度_建Bake圖` |
+| `06_prepare_bake.py` | `06_Bake前準備_切灰選取` |
+| `07_save_and_preview.py` | `07_存EXR_發光預覽` |
+| `08_relink.py` | `08_救援_重新連結貼圖` |
