@@ -1,4 +1,4 @@
-# B14 步驟 7 — 一鍵存 EXR + 切換發光預覽 + 存 .blend(對話中的「Q14 存檔與預覽腳本」)
+# C1 步驟 7 — 一鍵存 EXR + 切換發光預覽 + 存 .blend(對話中的「Q14 存檔與預覽腳本」)
 # 用法:Bake 完成後 Run → Viewport 切 Material Preview(第 3 顆球)巡接縫
 # 關鍵:用 filepath_raw + save(),Blender 才會記住路徑;
 #       舊版用 img.save(filepath=...) 存得到檔但沒記路徑 → 重開變洋紅色(見 08_relink.py)

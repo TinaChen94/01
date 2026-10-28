@@ -1,4 +1,4 @@
-# B14 救援 — 重新連結 bake 圖(畫面洋紅色 = Blender 找不到貼圖)
+# C1 救援 — 重新連結 bake 圖(畫面洋紅色 = Blender 找不到貼圖)
 # 用法:Run → 看 Console:全部 ✔ 就 Ctrl+S;有 ✘ 的表示當時沒存成功,要重 bake
 # 換電腦時也用這支:.blend 旁要一起帶 bake/ 資料夾
 import bpy, os

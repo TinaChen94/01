@@ -1,6 +1,6 @@
 # blender-modular-bake — 模組化場景灰模 Bake 驗接縫
 
-完整說明、原理、踩坑:[`docs/asset-cases/B14-blender-modular-bake-pipeline.md`](../../docs/asset-cases/B14-blender-modular-bake-pipeline.md)
+完整說明、原理、踩坑:[`docs/asset-cases/C1-blender-modular-bake-pipeline.md`](../../docs/asset-cases/C1-blender-modular-bake-pipeline.md)
 
 Blender 4.x(Cycles)。全部在 **Scripting 分頁 → New → 貼上 → Run** 執行,**全程在另存的測試檔做**。
 

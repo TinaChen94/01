@@ -1,4 +1,4 @@
-# 實戰紀錄 — B14 模組化走廊灰模 Bake → 驗接縫(Blender 自動化 Pipeline)
+# 實戰紀錄 — C1 模組化走廊灰模 Bake → 驗接縫(Blender 自動化 Pipeline)
 
 > 目標:哥德走廊 6 組模組(直向 ×2、橫向 ×2、十字 ×1、橫向穿堂 ×1)貼圖還在同事手上,
 > 只能用 AI PBR 當暫代材質打光。要確認**現在打的光,在 6 組模組拼接處能不能順利接續**。
@@ -8,7 +8,7 @@
 > **本篇範圍 = 第一段(「換電腦作業」之前)**:灰模驗接縫 pipeline。
 > 第二段(換電腦後:同事貼圖進來後的 COMBINED bake、地板 36 塊分層烘焙 + PS 合成)另篇待補。
 
-**🔑 關鍵字:** `B14`、`灰模 bake`、`驗接縫`、`模組接縫`、`BakeUV`、`UV2`、`GREY_TEST`、
+**🔑 關鍵字:** `C1`、`灰模 bake`、`驗接縫`、`模組接縫`、`BakeUV`、`UV2`、`GREY_TEST`、
 `#767676`、`DENSITY`、`px/m`、`Diffuse bake`、`法線反面`、`Face Orientation`、`洋紅色貼圖`、
 `Blender bake pipeline`
 

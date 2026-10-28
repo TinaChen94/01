@@ -16,7 +16,7 @@
 
 ## 命名慣例
 
-- `A*` = 資產拆解/去背案例;`B*` = 背景/模組生成管線案例
+- `A*` = 資產拆解/去背案例;`B*` = 背景/模組生成管線案例;`C*` = 自動化 / DCC 腳本管線案例(附 `tools/` 腳本)
 - 新案例:在 `docs/asset-cases/` 加 `<編號>-<slug>.md` 並更新索引表
 - 案例圖檔放 `docs/asset-cases/images/`,檔名前綴對應編號(如 `b1-*.png`)
 
@@ -40,7 +40,7 @@
 - **B12** — 跨圖天空移植(只搬一層):BASE/SKY DONOR 標籤 + 地平線鐵幕 +
   樹冠縫隙透空鎖 + 重調色進 BASE 色盤;附天空 UE5 質感 pass、紅圈畫記編輯搬光源
   (原開發分支編 B8,合併時 B8~B11 已被佔用故改號 B12)
-- **B14** — 模組化走廊灰模 Bake → 驗接縫(Blender 4.5 Cycles):拼好整場再 bake、
+- **C1** — 模組化走廊灰模 Bake → 驗接縫(Blender 4.5 Cycles):拼好整場再 bake、
   中性灰 #767676、`_J` 合併 + BakeUV、法線反面雙階段修復、16 px/m 動態解析度、
   Diffuse(Color 關)純光影 → EXR + 自發光巡接縫;腳本 `tools/blender-modular-bake/`
   (第一段;續篇 COMBINED bake / 地板分層 + PS 合成待補)

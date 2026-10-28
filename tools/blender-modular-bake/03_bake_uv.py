@@ -1,4 +1,4 @@
-# B14 步驟 3 — 新增 Bake 專用 UV2(BakeUV)並展開(對話中的「Q9 腳本 UV2」)
+# C1 步驟 3 — 新增 Bake 專用 UV2(BakeUV)並展開(對話中的「Q9 腳本 UV2」)
 # 用法:不用選取,自動處理所有名稱結尾 _J 的物件 → Run
 # 面數高時 Blender 看起來會卡住,是正常的。UV1(相機圖示 = 算圖用)不動。
 import bpy, math

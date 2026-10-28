@@ -1,4 +1,4 @@
-# B14 步驟 6 — 切回灰材質 + 選取全部 _J(對話中的「Q14 準備腳本」)
+# C1 步驟 6 — 切回灰材質 + 選取全部 _J(對話中的「Q14 準備腳本」)
 # 用法:Run → Console 應顯示「選取 N 個」→ Render 分頁按 Bake
 # Bake 設定:Cycles / Render Max Samples 256 / Bake Type Diffuse /
 #           Direct ✅ Indirect ✅ Color ❌ / Target Image Textures / Margin 16 px

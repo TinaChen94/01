@@ -1,4 +1,4 @@
-# B14 步驟 1 — 模組合併與清理(對話中的「腳本 3 / Q8 v2」)
+# C1 步驟 1 — 模組合併與清理(對話中的「腳本 3 / Q8 v2」)
 # 用法:Outliner 選要合併的模組 Root Empty(可 Ctrl 多選)→ Scripting → Run
 # 執行前:另存測試檔、Viewport 按 Alt+H 顯示全部(隱藏的零件不會被合併)
 import bpy
