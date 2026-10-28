@@ -11,7 +11,7 @@
 - **Claude 對話連結(本案全程:作法討論 → 腳本迭代 → bake 實測 → 法線修復 → 紀錄;同串續篇亦在此):**
   `https://claude.ai/code/session_01BEBwyiUGGcpDC64eDLhAJs`
 - **全紀錄 — 線上文件版(A1 分頁:Q1~Q14 討論原文 + 腳本 + Gemini 解說,即上傳的 3 段對話):**
-  [Google Docs](https://docs.google.com/document/d/1g2Q4WUa63tBAq5T58IAHFdzpmPzESFmj3_EH0RtsZZM/edit?tab=t.jr0d9k8c43gf)
+  [Google Docs](https://docs.google.com/document/d/1g2Q4WUa63tBAq5T58IAHFdzpmPzESFmj3_EH0RtsZZM/edit?tab=t.g2xtgg2thkm2#heading=h.k9cu2ipw3hrf)
 
 **🔑 關鍵字:** `C1`、`灰模 bake`、`驗接縫`、`模組接縫`、`BakeUV`、`UV2`、`GREY_TEST`、
 `#767676`、`DENSITY`、`px/m`、`Diffuse bake`、`法線反面`、`Face Orientation`、`洋紅色貼圖`、
