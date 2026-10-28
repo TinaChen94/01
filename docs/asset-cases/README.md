@@ -36,6 +36,7 @@
 | **B11 月夜 RPG 森林背景(風格 DNA + 衍生圖鎖句)** | [B11-moonlit-jrpg-forest-style-dna.md](B11-moonlit-jrpg-forest-style-dna.md) | ✅ 五層風格拆解 + 母題清單 + 逐字風格鎖句 + 平台路線;明亮夢幻 mid-key JRPG 風(與 B10 反向:暗部深藍通透不塗黑) |
 | **B12 跨圖天空移植(圖1 天空換成圖2 天空)** | [B12-sky-transplant.md](B12-sky-transplant.md) | ✅ NB2 雙參考只搬一層:BASE/SKY DONOR 標籤 + 地平線鐵幕 + 樹冠縫隙透空鎖 + 重調色進 BASE 色盤;含天空 UE5 質感 pass(定性句平移)與紅圈畫記編輯搬光源(原開發分支編 B8,合併時改號) |
 | **B13 寫實貼圖 → 手繪風格化(style transfer)** | [B13-handpainted-style-transfer.md](B13-handpainted-style-transfer.md) | ✅ 定版 + 七張套圖量產 — v3 定調/v4.2 量產兩段式 + master 色票板庫 + 逐字 prompt + 七次踩坑全歷程(生產區/查詢區雙結構;含成品圖) |
+| **B14 模組化走廊灰模 Bake → 驗接縫(Blender pipeline)** | [B14-blender-modular-bake-pipeline.md](B14-blender-modular-bake-pipeline.md) | ✅ 第一段:拼好整場 → 中性灰 #767676 → 合併 `_J` + BakeUV → 法線反面雙階段修復 → 固定 16 px/m 動態解析度 → Diffuse 純光影 bake → EXR + 自發光巡接縫;腳本 ×8 `tools/blender-modular-bake/` + 踩坑 ×11 + Gemini 勘誤(續篇:COMBINED / 地板分層待補) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在對應群組的表加一列、連到對應的 `*.md`。
 

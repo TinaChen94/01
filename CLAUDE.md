@@ -40,6 +40,10 @@
 - **B12** — 跨圖天空移植(只搬一層):BASE/SKY DONOR 標籤 + 地平線鐵幕 +
   樹冠縫隙透空鎖 + 重調色進 BASE 色盤;附天空 UE5 質感 pass、紅圈畫記編輯搬光源
   (原開發分支編 B8,合併時 B8~B11 已被佔用故改號 B12)
+- **B14** — 模組化走廊灰模 Bake → 驗接縫(Blender 4.5 Cycles):拼好整場再 bake、
+  中性灰 #767676、`_J` 合併 + BakeUV、法線反面雙階段修復、16 px/m 動態解析度、
+  Diffuse(Color 關)純光影 → EXR + 自發光巡接縫;腳本 `tools/blender-modular-bake/`
+  (第一段;續篇 COMBINED bake / 地板分層 + PS 合成待補)
 - **SOP 打光公式** — `docs/asset-cases/SOP-style-relight.md`:
   Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複)。
   使用者說「照打光公式」「打光公式」「風格建檔」即指此 SOP — 先讀檔再動手。
