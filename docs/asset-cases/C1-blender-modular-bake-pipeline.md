@@ -8,6 +8,11 @@
 > **本篇範圍 = 第一段(「換電腦作業」之前)**:灰模驗接縫 pipeline。
 > 第二段(換電腦後:同事貼圖進來後的 COMBINED bake、地板 36 塊分層烘焙 + PS 合成)另篇待補。
 
+- **Claude 對話連結(本案全程:作法討論 → 腳本迭代 → bake 實測 → 法線修復 → 紀錄;同串續篇亦在此):**
+  `https://claude.ai/code/session_01BEBwyiUGGcpDC64eDLhAJs`
+- **全紀錄 — 線上文件版(A1 分頁:Q1~Q14 討論原文 + 腳本 + Gemini 解說,即上傳的 3 段對話):**
+  [Google Docs](https://docs.google.com/document/d/1g2Q4WUa63tBAq5T58IAHFdzpmPzESFmj3_EH0RtsZZM/edit?tab=t.jr0d9k8c43gf)
+
 **🔑 關鍵字:** `C1`、`灰模 bake`、`驗接縫`、`模組接縫`、`BakeUV`、`UV2`、`GREY_TEST`、
 `#767676`、`DENSITY`、`px/m`、`Diffuse bake`、`法線反面`、`Face Orientation`、`洋紅色貼圖`、
 `Blender bake pipeline`
