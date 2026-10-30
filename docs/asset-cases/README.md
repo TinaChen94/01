@@ -46,6 +46,7 @@
 | 資產 | 紀錄 | 內容 |
 |---|---|---|
 | **C1 模組化走廊灰模 Bake → 驗接縫(Blender pipeline)** | [C1-blender-modular-bake-pipeline.md](C1-blender-modular-bake-pipeline.md) | ✅ 第一段:拼好整場 → 中性灰 #767676 → 合併 `_J` + BakeUV → 法線反面雙階段修復 → 固定 16 px/m 動態解析度 → Diffuse 純光影 bake → EXR + 自發光巡接縫;腳本 ×8 `tools/blender-modular-bake/` + 踩坑 ×11 + Gemini 勘誤(續篇:COMBINED / 地板分層待補) |
+| **C2 正式貼圖 → 單張 Combined Bake(古堡打光二版)** | [C2-blender-final-combined-bake.md](C2-blender-final-combined-bake.md) | ✅ 共用材質暫插 bake 節點 + 物件層預覽不動原材質;UV 用量 3%→Concave 重排、依實際 UV 面積算解析度(上限 8192,清晰度差 5 倍→1.15 倍);分批+當掉自動降級;Combined + 暫時相機(模組中央 1.7 m,Active Camera)解決反光發白/太黑;試算→正式、版本號續跑、TOGGLE 對照;腳本 ×6 `tools/blender-final-bake/` + 踩坑 ×12 + Gemini 勘誤 |
 
 ## 固定公式(SOP)
 

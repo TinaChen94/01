@@ -43,7 +43,10 @@
 - **C1** — 模組化走廊灰模 Bake → 驗接縫(Blender 4.5 Cycles):拼好整場再 bake、
   中性灰 #767676、`_J` 合併 + BakeUV、法線反面雙階段修復、16 px/m 動態解析度、
   Diffuse(Color 關)純光影 → EXR + 自發光巡接縫;腳本 `tools/blender-modular-bake/`
-  (第一段;續篇 COMBINED bake / 地板分層 + PS 合成待補)
+  (第一段)
+- **C2** — 正式貼圖 → 單張 Combined Bake(古堡打光二版):共用材質暫插 bake 節點、
+  Concave 重排 + 實際 UV 面積算解析度(上限 8192)、分批自動降級、Combined + 暫時相機
+  (模組中央眼高,Active Camera)治反光發白;腳本 `tools/blender-final-bake/`(地板分層 C3 待補)
 - **SOP 打光公式** — `docs/asset-cases/SOP-style-relight.md`:
   Phase 1 風格建檔(一次)→ Phase 2 場景重打光(重複)。
   使用者說「照打光公式」「打光公式」「風格建檔」即指此 SOP — 先讀檔再動手。
