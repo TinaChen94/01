@@ -6,7 +6,8 @@
 > 以自發光顯示 bake 結果巡接縫。
 >
 > **本篇範圍 = 第一段(「換電腦作業」之前)**:灰模驗接縫 pipeline。
-> 第二段(換電腦後:同事貼圖進來後的 COMBINED bake、地板 36 塊分層烘焙 + PS 合成)另篇待補。
+> **➡️ 續篇:[C2](C2-blender-final-combined-bake.md) 正式貼圖 → 單張 Combined Bake(古堡打光二版)**— 換電腦後,同事正式貼圖進來的 COMBINED bake。
+> 地板 36 塊分層烘焙 + PS 合成另篇(C3)待補。
 
 - **Claude 對話連結(本案全程:作法討論 → 腳本迭代 → bake 實測 → 法線修復 → 紀錄;同串續篇亦在此):**
   `https://claude.ai/code/session_01BEBwyiUGGcpDC64eDLhAJs`
@@ -171,7 +172,7 @@ Scripting 分頁 → New → 貼上 → Run(或 Alt+P)。**全程在另存的測
 - 判讀規則:各模組「實際 px/m」差 **2 倍以內**即可;出現「⚠ 已達上限」→ 整體調低 DENSITY 讓全部一起降,維持一致。
 - 手動版(估算):N 面板看 Dimensions 最長邊 → 60m+ 4096 / 30~60 2048 / 15~30 1024 / <15 512;
   材質複製(名稱欄右邊的複製圖示)→ Shading 新增 Image Texture(32-bit Float、不勾 Alpha)→ 不接線、點選讓它白框。
-- 後續改良:第二段(換電腦後)的版本改為**量實際 UV 面積**再換算、上限放到 8192,見續篇。
+- 後續改良:第二段(換電腦後)的版本改為**量實際 UV 面積**再換算、上限放到 8192,見 [C2](C2-blender-final-combined-bake.md) §2。
 
 ### 步驟 6 — 準備 Bake + 手動按 Bake(`06_prepare_bake.py`,對話 Q11、Q14)
 
@@ -271,8 +272,8 @@ Scripting 分頁 → New → 貼上 → Run(或 Alt+P)。**全程在另存的測
 ## 6. 待辦
 
 - ⬜ **Bake 自動化**:把「06 → Bake → 07」串成一支(逐模組 `bpy.ops.object.bake` + 存檔 + 進度紀錄),
-  不再手動按鈕。(第二段已用 `final_ver` / `split_<TAG>` 自訂屬性做到批次與續跑,見續篇)
+  不再手動按鈕。(第二段已用 `final_ver` / `split_<TAG>` 自訂屬性做到批次與續跑,見 [C2](C2-blender-final-combined-bake.md) §4)
 - ⬜ TURN 模組殘留反面修完 → 重 bake。
 - ⬜ 漏併零件(FLAG / FOUNTAIN)視需要單獨處理。
-- ⬜ 續篇:同事貼圖進來後的 COMBINED bake(GLOSSY 用暫時相機 @ 模組中心眼高)、
-  地板 36 塊分層烘焙(LIGHT / GLOSS / DETAIL / 場景 AO)+ PS 合成 + AI 細節對燒。
+- ✅ 續篇 [C2](C2-blender-final-combined-bake.md):同事貼圖進來後的 COMBINED bake(GLOSSY 用暫時相機 @ 模組中心眼高)。
+- ⬜ C3:地板 36 塊分層烘焙(LIGHT / GLOSS / DETAIL / 場景 AO)+ PS 合成 + AI 細節對燒。
