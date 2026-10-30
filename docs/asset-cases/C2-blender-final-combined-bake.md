@@ -8,7 +8,9 @@
 > 之後的地板 36 塊分層烘焙 + PS 合成 + AI 細節對燒另篇(C3)待補。
 
 - **Claude 對話連結:** `https://claude.ai/code/session_01BEBwyiUGGcpDC64eDLhAJs`
-- **全紀錄 — 原始整理檔:** C201.docx / C202.docx(使用者整理,Q16 ~ Q2113 討論原文 + 腳本 + Gemini 解說;線上版連結待補)
+- **全紀錄 — 線上文件版(Q16 ~ Q2113 討論原文 + 腳本 + Gemini 解說):**
+  - C201(Q16 ~ Q1909:燈光整理、檢查腳本 v1~v3、腳本 A v1~v4):[Google Docs](https://docs.google.com/document/d/1g2Q4WUa63tBAq5T58IAHFdzpmPzESFmj3_EH0RtsZZM/edit?tab=t.jr0d9k8c43gf#heading=h.mqi2l4vjw5di)
+  - C202(Q2001 ~ Q2113:檢視合成、AO、Combined bake 定案、切換 / 指定 / 試算腳本):[Google Docs](https://docs.google.com/document/d/1g2Q4WUa63tBAq5T58IAHFdzpmPzESFmj3_EH0RtsZZM/edit?tab=t.41ygjg1s8l63)
 
 **🔑 關鍵字:** `C2`、`Combined bake`、`FINAL 貼圖`、`單張貼圖`、`一物件一張圖`、`共用材質 bake`、
 `__BAKE_TARGET__`、`暫時相機`、`Active Camera`、`EYE_HEIGHT`、`final_ver`、`VERSION`、`bake_res`、
@@ -233,5 +235,4 @@
 - ⬜ EXR(線性)→ 引擎用格式的輸出腳本(含色彩管理對齊)。
 - ⬜ AO 是否要乘進最終圖(腳本已備:`opt_bake_ao.py`)。
 - ⬜ 討論:地板材質是否影響周遭牆面的反光(Combined 會吃到地板的反射)。
-- ⬜ 全紀錄線上文件連結補上。
 - ⬜ C3:地板 36 塊分層烘焙(LIGHT / GLOSS / DETAIL / 場景 AO)+ PS 合成 + AI 細節對燒。
