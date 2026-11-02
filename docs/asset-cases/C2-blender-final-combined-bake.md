@@ -165,6 +165,19 @@
 03 逐一 TOGGLE 驗收 → 存檔 / 匯出前 03 RESTORE
 ```
 
+### 單一大模組正式算(TURN 實例,對話 Q2114 —「我要只算這個,幫我出正式算的腳本 SM_TURN_A_HIGH2」)
+
+用的就是 `01b_bake_final_targets.py`(Blender 區塊 `01_正式bake_指定`),`TARGETS = ["SM_TURN_A_HIGH2"]`。
+跟 02 試算版相比多兩點:完成會標 `final_ver = VERSION`(之後跑 01 全部時不會再重算 TURN);
+算完 `buffers_free()` 釋放記憶體(8192 float 圖約 1 GB)。
+
+| 時機 | 確認事項 |
+|---|---|
+| 執行前 | 燈光是試算確認過的最終版;Render → Device = **GPU Compute**;`VERSION` 與 01 相同(01 改成 4,這裡也要 4) |
+| 執行中 | 預計 15 分鐘以上,「沒有回應」正常;開 Toggle System Console 看進度;**不要點 Console 黑視窗**(會暫停) |
+| 完成後 | Console 出現「✔ SM_TURN_A_HIGH2 完成」→ 03 在 Rendered 下 TOGGLE 對照;不滿意就用 `FINAL_SM_TURN_A_HIGH2_old.exr` 還原 |
+| 當掉 | 重開檔案再執行一次;8192 吃不消就回 00 把 `MAX_RES` 降到 6144 重跑,再算 |
+
 ### 進度記錄規則(重要)
 
 | 屬性 | 誰寫 | 意義 |
