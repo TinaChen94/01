@@ -128,7 +128,10 @@
 - **招牌技巧：** **Danbooru tag 體系** —— 角色用 Danbooru 標記名（`yorha no. 2 type b` ✓ / `2b` ✗）；尾綴 quality tag（`masterpiece, no text, rating:general`）；Curated（穩）vs Full（廣）。
 - **何時選：** 同人/動漫角色，要 tag 精準控制。
 
-### GPT-4o 生圖（OpenAI，OiiOii「Gpt 4o」）
+### GPT Image 2.6（OpenAI，Flare / Sunburst）
+- 2026-11 現行版，取代 GPT-4o 生圖。版本、尺寸、實測對照 → [gpt-image.md](gpt-image.md)
+
+### GPT-4o 生圖（OpenAI，OiiOii「Gpt 4o」）（舊版）
 - **最強：** 照片寫實 + **可靠文字嵌入** + 指令跟隨 + 圖轉圖（最多 ~20 物件）。
 - **弱項：** 局部編輯有副作用（可能動到其他區域）；物件 >20 會崩。
 - **何時選：** 寫實 + 圖內要文字 + 複雜指令。

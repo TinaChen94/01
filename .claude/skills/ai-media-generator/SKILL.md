@@ -156,6 +156,7 @@ Prompt 寫完問自己：
 
 **圖片 (Image)**
 - Nano Banana Pro / Gemini Flash Image（文字渲染 + 角色一致 + 多圖合成最強）→ [references/nano-banana.md](references/nano-banana.md)
+- **GPT Image 2.6 Flare / Sunburst**（OpenAI；Flare 快速迭代、Sunburst 細節；尺寸 16 倍數 / 1:3~3:1 / 最大 3840×2160；同一套多圖定位 prompt 實測與 NB 同級）→ [references/gpt-image.md](references/gpt-image.md)
 - Seedream 5.0 / 4.0 → [references/seedream.md](references/seedream.md)
 - Midjourney V8.1 / niji 7（⚠️ `--oref` 為 V7-only） → [references/midjourney.md](references/midjourney.md)
 - Flux 1.1 Pro / Kontext → [references/flux.md](references/flux.md)
