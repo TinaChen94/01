@@ -85,6 +85,7 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **B12** | 跨圖天空移植(只搬天空層 + 天空後製) | 雙參考合成 | ✅ | 4 |
 | **B13** | 寫實貼圖 → 手繪風格轉移(Ruined King 級) | style transfer | ✅ 定版 + 七套圖量產 | 20 |
 | **B14** | 半寫實暗黑森林地面 — 風格 DNA | 風格 DNA | ⚠️ 在 `image-style-analysis` 分支 | — |
+| **B15** | 熔岩要塞 — 正面牆 + 直向走道 + 柱子設定稿(de-lit 8 格板) | 灰盒→場景 / concept→3D | ✅ 牆、走道定稿;8 格板 PS 整理完成(待 image-to-3D) | 29 |
 | **graveyard-props** | 墓園道具(欄杆 / 門柱 / 墓碑) | 去背 job | ⚠️ 墓碑待做、無圖入庫 | 0 |
 | **plants-cutout** | 立體寬葉植物去背(SAM 方框;苔蘚同色分不開) | 去背 job(純 matting) | ✅ 完成(透明母檔 + 橘底 + v1/v2 變體) | 5 |
 

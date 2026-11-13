@@ -36,6 +36,7 @@
 | **B11 月夜 RPG 森林背景(風格 DNA + 衍生圖鎖句)** | [B11-moonlit-jrpg-forest-style-dna.md](B11-moonlit-jrpg-forest-style-dna.md) | ✅ 五層風格拆解 + 母題清單 + 逐字風格鎖句 + 平台路線;明亮夢幻 mid-key JRPG 風(與 B10 反向:暗部深藍通透不塗黑) |
 | **B12 跨圖天空移植(圖1 天空換成圖2 天空)** | [B12-sky-transplant.md](B12-sky-transplant.md) | ✅ NB2 雙參考只搬一層:BASE/SKY DONOR 標籤 + 地平線鐵幕 + 樹冠縫隙透空鎖 + 重調色進 BASE 色盤;含天空 UE5 質感 pass(定性句平移)與紅圈畫記編輯搬光源(原開發分支編 B8,合併時改號) |
 | **B13 寫實貼圖 → 手繪風格化(style transfer)** | [B13-handpainted-style-transfer.md](B13-handpainted-style-transfer.md) | ✅ 定版 + 七張套圖量產 — v3 定調/v4.2 量產兩段式 + master 色票板庫 + 逐字 prompt + 七次踩坑全歷程(生產區/查詢區雙結構;含成品圖) |
+| **B15 熔岩要塞:正面牆 + 直向走道 + 柱子設定稿** | [B15-lava-fortress-wall-corridor-pillars.md](B15-lava-fortress-wall-corridor-pillars.md) | ✅ 灰盒→熔岩主題翻譯(色框定位圖/柱子壓暗+落影)+ 柱子拆解定稿(正面抽取/白模比例/石托)+ 先拼貼再融合 + 走道 5 圖 prompt + **灰盒幾何贏過設定稿(NB/GPT 實證)** + 正面→3/4(2 倍深)+ 8 格板 de-lit(火盆形狀鎖)+ 寶石比例錨定;逐字 prompt ×15、踩坑 ×24(對話中稱 B14,因撞號改 B15) |
 
 > 之後每拆一個資產(鐵欄杆、墓碑、枯樹…),就在對應群組的表加一列、連到對應的 `*.md`。
 
