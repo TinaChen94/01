@@ -31,6 +31,7 @@
   走道一段並行測 **GPT Image 2.6 Flare / Sunburst**
 - **Claude 對話:** `https://claude.ai/code/session_01W4Q9GoVbYnCSZVUZ3jK4R3`
   (2026-11-05 ~ 11-12;11-13 對話被 `/clear` 後從本機 transcript 復原、整理成本紀錄)
+- **原始對話全文(clear 前):** [docs/transcripts/B15-conversation-2026-11-05_11-12.md](../transcripts/B15-conversation-2026-11-05_11-12.md)
 - **日期:** 2026-11-05 ~ 2026-11-13
 - **結果:**
   - ✅ 正面牆定稿(PS 合成)
