@@ -49,6 +49,8 @@
 > **概念圖 → 正面正交圖 → 3D + UV → 貼圖產生**。SOP 端的摘要寫在
 > `.claude/skills/ai-media-generator/references/concept-to-3d-v2.md`〈延伸〉段。
 
+> 用途分流:**只有「自己建模 + 貼圖」才走完整條鏈**;2D 素材、image-to-3D 做到「正面正交圖」就收(對照表見 `SKILL.md`〈concept→3D 互動規則〉)。本案兩個陷阱都屬「自己建模 + 貼圖」。
+
 | ① 概念圖 | ② 正面正交圖 | ③ 3D + UV | ④ 貼圖產生 | 上線 |
 |---|---|---|---|---|
 | ![](images/a13-20-spike-crop.jpg) | ![](images/a13-37-ortho-fix-ps-composite.jpg) | ![](images/a13-33-model-fan-uv.png) | ![](images/a13-41-trapB-final-texture.jpg) | ![](images/a13-42-trapB-engine.png) |
