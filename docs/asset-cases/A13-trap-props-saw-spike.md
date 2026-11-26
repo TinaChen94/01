@@ -254,6 +254,55 @@ does NOT look down at all. ...
 5. **解析度**:扇形 UV 只佔貼圖 27% 高度 → 1024 時細節被壓 5 倍;改烘 4096(長期解:UV 填滿 0~1)。
 6. **古銅 → 銀色(`bronze_to_silver.py`)**:Lab 空間只減掉古銅色軸(保留 12% 暖光),正交的藍紫環境色保留並在中暗部加強 1.8 倍;高光保持中性(避免偏綠)。
 
+### B-4. 底座頂面貼圖(使用者自行產出的路線)
+
+> B-2 的八角環是**斜角立體圖**(拆頂面/側面用);實際貼在底座頂面的「正俯視古銅八角環」是使用者另外跑的一條 NB2 鏈。
+> ⚠️ 第 2~4 輪使用者只提供了參考圖與結果圖,**prompt 原文未留存**;下表以「輸入 → 意圖 → 結果」記錄。
+
+| 輪 | 輸入(ref) | 意圖 | 結果 |
+|---|---|---|---|
+| 1 | 尖刺原圖 + 電鋸 atlas(軌道鋼條當材質) | 正俯視八角底盤,中間暗洞(prompt 見下) | ![](images/a13-45-plate-r1-topdown-steel.jpg) 藍鋼、暗洞 ✅、單層邊框 |
+| 2 | 斜角立體藍鋼八角板(B-1 的失敗品) | 「給我正交上方視角」— 拿立體版轉正俯視 | ![](images/a13-47-plate-r2-topdown.jpg) 正交 ✅,但洞**透出灰底**、多一圈凸起內框 |
+| 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | 換成古銅材質 | ![](images/a13-48-plate-r3-bronze-seethrough.jpg) 古銅 ✅,洞仍透灰 ❌ |
+| 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | 換成古銅材質 | ![](images/a13-49-plate-r4-bronze-darkhole.jpg) 古銅 ✅、暗洞 ✅ → **採用** |
+
+第 2 輪的輸入(斜角立體藍鋼板):
+
+![](images/a13-46-plate-r2-src-3d.jpg)
+
+**第 1 輪 prompt(逐字)**:
+```text
+Design a TOP-DOWN ORTHOGRAPHIC texture of a flat octagonal floor plate,
+seen from DIRECTLY ABOVE: the camera looks straight down, no
+perspective, no side walls visible. A regular octagon, perfectly
+centered and symmetric, filling about 90% of the square canvas.
+
+DESIGN (based on the base plate under the spike in the FIRST image):
+- a thin flat plate with two shallow concentric steps: an outer rim
+  band, then a slightly raised inner ring
+- in the center, an octagonal opening about 35% of the plate width,
+  aligned with the outer octagon. The opening is a DARK PIT going down
+  into the floor: near-black inside, with a soft dark gradient on its
+  inner walls. It is NOT a see-through hole — no grey background shows
+  through it
+- NO raised collar around the opening, no bolts, no extra ornaments
+
+MATERIAL — match the steel strips in the lower half of the SECOND
+image: dark blue-grey worn steel, fine scratches, darker grime in the
+corners, and a thin, crisp, bright highlight line along EVERY edge:
+the outer octagon edge, the step edge, and the rim of the opening.
+
+Soft even top lighting, no directional light, no cast shadows.
+Flat neutral grey (#808080) outside the octagon. Stylized AAA game
+texture. No spike, no text.
+```
+
+**這條鏈的教訓:**
+- **「形狀對」和「材質對」分兩步**:先拿到形狀正確的版本(第 1 輪:正俯視 + 暗洞),再單獨做換材質 pass;換材質那輪的輸入要選**形狀已經對的那張**(第 4 輪成功、第 3 輪失敗的差別就在輸入選錯)。
+- **透底洞會一路遺傳**:第 2 輪洞已透灰,後面換材質也修不回來 → 從暗洞版重來比補救快。
+- **換色只要色票**:古銅 12 邊環只當材質參考,它的邊數沒有滲進結果(因為輸入 1 的八邊形輪廓夠強)。
+- 最後再於 PS 加工(簡化成單圈古銅框 + 黑色中心)排進貼圖左上空白區,見下圖中間那張。
+
 **最終貼圖組裝(使用者手修)**:烘焙原始素材 + 底座環頂面加工素材 → 合成完稿(底座環排進左上空白區,兩件共用一張貼圖)。
 
 左 = Claude bake 的原始素材、中 = 底座環加工素材、右 = 完稿:
@@ -276,7 +325,7 @@ does NOT look down at all. ...
 | 8 | tile 重複感明顯 | 單一 tile | 螺栓單元重排 + 共用接縫 4 變化型 |
 | 9 | 紅圈/藍圈拆件,兩部件互相滲入 | 文字分界不可靠 | 程式先依畫圈切開,一張輸入只留一件 |
 | 10 | 寫 octagonal 出 12 邊 | 模型數不準邊數 | 程式畫正八邊形導引 → paint-over |
-| 11 | 底座中間洞透出灰底 | 「hole」被畫成穿透 | 明寫 `OPEN DARK HOLE ... NOT see-through` |
+| 11 | 底座中間洞透出灰底 | 「hole」被畫成穿透;透底版再換材質也修不回 | 明寫 `OPEN DARK HOLE ... NOT see-through`;換材質時輸入選暗洞版(B-4 第 4 輪) |
 | 12 | 形狀導引圖把古銅畫成灰鋼 | 導引圖色塊被當材質 | 材質參考另給 ref 2;或不用導引直接抽取 |
 | 13 | 烘貼圖金邊掉到牆面中間 | AI「正面圖」是略俯視,交界為 V 字 | 從 OBJ 算真正交底稿;補償俯角只能接近 |
 | 14 | 依底稿上色仍出透視 | ref 2 有透視 → 構圖滲漏(B9) | 只給底稿一張 / ref 2 只給無邊無輪廓的材質特寫 / 修正 pass 逐條點名 |
