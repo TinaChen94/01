@@ -257,7 +257,7 @@ does NOT look down at all. ...
 ### B-4. 底座頂面貼圖(使用者自行產出的路線)
 
 > B-2 的八角環是**斜角立體圖**(拆頂面/側面用);實際貼在底座頂面的「正俯視古銅八角環」是使用者另外跑的一條 NB2 鏈。
-> ⚠️ 第 2~4 輪使用者只提供了參考圖與結果圖,**prompt 原文未留存**;下表以「輸入 → 意圖 → 結果」記錄。
+> ⚠️ 第 2、3 輪 prompt 原文未留存,以「輸入 → 意圖 → 結果」記錄;第 1、4 輪附逐字 prompt。
 
 | 輪 | 輸入(ref) | 意圖 | 結果 |
 |---|---|---|---|
@@ -296,6 +296,16 @@ Soft even top lighting, no directional light, no cast shadows.
 Flat neutral grey (#808080) outside the octagon. Stylized AAA game
 texture. No spike, no text.
 ```
+
+**第 4 輪(採用版)prompt(逐字,Leonardo 生成紀錄)**:
+```text
+參照這張的色調 調整
+```
+References:① 古銅 12 邊環(色票)② 第 1 輪藍鋼正俯視八角板(暗洞版)。
+
+![](images/a13-50-plate-r4-leonardo-detail.jpg)
+
+> 💡 **換材質 pass 不需要長 prompt**:形狀已經由輸入圖鎖住時,一句中文「參照這張的色調 調整」+ 色票參考就成功(與 B9「極短 prompt + 材質特寫」同理)。長鎖句反而容易讓模型重畫幾何。
 
 **這條鏈的教訓:**
 - **「形狀對」和「材質對」分兩步**:先拿到形狀正確的版本(第 1 輪:正俯視 + 暗洞),再單獨做換材質 pass;換材質那輪的輸入要選**形狀已經對的那張**(第 4 輪成功、第 3 輪失敗的差別就在輸入選錯)。
