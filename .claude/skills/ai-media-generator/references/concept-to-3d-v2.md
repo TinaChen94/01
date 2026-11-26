@@ -8,7 +8,7 @@
 > - **A5 — 古堡三視圖重建(道具 turnaround)**:保光影↔de-lit 雙軌 / 正交鎖 / 固定世界光 / 鏡射左視
 > - 檔案:`docs/asset-cases/A4-castle-concept-decomposition.md`、`A5-castle-turnaround-image-to-3d.md`
 
-**觸發詞(同 V1):** 「拆掉這張概念圖」「concept→3D」「三視圖重建」「turnaround / model sheet」「正交立面」「image-to-3D 參考圖」「物件清單 / asset manifest」。
+**觸發詞(同 V1):** 「拆掉這張概念圖」「concept→3D」「三視圖重建」「turnaround / model sheet」「正交立面」「image-to-3D 參考圖」「物件清單 / asset manifest」「我要自己建模加貼圖」(= 直接走下方〈延伸〉完整鏈)。
 
 ---
 
