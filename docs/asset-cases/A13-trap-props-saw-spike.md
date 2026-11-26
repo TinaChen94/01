@@ -256,8 +256,7 @@ does NOT look down at all. ...
 
 **最終貼圖組裝(使用者手修)**:烘焙原始素材 + 底座環頂面加工素材 → 合成完稿(底座環排進左上空白區,兩件共用一張貼圖)。
 
-| 左:Claude bake 的原始素材 | 中:底座環加工素材 | 右:完稿 |
-|---|---|---|
+左 = Claude bake 的原始素材、中 = 底座環加工素材、右 = 完稿:
 
 ![trapB texture assembly](images/a13-44-trapB-texture-assembly.jpg)
 
