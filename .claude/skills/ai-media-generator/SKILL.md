@@ -11,6 +11,8 @@ description: 為使用者產生高品質的 AI 生圖、生影片、生音樂提
 
 **觸發：** 使用者說「幫我做 X」「做一個 X」「生個 X」「我要 X」這類命令式、且 X 含媒體類型 (圖/影片/音樂/MV/短片/海報/動畫) 或風格關鍵字 → **直接進 auto-pilot 不問**。
 
+> ⛔ **例外 — concept→3D 不走 Auto-Pilot:** 只要內容是「拆掉這張概念圖 / concept→3D / 三視圖重建 / turnaround / 拆概念圖出物件 / image-to-3D 參考圖」,即使句型是「幫我做 / 幫我拆 / 我要」,**一律改走下方〈🧭 concept→3D 互動規則〉一步一步引導**(每輪只做一步、先問 1~2 個決策、收到結果才往下),不一次產出整串 prompt。
+
 **流程 (見 [templates/auto-pilot.md](templates/auto-pilot.md) 完整版)：**
 1. **Intent Parser** — 一句話拆 9 slot (媒體/長度/畫面比/主題/風格/角色/場景/音訊/語言)
 2. **Fill Defaults** — 沒講的用預設 (video 預設 10s 16:9；動漫預設 Shinkai+Ghibli；電影預設 Deakins DP…)
