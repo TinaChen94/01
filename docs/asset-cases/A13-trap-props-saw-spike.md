@@ -10,7 +10,39 @@
 
 **狀態:✅ 陷阱 A(電鋸 + 軌道)、陷阱 B(伸縮尖刺 + 固定底座環)皆已進 Unity 場景完成(2026-11-26)。**
 **日期:** 2026-11-23 ~ 2026-11-26 · **對話:** `https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5`
-**工具:** [`tools/trap-texture-tools/`](../../tools/trap-texture-tools/README.md)
+**工具:** [`tools/trap-texture-tools/`](../../tools/trap-texture-tools/README.md) · **全部連結:** 見下方〈🔗 本次相關連結〉
+
+---
+
+## 🔗 本次相關連結
+
+> 連結指向開發分支 `claude/wizardly-gauss-y2tnhh`;合併進 main 後,把網址中的分支名換成 `main` 即可。
+
+**📘 主紀錄**
+- A13 陷阱道具拆解(本頁):[A13-trap-props-saw-spike.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/A13-trap-props-saw-spike.md)
+
+**🧰 工具**
+- 程式修圖 / 烘貼圖工具說明:[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md)
+- 工具資料夾(10 支腳本):[tools/trap-texture-tools/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
+
+**🧭 Skill / SOP(concept→3D 延伸與互動規則)**
+- SKILL.md(Auto-Pilot 例外、concept→3D 互動規則、用途分流):[SKILL.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/SKILL.md)
+- concept→3D 主模板(一步一步引導、階段 0 用途分流、延伸到貼圖):[concept-to-3d-pipeline.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md)
+- concept→3D V2 SOP(延伸鏈:概念圖 → 正交圖 → 3D+UV → 貼圖):[concept-to-3d-v2.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/references/concept-to-3d-v2.md)
+- Auto-Pilot 模板(不啟動情境加上 concept→3D):[auto-pilot.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/auto-pilot.md)
+
+**📑 索引與設定**
+- 案例索引(A13 列):[docs/asset-cases/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/README.md)
+- 產出統計 STATS(A13 案例列、技法列):[docs/STATS.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/STATS.md)
+- CLAUDE.md(A13 叫用詞、concept→3D 互動方式):[CLAUDE.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/CLAUDE.md)
+
+**🖼️ 圖檔與總覽**
+- A13 過程圖(`a13-01` ~ `a13-50`):[docs/asset-cases/images/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/docs/asset-cases/images)
+- 整個分支:[claude/wizardly-gauss-y2tnhh](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh)
+- 分支 commit 紀錄:[commits](https://github.com/TinaChen94/01/commits/claude/wizardly-gauss-y2tnhh)
+
+**💬 對話**
+- 本次工作階段:https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5
 
 ---
 
