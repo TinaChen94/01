@@ -72,6 +72,7 @@ canvas{background:#0d0e12;border:1px solid var(--line);max-width:100%;image-rend
     <label>側面亮度(<span id="sdv">0.70</span>;1 = 不壓暗)</label>
     <input type="range" id="side" min="0.4" max="1" step="0.01" value="0.7">
     <div class="cb"><input type="checkbox" id="sideCool" checked><label for="sideCool" style="margin:0;color:inherit">側面暗部偏冷(藍紫)</label></div>
+    <div class="cb"><input type="checkbox" id="skipV" checked><label for="skipV" style="margin:0;color:inherit">側面跳過 V 字帶(防多出三角形)</label></div>
     <div class="cb"><input type="checkbox" id="perFace" checked><label for="perFace" style="margin:0;color:inherit">每面轉到正對面取色(防側面拉扯)</label></div>
     <button id="bBake" disabled>烘焙貼圖</button>
     <button id="bDl" class="sec" disabled>下載 PNG</button>
@@ -256,7 +257,8 @@ function drawCheck(){
 
 /* ---------- bake ---------- */
 async function bake(){
-  const N=+$('size').value, pad=+$('pad').value, sd=+$('side').value, cool=$('sideCool').checked, pf=$('perFace').checked;
+  const N=+$('size').value, pad=+$('pad').value, sd=+$('side').value, cool=$('sideCool').checked, pf=$('perFace').checked, skipV=$('skipV').checked;
+  const Js=IMG.steps.slice().sort((a,b)=>a-b);
   $('log').textContent='烘焙中…'; await new Promise(r=>setTimeout(r,20));
   const t0=performance.now();
   const out=new Float32Array(N*N*3), fill=new Uint8Array(N*N), col=[0,0,0];
@@ -267,10 +269,10 @@ async function bake(){
     const n=triN(tri); if(!n)continue; let [nx,ny,nz]=n;
     const back=nz<0; if(back)nz=-nz;
     let cap=ny<-0.9, top=ny>0.9;
-    let azd=Math.atan2(nz,nx)*180/Math.PI, rot=0, fac=[1,1,1];
+    let azd=Math.atan2(nz,nx)*180/Math.PI, rot=0, fac=[1,1,1], side=false;
     if(!cap&&!top){
       if(pf){const tgt=M.src.length===2?(azd<90?Math.min(...M.src):Math.max(...M.src)):M.src[0]; rot=(tgt-azd)*Math.PI/180;}
-      const dev=Math.abs(azd-90), t=Math.min(1,Math.max(0,(dev-M.devF)/45));
+      const dev=Math.abs(azd-90); side=dev>M.devF+10; const t=Math.min(1,Math.max(0,(dev-M.devF)/45));
       fac=[1-(1-sd)*t,1-(1-Math.min(1,sd+(cool?0.04:0)))*t,1-(1-Math.min(1,sd+(cool?0.18:0)))*t];
     }
     const cr=Math.cos(rot),sr=Math.sin(rot);
@@ -288,7 +290,9 @@ async function bake(){
       let qx=l1*A[0]+l2*B[0]+l3*C[0], qy=l1*A[1]+l2*B[1]+l3*C[1], qz=l1*A[2]+l2*B[2]+l3*C[2];
       if(back)qz=-qz;
       const rx=cr*qx-sr*qz;            // rotate azimuth by +rot about Y
-      const p=toImg(rx,qy); sampleImg(p[0],p[1],col);
+      const p=toImg(rx,qy);
+      if(side&&skipV){for(const J of Js){const vh=0.42*IMG.HW[Math.max(0,J-8)]; if(p[1]>J-vh&&p[1]<J-4){p[1]=J-vh-2;break;}}}
+      sampleImg(p[0],p[1],col);
       out[i*3]=col[0]*fac[0];out[i*3+1]=col[1]*fac[1];out[i*3+2]=col[2]*fac[2];fill[i]=1;
     }
   }
