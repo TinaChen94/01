@@ -73,6 +73,12 @@
   關鍵教訓已收進 B2:幾何滲漏、像素預算(Crop-Gen-Paste)、
   頂光 = 立體感+可旋轉兩全、AI 畫的深度圖不可信。
 
+## concept→3D 互動方式(使用者指定)
+
+使用者說「拆掉這張概念圖」「concept→3D」「三視圖重建」時:**一步一步引導詢問,不要一次跑一大串**。
+每輪只做目前這一步、先問 1~2 個決策問題、收到結果檢查後才進下一步,回覆結尾寫「下一步:…」。
+階段表見 `.claude/skills/ai-media-generator/SKILL.md`〈concept→3D 互動規則〉。
+
 ## 平台操作要點(Leonardo.ai)
 
 - 輸入圖一律滿版無 letterbox;輸出 Dimensions 比例 = 輸入圖比例
