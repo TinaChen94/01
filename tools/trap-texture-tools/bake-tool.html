@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>正交圖烘貼圖工具</title>
+<style>
+:root{--bg:#16171c;--panel:#1f2128;--line:#30333d;--text:#e6e6ea;--mute:#9a9cab;--acc:#d8a64a;--ok:#5bbf7a;--warn:#e0a03c;--bad:#e06060}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI","Microsoft JhengHei","PingFang TC",sans-serif}
+header{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+header h1{font-size:18px;margin:0}
+header span{color:var(--mute);font-size:13px}
+main{display:grid;grid-template-columns:330px 1fr;min-height:calc(100vh - 52px)}
+aside{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+section{margin-bottom:16px}
+h2{font-size:13px;color:var(--acc);margin:0 0 8px;letter-spacing:.5px}
+label{display:block;margin:6px 0 2px;color:var(--mute);font-size:12px}
+input[type=file]{width:100%;color:var(--mute);font-size:12px}
+select,input[type=number]{width:100%;background:#15161b;color:var(--text);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+input[type=range]{width:100%}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+button{width:100%;padding:9px;border:0;border-radius:5px;background:var(--acc);color:#1b1407;font-weight:600;cursor:pointer;margin-top:6px}
+button.sec{background:#2c2f39;color:var(--text)}
+button:disabled{opacity:.4;cursor:default}
+.check{font-size:12px;padding:8px;border-radius:5px;background:#15161b;border:1px solid var(--line);white-space:pre-line}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.tabs{display:flex;gap:4px;padding:10px 14px 0}
+.tabs button{width:auto;margin:0;padding:7px 14px;background:#22242c;color:var(--mute);border-radius:5px 5px 0 0;font-weight:500}
+.tabs button.on{background:#2c2f39;color:var(--text)}
+.view{padding:14px;display:none}
+.view.on{display:block}
+canvas{background:#0d0e12;border:1px solid var(--line);max-width:100%;image-rendering:auto}
+.hint{color:var(--mute);font-size:12px;margin:6px 0}
+.cb{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--text);margin:6px 0}
+#log{font-size:12px;color:var(--mute);margin-top:6px}
+@media (max-width:820px){main{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header><h1>正交圖烘貼圖工具</h1><span>2D 正交正面圖 + 3D 模型 OBJ(含 UV)→ 照你的 UV 烘出貼圖 · 全程在本機瀏覽器計算,不上傳任何檔案 · A13</span></header>
+<main>
+<aside>
+  <section>
+    <h2>① 載入</h2>
+    <label>3D 模型 OBJ(3ds Max:Export Selected,勾 Texture Coordinates)</label>
+    <input type="file" id="fObj" accept=".obj">
+    <label>正面正交圖(PNG / JPG,中性灰或單色底)</label>
+    <input type="file" id="fImg" accept="image/*">
+    <div id="info" class="hint"></div>
+  </section>
+  <section>
+    <h2>② 模型設定</h2>
+    <div class="row">
+      <div><label>向上軸</label><select id="upAxis"><option value="auto">自動</option><option value="1">Y</option><option value="2">Z</option></select></div>
+      <div><label>正面朝向</label><select id="front"><option value="+">+ 方向</option><option value="-">− 方向</option></select></div>
+    </div>
+    <div class="cb"><input type="checkbox" id="tierAuto" checked><label for="tierAuto" style="margin:0;color:inherit">自動逐節對齊高度(偵測階梯)</label></div>
+  </section>
+  <section>
+    <h2>③ 對位檢查(烘之前先看)</h2>
+    <div id="check" class="check">載入兩個檔案後自動檢查。</div>
+    <p class="hint">看「對位檢查」分頁:黃線 = 模型輪廓與每節交界。黃線要貼著圖上的邊;交界處若是 V 字或看得到台階頂面,代表圖不是正交,先矯正再烘。</p>
+  </section>
+  <section>
+    <h2>④ 烘焙</h2>
+    <div class="row">
+      <div><label>貼圖尺寸</label><select id="size"><option>1024</option><option selected>2048</option><option>4096</option></select></div>
+      <div><label>補邊像素</label><input type="number" id="pad" value="8" min="0" max="32"></div>
+    </div>
+    <label>側面亮度(<span id="sdv">0.70</span>;1 = 不壓暗)</label>
+    <input type="range" id="side" min="0.4" max="1" step="0.01" value="0.7">
+    <div class="cb"><input type="checkbox" id="sideCool" checked><label for="sideCool" style="margin:0;color:inherit">側面暗部偏冷(藍紫)</label></div>
+    <div class="cb"><input type="checkbox" id="perFace" checked><label for="perFace" style="margin:0;color:inherit">每面轉到正對面取色(防側面拉扯)</label></div>
+    <button id="bBake" disabled>烘焙貼圖</button>
+    <button id="bDl" class="sec" disabled>下載 PNG</button>
+    <div id="log"></div>
+  </section>
+  <section>
+    <h2>說明</h2>
+    <p class="hint">適用:旋轉對稱 / 多邊形柱狀物(尖刺、柱子、燈柱、瓶罐)。後半面以前半鏡射取色(假設前後對稱)。朝下的底面填暗色。<br>非對稱、凹凸遮擋多的物件不適用(見 A13〈檢討〉)。</p>
+  </section>
+</aside>
+<div>
+  <div class="tabs">
+    <button data-v="vCheck" class="on">對位檢查</button>
+    <button data-v="vTex">貼圖 + UV</button>
+    <button data-v="v3d">3D 預覽</button>
+  </div>
+  <div id="vCheck" class="view on"><canvas id="cCheck" width="700" height="700"></canvas></div>
+  <div id="vTex" class="view"><canvas id="cTex" width="700" height="700"></canvas><div class="cb"><input type="checkbox" id="uvWire" checked><label for="uvWire" style="margin:0;color:inherit">顯示 UV 線框</label></div></div>
+  <div id="v3d" class="view">
+    <canvas id="c3d" width="600" height="700"></canvas>
+    <div style="max-width:600px">
+      <label>旋轉(<span id="yv">0</span>°)</label><input type="range" id="yaw" min="-180" max="180" value="0">
+      <label>俯仰(<span id="pv">0</span>°)</label><input type="range" id="pitch" min="-60" max="60" value="0">
+    </div>
+  </div>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let M=null, IMG=null, TEX=null, TEXSIZE=0;
+
+/* ---------- OBJ ---------- */
+function parseOBJ(txt){
+  const V=[],T=[],F=[];
+  for(const ln of txt.split(/\r?\n/)){
+    const p=ln.trim().split(/\s+/);
+    if(p[0]==='v')V.push([+p[1],+p[2],+p[3]]);
+    else if(p[0]==='vt')T.push([+p[1],+p[2]]);
+    else if(p[0]==='f'){
+      const idx=p.slice(1).map(q=>{const s=q.split('/');let v=+s[0],t=s[1]?+s[1]:0;return[v<0?V.length+v:v-1,t<0?T.length+t:t-1]});
+      for(let k=1;k<idx.length-1;k++)F.push([idx[0],idx[k],idx[k+1]]);
+    }
+  }
+  return {V,T,F};
+}
+function prepModel(){
+  if(!M)return;
+  const V=M.V; let mn=[1e9,1e9,1e9],mx=[-1e9,-1e9,-1e9];
+  for(const v of V)for(let i=0;i<3;i++){mn[i]=Math.min(mn[i],v[i]);mx[i]=Math.max(mx[i],v[i]);}
+  const ext=mx.map((m,i)=>m-mn[i]);
+  let up=$('upAxis').value==='auto'?(ext[1]>=ext[2]?1:2):+$('upAxis').value;
+  // canonical: x = width, y = up, z = depth (front = +z)
+  const zi=up===1?2:1, sgn=$('front').value==='+'?1:-1;
+  const P=V.map(v=>[v[0],v[up],(up===2?-v[1]:v[2])*sgn]);
+  let a=[1e9,1e9,1e9],b=[-1e9,-1e9,-1e9];
+  for(const p of P)for(let i=0;i<3;i++){a[i]=Math.min(a[i],p[i]);b[i]=Math.max(b[i],p[i]);}
+  const ax=(a[0]+b[0])/2, half=Math.abs(a[2])<0.05*(b[0]-a[0])||Math.abs(b[2])<0.05*(b[0]-a[0]);
+  const az= half?0:(a[2]+b[2])/2;
+  M.P=P.map(p=>[p[0]-ax,p[1],p[2]-az]); M.lo=a[1]; M.hi=b[1]; M.half=half;
+  if(half && b[2]<0.05*(b[0]-a[0])) M.P=M.P.map(p=>[p[0],p[1],-p[2]]); // keep front half on +z
+  // radius profile per height
+  const H=M.hi-M.lo, key=y=>Math.round((y-M.lo)/H*2000);
+  const mp=new Map();
+  for(const p of M.P){const k=key(p[1]),r=Math.hypot(p[0],p[2]);mp.set(k,Math.max(mp.get(k)||0,r));}
+  M.ring=[...mp.entries()].sort((x,y)=>x[0]-y[0]).map(([k,r])=>[M.lo+k/2000*H,r]);
+  M.rmax=Math.max(...M.ring.map(r=>r[1]));
+  // face azimuth clusters (folded to front half)
+  const cl=new Map(); let tot=0;
+  for(const t of M.F){const n=triN(t); if(!n)continue; const [nx,ny,nz,area]=n; if(Math.abs(ny)>0.9)continue;
+    let azd=Math.atan2(Math.abs(nz),nx)*180/Math.PI; const k=Math.round(azd*2)/2; cl.set(k,(cl.get(k)||0)+area); tot+=area;}
+  let ks=[...cl.entries()].filter(e=>e[1]>tot*0.01).map(e=>e[0]);
+  // merge near-duplicates
+  ks.sort((x,y)=>x-y); const mg=[]; for(const k of ks){ if(mg.length&&k-mg[mg.length-1]<3)continue; mg.push(k);}
+  const devF=Math.min(...mg.map(k=>Math.abs(k-90)));
+  M.src=mg.filter(k=>Math.abs(Math.abs(k-90)-devF)<2); M.devF=devF;
+  M.steps=findModelSteps();
+}
+function triN(t){
+  const A=M.P[t[0][0]],B=M.P[t[1][0]],C=M.P[t[2][0]];
+  const u=[B[0]-A[0],B[1]-A[1],B[2]-A[2]],v=[C[0]-A[0],C[1]-A[1],C[2]-A[2]];
+  let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+  const L=Math.hypot(...n); if(L<1e-12)return null; return [n[0]/L,n[1]/L,n[2]/L,L/2];
+}
+function rModel(y){const R=M.ring; if(y<=R[0][0])return R[0][1]; for(let i=1;i<R.length;i++)if(y<=R[i][0]){const t=(y-R[i-1][0])/(R[i][0]-R[i-1][0]||1);return R[i-1][1]+(R[i][1]-R[i-1][1])*t;} return R[R.length-1][1];}
+function findModelSteps(){
+  const R=M.ring,H=M.hi-M.lo,out=[];
+  for(let i=1;i<R.length;i++){const dy=R[i][0]-R[i-1][0],dr=Math.abs(R[i][1]-R[i-1][1]);
+    if(dy<0.02*H && dr>0.03*M.rmax)out.push((R[i][0]+R[i-1][0])/2);}
+  const m=[];for(const s of out){if(m.length&&s-m[m.length-1]<0.015*H)continue;m.push(s);} return m;
+}
+
+/* ---------- image ---------- */
+function prepImage(img){
+  const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
+  const g=c.getContext('2d');g.drawImage(img,0,0);const d=g.getImageData(0,0,c.width,c.height);
+  const W=c.width,H=c.height,px=d.data;
+  const samp=(x0,y0)=>{let s=[0,0,0],n=0;for(let y=y0;y<y0+8;y++)for(let x=x0;x<x0+8;x++){const i=(y*W+x)*4;s[0]+=px[i];s[1]+=px[i+1];s[2]+=px[i+2];n++;}return s.map(v=>v/n);};
+  const cs=[samp(0,0),samp(W-8,0),samp(0,H-8),samp(W-8,H-8)];
+  const bg=[0,1,2].map(i=>cs.map(c=>c[i]).sort((a,b)=>a-b)[1]);
+  const HW=new Float32Array(H),CX=new Float32Array(H); let top=-1,bot=-1,xmin=W,xmax=0;
+  for(let y=0;y<H;y++){let lo=-1,hi=-1;for(let x=0;x<W;x++){const i=(y*W+x)*4;if(Math.abs(px[i]-bg[0])+Math.abs(px[i+1]-bg[1])+Math.abs(px[i+2]-bg[2])>40){if(lo<0)lo=x;hi=x;}}
+    if(hi-lo>2){HW[y]=(hi-lo)/2;CX[y]=(hi+lo)/2;if(top<0)top=y;bot=y;xmin=Math.min(xmin,lo);xmax=Math.max(xmax,hi);}}
+  IMG={W,H,px,bg,HW,CX,top,bot,cx:(xmin+xmax)/2,canvas:c};
+  IMG.steps=findImageSteps();
+}
+function findImageSteps(){
+  // tier junctions = horizontal bright (gold) lines inside the silhouette, plus silhouette width jumps
+  const {HW,CX,top,bot,px,W}=IMG,ih=bot-top,prof=new Float32Array(IMG.H);
+  for(let y=top;y<=bot;y++){const w=HW[y]*0.8;if(w<6)continue;let s=0,n=0;
+    for(let x=Math.round(CX[y]-w);x<=Math.round(CX[y]+w);x++){if(Math.abs(x-CX[y])<6)continue;const i=(y*W+x)*4;s+=px[i]+px[i+1]-px[i+2];n++;}
+    prof[y]=n?s/n:0;}
+  const R=15,cand=[];
+  for(let y=top+R;y<=bot-R;y++){let m=0;for(let k=-R;k<=R;k++)m+=prof[y+k];m/=2*R+1;const r=prof[y]-m;
+    let pk=true;for(let k=-3;k<=3;k++)if(prof[y+k]>prof[y])pk=false;
+    if(pk&&r>18)cand.push(y);}
+  for(let y=top+3;y<bot-3;y++)if(HW[y+2]-HW[y-1]>Math.max(2.5,0.004*ih))cand.push(y);
+  cand.sort((a,b)=>a-b);
+  const m=[];for(const s of cand){if(m.length&&s-m[m.length-1]<0.015*ih)continue;m.push(s);} return m;
+}
+/* ---------- height map ---------- */
+function buildHM(){
+  const H=M.hi-M.lo, ih=IMG.bot-IMG.top;
+  let pairs=[[0,0],[1,1]], note='';
+  if($('tierAuto').checked)pairs=[[0,0]];
+  const ms=M.steps.map(s=>(s-M.lo)/H).filter(f=>f>0.01&&f<0.99);
+  const is=IMG.steps.map(y=>(IMG.bot-y)/ih).filter(f=>f>0.01&&f<0.99).sort((a,b)=>a-b);
+  if($('tierAuto').checked){
+    const used=new Set(); let last=0;
+    for(const f of ms){let best=-1,bd=0.05;
+      is.forEach((g,i)=>{if(used.has(i)||g<=last)return;const d=Math.abs(g-f);if(d<bd){bd=d;best=i;}});
+      if(best>=0){used.add(best);last=is[best];pairs.push([f,is[best]]);}}
+    pairs.sort((a,b)=>a[0]-b[0]);
+    note=pairs.length>1?`逐節對齊:模型 ${ms.length} 個交界,配對到 ${pairs.length-1} 個`:`找不到可配對的交界 → 整體等比`;
+  } else note='整體等比(未逐節對齊)';
+  if(pairs[pairs.length-1][0]<1)pairs.push([1,1]);
+  M.HM=pairs; return note;
+}
+function interp(x,P){for(let i=1;i<P.length;i++)if(x<=P[i][0]){const t=(x-P[i-1][0])/(P[i][0]-P[i-1][0]||1);return P[i-1][1]+(P[i][1]-P[i-1][1])*t;}return P[P.length-1][1];}
+function toImg(x,y){
+  const f=(y-M.lo)/(M.hi-M.lo), fi=interp(Math.min(Math.max(f,0),1),M.HM);
+  const yy=IMG.bot-fi*(IMG.bot-IMG.top), row=Math.min(IMG.H-1,Math.max(0,yy|0));
+  const xx=IMG.cx+x/Math.max(rModel(y),1e-6)*Math.max(IMG.HW[row]-1.5,0);
+  return [xx,yy];
+}
+function sampleImg(x,y,out){
+  const {W,H,px}=IMG; x=Math.min(Math.max(x,0),W-1.001); y=Math.min(Math.max(y,0),H-1.001);
+  const x0=x|0,y0=y|0,fx=x-x0,fy=y-y0,i00=(y0*W+x0)*4,i10=i00+4,i01=i00+W*4,i11=i01+4;
+  for(let c=0;c<3;c++)out[c]=(px[i00+c]*(1-fx)+px[i10+c]*fx)*(1-fy)+(px[i01+c]*(1-fx)+px[i11+c]*fx)*fy;
+}
+
+/* ---------- check ---------- */
+function runCheck(){
+  if(!M||!IMG){return;}
+  prepModel(); const note=buildHM();
+  // width profile compare
+  let err=0,n=0; const H=M.hi-M.lo, ih=IMG.bot-IMG.top;
+  for(let k=1;k<100;k++){const f=k/100; const y=M.lo+f*H; const row=Math.round(IMG.bot-interp(f,M.HM)*ih);
+    const wi=IMG.HW[row]/ih, wm=rModel(y)/H; if(wm>0){err+=Math.abs(wi-wm)/Math.max(wm,0.01);n++;}}
+  err=err/n*100;
+  const cls=err<8?'ok':err<20?'warn':'bad';
+  const lines=[];
+  lines.push(`模型:${M.V.length} 頂點 / ${M.F.length} 三角面 / UV ${M.T.length}${M.half?'(只有前半,後半鏡射)':''}`);
+  lines.push(`正面取色來源面:${M.src.map(s=>s.toFixed(1)+'°').join(' / ')}(${M.src.length===2?'角朝前':'面朝前'})`);
+  lines.push(`圖片:${IMG.W}×${IMG.H},物件高 ${ih}px`);
+  lines.push(note);
+  $('check').innerHTML=lines.join('\n')+`\n<span class="${cls}">輪廓寬度差異 ${err.toFixed(1)}% ${cls==='ok'?'✅ 比例一致':cls==='warn'?'⚠️ 有落差,檢查黃線':'❌ 比例不符,這張圖不是照這個模型畫的'}</span>`;
+  drawCheck(); $('bBake').disabled=false;
+}
+function drawCheck(){
+  const c=$('cCheck'),g=c.getContext('2d'); const s=Math.min(c.width/IMG.W,c.height/IMG.H);
+  c.width=Math.round(IMG.W*s); c.height=Math.round(IMG.H*s);
+  g.drawImage(IMG.canvas,0,0,c.width,c.height); g.strokeStyle='#ffd84a'; g.lineWidth=1.5;
+  // silhouette from model profile
+  const pts=[]; for(let k=0;k<=400;k++){const y=M.lo+k/400*(M.hi-M.lo); const p=toImg(rModel(y),y); pts.push([p[0],p[1]]);}
+  for(const sgn of [1,-1]){g.beginPath();pts.forEach((p,i)=>{const x=IMG.cx+(p[0]-IMG.cx)*sgn;i?g.lineTo(x*s,p[1]*s):g.moveTo(x*s,p[1]*s)});g.stroke();}
+  // tier lines at model steps
+  g.setLineDash([4,3]);
+  for(const st of M.steps){const r=rModel(st); const p=toImg(r,st); g.beginPath(); g.moveTo((2*IMG.cx-p[0])*s,p[1]*s); g.lineTo(p[0]*s,p[1]*s); g.stroke();}
+  g.setLineDash([]);
+}
+
+/* ---------- bake ---------- */
+async function bake(){
+  const N=+$('size').value, pad=+$('pad').value, sd=+$('side').value, cool=$('sideCool').checked, pf=$('perFace').checked;
+  $('log').textContent='烘焙中…'; await new Promise(r=>setTimeout(r,20));
+  const t0=performance.now();
+  const out=new Float32Array(N*N*3), fill=new Uint8Array(N*N), col=[0,0,0];
+  const dark=[20,18,26];
+  for(const tri of M.F){
+    const A=M.P[tri[0][0]],B=M.P[tri[1][0]],C=M.P[tri[2][0]];
+    const ta=M.T[tri[0][1]],tb=M.T[tri[1][1]],tc=M.T[tri[2][1]]; if(!ta||!tb||!tc)continue;
+    const n=triN(tri); if(!n)continue; let [nx,ny,nz]=n;
+    const back=nz<0; if(back)nz=-nz;
+    let cap=ny<-0.9, top=ny>0.9;
+    let azd=Math.atan2(nz,nx)*180/Math.PI, rot=0, fac=[1,1,1];
+    if(!cap&&!top){
+      if(pf){const tgt=M.src.length===2?(azd<90?Math.min(...M.src):Math.max(...M.src)):M.src[0]; rot=(tgt-azd)*Math.PI/180;}
+      const dev=Math.abs(azd-90), t=Math.min(1,Math.max(0,(dev-M.devF)/45));
+      fac=[1-(1-sd)*t,1-(1-Math.min(1,sd+(cool?0.04:0)))*t,1-(1-Math.min(1,sd+(cool?0.18:0)))*t];
+    }
+    const cr=Math.cos(rot),sr=Math.sin(rot);
+    const U=[[ta[0]*N,(1-ta[1])*N],[tb[0]*N,(1-tb[1])*N],[tc[0]*N,(1-tc[1])*N]];
+    const x0=Math.max(0,Math.floor(Math.min(U[0][0],U[1][0],U[2][0]))),x1=Math.min(N-1,Math.ceil(Math.max(U[0][0],U[1][0],U[2][0])));
+    const y0=Math.max(0,Math.floor(Math.min(U[0][1],U[1][1],U[2][1]))),y1=Math.min(N-1,Math.ceil(Math.max(U[0][1],U[1][1],U[2][1])));
+    const den=(U[1][1]-U[2][1])*(U[0][0]-U[2][0])+(U[2][0]-U[1][0])*(U[0][1]-U[2][1]); if(Math.abs(den)<1e-9)continue;
+    for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+      const px=x+.5,py=y+.5;
+      const l1=((U[1][1]-U[2][1])*(px-U[2][0])+(U[2][0]-U[1][0])*(py-U[2][1]))/den;
+      const l2=((U[2][1]-U[0][1])*(px-U[2][0])+(U[0][0]-U[2][0])*(py-U[2][1]))/den, l3=1-l1-l2;
+      if(l1<-1e-4||l2<-1e-4||l3<-1e-4)continue;
+      const i=y*N+x;
+      if(cap){out[i*3]=dark[0];out[i*3+1]=dark[1];out[i*3+2]=dark[2];fill[i]=1;continue;}
+      let qx=l1*A[0]+l2*B[0]+l3*C[0], qy=l1*A[1]+l2*B[1]+l3*C[1], qz=l1*A[2]+l2*B[2]+l3*C[2];
+      if(back)qz=-qz;
+      const rx=cr*qx-sr*qz;            // rotate azimuth by +rot about Y
+      const p=toImg(rx,qy); sampleImg(p[0],p[1],col);
+      out[i*3]=col[0]*fac[0];out[i*3+1]=col[1]*fac[1];out[i*3+2]=col[2]*fac[2];fill[i]=1;
+    }
+  }
+  // edge padding
+  for(let it=0;it<pad;it++){
+    const nf=fill.slice(); let any=false;
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){const i=y*N+x; if(fill[i])continue; let s0=0,s1=0,s2=0,c=0;
+      if(x>0&&fill[i-1]){s0+=out[(i-1)*3];s1+=out[(i-1)*3+1];s2+=out[(i-1)*3+2];c++;}
+      if(x<N-1&&fill[i+1]){s0+=out[(i+1)*3];s1+=out[(i+1)*3+1];s2+=out[(i+1)*3+2];c++;}
+      if(y>0&&fill[i-N]){s0+=out[(i-N)*3];s1+=out[(i-N)*3+1];s2+=out[(i-N)*3+2];c++;}
+      if(y<N-1&&fill[i+N]){s0+=out[(i+N)*3];s1+=out[(i+N)*3+1];s2+=out[(i+N)*3+2];c++;}
+      if(c){out[i*3]=s0/c;out[i*3+1]=s1/c;out[i*3+2]=s2/c;nf[i]=1;any=true;}}
+    fill.set(nf); if(!any)break;
+  }
+  const cv=document.createElement('canvas');cv.width=cv.height=N;const g=cv.getContext('2d');const d=g.createImageData(N,N);
+  for(let i=0;i<N*N;i++){const f=fill[i];d.data[i*4]=f?out[i*3]:dark[0];d.data[i*4+1]=f?out[i*3+1]:dark[1];d.data[i*4+2]=f?out[i*3+2]:dark[2];d.data[i*4+3]=255;}
+  g.putImageData(d,0,0); TEX=cv; TEXSIZE=N;
+  TEX.px=d.data;
+  $('log').textContent=`完成:${N}×${N},${((performance.now()-t0)/1000).toFixed(1)} 秒`;
+  $('bDl').disabled=false; drawTex(); draw3d(); showTab('v3d');
+}
+function drawTex(){
+  if(!TEX)return; const c=$('cTex'),g=c.getContext('2d'); c.width=c.height=700; g.drawImage(TEX,0,0,700,700);
+  if(!$('uvWire').checked)return; g.strokeStyle='rgba(120,220,255,.6)'; g.lineWidth=0.6;
+  for(const t of M.F){g.beginPath();t.forEach((v,k)=>{const uv=M.T[v[1]];if(!uv)return;const x=uv[0]*700,y=(1-uv[1])*700;k?g.lineTo(x,y):g.moveTo(x,y)});g.closePath();g.stroke();}
+}
+
+/* ---------- 3D preview (software raster) ---------- */
+function draw3d(){
+  if(!M||!TEX)return;
+  const c=$('c3d'),g=c.getContext('2d'),W=c.width,H=c.height;
+  const yaw=+$('yaw').value*Math.PI/180,pit=+$('pitch').value*Math.PI/180; $('yv').textContent=$('yaw').value;$('pv').textContent=$('pitch').value;
+  const img=g.createImageData(W,H),zb=new Float32Array(W*H).fill(-1e9);
+  for(let i=0;i<W*H;i++){img.data[i*4]=48;img.data[i*4+1]=50;img.data[i*4+2]=58;img.data[i*4+3]=255;}
+  const cy=(M.lo+M.hi)/2, sc=H*0.88/(M.hi-M.lo), N=TEXSIZE, tp=TEX.px;
+  const tris=[]; for(const t of M.F){tris.push([t,1]); if(M.half)tris.push([t,-1]);}
+  const tf=(p,m)=>{let x=p[0],y=p[1]-cy,z=p[2]*m; let X=Math.cos(yaw)*x+Math.sin(yaw)*z, Z=-Math.sin(yaw)*x+Math.cos(yaw)*z; let Y=Math.cos(pit)*y-Math.sin(pit)*Z; Z=Math.sin(pit)*y+Math.cos(pit)*Z; return [W/2+X*sc,H/2-Y*sc,Z];};
+  for(const [t,m] of tris){
+    const q=t.map(v=>tf(M.P[v[0]],m)), uv=t.map(v=>M.T[v[1]]); if(!uv[0]||!uv[1]||!uv[2])continue;
+    const x0=Math.max(0,Math.floor(Math.min(q[0][0],q[1][0],q[2][0]))),x1=Math.min(W-1,Math.ceil(Math.max(q[0][0],q[1][0],q[2][0])));
+    const y0=Math.max(0,Math.floor(Math.min(q[0][1],q[1][1],q[2][1]))),y1=Math.min(H-1,Math.ceil(Math.max(q[0][1],q[1][1],q[2][1])));
+    const den=(q[1][1]-q[2][1])*(q[0][0]-q[2][0])+(q[2][0]-q[1][0])*(q[0][1]-q[2][1]); if(Math.abs(den)<1e-9)continue;
+    for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+      const l1=((q[1][1]-q[2][1])*(x+.5-q[2][0])+(q[2][0]-q[1][0])*(y+.5-q[2][1]))/den;
+      const l2=((q[2][1]-q[0][1])*(x+.5-q[2][0])+(q[0][0]-q[2][0])*(y+.5-q[2][1]))/den,l3=1-l1-l2;
+      if(l1<0||l2<0||l3<0)continue; const z=l1*q[0][2]+l2*q[1][2]+l3*q[2][2],i=y*W+x; if(z<=zb[i])continue; zb[i]=z;
+      const u=l1*uv[0][0]+l2*uv[1][0]+l3*uv[2][0],v=l1*uv[0][1]+l2*uv[1][1]+l3*uv[2][1];
+      const tx=Math.min(N-1,Math.max(0,(u*N)|0)),ty=Math.min(N-1,Math.max(0,((1-v)*N)|0)),k=(ty*N+tx)*4;
+      img.data[i*4]=tp[k];img.data[i*4+1]=tp[k+1];img.data[i*4+2]=tp[k+2];
+    }
+  }
+  g.putImageData(img,0,0);
+}
+
+/* ---------- UI ---------- */
+function showTab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===id));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.v));
+$('fObj').onchange=async e=>{const f=e.target.files[0];if(!f)return;M=parseOBJ(await f.text());$('info').textContent=`OBJ:${f.name}`;runCheck();};
+$('fImg').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{prepImage(im);$('info').textContent+=`  圖:${f.name}`;runCheck();};im.src=URL.createObjectURL(f);};
+['upAxis','front','tierAuto'].forEach(id=>$(id).onchange=runCheck);
+$('side').oninput=()=>$('sdv').textContent=(+$('side').value).toFixed(2);
+$('bBake').onclick=bake;
+$('bDl').onclick=()=>{TEX.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`baked_${TEXSIZE}.png`;a.click();},'image/png');};
+$('uvWire').onchange=drawTex; $('yaw').oninput=draw3d; $('pitch').oninput=draw3d;
+</script>
+</body>
+</html>

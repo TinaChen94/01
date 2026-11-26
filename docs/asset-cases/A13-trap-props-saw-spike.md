@@ -102,6 +102,8 @@
 | ③ 形狀底稿(程式產) | 由 ① 直接算出的正交投影,保證比例與模型一致 | ![](images/a13-35-ortho-guide-from-model.png) |
 | **輸出:貼圖** | 照 ① 的 UV 排列;UV 島外補 8px 邊色;建議 4096 再縮 | ![](images/a13-41-trapB-final-texture.jpg) |
 
+> 🖥️ **不用 Claude 也能做:** 本機網頁工具 [`tools/trap-texture-tools/bake-tool.html`](../../tools/trap-texture-tools/bake-tool.html) —— 拖入 OBJ + 正交圖 → 對位檢查 → 烘焙 → 3D 預覽 → 下載 PNG(全程離線)。
+
 ## 步驟
 
 ```
