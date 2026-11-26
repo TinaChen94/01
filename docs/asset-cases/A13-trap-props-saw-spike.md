@@ -44,6 +44,15 @@
 
 # ⭐ 本案核心:2D 正交正面圖 + 3D 模型/UV → 烘出貼圖
 
+> 🧭 **定位:本案是 concept→3D SOP(「拆掉這張概念圖 / concept→3D / 三視圖重建」)的延伸。**
+> 原 SOP 止於正交參考板;A13 把鏈接到可上線貼圖:
+> **概念圖 → 正面正交圖 → 3D + UV → 貼圖產生**。SOP 端的摘要寫在
+> `.claude/skills/ai-media-generator/references/concept-to-3d-v2.md`〈延伸〉段。
+
+| ① 概念圖 | ② 正面正交圖 | ③ 3D + UV | ④ 貼圖產生 | 上線 |
+|---|---|---|---|---|
+| ![](images/a13-20-spike-crop.jpg) | ![](images/a13-37-ortho-fix-ps-composite.jpg) | ![](images/a13-33-model-fan-uv.png) | ![](images/a13-41-trapB-final-texture.jpg) | ![](images/a13-42-trapB-engine.png) |
+
 > **本案最重要、最可複用的流程。** 美術用 AI 畫好一張「正面正交圖」,建模師照自己習慣拆 UV,
 > 程式把正面圖**直接烘進模型自己的 UV** —— **UV 不用配合貼圖改、貼圖也不用手畫展開圖。**
 > 細節攻關過程見下方 [B-3](#b-3-尖刺建模--扇形-uv--烘貼圖本案最長的攻關);本節是可照做的 SOP。

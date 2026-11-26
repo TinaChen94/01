@@ -109,6 +109,7 @@ Prompt 寫完問自己：
 - ❌ 反模式：把物件翻成一段「文字設計描述」再從零生成 → 文字有損 + 模型用先驗補完 → **造型必漂移**。
 - ✅ 正解：**image-grounded extract**（Nano Banana Pro / Flux Kontext / Seedream 餵原圖）。文字只寫「呈現規格」（視角 + **明確否定來源相機** + 背景 + 平光 + 用途），**物件長相交給圖**。
 - 一致性錨 = 原圖 +（出完一視後）把該 render 也加進 reference + **固定 seed**，不是綁文字描述。
+- **延伸到貼圖(A13):概念圖 → 正面正交圖 → 3D+UV → 貼圖產生** — 3D 由人建模,程式從 OBJ 算正交底稿、把正交圖烘進使用者 UV(見 concept-to-3d-v2.md「延伸」段)。
 - 完整 SOP + **雙軌(保光影 / de-lit)** + 正交鎖 + 勝利模板 + checklist → **[references/concept-to-3d-v2.md](references/concept-to-3d-v2.md)**(V1 原版保留於 [concept-to-3d.md](references/concept-to-3d.md))
 
 ## 核心原則

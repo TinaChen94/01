@@ -194,9 +194,37 @@ Image B (SECOND) = the colour/lighting reference. Recolour Image A to match B ex
 
 ---
 
+## 🆕 延伸:完整鏈「概念圖 → 正面正交圖 → 3D + UV → 貼圖產生」(A13 實證)
+
+> 原本 SOP 止於「出正交參考板給 image-to-3D」。A13 把鏈延伸到**可上線貼圖**:
+> 3D 由人建模(不走 image-to-3D),貼圖由程式把正交圖**烘進建模師自己的 UV**。
+> 完整案例與逐字 prompt:`docs/asset-cases/A13-trap-props-saw-spike.md`(⭐ 核心流程段);工具 `tools/trap-texture-tools/`。
+
+```
+① 概念圖 ──(image-grounded extract;紅框 / 程式先切件)──▶ 單件物件
+② 單件 ──(正交鎖 + 修正 pass)──▶ 正面正交圖(造型 / 材質定稿)
+③ 正交圖 ──(Max 描底圖:Lathe / Tube / Sweep)──▶ 3D 模型 + 使用者自拆 UV → 匯出 OBJ
+④ OBJ ──(程式算「真正交」形狀底稿)──▶ NB2 照底稿 paint-over ──▶ 對齊模型的正交圖
+⑤ 正交圖 + OBJ/UV ──(程式烘焙:逐節對高、每面轉正對面取色、側面壓暗)──▶ 貼圖 ──▶ 手修 ──▶ 引擎
+```
+
+| 階段 | 交給 | 關鍵 | 失敗時 |
+|---|---|---|---|
+| ① 抽件 | NB2 + 程式 | 拆多件時**先用程式依畫圈切開,一張輸入只留一件** | 文字分界兩件互滲 |
+| ② 正交圖 | NB2 | 正交鎖;**ref 2 不可帶透視**;V 字 / 頂面用修正 pass 逐條點名 | 生成只能逼近正交 → 不要直接拿來烘 |
+| ③ 建模 | 人 | 照正交圖描輪廓;邊數、對稱用建模參數鎖(Sides=8),不靠 AI | — |
+| ④ 底稿 | 程式 | **從 OBJ 算**,比例 100% 等於模型 | 用「看起來像」的圖烘 = 必錯位 |
+| ⑤ 烘焙 | 程式 | UV 不用改;防側面拉扯;疊線框 + 斜角預覽驗收 | 糊 → UV 利用率低,烘 4K |
+
+**判斷:** 旋轉 / 多邊形對稱物 → 一張正面正交圖即可烘全部面(不用三視圖);非對稱物 → 正 / 側 / 背多張正交圖,依面法線取最近視圖。
+**與 image-to-3D 的分工:** 造型簡單、要精準(柱、尖刺、環、板)→ 人建模 + 本鏈;有機複雜造型 → image-to-3D(de-lit 軌)。
+
+---
+
 ## 📎 實證來源
 
 - **V1 原版 SOP(保留):** [concept-to-3d.md](concept-to-3d.md)(2026-06,哥德教堂正面三視踩坑)
 - **A4** 古堡概念圖拆解(建築四件):`docs/asset-cases/A4-castle-concept-decomposition.md`
 - **A5** 古堡三視圖重建(道具 turnaround,保光影↔de-lit 雙軌):`docs/asset-cases/A5-castle-turnaround-image-to-3d.md`
+- **A13** 陷阱道具(電鋸 / 尖刺):概念圖 → 正面正交圖 → 3D+UV → 程式烘貼圖(完整鏈):`docs/asset-cases/A13-trap-props-saw-spike.md`
 - 相關佐證:`nano-banana.md`(多圖 reference)、`templates/concept-to-3d-pipeline.md`(四步驟主模板)
