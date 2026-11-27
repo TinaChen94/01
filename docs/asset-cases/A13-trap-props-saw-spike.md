@@ -67,15 +67,15 @@
 
 ## 成品
 
-<a href="images/a13-43-final-scene.jpg"><img src="images/a13-43-final-scene.jpg" alt="final scene" width="420"></a>
+<a href="images/a13-43-final-scene.jpg"><img src="images/a13-43-final-scene.jpg" alt="final scene" width="630"></a>
 
 | 陷阱 A — 電鋸 + 軌道(Unity) | 陷阱 B — 尖刺 + 底座環(Unity) |
 |---|---|
-| <a href="images/a13-17-trapA-engine.jpg"><img src="images/a13-17-trapA-engine.jpg" alt="trapA" width="200"></a> | <a href="images/a13-42-trapB-engine.png"><img src="images/a13-42-trapB-engine.png" alt="trapB" width="200"></a> |
+| <a href="images/a13-17-trapA-engine.jpg"><img src="images/a13-17-trapA-engine.jpg" alt="trapA" width="300"></a> | <a href="images/a13-42-trapB-engine.png"><img src="images/a13-42-trapB-engine.png" alt="trapB" width="300"></a> |
 
 | 陷阱 A atlas(上半鋸片 + 軌道 tile) | 陷阱 B 貼圖(扇形 UV 烘焙 + 底座環) |
 |---|---|
-| <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" alt="atlasA" width="200"></a> | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="texB" width="200"></a> |
+| <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" alt="atlasA" width="300"></a> | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="texB" width="300"></a> |
 
 ---
 
@@ -90,7 +90,7 @@
 
 | ① 概念圖 | ② 正面正交圖 | ③ 3D + UV | ④ 貼圖產生 | 上線 |
 |---|---|---|---|---|
-| <a href="images/a13-20-spike-crop.jpg"><img src="images/a13-20-spike-crop.jpg" alt="" width="200"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="200"></a> | <a href="images/a13-33-model-fan-uv.png"><img src="images/a13-33-model-fan-uv.png" alt="" width="200"></a> | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="" width="200"></a> | <a href="images/a13-42-trapB-engine.png"><img src="images/a13-42-trapB-engine.png" alt="" width="200"></a> |
+| <a href="images/a13-20-spike-crop.jpg"><img src="images/a13-20-spike-crop.jpg" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> | <a href="images/a13-33-model-fan-uv.png"><img src="images/a13-33-model-fan-uv.png" alt="" width="300"></a> | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="" width="300"></a> | <a href="images/a13-42-trapB-engine.png"><img src="images/a13-42-trapB-engine.png" alt="" width="300"></a> |
 
 > **本案最重要、最可複用的流程。** 美術用 AI 畫好一張「正面正交圖」,建模師照自己習慣拆 UV,
 > 程式把正面圖**直接烘進模型自己的 UV** —— **UV 不用配合貼圖改、貼圖也不用手畫展開圖。**
@@ -101,9 +101,9 @@
 | 輸入 | 要求 | 本案實例 |
 |---|---|---|
 | **① 3D 模型 OBJ**(含 UV) | 3ds Max → Export Selected → OBJ,**勾 Texture Coordinates**;只選要烘的物件;可只做前半(後半鏡射) | `SM_Prop_TrapB`(八角 Lathe,扇形 UV) |
-| **② 正面正交圖** | **真正交**(每節交界是水平直線、看不到頂面);左右對稱;中性灰底;最好用 ③ 當形狀底稿畫出來 | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="200"></a> |
-| ③ 形狀底稿(程式產) | 由 ① 直接算出的正交投影,保證比例與模型一致 | <a href="images/a13-35-ortho-guide-from-model.png"><img src="images/a13-35-ortho-guide-from-model.png" alt="" width="200"></a> |
-| **輸出:貼圖** | 照 ① 的 UV 排列;UV 島外補 8px 邊色;建議 4096 再縮 | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="" width="200"></a> |
+| **② 正面正交圖** | **真正交**(每節交界是水平直線、看不到頂面);左右對稱;中性灰底;最好用 ③ 當形狀底稿畫出來 | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
+| ③ 形狀底稿(程式產) | 由 ① 直接算出的正交投影,保證比例與模型一致 | <a href="images/a13-35-ortho-guide-from-model.png"><img src="images/a13-35-ortho-guide-from-model.png" alt="" width="300"></a> |
+| **輸出:貼圖** | 照 ① 的 UV 排列;UV 島外補 8px 邊色;建議 4096 再縮 | <a href="images/a13-41-trapB-final-texture.jpg"><img src="images/a13-41-trapB-final-texture.jpg" alt="" width="300"></a> |
 
 > 🖥️ **不用 Claude 也能做:** 本機網頁工具 [`tools/trap-texture-tools/bake-tool.html`](../../tools/trap-texture-tools/bake-tool.html) —— 拖入 OBJ + 正交圖 → 對位檢查 → 烘焙 → 3D 預覽 → 下載 PNG(全程離線)。
 
@@ -156,7 +156,7 @@
 
 | 概念圖 | 局部裁切 | 去動態 + 精修 |
 |---|---|---|
-| <a href="images/a13-01-concept.jpg"><img src="images/a13-01-concept.jpg" alt="" width="200"></a> | <a href="images/a13-02-saw-crop.jpg"><img src="images/a13-02-saw-crop.jpg" alt="" width="200"></a> | <a href="images/a13-03-saw-static.jpg"><img src="images/a13-03-saw-static.jpg" alt="" width="200"></a> |
+| <a href="images/a13-01-concept.jpg"><img src="images/a13-01-concept.jpg" alt="" width="300"></a> | <a href="images/a13-02-saw-crop.jpg"><img src="images/a13-02-saw-crop.jpg" alt="" width="300"></a> | <a href="images/a13-03-saw-static.jpg"><img src="images/a13-03-saw-static.jpg" alt="" width="300"></a> |
 
 ## A-1. 電鋸圓盤:分兩次算(去動態 → 細節 pass)
 
@@ -166,7 +166,7 @@
 
 | 局部裁切(輸入) | 第 1 次:去動態 | 第 2 次:細節 pass |
 |---|---|---|
-| <a href="images/a13-02-saw-crop.jpg"><img src="images/a13-02-saw-crop.jpg" alt="" width="200"></a> | <a href="images/a13-03-saw-static.jpg"><img src="images/a13-03-saw-static.jpg" alt="" width="200"></a> | <a href="images/a13-55-saw-refined-pass2.jpg"><img src="images/a13-55-saw-refined-pass2.jpg" alt="" width="200"></a> |
+| <a href="images/a13-02-saw-crop.jpg"><img src="images/a13-02-saw-crop.jpg" alt="" width="300"></a> | <a href="images/a13-03-saw-static.jpg"><img src="images/a13-03-saw-static.jpg" alt="" width="300"></a> | <a href="images/a13-55-saw-refined-pass2.jpg"><img src="images/a13-55-saw-refined-pass2.jpg" alt="" width="300"></a> |
 
 ### 第 1 次 — 去動態 + AAA 重繪(ref 1 = 局部裁切,逐字)
 
@@ -272,7 +272,7 @@ objects. Keep the current palette and exposure.
 
 | 輸入(第 2 次成品) | 抽取結果(鋸齒仍不等距 → A-3 交程式) |
 |---|---|
-| <a href="images/a13-55-saw-refined-pass2.jpg"><img src="images/a13-55-saw-refined-pass2.jpg" alt="" width="200"></a> | <a href="images/a13-56-saw-extract-result.jpg"><img src="images/a13-56-saw-extract-result.jpg" alt="" width="200"></a> |
+| <a href="images/a13-55-saw-refined-pass2.jpg"><img src="images/a13-55-saw-refined-pass2.jpg" alt="" width="300"></a> | <a href="images/a13-56-saw-extract-result.jpg"><img src="images/a13-56-saw-extract-result.jpg" alt="" width="300"></a> |
 
 **Prompt(逐字):**
 ```text
@@ -315,11 +315,11 @@ albedo reference plate for image-to-3D.
 
 | NB2 原始(齒不等距、22~26 齒) | 24 齒等距(`radial_teeth.py`) | 去接縫 + 溝線正圓(`disc_seam_circle.py` + `hub_symmetry.py`) |
 |---|---|---|
-| <a href="images/a13-04-saw-ortho-raw.jpg"><img src="images/a13-04-saw-ortho-raw.jpg" alt="" width="200"></a> | <a href="images/a13-05-saw-24teeth.jpg"><img src="images/a13-05-saw-24teeth.jpg" alt="" width="200"></a> | <a href="images/a13-06-saw-seam-fixed.jpg"><img src="images/a13-06-saw-seam-fixed.jpg" alt="" width="200"></a> |
+| <a href="images/a13-04-saw-ortho-raw.jpg"><img src="images/a13-04-saw-ortho-raw.jpg" alt="" width="300"></a> | <a href="images/a13-05-saw-24teeth.jpg"><img src="images/a13-05-saw-24teeth.jpg" alt="" width="300"></a> | <a href="images/a13-06-saw-seam-fixed.jpg"><img src="images/a13-06-saw-seam-fixed.jpg" alt="" width="300"></a> |
 
 | 上下鏡射(盤面鏡射、鋸齒不翻) | 中心鐵圈正圓(透明底,`hub_round_rgba.py`) |
 |---|---|
-| <a href="images/a13-07-saw-mirror.jpg"><img src="images/a13-07-saw-mirror.jpg" alt="" width="200"></a> | <a href="images/a13-08-saw-hub-round.png"><img src="images/a13-08-saw-hub-round.png" alt="" width="200"></a> |
+| <a href="images/a13-07-saw-mirror.jpg"><img src="images/a13-07-saw-mirror.jpg" alt="" width="300"></a> | <a href="images/a13-08-saw-hub-round.png"><img src="images/a13-08-saw-hub-round.png" alt="" width="300"></a> |
 
 - **齒數**:量圓心 → 量出各齒間距(實測 14.5°~22.5°)→ 挑最好的一顆、縮到 15° → 環形複製 24 份;中間盤面原像素不動。
 - **接縫**:NB2 常在水平中線留一條拼接痕;盤面是同心紋 → 用旋轉 ±9° 的樣本覆蓋接縫帶。
@@ -405,7 +405,7 @@ parts.
 ```
 **光澤 pass 結果:**
 
-<a href="images/a13-57-saw-gloss-result.jpg"><img src="images/a13-57-saw-gloss-result.jpg" alt="saw gloss result" width="420"></a>
+<a href="images/a13-57-saw-gloss-result.jpg"><img src="images/a13-57-saw-gloss-result.jpg" alt="saw gloss result" width="630"></a>
 
 刃口亮線、齒面拉絲光澤、盤面同心紋與鋼製中心軸都出來了;但齒數 / 齒距又被 NB2 重畫(驗證「先光澤、後排齒」的順序)。
 
@@ -418,7 +418,7 @@ parts.
 
 | 環境球(依場景光源配色:暖吊燈 / 藍彩窗 / 火把帶) | Unity 設定 |
 |---|---|
-| <a href="images/a13-09-envcube-brushed.jpg"><img src="images/a13-09-envcube-brushed.jpg" alt="" width="200"></a> | <a href="images/a13-10-unity-envcube-setting.png"><img src="images/a13-10-unity-envcube-setting.png" alt="" width="200"></a> |
+| <a href="images/a13-09-envcube-brushed.jpg"><img src="images/a13-09-envcube-brushed.jpg" alt="" width="300"></a> | <a href="images/a13-10-unity-envcube-setting.png"><img src="images/a13-10-unity-envcube-setting.png" alt="" width="300"></a> |
 
   - PNG 拖不進 Cube 欄位 → **Texture Shape 改 Cube**;2:1 圖選 Latitude-Longitude,正方形鏡面球選 Mirrored Ball。
   - 切 shader 變亮 = Cube 空著 + CustCube Scale 1 + 無頂點色(Alpha 預設 1)→ 先把 Scale 拉 0 確認,金屬從 0.3 起加。
@@ -428,11 +428,11 @@ parts.
 
 | NB2 去齒輪/鋸片後 | 空溝槽橫向 tile(x3 接縫預覽) |
 |---|---|
-| <a href="images/a13-11-rail-gen.jpg"><img src="images/a13-11-rail-gen.jpg" alt="" width="200"></a> | <a href="images/a13-12-rail-empty-tile-x3.jpg"><img src="images/a13-12-rail-empty-tile-x3.jpg" alt="" width="200"></a> |
+| <a href="images/a13-11-rail-gen.jpg"><img src="images/a13-11-rail-gen.jpg" alt="" width="300"></a> | <a href="images/a13-12-rail-empty-tile-x3.jpg"><img src="images/a13-12-rail-empty-tile-x3.jpg" alt="" width="300"></a> |
 
 | NB2 正交上視 | 上視 tile(螺栓固定 212.5px 間距) | 4 變化型 + 端頭互拼檢查 |
 |---|---|---|
-| <a href="images/a13-13-rail-top-gen.jpg"><img src="images/a13-13-rail-top-gen.jpg" alt="" width="200"></a> | <a href="images/a13-14-rail-top-tile-x3.jpg"><img src="images/a13-14-rail-top-tile-x3.jpg" alt="" width="200"></a> | <a href="images/a13-15-rail-variants-join.jpg"><img src="images/a13-15-rail-variants-join.jpg" alt="" width="200"></a> |
+| <a href="images/a13-13-rail-top-gen.jpg"><img src="images/a13-13-rail-top-gen.jpg" alt="" width="300"></a> | <a href="images/a13-14-rail-top-tile-x3.jpg"><img src="images/a13-14-rail-top-tile-x3.jpg" alt="" width="300"></a> | <a href="images/a13-15-rail-variants-join.jpg"><img src="images/a13-15-rail-variants-join.jpg" alt="" width="300"></a> |
 
 - 裁切 14:1 太扁 → NB2 輸出不了 → **裁一段 2:1 滿版**跑,做好一段再程式接長。
 - tile 切法:找自相關最佳的重複長度,切口落在鏈條/螺栓**中間**、淡入淡出。
@@ -470,13 +470,13 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 
 | 裁切 | 一段式(程式拉直) | 使用者 NB2 造型鏈 | 調性對齊場景後 |
 |---|---|---|---|
-| <a href="images/a13-20-spike-crop.jpg"><img src="images/a13-20-spike-crop.jpg" alt="" width="200"></a> | <a href="images/a13-22-spike-onepiece.jpg"><img src="images/a13-22-spike-onepiece.jpg" alt="" width="200"></a> | <a href="images/a13-23-spike-design-chain.jpg"><img src="images/a13-23-spike-design-chain.jpg" alt="" width="200"></a> | <a href="images/a13-31-spike-restyled.jpg"><img src="images/a13-31-spike-restyled.jpg" alt="" width="200"></a> |
+| <a href="images/a13-20-spike-crop.jpg"><img src="images/a13-20-spike-crop.jpg" alt="" width="300"></a> | <a href="images/a13-22-spike-onepiece.jpg"><img src="images/a13-22-spike-onepiece.jpg" alt="" width="300"></a> | <a href="images/a13-23-spike-design-chain.jpg"><img src="images/a13-23-spike-design-chain.jpg" alt="" width="300"></a> | <a href="images/a13-31-spike-restyled.jpg"><img src="images/a13-31-spike-restyled.jpg" alt="" width="300"></a> |
 
 ## B-1. 紅圈 / 藍圈拆件:先用程式切開,再生成
 
 | 使用者畫圈 | 程式切出:紅=尖刺 | 程式切出:藍=底座(擋住處填灰待補) |
 |---|---|---|
-| <a href="images/a13-24-spike-mark-red-blue.jpg"><img src="images/a13-24-spike-mark-red-blue.jpg" alt="" width="200"></a> | <a href="images/a13-25-masked-red.jpg"><img src="images/a13-25-masked-red.jpg" alt="" width="200"></a> | <a href="images/a13-26-masked-blue.jpg"><img src="images/a13-26-masked-blue.jpg" alt="" width="200"></a> |
+| <a href="images/a13-24-spike-mark-red-blue.jpg"><img src="images/a13-24-spike-mark-red-blue.jpg" alt="" width="300"></a> | <a href="images/a13-25-masked-red.jpg"><img src="images/a13-25-masked-red.jpg" alt="" width="300"></a> | <a href="images/a13-26-masked-blue.jpg"><img src="images/a13-26-masked-blue.jpg" alt="" width="300"></a> |
 
 只靠「紅圈 / 藍圈」文字讓 NB2 分界 → 兩次都失敗(尖刺帶進底盤、底盤被重新設計成藍鋼八角板)。
 **改成每張輸入只留一個部件,prompt 只給這一張**,一次成功。
@@ -498,7 +498,7 @@ It is a hole, NOT a solid top, and nothing stands in it. ...
 
 | 文字寫 octagonal → 出 12 邊 | 程式畫正八邊形導引(角朝前、對齊尖刺稜線) | NB2 paint-over 成功 | 程式拆出頂面正俯視 |
 |---|---|---|---|
-| <a href="images/a13-27-ring-fail-12gon.jpg"><img src="images/a13-27-ring-fail-12gon.jpg" alt="" width="200"></a> | <a href="images/a13-28-ring-octa-guide.png"><img src="images/a13-28-ring-octa-guide.png" alt="" width="200"></a> | <a href="images/a13-29-ring-octa-result.jpg"><img src="images/a13-29-ring-octa-result.jpg" alt="" width="200"></a> | <a href="images/a13-30-ring-top-view.jpg"><img src="images/a13-30-ring-top-view.jpg" alt="" width="200"></a> |
+| <a href="images/a13-27-ring-fail-12gon.jpg"><img src="images/a13-27-ring-fail-12gon.jpg" alt="" width="300"></a> | <a href="images/a13-28-ring-octa-guide.png"><img src="images/a13-28-ring-octa-guide.png" alt="" width="300"></a> | <a href="images/a13-29-ring-octa-result.jpg"><img src="images/a13-29-ring-octa-result.jpg" alt="" width="300"></a> | <a href="images/a13-30-ring-top-view.jpg"><img src="images/a13-30-ring-top-view.jpg" alt="" width="300"></a> |
 
 ```text
 Image 1 (FIRST) = the EXACT geometry: a REGULAR OCTAGONAL ring — exactly
@@ -516,14 +516,14 @@ Max:Tube Sides=8、取消 Smooth、內徑 = 外徑 × 0.8、轉 22.5° 讓角朝
 
 | 增高 1.5×(底座不拉) | 使用者扇形 UV | 第一版投影:金邊掉到牆面(V 字透視) |
 |---|---|---|
-| <a href="images/a13-32-spike-tall.jpg"><img src="images/a13-32-spike-tall.jpg" alt="" width="200"></a> | <a href="images/a13-33-model-fan-uv.png"><img src="images/a13-33-model-fan-uv.png" alt="" width="200"></a> | <a href="images/a13-34-bake-misaligned.png"><img src="images/a13-34-bake-misaligned.png" alt="" width="200"></a> |
+| <a href="images/a13-32-spike-tall.jpg"><img src="images/a13-32-spike-tall.jpg" alt="" width="300"></a> | <a href="images/a13-33-model-fan-uv.png"><img src="images/a13-33-model-fan-uv.png" alt="" width="300"></a> | <a href="images/a13-34-bake-misaligned.png"><img src="images/a13-34-bake-misaligned.png" alt="" width="300"></a> |
 
 **根因**:AI 畫的「正面圖」其實是略俯視 → 每節頂邊是 V 字。投影到水平邊的模型必然錯位。
 **解法:從使用者的 OBJ 算出真正正交的形狀底稿**,讓 NB2 照底稿上色。
 
 | 程式從 OBJ 算的正交底稿 | 疊上使用者截圖輪廓(紅線)驗證比例一致 | 修正 pass + PS 合成後的正交圖 |
 |---|---|---|
-| <a href="images/a13-35-ortho-guide-from-model.png"><img src="images/a13-35-ortho-guide-from-model.png" alt="" width="200"></a> | <a href="images/a13-36-guide-vs-model-overlay.png"><img src="images/a13-36-guide-vs-model-overlay.png" alt="" width="200"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="200"></a> |
+| <a href="images/a13-35-ortho-guide-from-model.png"><img src="images/a13-35-ortho-guide-from-model.png" alt="" width="300"></a> | <a href="images/a13-36-guide-vs-model-overlay.png"><img src="images/a13-36-guide-vs-model-overlay.png" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
 
 **底稿上色時不要給有透視的參考圖**(會把立體角度一起學走,B9 同理)。最後有效的是「修正 pass」——
 拿接近正交的成品當唯一輸入,把錯誤逐條點名:
@@ -550,7 +550,7 @@ does NOT look down at all. ...
 
 | ⓪ 原圖(略俯視,交界 V 字) | ① 正交抽取 prompt 重算 | ② 修正 pass 重算 | ③ PS 合成定稿 |
 |---|---|---|---|
-| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" alt="" width="200"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" alt="" width="200"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" alt="" width="200"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="200"></a> |
+| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" alt="" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" alt="" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
 | 有透視 | 透視大幅減少,但交界仍有小 V 字、可見台階頂面 | 交界全部水平 ✅,但**凸環造型被簡化掉** ❌ | 交界取 ②、凸環 / 尖頂取 ① → 定案 ✅ |
 
 - ① 用〈③ 正交抽取〉prompt(image-grounded + 正交鎖 + 點名否定來源俯角),ref 只給原圖。
@@ -562,7 +562,7 @@ does NOT look down at all. ...
 
 | v5 預覽:左 v4、中 v5 正面、右 轉 40° | v4 的側面三角形 bug | 古銅 → 銀色(加強藍紫) |
 |---|---|---|
-| <a href="images/a13-38-bake-v5-preview.png"><img src="images/a13-38-bake-v5-preview.png" alt="" width="200"></a> | <a href="images/a13-39-side-triangles-bug.png"><img src="images/a13-39-side-triangles-bug.png" alt="" width="200"></a> | <a href="images/a13-40-silver-cmp.png"><img src="images/a13-40-silver-cmp.png" alt="" width="200"></a> |
+| <a href="images/a13-38-bake-v5-preview.png"><img src="images/a13-38-bake-v5-preview.png" alt="" width="300"></a> | <a href="images/a13-39-side-triangles-bug.png"><img src="images/a13-39-side-triangles-bug.png" alt="" width="300"></a> | <a href="images/a13-40-silver-cmp.png"><img src="images/a13-40-silver-cmp.png" alt="" width="300"></a> |
 
 1. **逐節對高度**:量正交圖每節交界列,對應模型每圈頂點高度(分段線性),寬度也照每節輪廓。
 2. **防拉扯**:正面投影時兩側面被壓到 cos67.5°≈0.38 → 拉長 2.6 倍。改成**每個面先旋轉到最近的中間面再取色**,8 面都是正面取色。
@@ -578,14 +578,14 @@ does NOT look down at all. ...
 
 | 輪 | 輸入(ref) | 意圖 | 結果 |
 |---|---|---|---|
-| 1 | 尖刺原圖 + 電鋸 atlas(軌道鋼條當材質) | 正俯視八角底盤,中間暗洞(prompt 見下) | <a href="images/a13-45-plate-r1-topdown-steel.jpg"><img src="images/a13-45-plate-r1-topdown-steel.jpg" alt="" width="200"></a> 藍鋼、暗洞 ✅、單層邊框 |
-| 2 | 斜角立體藍鋼八角板(B-1 的失敗品) | 「給我正交上方視角」— 拿立體版轉正俯視 | <a href="images/a13-47-plate-r2-topdown.jpg"><img src="images/a13-47-plate-r2-topdown.jpg" alt="" width="200"></a> 正交 ✅,但洞**透出灰底**、多一圈凸起內框 |
-| 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" alt="" width="200"></a> 古銅 ✅,洞仍透灰 ❌ |
-| 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" alt="" width="200"></a> 古銅 ✅、暗洞 ✅ → **採用** |
+| 1 | 尖刺原圖 + 電鋸 atlas(軌道鋼條當材質) | 正俯視八角底盤,中間暗洞(prompt 見下) | <a href="images/a13-45-plate-r1-topdown-steel.jpg"><img src="images/a13-45-plate-r1-topdown-steel.jpg" alt="" width="300"></a> 藍鋼、暗洞 ✅、單層邊框 |
+| 2 | 斜角立體藍鋼八角板(B-1 的失敗品) | 「給我正交上方視角」— 拿立體版轉正俯視 | <a href="images/a13-47-plate-r2-topdown.jpg"><img src="images/a13-47-plate-r2-topdown.jpg" alt="" width="300"></a> 正交 ✅,但洞**透出灰底**、多一圈凸起內框 |
+| 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" alt="" width="300"></a> 古銅 ✅,洞仍透灰 ❌ |
+| 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" alt="" width="300"></a> 古銅 ✅、暗洞 ✅ → **採用** |
 
 第 2 輪的輸入(斜角立體藍鋼板):
 
-<a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" alt="" width="420"></a>
+<a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" alt="" width="630"></a>
 
 **第 1 輪 prompt(逐字)**:
 ```text
@@ -620,7 +620,7 @@ texture. No spike, no text.
 ```
 References:① 古銅 12 邊環(色票)② 第 1 輪藍鋼正俯視八角板(暗洞版)。
 
-<a href="images/a13-50-plate-r4-leonardo-detail.jpg"><img src="images/a13-50-plate-r4-leonardo-detail.jpg" alt="" width="420"></a>
+<a href="images/a13-50-plate-r4-leonardo-detail.jpg"><img src="images/a13-50-plate-r4-leonardo-detail.jpg" alt="" width="630"></a>
 
 > 💡 **換材質 pass 不需要長 prompt**:形狀已經由輸入圖鎖住時,一句中文「參照這張的色調 調整」+ 色票參考就成功(與 B9「極短 prompt + 材質特寫」同理)。長鎖句反而容易讓模型重畫幾何。
 
@@ -634,7 +634,7 @@ References:① 古銅 12 邊環(色票)② 第 1 輪藍鋼正俯視八角板(暗
 
 左 = Claude bake 的原始素材、中 = 底座環加工素材、右 = 完稿:
 
-<a href="images/a13-44-trapB-texture-assembly.jpg"><img src="images/a13-44-trapB-texture-assembly.jpg" alt="trapB texture assembly" width="420"></a>
+<a href="images/a13-44-trapB-texture-assembly.jpg"><img src="images/a13-44-trapB-texture-assembly.jpg" alt="trapB texture assembly" width="630"></a>
 
 ---
 
@@ -745,7 +745,7 @@ References:① 古銅 12 邊環(色票)② 第 1 輪藍鋼正俯視八角板(暗
 - **教訓:移植 / 重寫工具時,要拿「上一版已驗收的成品」做回歸比對**(同一組 OBJ + 正交圖,新舊輸出疊圖比較),不能只看新工具「有跑出東西」。
 - 修正後使用者實測通過:
 
-<a href="images/a13-54-bake-tool-result.jpg"><img src="images/a13-54-bake-tool-result.jpg" alt="bake tool result" width="420"></a>
+<a href="images/a13-54-bake-tool-result.jpg"><img src="images/a13-54-bake-tool-result.jpg" alt="bake tool result" width="630"></a>
 
 ---
 
