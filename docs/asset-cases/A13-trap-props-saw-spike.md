@@ -992,14 +992,14 @@ Stylized AAA game asset. No spike, no new parts, no text.
 
 
 > B-2 的八角環是**斜角立體圖**(拆頂面/側面用);實際貼在底座頂面的「正俯視古銅八角環」是使用者另外跑的一條 NB2 鏈。
-> ⚠️ 第 2、3 輪 prompt 原文未留存,以「輸入 → 意圖 → 結果」記錄;第 1、4 輪附逐字 prompt。
+> 四輪 prompt 都已收錄:第 1 輪為長 prompt(見下),第 2~4 輪為一句中文短指令。
 
 | 輪 | 輸入(ref) | 意圖 | 結果 |
 |---|---|---|---|
 | 1 | 尖刺原圖 + 電鋸 atlas(軌道鋼條當材質) | 正俯視八角底盤,中間暗洞(prompt 見下) | <a href="images/a13-45-plate-r1-topdown-steel.jpg"><img src="images/a13-45-plate-r1-topdown-steel.jpg" alt="" width="300"></a> 藍鋼、暗洞 ✅、單層邊框 |
-| 2 | 斜角立體藍鋼八角板(B-1 的失敗品) | 「給我正交上方視角」— 拿立體版轉正俯視 | <a href="images/a13-47-plate-r2-topdown.jpg"><img src="images/a13-47-plate-r2-topdown.jpg" alt="" width="300"></a> 正交 ✅,但洞**透出灰底**、多一圈凸起內框 |
-| 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" alt="" width="300"></a> 古銅 ✅,洞仍透灰 ❌ |
-| 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" alt="" width="300"></a> 古銅 ✅、暗洞 ✅ → **採用** |
+| 2 | 斜角立體藍鋼八角板(B-1 的失敗品) | `給我正交 上方視角` — 拿立體版轉正俯視 | <a href="images/a13-47-plate-r2-topdown.jpg"><img src="images/a13-47-plate-r2-topdown.jpg" alt="" width="300"></a> 正交 ✅,但洞**透出灰底**、多一圈凸起內框 |
+| 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | `參照這張的色調 調整` — 換成古銅材質 | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" alt="" width="300"></a> 古銅 ✅,洞仍透灰 ❌ |
+| 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | `參照這張的色調 調整` — 換成古銅材質 | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" alt="" width="300"></a> 古銅 ✅、暗洞 ✅ → **採用** |
 
 **第 3、4 輪「調整色調」的素材(古銅色票):**
 
@@ -1047,6 +1047,20 @@ Soft even top lighting, no directional light, no cast shadows.
 Flat neutral grey (#808080) outside the octagon. Stylized AAA game
 texture. No spike, no text.
 ```
+
+**第 2、3 輪(逐字):**
+
+| 第 2 輪 輸入 | 第 2 輪 結果 | 第 3 輪 色票 | 第 3 輪 結果 |
+|---|---|---|---|
+| <a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" width="220"></a> | <a href="images/a13-47-plate-r2-topdown.jpg"><img src="images/a13-47-plate-r2-topdown.jpg" width="220"></a> | <a href="images/a13-27-ring-fail-12gon.jpg"><img src="images/a13-27-ring-fail-12gon.jpg" width="220"></a> | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" width="220"></a> |
+| 斜角立體藍鋼板 | 正俯視 ✅,洞透灰、多凸起內框 | 古銅 12 邊環(只取色) | 古銅 ✅,洞仍透灰 ❌ |
+
+```text
+第 2 輪:給我正交 上方視角
+第 3 輪:參照這張的色調 調整
+```
+- 第 2 輪只靠一句短指令就把立體斜角板轉成正俯視,形狀交給輸入圖、文字只講視角。
+- 第 3 輪換色成功,但透底的洞是從第 2 輪遺傳下來的 → 第 4 輪改用第 1 輪暗洞版當輸入、同一句指令再跑一次。
 
 **第 4 輪(採用版)prompt(逐字,Leonardo 生成紀錄)**:
 ```text
