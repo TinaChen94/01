@@ -50,7 +50,9 @@ pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8p
 <div id="easy">
   <div class="step"><b>1</b><div><div class="st">丟一張場景截圖</div><div class="hint">遊戲畫面、Unity Scene 視窗截圖都可以(拖進這個框,或點一下選檔)</div></div>
     <label class="drop" id="drop"><input type="file" id="fEasy" accept="image/*" hidden><span id="dropTxt">把截圖拖到這裡 / 點這裡選檔</span></label></div>
-  <div class="step"><b>2</b><div><div class="st">選金屬感覺</div>
+  <div class="step"><b>2</b><div><div class="st">選效果</div>
+    <div class="seg" id="styleSeg"><button type="button" class="sec on" data-m="clean">乾淨強烈(推薦:手排燈位 + 截圖配色)</button><button type="button" class="sec" data-m="wrap">照截圖原樣</button></div>
+    <div class="st" style="margin-top:10px">選金屬感覺</div>
     <label style="margin-top:8px">金屬對比(亮點更亮、其餘壓暗)<span class="v" id="cv">0.80</span></label><input type="range" id="contrast" min="0" max="1" step="0.01" value="0.8">
     <div class="seg"><button type="button" class="sec on" data-r="0.55">拉絲 / 霧面(銅盤,推薦)</button><button type="button" class="sec" data-r="0.12">亮面(鐵圈、刃口)</button></div></div></div>
   <div class="step"><b>3</b><div><div class="st">下載,拖進 Unity</div>
@@ -65,8 +67,8 @@ pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8p
     <label>場景截圖(選用,用來自動抓光源與色調)</label>
     <input type="file" id="fShot" accept="image/*">
     <div class="row">
-      <div><label>截圖水平視角(°)</label><input type="number" id="fov" value="90" min="30" max="180"></div>
-      <div><label>抓幾個光源</label><input type="number" id="nLights" value="8" min="1" max="16"></div>
+      <div><label>截圖水平視角(°)</label><input type="number" id="fov" value="110" min="30" max="180"></div>
+      <div><label>抓幾個光源</label><input type="number" id="nLights" value="10" min="1" max="16"></div>
     </div>
     <label style="display:flex;gap:6px;align-items:center;color:var(--text)"><input type="checkbox" id="mirrorBack" checked style="width:auto">光源鏡射到背後(反射才會從各角度都有光)</label>
     <button class="sec" id="bAuto">從截圖自動抓光源</button>
@@ -159,28 +161,34 @@ function applyPreset(){ $('cTop').value=PRESET.top;$('cHor').value=PRESET.hor;$(
 
 /* ---- auto from screenshot ---- */
 function autoFromShot(){
-  if(!SHOT){alert;return;}
-  const w=96,h=Math.max(8,Math.round(96*SHOT.height/SHOT.width));
+  if(!SHOT)return;
+  // 1) downscale, trim flat UI borders
+  const w=160,h=Math.max(8,Math.round(160*SHOT.height/SHOT.width));
   const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.drawImage(SHOT,0,0,w,h);
   const px=g.getImageData(0,0,w,h).data, L=new Float32Array(w*h);
   for(let i=0;i<w*h;i++)L[i]=0.2126*px[i*4]+0.7152*px[i*4+1]+0.0722*px[i*4+2];
-  const band=(y0,y1)=>{let s=[0,0,0],n=0;for(let y=Math.floor(y0*h);y<Math.max(Math.floor(y0*h)+1,Math.floor(y1*h));y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;s[0]+=px[i];s[1]+=px[i+1];s[2]+=px[i+2];n++;}return s.map(v=>v/n);};
-  const top=band(0,.12),mid=band(.42,.58),bot=band(.88,1);
-  $('cTop').value=rgb2hex(top.map(v=>v*0.7)); $('cHor').value=rgb2hex(mid); $('cBot').value=rgb2hex(bot.map(v=>v*0.7));
-  const fov=+$('fov').value, vfov=fov*h/w, N=+$('nLights').value, used=new Uint8Array(w*h), out=[];
-  const mean=L.reduce((a,b)=>a+b,0)/L.length;
-  for(let k=0;k<N;k++){
-    let best=-1,bv=0;for(let i=0;i<w*h;i++)if(!used[i]&&L[i]>bv){bv=L[i];best=i;}
-    if(best<0||bv<mean*1.35)break;
-    const bx=best%w,by=(best/w)|0; let s=[0,0,0],n=0,ext=0;
-    for(let y=Math.max(0,by-6);y<Math.min(h,by+7);y++)for(let x=Math.max(0,bx-6);x<Math.min(w,bx+7);x++){const i=y*w+x;
-      if(L[i]>bv*0.6){s[0]+=px[i*4];s[1]+=px[i*4+1];s[2]+=px[i*4+2];n++;ext=Math.max(ext,Math.hypot(x-bx,y-by));}}
-    for(let y=Math.max(0,by-8);y<Math.min(h,by+9);y++)for(let x=Math.max(0,bx-8);x<Math.min(w,bx+9);x++)used[y*w+x]=1;
-    const col=s.map(v=>v/n), m=Math.max(...col)||1;
-    out.push({az:Math.round((bx/w-0.5)*fov),el:Math.round((0.5-by/h)*vfov),size:Math.max(4,Math.round((ext+1)/w*fov)),color:rgb2hex(col.map(v=>v/m*255)),str:+(bv/255*1.2).toFixed(1)});
-  }
-  if($('mirrorBack').checked){const back=out.map(l=>({...l,az:l.az>=0?180-l.az:-180-l.az,str:+(l.str*0.7).toFixed(1)}));out.push(...back);}
-  LIGHTS=out; renderLights(); schedule();
+  const rowFlat=y=>{let s=0,s2=0;for(let x=0;x<w;x++){const v=L[y*w+x];s+=v;s2+=v*v;}const m=s/w;return Math.sqrt(Math.max(0,s2/w-m*m))<3;};
+  let t=0,b=h-1;while(t<h*0.2&&rowFlat(t))t++;while(b>h*0.8&&rowFlat(b))b--;
+  const H2=b-t+1;
+  // 2) sky / horizon / floor colours = median of bands (keeps the scene tone)
+  const med=(y0,y1)=>{const arr=[[],[],[]];for(let y=t+Math.floor(y0*H2);y<t+Math.max(Math.floor(y0*H2)+1,Math.floor(y1*H2));y++)for(let x=0;x<w;x+=2){const i=(y*w+x)*4;for(let k=0;k<3;k++)arr[k].push(px[i+k]);}
+    return arr.map(a=>{a.sort((p,q)=>p-q);return a[a.length>>1];});};
+  const top=med(0,.15),mid=med(.40,.60),bot=med(.85,1);
+  $('cTop').value=rgb2hex(top.map(v=>v*0.6)); $('cHor').value=rgb2hex(mid); $('cBot').value=rgb2hex(bot.map(v=>v*0.55));
+  // 3) colours of the scene's light: warm spots and cool spots (brighter than their surroundings)
+  const R=10,bg=new Float32Array(w*h);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){let s=0,n=0;for(let yy=Math.max(0,y-R);yy<=Math.min(h-1,y+R);yy+=2)for(let xx=Math.max(0,x-R);xx<=Math.min(w-1,x+R);xx+=2){s+=L[yy*w+xx];n++;}bg[y*w+x]=s/n;}
+  const warm=[],cool=[];
+  for(let y=t;y<=b;y++)for(let x=0;x<w;x++){const i=y*w+x,pr=L[i]-bg[i];if(pr<10)continue;
+    const r=px[i*4],gg=px[i*4+1],bb=px[i*4+2];
+    if(r>bb+20)warm.push([pr*L[i],r,gg,bb]); else if(bb>r+10)cool.push([(bb-bg[i])*bb,r,gg,bb]);}
+  const pick=(arr,def)=>{if(arr.length<3)return def;arr.sort((p,q)=>q[0]-p[0]);const top=arr.slice(0,Math.max(3,arr.length*0.1|0));
+    const m=[1,2,3].map(k=>top.reduce((s,v)=>s+v[k],0)/top.length),mx=Math.max(...m)||1;return rgb2hex(m.map(v=>v/mx*255));};
+  const W_=pick(warm,'#ffaa50'), C_=pick(cool,'#5a96ff');
+  // 4) clean, strong layout (same as the hand-made preset) using the scene's colours
+  const k=+$('contrast').value, st=0.7+0.6*k;
+  const out=PRESET.lights.map((l,i)=>({...l,color:i===0||(i>=5&&i<=8)?W_:(i>=1&&i<=4?C_:rgb2hex(hex2rgb(W_).map(v=>v*0.16)))),str:+(l.str*(i===9?1:st)).toFixed(2)}));
+  LIGHTS=out; MODE='lights'; renderLights(); schedule();
 }
 
 /* ---- env generation ---- */
@@ -300,16 +308,18 @@ $('bAuto').onclick=()=>{if(!SHOT){$('fShot').click();return;}autoFromShot();};
 $('bPreset').onclick=()=>{MODE='lights';applyPreset();};
 $('bAdd').onclick=()=>{MODE='lights';LIGHTS.push({az:0,el:20,size:10,color:'#ffffff',str:1});renderLights();schedule();};
 ['cTop','cHor','cBot','rough'].forEach(id=>$(id).oninput=schedule);
-$('contrast').oninput=()=>{$('cv').textContent=(+$('contrast').value).toFixed(2);schedule();};
+$('contrast').oninput=()=>{$('cv').textContent=(+$('contrast').value).toFixed(2);if(SHOT&&typeof EASY!=='undefined'&&EASY==='clean')autoFromShot();else schedule();};
 ['base','tint','scale','decay','valpha'].forEach(id=>$(id).oninput=()=>{if(ENV)drawPreview();});
 $('bDlLL').onclick=()=>{const c=document.createElement('canvas');drawLL(c,+$('llW').value);download(c,`envcube_latlong_${$('llW').value}.png`);};
 $('bDlBall').onclick=()=>{const c=document.createElement('canvas');drawBall(c,+$('ballN').value);download(c,`envcube_ball_${$('ballN').value}.png`);};
-function loadShot(f){if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;MODE='wrap';$('dropTxt').textContent='✓ '+f.name+'(可再換一張)';$('eDlLL').disabled=$('eDlBall').disabled=false;schedule();};im.src=URL.createObjectURL(f);}
+let EASY='clean';
+function loadShot(f){if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;if(EASY==='clean'){autoFromShot();}else MODE='wrap';$('dropTxt').textContent='✓ '+f.name+'(可再換一張)';$('eDlLL').disabled=$('eDlBall').disabled=false;schedule();};im.src=URL.createObjectURL(f);}
 $('fEasy').onchange=e=>loadShot(e.target.files[0]);
 const dz=$('drop');['dragenter','dragover'].forEach(t=>dz.addEventListener(t,e=>{e.preventDefault();dz.classList.add('over');}));
 ['dragleave','drop'].forEach(t=>dz.addEventListener(t,e=>{e.preventDefault();dz.classList.remove('over');}));
 dz.addEventListener('drop',e=>loadShot(e.dataTransfer.files[0]));
 document.querySelectorAll('.seg button[data-r]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg button[data-r]').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('rough').value=b.dataset.r;schedule();});
+document.querySelectorAll('#styleSeg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#styleSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');EASY=b.dataset.m;if(!SHOT)return;if(EASY==='clean')autoFromShot();else{MODE='wrap';schedule();}});
 $('eDlLL').onclick=()=>$('bDlLL').click(); $('eDlBall').onclick=()=>$('bDlBall').click();
 applyPreset();
 </script>
