@@ -1282,7 +1282,7 @@ Claude 在本案真正做的是**判斷與調參數**(挑哪顆齒、量交界�
 
 ## 🔗 本次相關連結
 
-> 連結指向 `main`(開發分支 `claude/wizardly-gauss-y2tnhh` 已合併)。
+> 連結指向 `main`(本案經 [PR #25](https://github.com/TinaChen94/01/pull/25) 合併)。
 
 **📘 主紀錄**
 - A13 陷阱道具拆解(本頁):[A13-trap-props-saw-spike.md](https://github.com/TinaChen94/01/blob/main/docs/asset-cases/A13-trap-props-saw-spike.md)
@@ -1310,7 +1310,7 @@ Claude 在本案真正做的是**判斷與調參數**(挑哪顆齒、量交界�
 **🖼️ 圖檔與總覽**
 - A13 過程圖(`a13-01` ~ `a13-50`):[docs/asset-cases/images/](https://github.com/TinaChen94/01/tree/main/docs/asset-cases/images)
 - 整個 repo:[TinaChen94/01](https://github.com/TinaChen94/01/tree/main)
-- 開發分支 commit 紀錄:[claude/wizardly-gauss-y2tnhh](https://github.com/TinaChen94/01/commits/claude/wizardly-gauss-y2tnhh)
+- 開發過程 commit 紀錄:[PR #25 commits](https://github.com/TinaChen94/01/pull/25/commits)
 
 **💬 對話**
 - 本次工作階段:https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5
