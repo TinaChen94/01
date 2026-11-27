@@ -263,9 +263,51 @@ objects. Keep the current palette and exposure.
 - 同一句 prompt 重抽只是換一次運氣;**拿上一輪成品當輸入、只講材質**,才是往上加。
 - 第 2 次刻意把 hub 寫成「6 hex bolts」,後面程式做 60° 對稱重建時剛好對得上。
 
-## A-2. 正交正面抽取(concept→3D B de-lit 軌)
+## A-2. 第 3 次 — 正交正面抽取(concept→3D B de-lit 軌)
 
-照 `concept-to-3d-v2.md` 的 de-lit 模板;鋸片下半藏在槽裡 → 寫 **`COMPLETE THE DISC ... by rotational symmetry of the visible upper half`**。
+> 兩次精修完成後,才把鋸片單獨抽出來、轉成正面正交圖(ref 1 = 第 2 次細節 pass 成品)。
+> 鋸片下半藏在槽裡 → 用「旋轉對稱補完」;Dimensions 1:1、Fixed Seed 開。
+
+| 輸入(第 2 次成品) | 抽取結果(鋸齒仍不等距 → A-3 交程式) |
+|---|---|
+| ![](images/a13-55-saw-refined-pass2.jpg) | ![](images/a13-56-saw-extract-result.jpg) |
+
+**Prompt(逐字):**
+```text
+From the attached image, extract ONLY the circular saw blade and present
+it as a complete, isolated game prop. IGNORE everything else: the floor,
+the rail slot, the spikes and the hall.
+
+COMPLETE THE DISC: in the source, the lower half of the blade is hidden
+inside a floor slot. Show the FULL circular blade. Complete the hidden
+lower half by rotational symmetry of the visible upper half: the same
+tooth shape and spacing continue all the way around; the bronze outer
+disc, the grooved steel inner ring and the bolted hub are full circles.
+Do not invent any new parts, engravings or decorations.
+
+VIEW: true head-on FRONT view — the blade face is perpendicular to the
+camera and reads as a perfect circle, not an ellipse. Render in TRUE
+ORTHOGRAPHIC PROJECTION: no perspective, no foreshortening, no lens
+distortion, no tilt.
+
+KEEP the real bronze and steel albedo — true colours and all surface
+detail (machining rings, scratches, bevels, bolt heads); do NOT turn it
+into grey clay. DE-LIT it: remove all baked-in lighting — no key light,
+no shadow side, no strong specular streaks, no warm torch glow. Light it
+ONLY with perfectly even, flat diffuse studio lighting. No cast shadows,
+no rim light.
+
+Centered on a flat neutral grey (#808080) seamless background, the full
+blade filling about 80% of the frame, nothing cropped. Clean de-lit
+albedo reference plate for image-to-3D.
+```
+
+- `COMPLETE THE DISC ... by rotational symmetry`:半埋物件補完整圈的關鍵句(本案新增鎖句「旋轉補全」)。
+- `do NOT turn it into grey clay` + `DE-LIT`:去光但保留本色(concept→3D V2 的 de-lit 軌)。
+- 結果:正圓、去光都成功;**但齒數 / 齒距仍不規則、盤面中線有接縫** → 交給程式(A-3)。
+
+**陷阱 A 電鋸的 AI 順序總結:** 第 1 次去動態 → 第 2 次細節 pass → 第 3 次正交抽取 → 之後全部交程式修幾何。
+**程式修幾何一定排在最後**:任何一次 NB2 都會重畫鋸齒。
 
 ## A-3. 程式修幾何(NB2 做不到的部分)
 
