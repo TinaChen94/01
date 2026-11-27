@@ -18,6 +18,7 @@
 | **A5 古堡哥德大廳 — 三視圖重建(道具)** | [A5-castle-turnaround-image-to-3d.md](A5-castle-turnaround-image-to-3d.md) | ✅ 雙軌(保光影→de-lit):石像鬼(27圖)+ 火把(19圖)逐字 prompt 全收 + 正交鎖 / 固定世界光 / 鏡射左視;吊燈留過程註明不補。姊妹篇 A4 |
 | **A10+A11 墓園地面材質(苔蘚草地/石板路)** | [A10-A11-ground-tiles.md](A10-A11-ground-tiles.md) | ✅ top-down 平拍 → PBR 材質(可平鋪模組,不生 mesh) |
 | **A12 哥德雙開門 — 顏色範圍自動遮罩(紅色加強)** | [A12-door-color-range-mask.md](A12-door-color-range-mask.md) | ✅ HSV 門檻逐像素抓遮罩(非 AI)+ 只在遮罩內加強 + PS 調整圖層收尾;腳本 `tools/color-range-mask/`;附雙開門切分防穿模 |
+| **A13 陷阱道具拆解 — 電鋸陷阱 + 尖刺陷阱** | [A13-trap-props-saw-spike.md](A13-trap-props-saw-spike.md) | ✅ 進 Unity:⭐ **2D 正交正面圖 + 3D 模型/UV → 程式烘貼圖**(UV 不用改);AI 出材質/程式修幾何(24 齒等距、正圓、鏡射、tile 變化型、正八邊導引)+ 從 OBJ 算正交底稿 → 烘進扇形 UV(防拉扯/逐節對位)+ 古銅轉銀 + EnvCube 設定;工具 `tools/trap-texture-tools/`(含本機烘貼圖網頁 `bake-tool.html`)+ `tools/envcube-tool/`(丟截圖產 EnvCube + Unity 自動匯入);踩坑 ×18 |
 
 ## B 群 — 背景 / 模組 / 管線
 
