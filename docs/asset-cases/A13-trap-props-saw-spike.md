@@ -949,7 +949,14 @@ parts, no text.
 ```
 結果:透視大幅減少、輪廓直、左右對稱、相機不再往下看 ✅;但每節交界仍有小 V 字(中線下凹出小菱形)、看得到窄窄的台階頂面、底座看得到頂面 ⚠️ → 進 ② 修正 pass。
 
-- ② 用上方〈修正 pass〉prompt,ref 只給 ①。
+- ② 修正 pass(prompt 逐字見本節上方〈修正 pass〉),ref 只給 ①:
+
+| 素材(① 結果) | 結果(②) |
+|---|---|
+| <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" width="300"></a> |
+
+結果:每節交界全部變成水平直線、台階頂面與底座頂面都消失 ✅;但**凸環 / 尖頂下的小領圈被一起拉平、簡化掉** ❌(矯正越強,細節越被吃)→ ③ PS 合成兩版。
+
 - **教訓:矯正越強、細節越被吃掉**(② 把凸環當成「台階頂面」一起拉平)→ 不要追求一輪到位,**兩版各取所長在 PS 合成**最快。
 
 
