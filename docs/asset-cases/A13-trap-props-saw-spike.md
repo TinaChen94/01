@@ -14,44 +14,7 @@
 
 **狀態:✅ 陷阱 A(電鋸 + 軌道)、陷阱 B(伸縮尖刺 + 固定底座環)皆已進 Unity 場景完成(2026-11-26)。**
 **日期:** 2026-11-23 ~ 2026-11-26 · **對話:** `https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5`
-**工具:** [`tools/trap-texture-tools/`](../../tools/trap-texture-tools/README.md) · **全部連結:** 見下方〈🔗 本次相關連結〉
-
----
-
-## 🔗 本次相關連結
-
-> 連結指向開發分支 `claude/wizardly-gauss-y2tnhh`;合併進 main 後,把網址中的分支名換成 `main` 即可。
-
-**📘 主紀錄**
-- A13 陷阱道具拆解(本頁):[A13-trap-props-saw-spike.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/A13-trap-props-saw-spike.md)
-
-**🧰 工具(本機網頁版,下載後雙擊開啟,不需 Claude)**
-- 烘貼圖工具:[bake-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/bake-tool.html)(OBJ + 正交圖 → 烘進 UV)
-- EnvCube 環境貼圖工具:[envcube-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/envcube-tool.html)(丟一張場景截圖 → 3 步下載)
-- Unity 自動匯入腳本:[EnvCubeImporter.cs](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/EnvCubeImporter.cs)(放進 `Assets/Editor/`)
-
-**🐍 工具說明 / Python 腳本**
-- 程式修圖 / 烘貼圖說明(10 支腳本):[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
-- EnvCube 工具說明:[tools/envcube-tool/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/envcube-tool)
-
-**🧭 Skill / SOP(concept→3D 延伸與互動規則)**
-- SKILL.md(Auto-Pilot 例外、concept→3D 互動規則、用途分流):[SKILL.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/SKILL.md)
-- concept→3D 主模板(一步一步引導、階段 0 用途分流、延伸到貼圖):[concept-to-3d-pipeline.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md)
-- concept→3D V2 SOP(延伸鏈:概念圖 → 正交圖 → 3D+UV → 貼圖):[concept-to-3d-v2.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/references/concept-to-3d-v2.md)
-- Auto-Pilot 模板(不啟動情境加上 concept→3D):[auto-pilot.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/auto-pilot.md)
-
-**📑 索引與設定**
-- 案例索引(A13 列):[docs/asset-cases/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/README.md)
-- 產出統計 STATS(A13 案例列、技法列):[docs/STATS.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/STATS.md)
-- CLAUDE.md(A13 叫用詞、concept→3D 互動方式):[CLAUDE.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/CLAUDE.md)
-
-**🖼️ 圖檔與總覽**
-- A13 過程圖(`a13-01` ~ `a13-50`):[docs/asset-cases/images/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/docs/asset-cases/images)
-- 整個分支:[claude/wizardly-gauss-y2tnhh](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh)
-- 分支 commit 紀錄:[commits](https://github.com/TinaChen94/01/commits/claude/wizardly-gauss-y2tnhh)
-
-**💬 對話**
-- 本次工作階段:https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5
+**工具:** [`tools/trap-texture-tools/`](../../tools/trap-texture-tools/README.md) · **全部連結:** 見本頁最下方〈🔗 本次相關連結〉
 
 ---
 
@@ -1314,3 +1277,40 @@ Claude 在本案真正做的是**判斷與調參數**(挑哪顆齒、量交界�
 - **陷阱 A**:多條軌道橫向鋪滿地面,電鋸在軌道上排佈;軌道用 tile + 變化型長距離延伸,看不出重複。
 - **陷阱 B**:八角底座環成排嵌在地面(固定),尖刺成群升起;畫面下方是收進地底的尖刺(升降動畫的待命位置)。
 - 兩組陷阱共用古銅色系 + 深藍灰鋼,與哥德大廳場景色調一致。
+
+---
+
+## 🔗 本次相關連結
+
+> 連結指向開發分支 `claude/wizardly-gauss-y2tnhh`;合併進 main 後,把網址中的分支名換成 `main` 即可。
+
+**📘 主紀錄**
+- A13 陷阱道具拆解(本頁):[A13-trap-props-saw-spike.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/A13-trap-props-saw-spike.md)
+
+**🧰 工具(本機網頁版,下載後雙擊開啟,不需 Claude)**
+- 烘貼圖工具:[bake-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/bake-tool.html)(OBJ + 正交圖 → 烘進 UV)
+- EnvCube 環境貼圖工具:[envcube-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/envcube-tool.html)(丟一張場景截圖 → 3 步下載)
+- Unity 自動匯入腳本:[EnvCubeImporter.cs](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/EnvCubeImporter.cs)(放進 `Assets/Editor/`)
+
+**🐍 工具說明 / Python 腳本**
+- 程式修圖 / 烘貼圖說明(10 支腳本):[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
+- EnvCube 工具說明:[tools/envcube-tool/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/envcube-tool)
+
+**🧭 Skill / SOP(concept→3D 延伸、互動規則、短指令編輯鏈)**
+- SKILL.md(Auto-Pilot 例外、concept→3D 互動規則、用途分流):[SKILL.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/SKILL.md)
+- concept→3D 主模板(一步一步引導、階段 0 用途分流、延伸到貼圖):[concept-to-3d-pipeline.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/concept-to-3d-pipeline.md)
+- concept→3D V2 SOP(延伸鏈:概念圖 → 正交圖 → 3D+UV → 貼圖):[concept-to-3d-v2.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/references/concept-to-3d-v2.md)
+- Auto-Pilot 模板(不啟動情境加上 concept→3D):[auto-pilot.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/templates/auto-pilot.md)
+
+**📑 索引與設定**
+- 案例索引(A13 列):[docs/asset-cases/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/README.md)
+- 產出統計 STATS(A13 案例列、技法列):[docs/STATS.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/STATS.md)
+- CLAUDE.md(A13 叫用詞、concept→3D 互動方式):[CLAUDE.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/CLAUDE.md)
+
+**🖼️ 圖檔與總覽**
+- A13 過程圖(`a13-01` ~ `a13-50`):[docs/asset-cases/images/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/docs/asset-cases/images)
+- 整個分支:[claude/wizardly-gauss-y2tnhh](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh)
+- 分支 commit 紀錄:[commits](https://github.com/TinaChen94/01/commits/claude/wizardly-gauss-y2tnhh)
+
+**💬 對話**
+- 本次工作階段:https://claude.ai/code/session_01W4Q9GjMSoof91T1LwVKXx5
