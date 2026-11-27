@@ -156,7 +156,17 @@
 |---|---|---|
 | ![](images/a13-01-concept.jpg) | ![](images/a13-02-saw-crop.jpg) | ![](images/a13-03-saw-static.jpg) |
 
-## A-1. 去動態 + AAA 精修(NB2,先 Universal Upscaler 2× 再跑)
+## A-1. 電鋸圓盤:分兩次算(去動態 → 細節 pass)
+
+> 一次同時要求「移除特效 + 補畫 + 提升精緻度」,注意力會被分散。
+> 所以分成兩輪:**第 1 次只負責去動態與補畫,第 2 次拿第 1 次成品專心提升材質**。
+> 兩次都先用 Universal Upscaler 2×(最低 creativity)放大再跑 NB2;Prompt Enhance / Style = None。
+
+| 局部裁切(輸入) | 第 1 次:去動態 | 第 2 次:細節 pass |
+|---|---|---|
+| ![](images/a13-02-saw-crop.jpg) | ![](images/a13-03-saw-static.jpg) | ![](images/a13-55-saw-refined-pass2.jpg) |
+
+### 第 1 次 — 去動態 + AAA 重繪(ref 1 = 局部裁切,逐字)
 
 ```text
 REPAINT this crop as a STATIC, frozen game asset at Unreal Engine 5
@@ -173,14 +183,85 @@ Where these effects are removed, paint what is behind them: clean
 blade metal, floor stone and spike bases — nothing new.
 
 SAW BLADE (keep exact position, size, tooth count and silhouette —
-the blade still emerges from the slot in the floor): ...
-FRAME LOCK: keep the exact framing — do NOT crop, zoom, extend or outpaint.
+the blade still emerges from the slot in the floor):
+- solid bronze-gold metal disc with a brushed radial grain texture
+- sharp, chipped saw teeth with bright bevel highlights on each edge,
+  darker heat-tempered blue-purple discoloration near the teeth
+- the center hub: heavy machined steel with a bolt ring, a visible
+  bevel, crisp specular highlights and dark ambient occlusion inside
+  the recess
+- subtle scratches and wear, darker grime in the grooves
+
+SPIKES (right side): same count, position and height — painted dark
+iron with bronze tips, individual wear and edge highlights on each
+spike, no identical clones, grounded contact shadows at the base.
+
+FLOOR & RAIL: worn stone tiles with chipped edges and dirt in the grout
+lines; the metal rail / slot edge with a crisp highlight and scratches.
+
+LIGHTING: steady, static lighting — cool blue ambient from the hall,
+warm bounce light from the torches, soft ambient occlusion in every
+crevice and under the blade, crisp rim highlights on metal edges.
+
+STYLE: premium hand-painted stylized AAA game art rendered with Unreal
+Engine 5 material quality — clean PBR-like metal and stone, disciplined
+painted detail, stepped value planes, hue-shifted shadows. Stylized,
+NOT photorealistic, NOT a blurry concept sketch.
+
+FRAME LOCK: keep the exact framing — do NOT crop, zoom, extend or
+outpaint. The edges of this crop must continue seamlessly into the
+surrounding scene: same perspective, same colors at the borders.
+
 STRICT: no new objects, no new spikes, no fog, no glow, no particles of
 any kind. Do not brighten the overall exposure.
 ```
 
-不夠精緻 → **不要原樣重抽**,改拿成品當 ref 1 跑「DETAIL REFINEMENT PASS」(只講材質,明禁 `smeared or blotchy brush strokes`)。
-理由:去動態 pass 的注意力分給了「移除+補畫」,細節要獨立一輪。
+結果:去動態完全成功;但鋸面一塊一塊、像塗抹的生鏽木頭,金屬感不足。
+
+### 第 2 次 — 細節 pass(ref 1 = 第 1 次成品,逐字)
+
+```text
+DETAIL REFINEMENT PASS on this image. Same composition, same objects,
+same lighting — only raise the material definition to Unreal Engine 5
+AAA stylized game quality. Think of a high-end stylized 3D asset with
+hand-crafted textures: clean, crisp and readable — NOT a loose painting.
+
+SAW BLADE (keep exact position, size and outline):
+- teeth: evenly spaced, sharp hooked saw teeth with a clean ground
+  bevel on each tooth — crisp edges, bright highlight along each cutting
+  edge, small chips only at the tips; no ragged, melted or blobby teeth
+- blade face: a polished bronze disc with fine, tight concentric
+  machining rings across the whole surface, one clean sweeping
+  anisotropic highlight band, light scratches and a thin dark grime line
+  where the bronze meets the inner steel ring
+- inner ring: polished steel with crisp concentric grooves
+- hub: a machined steel flange with a ring of 6 hex bolts, a thick
+  washer and a bevelled center nut; dark ambient occlusion in the
+  recesses, sharp specular highlights on every bevel
+
+SPIKES: same count and position — forged dark iron with clean faceted
+planes, crisp edge highlights and bronze-capped tips; contact shadows
+at the base.
+
+FLOOR & RAIL: keep as is, slightly sharper chipped edges and grout lines.
+
+RENDERING: crisp silhouettes, clear value separation between metal
+planes, clean specular highlights, soft ambient occlusion. Stylized
+AAA game art (hand-crafted texture look), NOT photorealistic.
+
+FRAME LOCK: exact same framing — do NOT crop, zoom, extend or outpaint.
+
+STRICT: no smeared or blotchy brush strokes, no muddy patches, no rust
+crust covering the metal, no sparks, smoke, glow or particles, no new
+objects. Keep the current palette and exposure.
+```
+
+結果:材質變乾淨、金屬感出來,但**鋸齒仍不等距** → 交給程式(A-3)。
+
+**為什麼分兩次:**
+- 第 1 次的「hand-painted / brushwork」被理解成大筆塗抹 → 第 2 次改成 `hand-crafted textures ... NOT a loose painting`,並明禁 `smeared or blotchy brush strokes`。
+- 同一句 prompt 重抽只是換一次運氣;**拿上一輪成品當輸入、只講材質**,才是往上加。
+- 第 2 次刻意把 hub 寫成「6 hex bolts」,後面程式做 60° 對稱重建時剛好對得上。
 
 ## A-2. 正交正面抽取(concept→3D B de-lit 軌)
 
