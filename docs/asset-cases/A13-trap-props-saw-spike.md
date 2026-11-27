@@ -1001,6 +1001,16 @@ Stylized AAA game asset. No spike, no new parts, no text.
 | 3 | 第 2 輪結果 + 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-48-plate-r3-bronze-seethrough.jpg"><img src="images/a13-48-plate-r3-bronze-seethrough.jpg" alt="" width="300"></a> 古銅 ✅,洞仍透灰 ❌ |
 | 4 | **第 1 輪結果**(暗洞版)+ 古銅 12 邊環(色票) | 換成古銅材質 | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" alt="" width="300"></a> 古銅 ✅、暗洞 ✅ → **採用** |
 
+**第 3、4 輪「調整色調」的素材(古銅色票):**
+
+| 色票:古銅 12 邊環(只取顏色 / 材質,不取形狀) | Leonardo 生成紀錄(上排 = 第 3 輪、下排 = 第 4 輪:輸入 → 色票 → 結果) |
+|---|---|
+| <a href="images/a13-27-ring-fail-12gon.jpg"><img src="images/a13-27-ring-fail-12gon.jpg" width="260"></a> | <a href="images/a13-86-plate-leonardo-history.jpg"><img src="images/a13-86-plate-leonardo-history.jpg" width="360"></a> |
+
+- 色票就是 B-2 文字寫 octagonal 卻出成 **12 邊** 的那張失敗品 —— 形狀不對,但**古銅色調、刷紋、金色亮邊正好是要的**,拿來當換色參考。
+- 它的 12 邊沒有滲進結果:輸入圖(第 1 / 2 輪成品)的八邊形輪廓夠強,模型只取顏色。
+- 第 3、4 輪用的是同一張色票,差別只在輸入:第 3 輪輸入透底版 → 洞仍透灰;第 4 輪輸入暗洞版 → 成功。
+
 第 2 輪的輸入(斜角立體藍鋼板):
 
 <a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" alt="" width="630"></a>
