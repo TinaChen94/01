@@ -627,6 +627,20 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 
 ---
 
+## A-6. 陷阱 A 貼圖完稿(使用者整合)
+
+| ① 軌道 atlas(程式 tile 版) | ② 軌道 atlas 完稿(使用者調色) | ③ 陷阱 A 總 atlas |
+|---|---|---|
+| <a href="images/a13-67-rail-atlas-before-variants.jpg"><img src="images/a13-67-rail-atlas-before-variants.jpg" width="300"></a> | <a href="images/a13-68-rail-atlas-final.jpg"><img src="images/a13-68-rail-atlas-final.jpg" width="300"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="300"></a> |
+| 上:端頭版、下:中段 tile;銀灰鋼、亮鉚釘 | 拿掉鉚釘、壓暗成深藍灰舊鋼,邊緣保留細亮高光線;中間灰條為分隔 | 上半:上半圓鋸片(UV 上下鏡射);下半:②的軌道 |
+
+- **鉚釘拿掉**:鉚釘是 tile 重複感最明顯的來源;拿掉後中段可長距離鋪,不必靠大量變化型。
+- **調色對場景**:銀灰亮鋼 → 深藍灰舊鋼,與地板石板同色調;刃口式細亮線保留,讓 EnvCube 反射有地方落。
+- **一張 512 atlas、一個材質球**畫完整個陷阱 A(鋸片上半圓 + 軌道端頭 + 中段)。
+- ⚠️ 列與列之間的灰色分隔條:縮圖(mipmap)時可能滲進相鄰列邊緣 → 建議改成延伸各列邊緣色(padding),或 UV 每列內縮 1~2px。
+
+---
+
 # 🟢 陷阱 B — 伸縮尖刺 + 固定底座環
 
 ## 流程總覽
