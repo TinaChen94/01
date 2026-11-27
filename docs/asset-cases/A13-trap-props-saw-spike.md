@@ -701,6 +701,51 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 
 > 📌 教訓:**造型探索用短指令編輯鏈,呈現規格(正交、去光、底色)才用長 prompt 的鎖句。** 把兩件事塞進同一個長 prompt,兩邊都做不好。
 
+## B-0b. 調性 pass:把造型定稿重畫成場景風格(三參考圖)
+
+**狀況:** B-0 定稿的尖刺是**寫實攝影風**(灰黃灰塵銅、淺灰攝影棚光),場景是**手繪風格化**(冷藍紫環境光、飽和色塊、電鋸刃口金色亮邊)→ 直接放進去像兩種美術風格拼貼。
+**做法:** 「鎖結構、換色調」(concept→3D V2),造型完全不動,只換材質 / 色調 / 畫風;再加電鋸 atlas 當第三參考,讓兩個陷阱同一組。
+
+| ref 1:造型(要完全保留) | ref 2:Unity 場景(色調 / 畫風) | ref 3:電鋸 atlas(金屬參考) | 結果 |
+|---|---|---|---|
+| <a href="images/a13-76-restyle-in-shape.jpg"><img src="images/a13-76-restyle-in-shape.jpg" width="220"></a> | <a href="images/a13-77-restyle-in-scene.jpg"><img src="images/a13-77-restyle-in-scene.jpg" width="220"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="220"></a> | <a href="images/a13-31-spike-restyled.jpg"><img src="images/a13-31-spike-restyled.jpg" width="220"></a> |
+
+- 上傳順序 = prompt 裡的 `Image 1 / 2 / 3`;場景截圖要**裁掉 Unity 介面**(選單、面板、座標軸小圖示),否則可能被當成風格參考。
+- Dimensions 1:1(跟 ref 1 一樣,不是場景圖比例);Prompt Enhance / Style = None;Fixed Seed 開。
+
+**Prompt(逐字):**
+```text
+Image 1 (FIRST) = the correct geometry. Keep its silhouette,
+proportions, segments, facets and camera angle EXACTLY as they are.
+This is a RESTYLE / RECOLOUR pass only — do NOT change any structure.
+
+Image 2 (SECOND) = the target game scene. Repaint the object so it
+belongs in this scene: the same stylized, hand-painted game-art
+rendering — crisp painted edge highlights, stepped value planes, clean
+readable shapes. NOT photorealistic, NOT a photo of a real object.
+
+Image 3 (THIRD) = props already in the same scene. Match their metal:
+the warm aged bronze of the saw blade, and the thin bright bevel
+highlight lines of the steel rail strips, so all traps read as one set.
+
+COLOUR & LIGHT:
+- metal: aged bronze, mid-tone around #7A5A32
+- shadows and recesses hue-shift toward the scene's cool blue-violet,
+  around #2A2230 — never grey or black
+- a thin, crisp, bright highlight line along every top edge, rim and
+  facet ridge, around #D8B070
+- soft cool blue ambient fill from both sides, LEFT-RIGHT SYMMETRIC,
+  no directional key light, no cast shadow
+
+Flat neutral grey (#808080) background, the complete object in frame,
+nothing cropped. No new parts, no glow, no text.
+```
+
+**結果:** 造型、節數、稜線完全保留 ✅;寫實灰塵銅 → 手繪古銅,暗部偏藍紫、每條邊一道金色亮線,和電鋸同一組 ✅。
+- 暗部「偏藍紫、不是灰黑」是融入場景的關鍵:暗部黑色放進場景會像一個洞。
+- 左右對稱打光:之後半邊鏡射 / 烘貼圖時中線不會斷層。
+- 拆件時尖刺(紅圈)與底座(藍圈)都用這張當來源(B-1)。
+
 ## B-1. 紅圈 / 藍圈拆件:先用程式切開,再生成
 
 | 使用者畫圈 | 程式切出:紅=尖刺 | 程式切出:藍=底座(擋住處填灰待補) |
