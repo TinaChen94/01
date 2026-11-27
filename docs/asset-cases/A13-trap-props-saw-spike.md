@@ -849,7 +849,25 @@ Max:Tube Sides=8、取消 Smooth、內徑 = 外徑 × 0.8、轉 22.5° 讓角朝
 
 ## B-3. 尖刺:建模 → 扇形 UV → 烘貼圖(本案最長的攻關)
 
-| 增高 1.5×(底座不拉) | 使用者扇形 UV | 第一版投影:金邊掉到牆面(V 字透視) |
+### B-3 前置 — 增高 1.5 倍(比例定稿,之後才轉正交、建 3D)
+
+**使用者發問:**
+> 不改變構圖跟結構,往上增高 1.5 倍。
+
+| 調性 pass 結果(1024×1024) | 增高 1.5 倍(1024×1536) |
+|---|---|
+| <a href="images/a13-31-spike-restyled.jpg"><img src="images/a13-31-spike-restyled.jpg" width="260"></a> | <a href="images/a13-32-spike-tall.jpg"><img src="images/a13-32-spike-tall.jpg" width="260"></a> |
+
+**做法(程式,不重新生成):**
+- **底座不拉**:最下面底盤座維持原高度(整支一起拉,底座會變成厚磚、看起來不穩)。
+- **底座以上全部垂直拉高 1.5 倍**:寬度不變 → 整支更修長;節數、稜線、材質都跟原圖一樣。
+- 畫布從 1024×1024 改成 **1024×1536(2:3)**,上方留邊;另出左右對稱版(建模描底圖用)。
+- 副作用:表面筆觸也被垂直拉長 1.5 倍,近看略有直條感,遊戲距離看不出來。
+
+**為什麼這步很關鍵:** 這張是**比例定稿**。後面的正交矯正、3ds Max 描底圖建模(Lathe 8 邊)、從 OBJ 算正交底稿、烘貼圖,全部都以這個 1.5 倍比例為準 —— 這一步不先定,後面的模型和貼圖就對不上。
+
+
+| 增高 1.5×(上方前置步驟) | 使用者扇形 UV | 第一版投影:金邊掉到牆面(V 字透視) |
 |---|---|---|
 | <a href="images/a13-32-spike-tall.jpg"><img src="images/a13-32-spike-tall.jpg" alt="" width="300"></a> | <a href="images/a13-33-model-fan-uv.png"><img src="images/a13-33-model-fan-uv.png" alt="" width="300"></a> | <a href="images/a13-34-bake-misaligned.png"><img src="images/a13-34-bake-misaligned.png" alt="" width="300"></a> |
 
