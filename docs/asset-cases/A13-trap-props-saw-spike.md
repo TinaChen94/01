@@ -25,11 +25,14 @@
 **📘 主紀錄**
 - A13 陷阱道具拆解(本頁):[A13-trap-props-saw-spike.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/docs/asset-cases/A13-trap-props-saw-spike.md)
 
-**🧰 工具**
-- 程式修圖 / 烘貼圖工具說明:[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md)
-- 本機 EnvCube 環境貼圖工具:[envcube-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/envcube-tool.html) + Unity 匯入腳本 [EnvCubeImporter.cs](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/EnvCubeImporter.cs)
-- 本機網頁烘貼圖工具:[bake-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/bake-tool.html)(下載後雙擊開啟)
-- 工具資料夾(10 支腳本):[tools/trap-texture-tools/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
+**🧰 工具(本機網頁版,下載後雙擊開啟,不需 Claude)**
+- 烘貼圖工具:[bake-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/bake-tool.html)(OBJ + 正交圖 → 烘進 UV)
+- EnvCube 環境貼圖工具:[envcube-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/envcube-tool.html)(丟一張場景截圖 → 3 步下載)
+- Unity 自動匯入腳本:[EnvCubeImporter.cs](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/EnvCubeImporter.cs)(放進 `Assets/Editor/`)
+
+**🐍 工具說明 / Python 腳本**
+- 程式修圖 / 烘貼圖說明(10 支腳本):[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
+- EnvCube 工具說明:[tools/envcube-tool/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/README.md) · [資料夾](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/envcube-tool)
 
 **🧭 Skill / SOP(concept→3D 延伸與互動規則)**
 - SKILL.md(Auto-Pilot 例外、concept→3D 互動規則、用途分流):[SKILL.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/.claude/skills/ai-media-generator/SKILL.md)

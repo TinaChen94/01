@@ -114,7 +114,8 @@ python3 scripts/gen_stats.py --no-fetch # 離線(略過 git fetch)
 | **風格母本重打光公式**(兩段式:Phase 1 風格建檔一次 → Phase 2 場景重打光,可跨風格複用) | `docs/asset-cases/SOP-style-relight.md` | `CLAUDE.md`「照打光公式 / 打光公式 / 風格建檔」 | B10 首度驗證;`image-style-analysis` |
 | **風格 DNA 拆解 + 衍生鎖句**(色盤 / 光 / 筆觸 / 構圖文法 分層拆解 → 產同風格衍生圖) | `B10` / `B11` / `B14` 案例 | 「風格 DNA / 風格鎖句」 | B10 / B11 / B14 |
 | **顏色範圍自動遮罩**(HSV 門檻逐像素抓遮罩、只在遮罩內加強、保留 alpha;碎片化單色區不用手選) | `docs/asset-cases/A12-door-color-range-mask.md` + `tools/color-range-mask/color_mask.py` | 「照 A12 / 顏色遮罩 / 加強某色」 | A12 |
-| **陷阱道具程式修圖 / 烘貼圖**(圓鋸齒數等距、去接縫正圓、旋轉/鏡射對稱、tile 共用接縫變化型、從 OBJ 算正交底稿、正交圖烘進扇形 UV 防拉扯、古銅轉銀) | `docs/asset-cases/A13-trap-props-saw-spike.md` + `tools/trap-texture-tools/` | 「照 A13 / 鋸齒等距 / 正圓修正 / 烘貼圖 / 正交底稿」 | A13 |
+| **陷阱道具程式修圖 / 烘貼圖**(圓鋸齒數等距、去接縫正圓、旋轉/鏡射對稱、tile 共用接縫變化型、從 OBJ 算正交底稿、正交圖烘進扇形 UV 防拉扯、古銅轉銀) | `docs/asset-cases/A13-trap-props-saw-spike.md` + `tools/trap-texture-tools/`(含 `bake-tool.html`) | 「照 A13 / 鋸齒等距 / 正圓修正 / 烘貼圖 / 正交底稿」 | A13 |
+| **EnvCube 環境貼圖(Unity 不受光 shader 金屬反射)**(丟一張場景截圖 → 手排燈位 + 截圖配色 → 2:1 / 鏡面球;反射預覽;Unity 自動匯入 Cube) | `tools/envcube-tool/` + A13〈EnvCube 建議〉〈工具化〉 | 「EnvCube / 環境貼圖 / 金屬反射」 | A13 |
 
 ---
 

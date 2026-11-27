@@ -26,7 +26,9 @@
   (使用者說「烘貼圖」「照 A13 烘」「正面圖烘進 UV」即指此;
   為 concept→3D「拆掉這張概念圖 / 三視圖重建」的延伸:概念圖 → 正面正交圖 → 3D+UV → 貼圖產生);其他:AI 出材質/程式修幾何(齒數等距、正圓、
   鏡射、tile 變化型、正八邊導引)、從 OBJ 算正交底稿 → 烘進模型 UV(防拉扯)、古銅轉銀、
-  Unity EnvCube;腳本 `tools/trap-texture-tools/`
+  Unity EnvCube;腳本 `tools/trap-texture-tools/`;**本機網頁工具(不需 Claude)**:
+  `tools/trap-texture-tools/bake-tool.html`(烘貼圖)、`tools/envcube-tool/envcube-tool.html`
+  (使用者說「EnvCube」「環境貼圖」「金屬反射」即指此;丟一張場景截圖即可)
 - **B2** — 灰盒 → 夜森林地面模組(master tile):貼材質灰盒管線
   (貼圖烙分佈 → NB2 圖案活化 → 頂光 polish → PS 收邊);
   三路線成敗對照(NB2 幾何滲漏 / SD 畫布填滿症 / 貼材質正解)
