@@ -669,6 +669,38 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 |---|---|---|---|
 | <a href="images/a13-20-spike-crop.jpg"><img src="images/a13-20-spike-crop.jpg" alt="" width="300"></a> | <a href="images/a13-22-spike-onepiece.jpg"><img src="images/a13-22-spike-onepiece.jpg" alt="" width="300"></a> | <a href="images/a13-23-spike-design-chain.jpg"><img src="images/a13-23-spike-design-chain.jpg" alt="" width="300"></a> | <a href="images/a13-31-spike-restyled.jpg"><img src="images/a13-31-spike-restyled.jpg" alt="" width="300"></a> |
 
+## B-0. 造型定稿:concept→3D 提示詞一直失敗 → 改用短指令編輯鏈(使用者自行完成)
+
+**狀況:** 用「拆掉這張概念圖 / concept→3D / 三視圖重建」那套長 prompt(正交抽取、一段式、造型簡化、古銅色系…)反覆跑,**都得不到想要的造型**(兩段式結構、外輪廓不對、被拉成灰鋼、模型自己重新設計)。
+
+**改法:** 不寫長 prompt,改用**一句中文短指令、一步一步編輯**,每步以上一步結果當輸入:
+
+| 原圖(局部裁切) | 1. 優化這張圖 | 2. 精修這張圖 |
+|---|---|---|
+| <a href="images/a13-71-spikeB-src.jpg"><img src="images/a13-71-spikeB-src.jpg" width="300"></a> | <a href="images/a13-72-spikeB-1-optimize.jpg"><img src="images/a13-72-spikeB-1-optimize.jpg" width="300"></a> | <a href="images/a13-73-spikeB-2-refine.jpg"><img src="images/a13-73-spikeB-2-refine.jpg" width="300"></a> |
+| 低解析、斜角、刺林背景 | 清晰化,造型照原圖保留 | 細節加強,多出菱形飾釘 |
+
+| 3. 拿掉尖刺,維持其他部分的結構 | 4. 稍微舊化,不要太過閃耀 |
+|---|---|
+| <a href="images/a13-74-spikeB-3-nostuds.jpg"><img src="images/a13-74-spikeB-3-nostuds.jpg" width="300"></a> | <a href="images/a13-75-spikeB-4-aged.jpg"><img src="images/a13-75-spikeB-4-aged.jpg" width="300"></a> |
+| 去掉菱形飾釘(使用者說的「尖刺」),結構不動 | 降反光、加舊化 → **造型定稿** |
+
+**逐字指令:**
+```text
+1. 優化這張圖
+2. 精修這張圖
+3. 拿掉尖刺 維持其他部分的結構
+4. 稍微舊化  不要太過閃耀
+```
+
+**為什麼短指令反而成功:**
+- 長 prompt 把造型「用文字重新描述」→ 模型照文字重新設計(concept→3D 鐵律說的「文字代理有損」),造型一直漂。
+- 短指令 + 以圖為輸入 = **編輯模式**:每步只改一件事,其餘交給圖本身維持(同 B9「極短 prompt」、B-4 底盤「參照這張的色調 調整」)。
+- 一次只改一件事(清晰 → 細節 → 刪飾釘 → 舊化),出錯時只要退回上一步。
+- 定稿後仍有透視(斜上方視角)→ 後面再用正交矯正(B-3)處理;**造型與視角分開解決**。
+
+> 📌 教訓:**造型探索用短指令編輯鏈,呈現規格(正交、去光、底色)才用長 prompt 的鎖句。** 把兩件事塞進同一個長 prompt,兩邊都做不好。
+
 ## B-1. 紅圈 / 藍圈拆件:先用程式切開,再生成
 
 | 使用者畫圈 | 程式切出:紅=尖刺 | 程式切出:藍=底座(擋住處填灰待補) |
