@@ -401,6 +401,12 @@ Stylized AAA game asset rendering, crisp and clean. Same flat neutral
 grey background (#808080). No glow, no lens flare, no sparks, no new
 parts.
 ```
+**光澤 pass 結果:**
+
+![saw gloss result](images/a13-57-saw-gloss-result.jpg)
+
+刃口亮線、齒面拉絲光澤、盤面同心紋與鋼製中心軸都出來了;但齒數 / 齒距又被 NB2 重畫(驗證「先光澤、後排齒」的順序)。
+
 跑完 → 程式挑光澤最好的齒重排 24 齒、去背;② 高光疊層由程式畫(沿弧形柔和亮帶 + 1~2 個刃口小閃光)。
 若電鋸**不會轉**(靜態 / 只上下彈出)→ 不用拆層,用第一版左上光源更立體。
 
