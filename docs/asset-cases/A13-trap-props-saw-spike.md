@@ -545,30 +545,59 @@ objects, no text.
 - 限制:高度只有 113px(要清楚用 Universal Upscaler 2~4×、最低 creativity,**不要回 NB2**);金屬條上的釘頭與髒污每 716px 重複一次。
 - 使用者選 **B 版**,接著要求「上視圖當貼圖,到 3ds Max 製作」→ 第 3 步。
 
-### 第 3 步之後 — 正交上視、程式切 tile、變化型
+### 第 3 步 — 正交上視圖(要拿到 3ds Max 當貼圖)
 
-| NB2 去齒輪/鋸片後 | 空溝槽橫向 tile(x3 接縫預覽) |
+**使用者發問:**
+> 我要用 B(空溝槽)。拆掉這張概念圖 / concept→3D / 三視圖重建:我要上視圖當貼圖,到 3ds Max 製作。
+
+**輸入處理:** B 版是 716×113(約 6:1),NB2 輸出不了這麼扁 → 程式從中挑一段細節最多的 **2:1 區塊、放大成 1024×512 滿版**(無白邊)。Dimensions 選 2:1。
+
+| 素材(2:1 滿版裁切) | 結果(NB2 正交上視) |
 |---|---|
-| <a href="images/a13-11-rail-gen.jpg"><img src="images/a13-11-rail-gen.jpg" alt="" width="300"></a> | <a href="images/a13-12-rail-empty-tile-x3.jpg"><img src="images/a13-12-rail-empty-tile-x3.jpg" alt="" width="300"></a> |
+| <a href="images/a13-64-rail-top-input-2x1.jpg"><img src="images/a13-64-rail-top-input-2x1.jpg" width="300"></a> | <a href="images/a13-65-rail-top-result.jpg"><img src="images/a13-65-rail-top-result.jpg" width="300"></a> |
 
-| NB2 正交上視 | 上視 tile(螺栓固定 212.5px 間距) | 4 變化型 + 端頭互拼檢查 |
-|---|---|---|
-| <a href="images/a13-13-rail-top-gen.jpg"><img src="images/a13-13-rail-top-gen.jpg" alt="" width="300"></a> | <a href="images/a13-14-rail-top-tile-x3.jpg"><img src="images/a13-14-rail-top-tile-x3.jpg" alt="" width="300"></a> | <a href="images/a13-15-rail-variants-join.jpg"><img src="images/a13-15-rail-variants-join.jpg" alt="" width="300"></a> |
-
-- 裁切 14:1 太扁 → NB2 輸出不了 → **裁一段 2:1 滿版**跑,做好一段再程式接長。
-- tile 切法:找自相關最佳的重複長度,切口落在鏈條/螺栓**中間**、淡入淡出。
-- **變化型共用接縫**:每顆螺栓切成單元、重新排列/翻轉,所有變化型左右邊緣換成同一段共用接縫 → 任意順序互拼都無縫。
-
-**正交上視 prompt(ref 1 = 2:1 滿版裁切)**:
+**Prompt(逐字,ref 1 = 2:1 滿版裁切):**
 ```text
 Re-render this crop as a TRUE TOP-DOWN ORTHOGRAPHIC view, looking
 straight down at the floor — a flat texture for a 3D model. IGNORE the
 source's camera angle: no perspective, no foreshortening, no visible
-vertical side faces, no vanishing point. ...
+vertical side faces, no vanishing point.
+
+CONTENT (same materials, same layout from top to bottom):
+- worn blue-grey stone floor slabs along the top and bottom edges
+- two parallel steel edge strips (the top flanges of angle iron) running
+  horizontally, each with bolt heads at regular intervals, scratches,
+  chipped edges and a crisp bevel line on both long edges
+- between them, the open channel: an even, near-black dark strip
+The two steel strips are identical in width, perfectly straight and
+parallel, running edge to edge across the image.
+
 TEXTURE RULES: everything runs perfectly horizontal; the left and right
-edges must continue seamlessly. ...
+edges must continue seamlessly. Even, soft top-down lighting only — no
+directional key light, no cast shadows, no rim light; keep the same
+cool blue-grey stone and steel colours as the source.
+
+Stylized AAA game environment texture, Unreal Engine 5 material quality,
+crisp hand-crafted detail, NOT photorealistic.
 STRICT: no gears, no chain, no saw blades, no new objects, no text.
 ```
+
+**結果:**
+- ✅ 真正正俯視:看不到側面、金屬條平行等寬、上下石板也轉成俯視。
+- ✅ 解析度大幅提升(素材是 113px 高的低解析條,結果是清楚的手繪石板 + 鉚釘鋼條)。
+- ⚠️ 螺栓間距不完全一致(約 213 / 212 / 221 / 252px)→ 第 4 步交程式。
+- `IGNORE the source's camera angle` + `no visible vertical side faces`:否定來源斜角的關鍵句(concept→3D 正交鎖)。
+- `two steel strips are identical in width, perfectly straight and parallel`:給 3ds Max Sweep 斷面對齊用。
+
+### 第 4 步 — 程式切 tile + 變化型
+
+| 上視 tile(螺栓固定 212.5px 間距,x3 預覽) | 4 變化型 + 端頭互拼檢查 |
+|---|---|
+| <a href="images/a13-14-rail-top-tile-x3.jpg"><img src="images/a13-14-rail-top-tile-x3.jpg" width="300"></a> | <a href="images/a13-15-rail-variants-join.jpg"><img src="images/a13-15-rail-variants-join.jpg" width="300"></a> |
+
+- tile 切法:只取螺栓間距規則的段落(每段 2 顆螺栓)接成一組,切口落在兩顆螺栓**正中間**、淡入淡出 30px → 一張 tile 4 顆螺栓、間距 212~213px。
+- 使用者整合進 atlas 後回報「tile 有點明顯」→ **變化型共用接縫**:每顆螺栓切成單元、重新排列 / 翻轉,所有變化型左右邊緣換成同一段共用接縫 → 任意順序互拼都無縫(第一次做時取整數座標造成每隔一格暗帶,改成連續座標取樣修正)。
+- 3ds Max:Sweep 斷面照 tile 由上到下比例(上金屬條 / 溝槽 / 下金屬條),勾 Real-World Map Size,貼圖寬 = 4 顆螺栓實際長度;端頭另一端用 UV 左右鏡射。
 
 **拆法(使用者定案)**:電鋸只存**上半圓**,UV 上下鏡射;軌道只存**一端端頭 + 中段**,另一端 UV 左右鏡射、中段排變化型。
 
