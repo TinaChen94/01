@@ -474,6 +474,62 @@ parts.
 
 ## A-5. 軌道溝槽 tile
 
+### 第 1 步 — 擷取溝槽金屬構造(去動態 / 去角色 / 去鋸片)
+
+**使用者發問:**
+> 我裁切了局部來生成,去掉動態、去掉角色、去掉鋸齒陷阱,我要擷取陷阱溝槽的金屬構造,提升 Unreal 3A 遊戲精緻度,給我提示詞。
+
+| 素材(局部裁切,約 14:1) | 結果(NB2) |
+|---|---|
+| <a href="images/a13-62-rail-src-crop.jpg"><img src="images/a13-62-rail-src-crop.jpg" width="300"></a> | <a href="images/a13-11-rail-gen.jpg"><img src="images/a13-11-rail-gen.jpg" width="300"></a> |
+
+**Prompt(逐字,ref 1 = 局部裁切):**
+```text
+REPAINT this crop as a clean, STATIC environment asset at Unreal Engine
+5 AAA quality: the recessed metal trap channel set into the stone floor.
+Same camera, same composition, same scale.
+
+REMOVE COMPLETELY (paint what is behind them, nothing new):
+- the circular saw blades
+- the character
+- all sparks, embers, dust, smoke and motion blur
+Where they are removed, CONTINUE the channel mechanism exactly as it
+appears in the visible parts: the same chain, the same gear sprockets at
+the same regular spacing, the same rails.
+
+THE CHANNEL (keep its exact position, height and perspective):
+- a long horizontal recessed slot in the floor, dark inside, with soft
+  ambient occlusion deep in the trench
+- a heavy roller chain running along it: individual links and pins
+  clearly readable, oiled dark steel with worn bright edges
+- toothed gear sprockets at regular intervals: machined steel, crisp
+  teeth, a hub with bolts, subtle wear on the tooth tips
+- a polished steel rail lip along the top edge of the slot with a crisp
+  edge highlight, scratches and small chips; bolted brackets at regular
+  intervals
+- worn stone floor slabs above and below with chipped edges
+
+LIGHTING: steady and static — cool blue ambient from the hall, a soft
+warm bounce from torches, crisp specular highlights on metal edges,
+strong contact shadows where the chain meets the sprockets.
+
+STYLE: stylized AAA game environment art with Unreal Engine 5 material
+quality — clean PBR-like metal and stone, hand-crafted texture detail,
+NOT photorealistic, NOT a blurry painting.
+
+FRAME LOCK: same framing — do NOT crop, zoom, extend or outpaint.
+STRICT: no saw blades, no characters, no sparks, no glow, no new
+objects, no text.
+```
+
+**結果:**
+- ✅ 鋸片、角色、火花全部移除,被擋住處的鏈條與齒輪補得連續完整。
+- ⚠️ 齒輪一大一小交錯,但**間距不平均**(約 300 / 360 / 375 / 280px)。
+- ⚠️ 輸入是 14:1 扁長裁切 → 輸出**上下大片白邊**(B1 白邊坑);這次模型沒去動白邊算運氣好,下次輸入要滿版。
+- 之後使用者決定**不要齒輪、只要金屬條溝槽** → 程式重建「空溝槽」版(下表),再改走正交上視(下方 prompt)。
+
+### 第 2 步之後 — 程式切 tile、正交上視、變化型
+
 | NB2 去齒輪/鋸片後 | 空溝槽橫向 tile(x3 接縫預覽) |
 |---|---|
 | <a href="images/a13-11-rail-gen.jpg"><img src="images/a13-11-rail-gen.jpg" alt="" width="300"></a> | <a href="images/a13-12-rail-empty-tile-x3.jpg"><img src="images/a13-12-rail-empty-tile-x3.jpg" alt="" width="300"></a> |
