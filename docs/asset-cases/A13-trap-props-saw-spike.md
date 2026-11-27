@@ -609,7 +609,18 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 |---|---|
 | <a href="images/a13-14-rail-top-tile-x3.jpg"><img src="images/a13-14-rail-top-tile-x3.jpg" width="300"></a> | <a href="images/a13-15-rail-variants-join.jpg"><img src="images/a13-15-rail-variants-join.jpg" width="300"></a> |
 
-- 使用者整合進 atlas 後回報「tile 有點明顯」→ **變化型共用接縫**:每顆螺栓切成單元、重新排列 / 翻轉,所有變化型左右邊緣換成同一段共用接縫 → 任意順序互拼都無縫(第一次做時取整數座標造成每隔一格暗帶,改成連續座標取樣修正)。
+**使用者整合進 atlas 的版本(上:端頭版、下:中段 tile,512×256):**
+
+<a href="images/a13-67-rail-atlas-before-variants.jpg"><img src="images/a13-67-rail-atlas-before-variants.jpg" width="630"></a>
+
+**使用者發問:**
+> 幫我做變化型,現在 tile 有點明顯。
+
+- **變化型共用接縫**:每顆螺栓連同前後半段切成單元(5 種)、每張挑 4 個重新排列 / 部分左右翻轉,上下金屬條各用不同排法;所有變化型左右邊緣換成同一段共用接縫 → **任意順序互拼都無縫**。
+- 尺寸對齊使用者 atlas(512×114,螺栓在 x = 64 / 192 / 320 / 449);端頭版只改右邊 18px 讓它能接任一變化型;另出 512×512 atlas(端頭 + V1~V3,每列間隔 128px)。
+- 第一次做時取整數座標造成每隔一格暗帶,改成連續座標取樣修正。
+- Max 用法:長溝槽拆段,每段 UV 對到不同列(端頭 → V2 → V1 → V3 …);V4 放不下可把某段 UV 左右翻轉(同樣無縫)、另一端端頭用 UV 鏡射。
+
 - 3ds Max:Sweep 斷面照 tile 由上到下比例(上金屬條 / 溝槽 / 下金屬條),勾 Real-World Map Size,貼圖寬 = 4 顆螺栓實際長度;端頭另一端用 UV 左右鏡射。
 
 **拆法(使用者定案)**:電鋸只存**上半圓**,UV 上下鏡射;軌道只存**一端端頭 + 中段**,另一端 UV 左右鏡射、中段排變化型。
