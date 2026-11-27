@@ -187,7 +187,7 @@ function autoFromShot(){
   const W_=pick(warm,'#ffaa50'), C_=pick(cool,'#5a96ff');
   // 4) clean, strong layout (same as the hand-made preset) using the scene's colours
   const k=+$('contrast').value, st=0.7+0.6*k;
-  const out=PRESET.lights.map((l,i)=>({...l,color:i===0||(i>=5&&i<=8)?W_:(i>=1&&i<=4?C_:rgb2hex(hex2rgb(W_).map(v=>v*0.16)))),str:+(l.str*(i===9?1:st)).toFixed(2)}));
+  const out=PRESET.lights.map((l,i)=>({...l,color:i===0||(i>=5&&i<=8)?W_:(i>=1&&i<=4?C_:rgb2hex(hex2rgb(W_).map(v=>v*0.16))),str:+(l.str*(i===9?1:st)).toFixed(2)}));
   LIGHTS=out; MODE='lights'; renderLights(); schedule();
 }
 
