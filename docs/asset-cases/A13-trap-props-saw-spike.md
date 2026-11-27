@@ -928,6 +928,12 @@ flat neutral grey (#808080) background. No new parts, no text.
 
 <a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" alt="" width="630"></a>
 
+**第 1 輪素材與結果:**
+
+| ref 1:尖刺原圖(取底盤設計) | ref 2:電鋸 atlas(取下半部軌道鋼條材質) | 結果:正俯視藍鋼八角板(暗洞 ✅) |
+|---|---|---|
+| <a href="images/a13-78-base-src.jpg"><img src="images/a13-78-base-src.jpg" width="260"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="260"></a> | <a href="images/a13-45-plate-r1-topdown-steel.jpg"><img src="images/a13-45-plate-r1-topdown-steel.jpg" width="260"></a> |
+
 **第 1 輪 prompt(逐字)**:
 ```text
 Design a TOP-DOWN ORTHOGRAPHIC texture of a flat octagonal floor plate,
