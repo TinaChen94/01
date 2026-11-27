@@ -710,7 +710,7 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 只靠「紅圈 / 藍圈」文字讓 NB2 分界 → 兩次都失敗(尖刺帶進底盤、底盤被重新設計成藍鋼八角板)。
 **改成每張輸入只留一個部件,prompt 只給這一張**,一次成功。
 
-藍圈補圖 prompt:
+藍圈補圖 prompt(逐字,ref 1 = 程式切出的藍圈底座,擋住處填灰,2:1):
 ```text
 This image shows the FRONT part of a round, low base ring seen from a
 slightly elevated angle. The grey area above it is where an object used
@@ -718,9 +718,14 @@ to stand. COMPLETE the ring: continue its rim around the back so it
 becomes one full closed ring, keeping exactly the same shape,
 thickness, perspective, bronze-and-dark-metal material and polished
 edge highlights as the visible front part.
+
 The center of the ring is an OPEN DARK HOLE going down into the floor:
 near-black inside, with the inner wall of the ring visible at the back.
-It is a hole, NOT a solid top, and nothing stands in it. ...
+It is a hole, NOT a solid top, and nothing stands in it.
+
+Keep the visible front part unchanged. Crisp bright highlight lines
+along the top edges of the rim. Same camera angle, no new parts, no
+spike, no floor, no text. Flat neutral grey (#808080) background.
 ```
 
 ## B-2. 底座環:「八邊形」要用導引圖,不能用文字
@@ -735,8 +740,20 @@ Image 1 (FIRST) = the EXACT geometry: a REGULAR OCTAGONAL ring — exactly
 Keep its outline, the number of sides, the corner positions, the wall
 height, the rim width and the camera angle EXACTLY. Do NOT round it,
 do NOT add more sides. This is a PAINT-OVER of Image 1 only.
-Image 2 (SECOND) = the material and style reference. ...
-The center is an OPEN DARK HOLE ... It is NOT see-through ...
+
+Image 2 (SECOND) = the material and style reference. Paint Image 1 with
+the same finish: stylized hand-painted aged bronze, brushed strokes,
+warm gold on the lit faces, shadows shifting to cool blue-violet, a
+thin crisp bright gold highlight line along every top edge and every
+vertical corner.
+
+The center is an OPEN DARK HOLE going down into the floor: the inner
+back walls visible, fading to near-black at the bottom. It is NOT
+see-through — no grey background inside the ring.
+
+Soft even lighting, left-right symmetric, no cast shadow. Flat neutral
+grey (#808080) background, the whole ring in frame. No new parts, no
+text.
 ```
 成品疊回導引幾何驗證 8 角都對上 → 程式反投影拆出**頂面(8 段旋轉複製)**與**側面單片**。
 Max:Tube Sides=8、取消 Smooth、內徑 = 外徑 × 0.8、轉 22.5° 讓角朝前。
@@ -761,6 +778,7 @@ Keep this exact spike — same outline, same width and height of every
 tier, same position, same material, same colours. This is a CORRECTION
 pass to make it a perfect FRONT ORTHOGRAPHIC ELEVATION. Change ONLY
 the tier junctions and the base:
+
 1. Every tier junction becomes ONE PERFECTLY STRAIGHT HORIZONTAL LINE
    across the whole width — no dip or point at the center ridge, no
    V-shape, no diamond or arrow shape where the vertical ridges meet
@@ -771,9 +789,14 @@ the tier junctions and the base:
 3. The base: its top edge is a straight horizontal line with NO
    visible top face or slanted rim. Its bottom edge is also straight
    and horizontal.
+
 Each tier is a flat-sided trapezoid in this view: straight sides,
 straight horizontal top and bottom. The camera is exactly level — it
-does NOT look down at all. ...
+does NOT look down at all.
+
+Keep the thin bright gold highlight line on every edge (now straight),
+the hand-painted bronze texture, the even symmetric lighting and the
+flat neutral grey (#808080) background. No new parts, no text.
 ```
 **正交矯正實錄(使用者執行:提示詞兩輪 + PS)**——AI **不是畫不出正交,而是一次畫不到位**:
 
