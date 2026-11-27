@@ -634,6 +634,15 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 | <a href="images/a13-67-rail-atlas-before-variants.jpg"><img src="images/a13-67-rail-atlas-before-variants.jpg" width="300"></a> | <a href="images/a13-68-rail-atlas-final.jpg"><img src="images/a13-68-rail-atlas-final.jpg" width="300"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="300"></a> |
 | 上:端頭版、下:中段 tile;銀灰鋼、亮鉚釘 | 拿掉鉚釘、壓暗成深藍灰舊鋼,邊緣保留細亮高光線;中間灰條為分隔 | 上半:上半圓鋸片(UV 上下鏡射);下半:②的軌道 |
 
+**Unity 上線畫面(不受光 shader + EnvCube):**
+
+| 正面(鋸片完整圓,上下鏡射) | 斜角(鋸片從軌道冒出,軌道長距離鋪排) |
+|---|---|
+| <a href="images/a13-69-trapA-unity-front.jpg"><img src="images/a13-69-trapA-unity-front.jpg" width="450"></a> | <a href="images/a13-70-trapA-unity-angle.jpg"><img src="images/a13-70-trapA-unity-angle.jpg" width="450"></a> |
+
+- 正面:上下鏡射的中線看不出接縫,24 齒節奏平均;EnvCube 讓刃口帶暖金反光、盤面有拉絲光澤。
+- 斜角:軌道深藍灰與地板石板同色調,長距離鋪不見明顯重複;鋸片與軌道交界可再加接地陰影。
+
 - **鉚釘拿掉**:鉚釘是 tile 重複感最明顯的來源;拿掉後中段可長距離鋪,不必靠大量變化型。
 - **調色對場景**:銀灰亮鋼 → 深藍灰舊鋼,與地板石板同色調;刃口式細亮線保留,讓 EnvCube 反射有地方落。
 - **一張 512 atlas、一個材質球**畫完整個陷阱 A(鋸片上半圓 + 軌道端頭 + 中段)。
