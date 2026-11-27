@@ -701,9 +701,36 @@ STRICT: no gears, no chain, no saw blades, no new objects, no text.
 
 > 📌 教訓:**造型探索用短指令編輯鏈,呈現規格(正交、去光、底色)才用長 prompt 的鎖句。** 把兩件事塞進同一個長 prompt,兩邊都做不好。
 
-## B-0b. 調性 pass:把造型定稿重畫成場景風格(三參考圖)
+## B-1. 紅圈 / 藍圈拆件:先用程式切開,再生成
 
-**狀況:** B-0 定稿的尖刺是**寫實攝影風**(灰黃灰塵銅、淺灰攝影棚光),場景是**手繪風格化**(冷藍紫環境光、飽和色塊、電鋸刃口金色亮邊)→ 直接放進去像兩種美術風格拼貼。
+| 使用者畫圈 | 程式切出:紅=尖刺 | 程式切出:藍=底座(擋住處填灰待補) |
+|---|---|---|
+| <a href="images/a13-24-spike-mark-red-blue.jpg"><img src="images/a13-24-spike-mark-red-blue.jpg" alt="" width="300"></a> | <a href="images/a13-25-masked-red.jpg"><img src="images/a13-25-masked-red.jpg" alt="" width="300"></a> | <a href="images/a13-26-masked-blue.jpg"><img src="images/a13-26-masked-blue.jpg" alt="" width="300"></a> |
+
+只靠「紅圈 / 藍圈」文字讓 NB2 分界 → 兩次都失敗(尖刺帶進底盤、底盤被重新設計成藍鋼八角板)。
+**改成每張輸入只留一個部件,prompt 只給這一張**,一次成功。
+
+藍圈補圖 prompt(逐字,ref 1 = 程式切出的藍圈底座,擋住處填灰,2:1):
+```text
+This image shows the FRONT part of a round, low base ring seen from a
+slightly elevated angle. The grey area above it is where an object used
+to stand. COMPLETE the ring: continue its rim around the back so it
+becomes one full closed ring, keeping exactly the same shape,
+thickness, perspective, bronze-and-dark-metal material and polished
+edge highlights as the visible front part.
+
+The center of the ring is an OPEN DARK HOLE going down into the floor:
+near-black inside, with the inner wall of the ring visible at the back.
+It is a hole, NOT a solid top, and nothing stands in it.
+
+Keep the visible front part unchanged. Crisp bright highlight lines
+along the top edges of the rim. Same camera angle, no new parts, no
+spike, no floor, no text. Flat neutral grey (#808080) background.
+```
+
+## B-1b. 調性 pass:把造型定稿重畫成場景風格(三參考圖)
+
+**狀況:** 拆件(B-1)之後,B-0 定稿的尖刺是**寫實攝影風**(灰黃灰塵銅、淺灰攝影棚光),場景是**手繪風格化**(冷藍紫環境光、飽和色塊、電鋸刃口金色亮邊)→ 直接放進去像兩種美術風格拼貼。
 **做法:** 「鎖結構、換色調」(concept→3D V2),造型完全不動,只換材質 / 色調 / 畫風;再加電鋸 atlas 當第三參考,讓兩個陷阱同一組。
 
 | ref 1:造型(要完全保留) | ref 2:Unity 場景(色調 / 畫風) | ref 3:電鋸 atlas(金屬參考) | 結果 |
@@ -744,34 +771,7 @@ nothing cropped. No new parts, no glow, no text.
 **結果:** 造型、節數、稜線完全保留 ✅;寫實灰塵銅 → 手繪古銅,暗部偏藍紫、每條邊一道金色亮線,和電鋸同一組 ✅。
 - 暗部「偏藍紫、不是灰黑」是融入場景的關鍵:暗部黑色放進場景會像一個洞。
 - 左右對稱打光:之後半邊鏡射 / 烘貼圖時中線不會斷層。
-- 拆件時尖刺(紅圈)與底座(藍圈)都用這張當來源(B-1)。
-
-## B-1. 紅圈 / 藍圈拆件:先用程式切開,再生成
-
-| 使用者畫圈 | 程式切出:紅=尖刺 | 程式切出:藍=底座(擋住處填灰待補) |
-|---|---|---|
-| <a href="images/a13-24-spike-mark-red-blue.jpg"><img src="images/a13-24-spike-mark-red-blue.jpg" alt="" width="300"></a> | <a href="images/a13-25-masked-red.jpg"><img src="images/a13-25-masked-red.jpg" alt="" width="300"></a> | <a href="images/a13-26-masked-blue.jpg"><img src="images/a13-26-masked-blue.jpg" alt="" width="300"></a> |
-
-只靠「紅圈 / 藍圈」文字讓 NB2 分界 → 兩次都失敗(尖刺帶進底盤、底盤被重新設計成藍鋼八角板)。
-**改成每張輸入只留一個部件,prompt 只給這一張**,一次成功。
-
-藍圈補圖 prompt(逐字,ref 1 = 程式切出的藍圈底座,擋住處填灰,2:1):
-```text
-This image shows the FRONT part of a round, low base ring seen from a
-slightly elevated angle. The grey area above it is where an object used
-to stand. COMPLETE the ring: continue its rim around the back so it
-becomes one full closed ring, keeping exactly the same shape,
-thickness, perspective, bronze-and-dark-metal material and polished
-edge highlights as the visible front part.
-
-The center of the ring is an OPEN DARK HOLE going down into the floor:
-near-black inside, with the inner wall of the ring visible at the back.
-It is a hole, NOT a solid top, and nothing stands in it.
-
-Keep the visible front part unchanged. Crisp bright highlight lines
-along the top edges of the rim. Same camera angle, no new parts, no
-spike, no floor, no text. Flat neutral grey (#808080) background.
-```
+- 順序:**先拆物件(B-1)→ 再調性**;拆出的尖刺與底座分別套用同一套調性設定。
 
 ## B-2. 底座環:「八邊形」要用導引圖,不能用文字
 
