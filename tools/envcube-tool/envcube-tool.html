@@ -9,7 +9,17 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI","Microsoft JhengHei","PingFang TC",sans-serif}
 header{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
-header h1{font-size:18px;margin:0} header span{color:var(--mute);font-size:13px}
+header h1{font-size:18px;margin:0}
+#easy{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;padding:16px 18px}
+.step{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+.step>b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#1b1407;display:grid;place-items:center;font-size:16px}
+.step>div{flex:1;min-width:0}.st{font-size:15px;font-weight:600;margin-bottom:4px}
+.drop{display:grid;place-items:center;min-height:90px;margin-top:8px;border:2px dashed var(--line);border-radius:8px;color:var(--mute);cursor:pointer;text-align:center;padding:8px}
+.drop.over,.drop:hover{border-color:var(--acc);color:var(--text)}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.seg button{width:auto;flex:1;min-width:140px;margin:0}
+.seg button.on{outline:2px solid var(--acc)}
+button:disabled{opacity:.4;cursor:default}
+details#adv{border-top:1px solid var(--line)}details#adv>summary{padding:10px 18px;cursor:pointer;color:var(--mute)} header span{color:var(--mute);font-size:13px}
 main{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 52px)}
 aside{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
 section{margin-bottom:16px}
@@ -37,6 +47,16 @@ pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8p
 </head>
 <body>
 <header><h1>EnvCube 環境貼圖工具</h1><span>從場景截圖或光源設定產生環境貼圖(2:1 經緯圖 / 1024 鏡面球),即時預覽不受光 shader 的金屬反射 · 全程本機計算 · A13</span></header>
+<div id="easy">
+  <div class="step"><b>1</b><div><div class="st">丟一張場景截圖</div><div class="hint">遊戲畫面、Unity Scene 視窗截圖都可以(拖進這個框,或點一下選檔)</div></div>
+    <label class="drop" id="drop"><input type="file" id="fEasy" accept="image/*" hidden><span id="dropTxt">把截圖拖到這裡 / 點這裡選檔</span></label></div>
+  <div class="step"><b>2</b><div><div class="st">選金屬感覺</div>
+    <div class="seg"><button type="button" class="sec on" data-r="0.55">拉絲 / 霧面(銅盤,推薦)</button><button type="button" class="sec" data-r="0.12">亮面(鐵圈、刃口)</button></div></div></div>
+  <div class="step"><b>3</b><div><div class="st">下載,拖進 Unity</div>
+    <canvas id="eBall" width="150" height="150" style="float:right;margin:0 0 6px 10px;border-radius:50%"></canvas><div class="seg"><button type="button" id="eDlLL" disabled>下載環境貼圖(2:1)</button><button type="button" class="sec" id="eDlBall" disabled>下載鏡面球版(1024)</button></div>
+    <div class="hint">有裝 <code>EnvCubeImporter.cs</code>:直接拖進專案就設好。沒裝:選貼圖 → Texture Shape 改 <b>Cube</b> → Apply → 拖進材質的 Cube 欄位,CustCube Scale 先設 <b>0.3</b>。</div></div></div>
+</div>
+<details id="adv"><summary>進階設定(光源、顏色、預覽數值)— 不懂可以不用開</summary>
 <main>
 <aside>
   <section>
@@ -102,12 +122,13 @@ pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8p
   </div>
 </div>
 </main>
+</details>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
 const hex2rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
 const rgb2hex=c=>'#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
-let LIGHTS=[], SHOT=null, ENV=null; // ENV = {W,H,data Float32 RGB}
+let LIGHTS=[], SHOT=null, ENV=null, MODE='lights'; // ENV = {W,H,data Float32 RGB}
 
 const PRESET={top:'#161e3a',hor:'#46628c',bot:'#12141c',lights:[
  {az:0,el:63,size:20,color:'#ffaa50',str:1},
@@ -162,9 +183,23 @@ function autoFromShot(){
 }
 
 /* ---- env generation ---- */
+function wrapShot(d,W,H){
+  const c=document.createElement('canvas');let iw=Math.min(1024,SHOT.width),ih=Math.round(iw*SHOT.height/SHOT.width);c.width=iw;c.height=ih;
+  const g0=c.getContext('2d');g0.drawImage(SHOT,0,0,iw,ih);const raw=g0.getImageData(0,0,iw,ih).data;
+  const rowStd=y=>{let s=0,s2=0;for(let x=0;x<iw;x+=2){const v=raw[(y*iw+x)*4]+raw[(y*iw+x)*4+1]+raw[(y*iw+x)*4+2];s+=v;s2+=v*v;}const n=Math.ceil(iw/2),m=s/n;return Math.sqrt(Math.max(0,s2/n-m*m));};
+  const colStd=x=>{let s=0,s2=0;for(let y=0;y<ih;y+=2){const v=raw[(y*iw+x)*4]+raw[(y*iw+x)*4+1]+raw[(y*iw+x)*4+2];s+=v;s2+=v*v;}const n=Math.ceil(ih/2),m=s/n;return Math.sqrt(Math.max(0,s2/n-m*m));};
+  let t=0,b=ih-1,l=0,r=iw-1;while(t<ih*0.2&&rowStd(t)<6)t++;while(b>ih*0.8&&rowStd(b)<6)b--;while(l<iw*0.2&&colStd(l)<6)l++;while(r>iw*0.8&&colStd(r)<6)r--;
+  const cw=r-l+1,ch=b-t+1;c.width=cw;c.height=ch;const g=c.getContext('2d');g.drawImage(SHOT,l*SHOT.width/iw,t*SHOT.height/ih,cw*SHOT.width/iw,ch*SHOT.height/ih,0,0,cw,ch);
+  const px=g.getImageData(0,0,cw,ch).data;iw=cw;ih=ch;
+  const vspan=Math.min(80,90*ih/iw*1.2);
+  for(let j=0;j<H;j++){const lat=(0.5-(j+.5)/H)*180;let y=Math.round((0.5-lat/(2*vspan))*(ih-1));y=Math.max(0,Math.min(ih-1,y));
+    for(let i=0;i<W;i++){let lon=((i+.5)/W*2-1)*180;if(lon>90)lon=180-lon;else if(lon<-90)lon=-180-lon;
+      const x=Math.max(0,Math.min(iw-1,Math.round((lon+90)/180*(iw-1)))),k=(j*W+i)*3,q=(y*iw+x)*4;d[k]=px[q];d[k+1]=px[q+1];d[k+2]=px[q+2];}}
+}
 function buildEnv(){
   const W=512,H=256, d=new Float32Array(W*H*3);
   const T=hex2rgb($('cTop').value),Hz=hex2rgb($('cHor').value),Bt=hex2rgb($('cBot').value);
+  if(SHOT&&MODE==='wrap'){wrapShot(d,W,H);blur(d,W,H,+$('rough').value);ENV={W,H,d};return;}
   const Ls=LIGHTS.map(l=>{const a=l.az*Math.PI/180,e=l.el*Math.PI/180;return{x:Math.cos(e)*Math.sin(a),y:Math.sin(e),z:Math.cos(e)*Math.cos(a),s:Math.max(0.01,l.size*Math.PI/180),c:hex2rgb(l.color).map(v=>v*l.str)}});
   for(let j=0;j<H;j++){const lat=(0.5-(j+.5)/H)*Math.PI,sl=Math.sin(lat),cl=Math.cos(lat);
     const g=sl>0?Math.pow(sl,0.6):Math.pow(-sl,0.5), A=sl>0?T:Bt;
@@ -238,17 +273,24 @@ function drawPreview(){
 【切 shader 變亮】先把 CustCube Scale 拉到 0 確認,再從 0.3 往上加`;
 }
 let pend=0;
-function schedule(){ if(pend)return; pend=requestAnimationFrame(()=>{pend=0;buildEnv();drawLL($('cLL'),1024);drawBall($('cBall'),512);drawPreview();$('rv').textContent=(+$('rough').value).toFixed(2);}); }
+function schedule(){ if(pend)return; pend=requestAnimationFrame(()=>{pend=0;buildEnv();drawLL($('cLL'),1024);drawBall($('cBall'),512);drawBall($('eBall'),150);drawPreview();$('rv').textContent=(+$('rough').value).toFixed(2);}); }
 function download(cv,name){cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();},'image/png');}
 
-$('fShot').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;autoFromShot();};im.src=URL.createObjectURL(f);};
+$('fShot').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;MODE='lights';autoFromShot();};im.src=URL.createObjectURL(f);};
 $('bAuto').onclick=()=>{if(!SHOT){$('fShot').click();return;}autoFromShot();};
-$('bPreset').onclick=applyPreset;
-$('bAdd').onclick=()=>{LIGHTS.push({az:0,el:20,size:10,color:'#ffffff',str:1});renderLights();schedule();};
+$('bPreset').onclick=()=>{MODE='lights';applyPreset();};
+$('bAdd').onclick=()=>{MODE='lights';LIGHTS.push({az:0,el:20,size:10,color:'#ffffff',str:1});renderLights();schedule();};
 ['cTop','cHor','cBot','rough'].forEach(id=>$(id).oninput=schedule);
 ['base','tint','scale','decay','valpha'].forEach(id=>$(id).oninput=()=>{if(ENV)drawPreview();});
 $('bDlLL').onclick=()=>{const c=document.createElement('canvas');drawLL(c,+$('llW').value);download(c,`envcube_latlong_${$('llW').value}.png`);};
 $('bDlBall').onclick=()=>{const c=document.createElement('canvas');drawBall(c,+$('ballN').value);download(c,`envcube_ball_${$('ballN').value}.png`);};
+function loadShot(f){if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;MODE='wrap';$('dropTxt').textContent='✓ '+f.name+'(可再換一張)';$('eDlLL').disabled=$('eDlBall').disabled=false;schedule();};im.src=URL.createObjectURL(f);}
+$('fEasy').onchange=e=>loadShot(e.target.files[0]);
+const dz=$('drop');['dragenter','dragover'].forEach(t=>dz.addEventListener(t,e=>{e.preventDefault();dz.classList.add('over');}));
+['dragleave','drop'].forEach(t=>dz.addEventListener(t,e=>{e.preventDefault();dz.classList.remove('over');}));
+dz.addEventListener('drop',e=>loadShot(e.dataTransfer.files[0]));
+document.querySelectorAll('.seg button[data-r]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg button[data-r]').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('rough').value=b.dataset.r;schedule();});
+$('eDlLL').onclick=()=>$('bDlLL').click(); $('eDlBall').onclick=()=>$('bDlBall').click();
 applyPreset();
 </script>
 </body>
