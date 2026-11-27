@@ -728,48 +728,6 @@ along the top edges of the rim. Same camera angle, no new parts, no
 spike, no floor, no text. Flat neutral grey (#808080) background.
 ```
 
-### 藍圈底座:實際採用的是「陰錯陽差」生出的結構
-
-> ⚠️ 下方 B-1 的藍圈補圖、B-2 的八邊形環路線,**最後都沒有用上**。
-> 實際底座結構來自更早一次「失敗」的藍圈抽取:模型沒照原圖,自己畫成一塊**立體藍鋼八角板**(雙層台階 + 八角開口)——
-> 結構反而清楚好用,使用者就拿它當底座的結構來源,接到 B-4 轉正俯視、換古銅。
-
-| ref 1:原圖 | ref 2:紅 / 藍圈定位 | ref 3:電鋸 atlas(軌道鋼條當材質) | 結果(「失敗」但被採用) |
-|---|---|---|---|
-| <a href="images/a13-78-base-src.jpg"><img src="images/a13-78-base-src.jpg" width="220"></a> | <a href="images/a13-79-base-mark.jpg"><img src="images/a13-79-base-mark.jpg" width="220"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="220"></a> | <a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" width="220"></a> |
-
-**Prompt(逐字):**
-```text
-Use the FIRST image as the source and the SECOND image ONLY to locate
-the target. Extract ONLY the part inside the BLUE outline: the fixed
-octagonal base plate on the floor. Do NOT draw any outline. REMOVE the
-spike completely.
-
-This plate is fixed in the floor, and the spike retracts down through
-it: show the plate EMPTY, with an octagonal opening in its center,
-dark inside, the same size as the spike's bottom tier.
-
-View: seen from a slightly elevated front angle, like the source, so
-the top face, the opening and the front rim are all visible. Perfectly
-LEFT-RIGHT SYMMETRIC.
-
-MATERIAL — match the steel strips in the lower half of the THIRD
-image: dark blue-grey worn steel with fine scratches, and a thin,
-crisp, bright highlight line along EVERY edge — the outer rim, the top
-bevel and the edge of the central opening — exactly like the bright
-bevel lines on the rail strips. Darker grime in the recesses.
-
-Soft, even lighting, no cast shadows, no floor. Flat neutral grey
-(#808080) background, the whole plate in frame, nothing cropped.
-Stylized AAA game asset. No spike, no new parts, no text.
-```
-
-**當時判定為失敗的原因:** 比原圖厚很多、洞是穿透的(看得到灰底)、多一圈凸起內框、俯視角太大,也沒照原圖材質。
-**後來被採用的原因:** 雙層台階、八角開口、邊緣亮線的**結構清楚、左右對稱、八邊形是正的** —— 正好是 3ds Max 建模需要的;顏色、視角、洞的問題後面都能修(B-4:轉正俯視 → 換古銅 → 回到暗洞版)。
-
-> 📌 教訓:**「不符原圖」不等於「不能用」。** 生成結果偏離原圖時,先看它的結構是否更適合建模 / 遊戲需求;
-> 造型探索期,意外產出可以直接收進候選,不必執著還原原圖。
-
 ## B-1b. 調性 pass:把造型定稿重畫成場景風格(三參考圖)
 
 **狀況:** 拆件(B-1)之後,B-0 定稿的尖刺是**寫實攝影風**(灰黃灰塵銅、淺灰攝影棚光),場景是**手繪風格化**(冷藍紫環境光、飽和色塊、電鋸刃口金色亮邊)→ 直接放進去像兩種美術風格拼貼。
@@ -817,7 +775,7 @@ nothing cropped. No new parts, no glow, no text.
 
 ## B-2. 底座環:「八邊形」要用導引圖,不能用文字
 
-> ⚠️ **本節路線(古銅八角環)最後沒有用上**,實際底座見 B-1〈藍圈底座:實際採用的是「陰錯陽差」生出的結構〉與 B-4。本節保留作「正 N 邊形要用導引圖」的技法紀錄。
+> ⚠️ **本節路線(古銅八角環)最後沒有用上**,實際底座見 B-4〈藍圈底座:實際採用的是「陰錯陽差」生出的結構〉。本節保留作「正 N 邊形要用導引圖」的技法紀錄。
 
 | 文字寫 octagonal → 出 12 邊 | 程式畫正八邊形導引(角朝前、對齊尖刺稜線) | NB2 paint-over 成功 | 程式拆出頂面正俯視 |
 |---|---|---|---|
@@ -989,6 +947,49 @@ flat neutral grey (#808080) background. No new parts, no text.
 6. **古銅 → 銀色(`bronze_to_silver.py`)**:Lab 空間只減掉古銅色軸(保留 12% 暖光),正交的藍紫環境色保留並在中暗部加強 1.8 倍;高光保持中性(避免偏綠)。
 
 ### B-4. 底座頂面貼圖(使用者自行產出的路線)
+
+#### 藍圈底座:實際採用的是「陰錯陽差」生出的結構
+
+> ⚠️ 上方 B-1 的藍圈補圖、B-2 的八邊形環路線,**最後都沒有用上**。
+> 實際底座結構來自更早一次「失敗」的藍圈抽取:模型沒照原圖,自己畫成一塊**立體藍鋼八角板**(雙層台階 + 八角開口)——
+> 結構反而清楚好用,使用者就拿它當底座的結構來源,接到本節下方的四輪鏈:轉正俯視 → 換古銅。
+
+| ref 1:原圖 | ref 2:紅 / 藍圈定位 | ref 3:電鋸 atlas(軌道鋼條當材質) | 結果(「失敗」但被採用) |
+|---|---|---|---|
+| <a href="images/a13-78-base-src.jpg"><img src="images/a13-78-base-src.jpg" width="220"></a> | <a href="images/a13-79-base-mark.jpg"><img src="images/a13-79-base-mark.jpg" width="220"></a> | <a href="images/a13-16-trapA-atlas.png"><img src="images/a13-16-trapA-atlas.png" width="220"></a> | <a href="images/a13-46-plate-r2-src-3d.jpg"><img src="images/a13-46-plate-r2-src-3d.jpg" width="220"></a> |
+
+**Prompt(逐字):**
+```text
+Use the FIRST image as the source and the SECOND image ONLY to locate
+the target. Extract ONLY the part inside the BLUE outline: the fixed
+octagonal base plate on the floor. Do NOT draw any outline. REMOVE the
+spike completely.
+
+This plate is fixed in the floor, and the spike retracts down through
+it: show the plate EMPTY, with an octagonal opening in its center,
+dark inside, the same size as the spike's bottom tier.
+
+View: seen from a slightly elevated front angle, like the source, so
+the top face, the opening and the front rim are all visible. Perfectly
+LEFT-RIGHT SYMMETRIC.
+
+MATERIAL — match the steel strips in the lower half of the THIRD
+image: dark blue-grey worn steel with fine scratches, and a thin,
+crisp, bright highlight line along EVERY edge — the outer rim, the top
+bevel and the edge of the central opening — exactly like the bright
+bevel lines on the rail strips. Darker grime in the recesses.
+
+Soft, even lighting, no cast shadows, no floor. Flat neutral grey
+(#808080) background, the whole plate in frame, nothing cropped.
+Stylized AAA game asset. No spike, no new parts, no text.
+```
+
+**當時判定為失敗的原因:** 比原圖厚很多、洞是穿透的(看得到灰底)、多一圈凸起內框、俯視角太大,也沒照原圖材質。
+**後來被採用的原因:** 雙層台階、八角開口、邊緣亮線的**結構清楚、左右對稱、八邊形是正的** —— 正好是 3ds Max 建模需要的;顏色、視角、洞的問題後面都能修(本節下方:轉正俯視 → 換古銅 → 回到暗洞版)。
+
+> 📌 教訓:**「不符原圖」不等於「不能用」。** 生成結果偏離原圖時,先看它的結構是否更適合建模 / 遊戲需求;
+> 造型探索期,意外產出可以直接收進候選,不必執著還原原圖。
+
 
 > B-2 的八角環是**斜角立體圖**(拆頂面/側面用);實際貼在底座頂面的「正俯視古銅八角環」是使用者另外跑的一條 NB2 鏈。
 > ⚠️ 第 2、3 輪 prompt 原文未留存,以「輸入 → 意圖 → 結果」記錄;第 1、4 輪附逐字 prompt。
