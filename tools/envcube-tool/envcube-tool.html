@@ -51,6 +51,7 @@ pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8p
   <div class="step"><b>1</b><div><div class="st">丟一張場景截圖</div><div class="hint">遊戲畫面、Unity Scene 視窗截圖都可以(拖進這個框,或點一下選檔)</div></div>
     <label class="drop" id="drop"><input type="file" id="fEasy" accept="image/*" hidden><span id="dropTxt">把截圖拖到這裡 / 點這裡選檔</span></label></div>
   <div class="step"><b>2</b><div><div class="st">選金屬感覺</div>
+    <label style="margin-top:8px">金屬對比(亮點更亮、其餘壓暗)<span class="v" id="cv">0.80</span></label><input type="range" id="contrast" min="0" max="1" step="0.01" value="0.8">
     <div class="seg"><button type="button" class="sec on" data-r="0.55">拉絲 / 霧面(銅盤,推薦)</button><button type="button" class="sec" data-r="0.12">亮面(鐵圈、刃口)</button></div></div></div>
   <div class="step"><b>3</b><div><div class="st">下載,拖進 Unity</div>
     <canvas id="eBall" width="150" height="150" style="float:right;margin:0 0 6px 10px;border-radius:50%"></canvas><div class="seg"><button type="button" id="eDlLL" disabled>下載環境貼圖(2:1)</button><button type="button" class="sec" id="eDlBall" disabled>下載鏡面球版(1024)</button></div>
@@ -196,10 +197,23 @@ function wrapShot(d,W,H){
     for(let i=0;i<W;i++){let lon=((i+.5)/W*2-1)*180;if(lon>90)lon=180-lon;else if(lon<-90)lon=-180-lon;
       const x=Math.max(0,Math.min(iw-1,Math.round((lon+90)/180*(iw-1)))),k=(j*W+i)*3,q=(y*iw+x)*4;d[k]=px[q];d[k+1]=px[q+1];d[k+2]=px[q+2];}}
 }
+// metal reflections need high contrast: a dark, soft ambient + only the brightest spots as sharp highlights
+function metalize(d,W,H,k,rough){
+  const n=W*H, lum=new Float32Array(n);
+  for(let i=0;i<n;i++)lum[i]=0.2126*d[i*3]+0.7152*d[i*3+1]+0.0722*d[i*3+2];
+  const so=Array.from(lum).sort((a,b)=>a-b), p85=so[n*0.85|0], p995=so[Math.min(n-1,n*0.995|0)]||255;
+  const amb=new Float32Array(d), hl=new Float32Array(d.length);
+  for(let i=0;i<n;i++){const t=Math.max(0,Math.min(1,(lum[i]-p85)/Math.max(1,p995-p85)));const g=Math.pow(t,1.4)*(1.4+2.6*k)*255/Math.max(1,lum[i]);
+    for(let c=0;c<3;c++)hl[i*3+c]=d[i*3+c]*g;}
+  blur(amb,W,H,Math.min(1,rough+0.35));
+  const dim=0.75-0.45*k;
+  blur(hl,W,H,rough*0.35);
+  for(let i=0;i<d.length;i++)d[i]=Math.min(255,amb[i]*dim+hl[i]);
+}
 function buildEnv(){
   const W=512,H=256, d=new Float32Array(W*H*3);
   const T=hex2rgb($('cTop').value),Hz=hex2rgb($('cHor').value),Bt=hex2rgb($('cBot').value);
-  if(SHOT&&MODE==='wrap'){wrapShot(d,W,H);blur(d,W,H,+$('rough').value);ENV={W,H,d};return;}
+  if(SHOT&&MODE==='wrap'){wrapShot(d,W,H);metalize(d,W,H,+$('contrast').value,+$('rough').value);ENV={W,H,d};return;}
   const Ls=LIGHTS.map(l=>{const a=l.az*Math.PI/180,e=l.el*Math.PI/180;return{x:Math.cos(e)*Math.sin(a),y:Math.sin(e),z:Math.cos(e)*Math.cos(a),s:Math.max(0.01,l.size*Math.PI/180),c:hex2rgb(l.color).map(v=>v*l.str)}});
   for(let j=0;j<H;j++){const lat=(0.5-(j+.5)/H)*Math.PI,sl=Math.sin(lat),cl=Math.cos(lat);
     const g=sl>0?Math.pow(sl,0.6):Math.pow(-sl,0.5), A=sl>0?T:Bt;
@@ -281,6 +295,7 @@ $('bAuto').onclick=()=>{if(!SHOT){$('fShot').click();return;}autoFromShot();};
 $('bPreset').onclick=()=>{MODE='lights';applyPreset();};
 $('bAdd').onclick=()=>{MODE='lights';LIGHTS.push({az:0,el:20,size:10,color:'#ffffff',str:1});renderLights();schedule();};
 ['cTop','cHor','cBot','rough'].forEach(id=>$(id).oninput=schedule);
+$('contrast').oninput=()=>{$('cv').textContent=(+$('contrast').value).toFixed(2);schedule();};
 ['base','tint','scale','decay','valpha'].forEach(id=>$(id).oninput=()=>{if(ENV)drawPreview();});
 $('bDlLL').onclick=()=>{const c=document.createElement('canvas');drawLL(c,+$('llW').value);download(c,`envcube_latlong_${$('llW').value}.png`);};
 $('bDlBall').onclick=()=>{const c=document.createElement('canvas');drawBall(c,+$('ballN').value);download(c,`envcube_ball_${$('ballN').value}.png`);};
