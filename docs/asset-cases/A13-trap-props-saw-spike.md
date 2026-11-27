@@ -328,7 +328,84 @@ albedo reference plate for image-to-3D.
 ## A-4. 側面 / 光澤 / EnvCube
 
 - **側面**:圖上沒有厚度資訊 → 程式畫「側面幾何導引圖」(厚度、凸出量用設定值)當 ref 1,正面成品當 ref 2 上材質。
-- **光澤放哪**:給 3D → 貼圖保持 de-lit、光澤交給引擎;給 2D 旋轉物 → 光澤要「每齒一致、無方向」+ 另做固定方向的高光疊層。
+- **光澤放哪**:見下方〈鋸齒可以保有金屬光澤感嗎〉。
+
+### 鋸齒可以保有金屬光澤感嗎?(使用者提問)
+
+**先看用途,光澤放的位置剛好相反:**
+
+| 用途 | 光澤從哪來 | 貼圖怎麼做 |
+|---|---|---|
+| 給 image-to-3D / 建模 | 引擎材質參數(Metallic 1、刃口 Roughness 低)+ 打光 / EnvCube | **保持平光 de-lit**;光澤烘進貼圖 → 引擎再打一次光 = 雙重高光(髒、假) |
+| 給 2D 直接貼 | 直接畫進圖裡 | 跑光澤 pass(下方) |
+
+**順序很重要:先上光澤 → 再交程式排齒。** NB2 跑任何一次都會重畫鋸齒,24 齒等距一定跑掉;光澤 pass 後挑一顆光澤最好的齒,再用程式複製成 24 齒等距,每顆齒高光一致。
+
+**第一版光澤 prompt(左上固定光源,適合靜態擺設):**
+```text
+Keep this exact saw blade — same shape, same teeth, same hub, same
+framing. This is a MATERIAL / LIGHTING pass only: do NOT redraw the
+silhouette.
+
+Give the saw teeth a polished, bright metallic finish:
+- each tooth has a freshly ground cutting edge — a thin, crisp, bright
+  specular line along the front face and tip of every tooth
+- a narrow bevel band along the outer edge of the tooth ring, catching
+  light like sharpened steel
+- the tooth faces show a subtle brushed-metal sheen, brighter than the
+  disc face, with a soft gradient from the tip to the gullet
+- keep the bronze colour of the teeth; highlights lean pale gold to
+  near white
+
+Lighting: one soft key light from the upper left. The highlights fall
+consistently on the upper-left-facing edges of each tooth. The disc
+face and the steel hub keep their current finish, with only a gentle
+matching sheen.
+
+Stylized AAA game asset rendering, crisp and clean. Same flat neutral
+grey background (#808080). No glow, no lens flare, no sparks, no
+reflections of an environment, no new parts.
+```
+
+**使用者選「給 2D」後的修正:電鋸會旋轉 → 光澤拆兩層。**
+固定方向的光(左上亮)跟著鋸片轉,亮點繞圈 = 一眼看穿是假的。
+
+| 層 | 內容 | 旋轉時 |
+|---|---|---|
+| ① 鋸片本體 | 每顆齒光澤完全一樣、**無光源方向**(例:刃口亮線) | 跟著轉,不穿幫 |
+| ② 高光疊層 | 固定方向的反光帶 / 刃口小閃光,單獨一張透明圖(Screen / Add 疊) | **不轉**,固定原位 |
+
+24 齒等距版本來就每齒一致,剛好適合第 ① 層。
+
+**第二版光澤 prompt(本體層,無方向,ref 1 = 24 齒等距版):**
+```text
+Keep this exact saw blade — same shape, same teeth, same hub, same
+framing. This is a MATERIAL pass only: do NOT redraw the silhouette.
+
+Give the saw teeth a polished, bright metallic finish that is IDENTICAL
+on every tooth (radially symmetric — no light direction):
+- every tooth has a freshly ground cutting edge: a thin, crisp, bright
+  specular line along its front face and tip
+- a narrow polished bevel band along the outer edge of the whole tooth
+  ring
+- the tooth faces show a brushed-metal sheen, brighter than the disc
+  face, fading from the bright tip to a darker gullet
+- keep the bronze colour of the teeth; edge highlights pale gold to
+  near white
+
+The disc face keeps its concentric brushed-metal rings with an even
+sheen; the steel hub stays polished steel. No directional key light, no
+cast shadows, no single bright side — all 24 teeth must look the same.
+
+Stylized AAA game asset rendering, crisp and clean. Same flat neutral
+grey background (#808080). No glow, no lens flare, no sparks, no new
+parts.
+```
+跑完 → 程式挑光澤最好的齒重排 24 齒、去背;② 高光疊層由程式畫(沿弧形柔和亮帶 + 1~2 個刃口小閃光)。
+若電鋸**不會轉**(靜態 / 只上下彈出)→ 不用拆層,用第一版左上光源更立體。
+
+> 最後實際上線(Unity)走的是:**貼圖保持本色 + 不受光 shader 的 EnvCube 反射提供光澤**(見下)。
+
 - **Unity 不受光 shader + EnvCube**:
 
 | 環境球(依場景光源配色:暖吊燈 / 藍彩窗 / 火把帶) | Unity 設定 |
