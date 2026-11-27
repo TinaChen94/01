@@ -1062,6 +1062,13 @@ texture. No spike, no text.
 - 第 2 輪只靠一句短指令就把立體斜角板轉成正俯視,形狀交給輸入圖、文字只講視角。
 - 第 3 輪換色成功,但透底的洞是從第 2 輪遺傳下來的 → 第 4 輪改用第 1 輪暗洞版當輸入、同一句指令再跑一次。
 
+**第 4 輪(採用版):**
+
+| 輸入(第 1 輪暗洞版) | 色票:古銅 12 邊環 | 結果(採用) |
+|---|---|---|
+| <a href="images/a13-45-plate-r1-topdown-steel.jpg"><img src="images/a13-45-plate-r1-topdown-steel.jpg" width="260"></a> | <a href="images/a13-27-ring-fail-12gon.jpg"><img src="images/a13-27-ring-fail-12gon.jpg" width="260"></a> | <a href="images/a13-49-plate-r4-bronze-darkhole.jpg"><img src="images/a13-49-plate-r4-bronze-darkhole.jpg" width="260"></a> |
+| 正俯視藍鋼、暗洞 | 只取古銅色調 / 刷紋 / 金色亮邊 | 古銅 ✅、暗洞 ✅、八邊形與台階結構不變 ✅ |
+
 **第 4 輪(採用版)prompt(逐字,Leonardo 生成紀錄)**:
 ```text
 參照這張的色調 調整
