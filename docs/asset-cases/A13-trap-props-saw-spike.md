@@ -414,15 +414,63 @@ parts.
 
 > 最後實際上線(Unity)走的是:**貼圖保持本色 + 不受光 shader 的 EnvCube 反射提供光澤**(見下)。
 
-- **Unity 不受光 shader + EnvCube**:
+### EnvCube 建議(Unity 不受光 shader 的金屬光澤)
 
-| 環境球(依場景光源配色:暖吊燈 / 藍彩窗 / 火把帶) | Unity 設定 |
-|---|---|
-| <a href="images/a13-09-envcube-brushed.jpg"><img src="images/a13-09-envcube-brushed.jpg" alt="" width="300"></a> | <a href="images/a13-10-unity-envcube-setting.png"><img src="images/a13-10-unity-envcube-setting.png" alt="" width="300"></a> |
+> 這個 shader 是**不受光(Unlit)**,金屬光澤只能靠 **EnvCube 反射**:環境貼圖畫什麼,鋸片就反射什麼。
+> ⚠️ shader 行為是從面板標籤推測(未看原始碼),數值以實際畫面為準。
 
-  - PNG 拖不進 Cube 欄位 → **Texture Shape 改 Cube**;2:1 圖選 Latitude-Longitude,正方形鏡面球選 Mirrored Ball。
-  - 切 shader 變亮 = Cube 空著 + CustCube Scale 1 + 無頂點色(Alpha 預設 1)→ 先把 Scale 拉 0 確認,金屬從 0.3 起加。
-  - 平面 quad 反射只會是一片單色(法線一樣)→ EnvCube 要用在有倒角的 3D 模型上。
+| shader 面板 | 匯入設定(Texture Shape = Cube) | 最後接上的設定 |
+|---|---|---|
+| <a href="images/a13-60-unity-shader-panel.jpg"><img src="images/a13-60-unity-shader-panel.jpg" width="300"></a> | <a href="images/a13-61-unity-cube-import.jpg"><img src="images/a13-61-unity-cube-import.jpg" width="300"></a> | <a href="images/a13-10-unity-envcube-setting.png"><img src="images/a13-10-unity-envcube-setting.png" width="300"></a> |
+
+**1. 環境貼圖(程式依場景配色產生):** 上方暖色吊燈、兩側高處藍色彩窗、地平線一圈暖色火把、下方深石板地;鋸片反射的光會跟場景光源方向對得上。
+
+| polished(亮面:中心鐵圈、刃口) | brushed(拉絲 / 霧面:銅盤,**推薦先用**) | brushed 1024 鏡面球版 |
+|---|---|---|
+| <a href="images/a13-58-envcube-polished.png"><img src="images/a13-58-envcube-polished.png" width="300"></a> | <a href="images/a13-09-envcube-brushed.jpg"><img src="images/a13-09-envcube-brushed.jpg" width="300"></a> | <a href="images/a13-59-envcube-brushed-ball-1024.png"><img src="images/a13-59-envcube-brushed-ball-1024.png" width="300"></a> |
+
+**2. 匯入設定(PNG 拖不進 Cube 欄位的解法):**
+
+| 設定 | 2:1 經緯圖 | 1024 正方形鏡面球 |
+|---|---|---|
+| Texture Shape | **Cube** | **Cube** |
+| Mapping | **Latitude-Longitude Layout (Cylindrical)** | **Mirrored Ball (Spheremap)**(一定要手選,Auto 可能判錯) |
+| sRGB | 開 | 開 |
+| Max Size | 256~512 即可 | 512~1024 |
+| 其他 | 勾 **Fixup Edge Seams**(修 cube 面交界細縫) | 同左;球外四角無用、正後方解析度最低 |
+
+→ 改完按 **Apply**,圖示變成一顆球就能拖進 Cube 欄位。面板寫的「Only png」是指來源檔用 PNG(不是 .hdr),不是 2D PNG 可以直接放。
+
+**3. 切到這個 shader 就變亮?**
+- 原因:**Cube 空著**(Unity 塞預設灰白環境)+ **CustCube Scale 1** + 模型**沒刷頂點色**(Alpha 預設 1 = 全反射)→ 整片疊灰白反射。
+- 確認:把 **CustCube Scale 拉到 0**;恢復正常就是這個原因,接好環境貼圖後從 0.3 慢慢加。
+- 還是偏亮:不受光 shader 不會被場景燈壓暗 → **Color(HDR)調灰 0.6~0.75**,或貼圖本身調暗。
+
+**4. 用之前要注意:**
+- **平面 quad 幾乎反射不出東西**:整面法線相同 → 反射一整片單色,繞法線旋轉也不變。EnvCube 要用在**有倒角的 3D 模型**;2D 平面的光澤改用「高光疊層」。
+- **主貼圖用不帶光的版本**:Diffuse 已畫高光 + EnvCube 再加一層 = 雙重高光(髒)。
+- **Color 要白色**(或為壓亮度調的灰);淡藍漸層會把本色整片染藍。
+
+**5. 用頂點色 Alpha 控制哪裡反光(面板:VertColor_A as mask):**
+
+| 部位 | Vertex Alpha | 效果 |
+|---|---|---|
+| 鋸齒刃口、中心鐵圈、尖刺稜線 | 1.0 | 最亮的金屬反光 |
+| 銅盤面 | 0.4~0.6 | 柔和光澤 |
+| 溝槽、螺栓孔 | 0~0.2 | 保持暗部 |
+
+**6. 參數起點:**
+
+| 參數 | 建議 | 說明 |
+|---|---|---|
+| CustCube Scale | 金屬 **0.3~0.6**(接上後起點 0.16 也可) | 1 以上暗部被沖淡、畫面發灰 |
+| Base Decay Ratio | 先試 0.3 | 推測為「反射越強底色壓越暗」,以畫面為準 |
+| 地板材質 | **0**(不反射)/ 0.1~0.2(潮濕微光) | 石板地不需要明顯反射;EnvCube 留給電鋸、尖刺等金屬 |
+
+**7. 上線後的檢查與加分:**
+- 轉視角看反射顏色會不會變;都不變 → 是平面法線問題。
+- 電鋸接觸軌道處加一點**接地陰影**(blob decal 或在溝槽貼圖刷暗),比較像從槽裡冒出。
+- 環境圖被壓成正方形的 2:1 圖:用 Latitude-Longitude 讀取時方向對應不受影響,只是水平解析度減半,可不動。
 
 ## A-5. 軌道溝槽 tile
 
