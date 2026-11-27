@@ -912,7 +912,43 @@ flat neutral grey (#808080) background. No new parts, no text.
 | <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" alt="" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" alt="" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
 | 有透視 | 透視大幅減少,但交界仍有小 V 字、可見台階頂面 | 交界全部水平 ✅,但**凸環造型被簡化掉** ❌ | 交界取 ②、凸環 / 尖頂取 ① → 定案 ✅ |
 
-- ① 用〈③ 正交抽取〉prompt(image-grounded + 正交鎖 + 點名否定來源俯角),ref 只給原圖。
+- ① 正交抽取(image-grounded + 正交鎖 + 點名否定來源俯角),ref 只給 ⓪:
+
+| 素材(⓪ 增高 1.5 倍版) | 結果(①) |
+|---|---|
+| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" width="300"></a> |
+
+**① Prompt(逐字):**
+```text
+From the attached image, extract the spike and re-render it as a TRUE
+FRONT ORTHOGRAPHIC ELEVATION, like a technical model-sheet view.
+IGNORE the source's camera: the source looks slightly down from above —
+do NOT copy that.
+
+ORTHOGRAPHIC LOCK: parallel projection. NO perspective, NO
+foreshortening, NO vanishing point, NO looking down. The camera axis
+is perfectly horizontal at the spike's mid-height. Every tier edge is
+a PERFECTLY STRAIGHT HORIZONTAL line — NO V-shapes, NO curved or
+pointed rims, and NO top surfaces of the tiers or the base visible.
+All vertical facet edges stay straight. Every part at the same scale
+regardless of depth.
+
+KEEP from the source: the same 8-sided cross-section with one corner
+facing the viewer, the same number of tiers and their proportions, the
+small collar near the tip, the needle tip, the base, and the same
+material — stylized hand-painted aged bronze with dark blue-violet
+tint and thin bright gold highlight lines on every edge and ridge.
+
+LIGHTING: soft, even, flat front light. The two center faces evenly
+lit, the outer faces slightly darker, perfectly LEFT-RIGHT SYMMETRIC.
+No cast shadows.
+
+Perfectly upright and centered, the whole spike in frame with margin,
+on a flat neutral grey (#808080) background. Nothing cropped. No new
+parts, no text.
+```
+結果:透視大幅減少、輪廓直、左右對稱、相機不再往下看 ✅;但每節交界仍有小 V 字(中線下凹出小菱形)、看得到窄窄的台階頂面、底座看得到頂面 ⚠️ → 進 ② 修正 pass。
+
 - ② 用上方〈修正 pass〉prompt,ref 只給 ①。
 - **教訓:矯正越強、細節越被吃掉**(② 把凸環當成「台階頂面」一起拉平)→ 不要追求一輪到位,**兩版各取所長在 PS 合成**最快。
 
