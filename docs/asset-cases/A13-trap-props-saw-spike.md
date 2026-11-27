@@ -878,47 +878,20 @@ Max:Tube Sides=8、取消 Smooth、內徑 = 外徑 × 0.8、轉 22.5° 讓角朝
 |---|---|---|
 | <a href="images/a13-35-ortho-guide-from-model.png"><img src="images/a13-35-ortho-guide-from-model.png" alt="" width="300"></a> | <a href="images/a13-36-guide-vs-model-overlay.png"><img src="images/a13-36-guide-vs-model-overlay.png" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
 
-**底稿上色時不要給有透視的參考圖**(會把立體角度一起學走,B9 同理)。最後有效的是「修正 pass」——
-拿接近正交的成品當唯一輸入,把錯誤逐條點名:
-```text
-Keep this exact spike — same outline, same width and height of every
-tier, same position, same material, same colours. This is a CORRECTION
-pass to make it a perfect FRONT ORTHOGRAPHIC ELEVATION. Change ONLY
-the tier junctions and the base:
+### 正交矯正:提示詞兩輪 + PS 合成(使用者執行)
 
-1. Every tier junction becomes ONE PERFECTLY STRAIGHT HORIZONTAL LINE
-   across the whole width — no dip or point at the center ridge, no
-   V-shape, no diamond or arrow shape where the vertical ridges meet
-   the junction. The vertical ridge simply ends at the horizontal line.
-2. NO visible top surface on any tier step: remove the thin lit band
-   or ledge at each junction. Seen exactly from the side, a step is
-   only a straight horizontal line where the width changes.
-3. The base: its top edge is a straight horizontal line with NO
-   visible top face or slanted rim. Its bottom edge is also straight
-   and horizontal.
+> AI **不是畫不出正交,而是一次畫不到位**。做法:① 正交抽取 → ② 修正 pass → ③ PS 合成兩版優點。
+> 兩輪都**只給一張輸入圖**(不給有透視的參考圖,否則會把立體角度一起學走,同 B9)。
 
-Each tier is a flat-sided trapezoid in this view: straight sides,
-straight horizontal top and bottom. The camera is exactly level — it
-does NOT look down at all.
+**總覽:**
 
-Keep the thin bright gold highlight line on every edge (now straight),
-the hand-painted bronze texture, the even symmetric lighting and the
-flat neutral grey (#808080) background. No new parts, no text.
-```
-**正交矯正實錄(使用者執行:提示詞兩輪 + PS)**——AI **不是畫不出正交,而是一次畫不到位**:
-
-| ⓪ 原圖(略俯視,交界 V 字) | ① 正交抽取 prompt 重算 | ② 修正 pass 重算 | ③ PS 合成定稿 |
+| ⓪ 素材(增高 1.5 倍版) | ① 正交抽取 | ② 修正 pass | ③ PS 合成定稿 |
 |---|---|---|---|
-| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" alt="" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" alt="" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" alt="" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" alt="" width="300"></a> |
-| 有透視 | 透視大幅減少,但交界仍有小 V 字、可見台階頂面 | 交界全部水平 ✅,但**凸環造型被簡化掉** ❌ | 交界取 ②、凸環 / 尖頂取 ① → 定案 ✅ |
+| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" width="300"></a> | <a href="images/a13-37-ortho-fix-ps-composite.jpg"><img src="images/a13-37-ortho-fix-ps-composite.jpg" width="300"></a> |
+| 略俯視,交界 V 字 | 透視大幅減少,交界仍有小 V 字、可見台階頂面 | 交界全部水平 ✅,凸環被簡化掉 ❌ | 交界取 ②、凸環 / 尖頂取 ① ✅ |
 
-- ① 正交抽取(image-grounded + 正交鎖 + 點名否定來源俯角),ref 只給 ⓪:
+#### ① 正交抽取(ref 1 = ⓪)
 
-| 素材(⓪ 增高 1.5 倍版) | 結果(①) |
-|---|---|
-| <a href="images/a13-51-ortho-r0-src.jpg"><img src="images/a13-51-ortho-r0-src.jpg" width="300"></a> | <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" width="300"></a> |
-
-**① Prompt(逐字):**
 ```text
 From the attached image, extract the spike and re-render it as a TRUE
 FRONT ORTHOGRAPHIC ELEVATION, like a technical model-sheet view.
@@ -947,18 +920,48 @@ Perfectly upright and centered, the whole spike in frame with margin,
 on a flat neutral grey (#808080) background. Nothing cropped. No new
 parts, no text.
 ```
-結果:透視大幅減少、輪廓直、左右對稱、相機不再往下看 ✅;但每節交界仍有小 V 字(中線下凹出小菱形)、看得到窄窄的台階頂面、底座看得到頂面 ⚠️ → 進 ② 修正 pass。
 
-- ② 修正 pass(prompt 逐字見本節上方〈修正 pass〉),ref 只給 ①:
+**結果:** 透視大幅減少、輪廓直、左右對稱、相機不再往下看 ✅;但每節交界仍有小 V 字(中線下凹出小菱形)、看得到窄窄的台階頂面、底座看得到頂面 ⚠️ → 進 ②。
 
-| 素材(① 結果) | 結果(②) |
-|---|---|
-| <a href="images/a13-52-ortho-r1-prompt.jpg"><img src="images/a13-52-ortho-r1-prompt.jpg" width="300"></a> | <a href="images/a13-53-ortho-r2-correction.jpg"><img src="images/a13-53-ortho-r2-correction.jpg" width="300"></a> |
+#### ② 修正 pass(ref 1 = ① 結果)
 
-結果:每節交界全部變成水平直線、台階頂面與底座頂面都消失 ✅;但**凸環 / 尖頂下的小領圈被一起拉平、簡化掉** ❌(矯正越強,細節越被吃)→ ③ PS 合成兩版。
+拿接近正交的成品當唯一輸入,把錯誤**逐條點名**:
 
-- **教訓:矯正越強、細節越被吃掉**(② 把凸環當成「台階頂面」一起拉平)→ 不要追求一輪到位,**兩版各取所長在 PS 合成**最快。
+```text
+Keep this exact spike — same outline, same width and height of every
+tier, same position, same material, same colours. This is a CORRECTION
+pass to make it a perfect FRONT ORTHOGRAPHIC ELEVATION. Change ONLY
+the tier junctions and the base:
 
+1. Every tier junction becomes ONE PERFECTLY STRAIGHT HORIZONTAL LINE
+   across the whole width — no dip or point at the center ridge, no
+   V-shape, no diamond or arrow shape where the vertical ridges meet
+   the junction. The vertical ridge simply ends at the horizontal line.
+2. NO visible top surface on any tier step: remove the thin lit band
+   or ledge at each junction. Seen exactly from the side, a step is
+   only a straight horizontal line where the width changes.
+3. The base: its top edge is a straight horizontal line with NO
+   visible top face or slanted rim. Its bottom edge is also straight
+   and horizontal.
+
+Each tier is a flat-sided trapezoid in this view: straight sides,
+straight horizontal top and bottom. The camera is exactly level — it
+does NOT look down at all.
+
+Keep the thin bright gold highlight line on every edge (now straight),
+the hand-painted bronze texture, the even symmetric lighting and the
+flat neutral grey (#808080) background. No new parts, no text.
+```
+
+**結果:** 每節交界全部變成水平直線、台階頂面與底座頂面都消失 ✅;但**凸環 / 尖頂下的小領圈被一起拉平、簡化掉** ❌ → 進 ③。
+
+#### ③ PS 合成
+
+交界取 ② 版、凸環與尖頂取 ① 版 → 正交圖定案(總覽第 4 張),之後用來烘貼圖。
+
+**教訓:**
+- **矯正越強、細節越被吃掉**(② 把凸環當成「台階頂面」一起拉平)→ 不要追求一輪到位,**兩版各取所長在 PS 合成**最快。
+- 修正 pass 要**逐條點名錯誤**(V 字、菱形尖角、台階頂面、底座頂面);只寫「要正交」太抽象,模型改不到位。
 
 **烘貼圖(`bake_front_to_uv.py`)**——不改使用者 UV:
 
