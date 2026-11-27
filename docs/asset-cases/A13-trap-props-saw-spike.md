@@ -36,6 +36,11 @@
 
 ## 成品
 
+**⭐ 完成圖(Unity 場景,陷阱 A 電鋸 + 陷阱 B 尖刺陣):**
+
+<a href="images/a13-93-final-scene.jpg"><img src="images/a13-93-final-scene.jpg" width="900"></a>
+
+
 <a href="images/a13-43-final-scene.jpg"><img src="images/a13-43-final-scene.jpg" alt="final scene" width="630"></a>
 
 | 陷阱 A — 電鋸 + 軌道(Unity) | 陷阱 B — 尖刺 + 底座環(Unity) |
