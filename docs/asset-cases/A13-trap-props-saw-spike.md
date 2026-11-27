@@ -965,6 +965,18 @@ flat neutral grey (#808080) background. No new parts, no text.
 
 **烘貼圖(`bake_front_to_uv.py`)**——不改使用者 UV:
 
+**貼圖版本演進(照使用者扇形 UV 烘出的實際貼圖):**
+
+| v3:每面取自中間面(防拉扯) | v4:4K + 側面壓暗 | v5:側面跳過 V 字帶(定版) |
+|---|---|---|
+| <a href="images/a13-80-bake-v3.jpg"><img src="images/a13-80-bake-v3.jpg" width="300"></a> | <a href="images/a13-81-bake-v4.jpg"><img src="images/a13-81-bake-v4.jpg" width="300"></a> | <a href="images/a13-82-bake-v5.jpg"><img src="images/a13-82-bake-v5.jpg" width="300"></a> |
+| 金邊對齊每節階梯;但 1024 偏糊、整支一樣亮 | 解析度 4096;兩側面依原圖亮度比壓暗偏冷 | 兩側面不再帶入中間面的 V 字 → 多餘三角形消失 |
+
+| v5 使用者手修版 | v5 → 銀色 | v5 手修版 → 銀色(加強藍紫) |
+|---|---|---|
+| <a href="images/a13-83-bake-v5-user-edit.jpg"><img src="images/a13-83-bake-v5-user-edit.jpg" width="300"></a> | <a href="images/a13-84-bake-v5-silver.jpg"><img src="images/a13-84-bake-v5-silver.jpg" width="300"></a> | <a href="images/a13-85-bake-v5-silverBV.jpg"><img src="images/a13-85-bake-v5-silverBV.jpg" width="300"></a> |
+| 使用者在 4096 版上手修 | Lab 色軸只去古銅色、保留環境藍紫 | 中暗部藍紫加強 1.8 倍、高光保持中性 |
+
 | v5 預覽:左 v4、中 v5 正面、右 轉 40° | v4 的側面三角形 bug | 古銅 → 銀色(加強藍紫) |
 |---|---|---|
 | <a href="images/a13-38-bake-v5-preview.png"><img src="images/a13-38-bake-v5-preview.png" alt="" width="300"></a> | <a href="images/a13-39-side-triangles-bug.png"><img src="images/a13-39-side-triangles-bug.png" alt="" width="300"></a> | <a href="images/a13-40-silver-cmp.png"><img src="images/a13-40-silver-cmp.png" alt="" width="300"></a> |
