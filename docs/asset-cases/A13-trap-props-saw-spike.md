@@ -27,6 +27,7 @@
 
 **🧰 工具**
 - 程式修圖 / 烘貼圖工具說明:[tools/trap-texture-tools/README.md](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/README.md)
+- 本機 EnvCube 環境貼圖工具:[envcube-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/envcube-tool.html) + Unity 匯入腳本 [EnvCubeImporter.cs](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/envcube-tool/EnvCubeImporter.cs)
 - 本機網頁烘貼圖工具:[bake-tool.html](https://github.com/TinaChen94/01/blob/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools/bake-tool.html)(下載後雙擊開啟)
 - 工具資料夾(10 支腳本):[tools/trap-texture-tools/](https://github.com/TinaChen94/01/tree/claude/wizardly-gauss-y2tnhh/tools/trap-texture-tools)
 
@@ -415,6 +416,8 @@ parts.
 > 最後實際上線(Unity)走的是:**貼圖保持本色 + 不受光 shader 的 EnvCube 反射提供光澤**(見下)。
 
 ### EnvCube 建議(Unity 不受光 shader 的金屬光澤)
+
+> 🖥️ **已工具化:** 本機網頁工具 [`tools/envcube-tool/envcube-tool.html`](../../tools/envcube-tool/README.md)(場景截圖 / 預設 → 環境貼圖 → 反射預覽 → 下載)+ Unity 自動匯入腳本 `EnvCubeImporter.cs`(PNG 拖進去自動設 Cube + Mapping)。
 
 > 這個 shader 是**不受光(Unlit)**,金屬光澤只能靠 **EnvCube 反射**:環境貼圖畫什麼,鋸片就反射什麼。
 > ⚠️ shader 行為是從面板標籤推測(未看原始碼),數值以實際畫面為準。

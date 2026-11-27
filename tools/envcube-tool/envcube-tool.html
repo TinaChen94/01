@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EnvCube 環境貼圖工具</title>
+<style>
+:root{--bg:#16171c;--panel:#1f2128;--line:#30333d;--text:#e6e6ea;--mute:#9a9cab;--acc:#d8a64a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI","Microsoft JhengHei","PingFang TC",sans-serif}
+header{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+header h1{font-size:18px;margin:0} header span{color:var(--mute);font-size:13px}
+main{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 52px)}
+aside{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+section{margin-bottom:16px}
+h2{font-size:13px;color:var(--acc);margin:0 0 8px;letter-spacing:.5px}
+label{display:block;margin:6px 0 2px;color:var(--mute);font-size:12px}
+input[type=file]{width:100%;color:var(--mute);font-size:12px}
+select,input[type=number]{width:100%;background:#15161b;color:var(--text);border:1px solid var(--line);border-radius:4px;padding:3px 5px}
+input[type=range]{width:100%}
+input[type=color]{width:100%;height:26px;border:1px solid var(--line);background:#15161b;padding:0}
+.row{display:flex;gap:6px;align-items:end}.row>*{flex:1;min-width:0}
+button{width:100%;padding:8px;border:0;border-radius:5px;background:var(--acc);color:#1b1407;font-weight:600;cursor:pointer;margin-top:6px}
+button.sec{background:#2c2f39;color:var(--text)}
+button.x{width:auto;margin:0;padding:3px 8px;background:#3a2a2a;color:#f0b0b0;font-weight:500}
+.hint{color:var(--mute);font-size:12px;margin:6px 0}
+.light{border:1px solid var(--line);border-radius:5px;padding:6px 8px;margin:6px 0;background:#191a20}
+.light .row label{margin-top:0}
+.views{padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-content:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px}
+.card h3{margin:0 0 8px;font-size:13px;color:var(--acc)}
+canvas{max-width:100%;display:block;background:#0d0e12;border-radius:4px}
+pre{background:#15161b;border:1px solid var(--line);border-radius:5px;padding:8px;font-size:12px;white-space:pre-wrap;margin:6px 0}
+.v{color:var(--text)}
+@media (max-width:860px){main{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header><h1>EnvCube 環境貼圖工具</h1><span>從場景截圖或光源設定產生環境貼圖(2:1 經緯圖 / 1024 鏡面球),即時預覽不受光 shader 的金屬反射 · 全程本機計算 · A13</span></header>
+<main>
+<aside>
+  <section>
+    <h2>① 來源</h2>
+    <label>場景截圖(選用,用來自動抓光源與色調)</label>
+    <input type="file" id="fShot" accept="image/*">
+    <div class="row">
+      <div><label>截圖水平視角(°)</label><input type="number" id="fov" value="90" min="30" max="180"></div>
+      <div><label>抓幾個光源</label><input type="number" id="nLights" value="8" min="1" max="16"></div>
+    </div>
+    <label style="display:flex;gap:6px;align-items:center;color:var(--text)"><input type="checkbox" id="mirrorBack" checked style="width:auto">光源鏡射到背後(反射才會從各角度都有光)</label>
+    <button class="sec" id="bAuto">從截圖自動抓光源</button>
+    <button class="sec" id="bPreset">套用預設:哥德大廳(A13)</button>
+  </section>
+  <section>
+    <h2>② 天空 / 地面漸層</h2>
+    <div class="row">
+      <div><label>上方</label><input type="color" id="cTop" value="#161e3a"></div>
+      <div><label>地平線</label><input type="color" id="cHor" value="#46628c"></div>
+      <div><label>下方</label><input type="color" id="cBot" value="#12141c"></div>
+    </div>
+  </section>
+  <section>
+    <h2>③ 光源(方位 0° = 正前方)</h2>
+    <div id="lights"></div>
+    <button class="sec" id="bAdd">新增光源</button>
+  </section>
+  <section>
+    <h2>④ 金屬粗糙度(模糊)</h2>
+    <label>模糊程度 <span class="v" id="rv">0.55</span>(0 = 亮面 polished、0.5 以上 = 拉絲 brushed)</label>
+    <input type="range" id="rough" min="0" max="1" step="0.01" value="0.55">
+  </section>
+  <section>
+    <h2>⑤ 輸出</h2>
+    <div class="row">
+      <div><label>經緯圖寬度</label><select id="llW"><option>512</option><option selected>1024</option><option>2048</option></select></div>
+      <div><label>鏡面球尺寸</label><select id="ballN"><option>512</option><option selected>1024</option></select></div>
+    </div>
+    <button id="bDlLL">下載 2:1 經緯圖 PNG</button>
+    <button id="bDlBall">下載鏡面球 PNG</button>
+    <p class="hint">檔名含 <b>_latlong</b> / <b>_ball</b>,搭配 Unity 自動匯入腳本會自動設好 Cube 與 Mapping。</p>
+  </section>
+</aside>
+<div class="views">
+  <div class="card"><h3>2:1 經緯圖(Latitude-Longitude)</h3><canvas id="cLL" width="1024" height="512"></canvas></div>
+  <div class="card"><h3>鏡面球(Mirrored Ball)</h3><canvas id="cBall" width="512" height="512"></canvas></div>
+  <div class="card">
+    <h3>反射預覽(模擬不受光 shader + EnvCube)</h3>
+    <canvas id="cPrev" width="420" height="420"></canvas>
+    <div class="row">
+      <div><label>底色(貼圖本色)</label><input type="color" id="base" value="#7a5a32"></div>
+      <div><label>Color(HDR)灰階 <span class="v" id="tv">1.00</span></label><input type="range" id="tint" min="0.3" max="1" step="0.01" value="1"></div>
+    </div>
+    <label>CustCube Scale <span class="v" id="sv">0.40</span></label><input type="range" id="scale" min="0" max="1.5" step="0.01" value="0.4">
+    <label>Base Decay Ratio <span class="v" id="dv">0.30</span></label><input type="range" id="decay" min="0" max="1" step="0.01" value="0.3">
+    <label>頂點色 Alpha(反射遮罩)<span class="v" id="av">1.00</span></label><input type="range" id="valpha" min="0" max="1" step="0.01" value="1">
+    <p class="hint">公式為推測:結果 = 底色 × Color × (1 − Decay × Scale × Alpha) + 環境 × Scale × Alpha。數值以 Unity 實際畫面為準。</p>
+  </div>
+  <div class="card">
+    <h3>Unity 設定(照這個填)</h3>
+    <pre id="unityTxt"></pre>
+    <p class="hint">平面 quad 法線都一樣,反射只會是一片單色;EnvCube 要用在有倒角的 3D 模型上。主貼圖用不帶高光的版本,避免雙重高光。</p>
+  </div>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const hex2rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+const rgb2hex=c=>'#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
+let LIGHTS=[], SHOT=null, ENV=null; // ENV = {W,H,data Float32 RGB}
+
+const PRESET={top:'#161e3a',hor:'#46628c',bot:'#12141c',lights:[
+ {az:0,el:63,size:20,color:'#ffaa50',str:1},
+ {az:-138,el:26,size:10,color:'#5a96ff',str:1},{az:-52,el:26,size:10,color:'#5a96ff',str:1},
+ {az:52,el:26,size:10,color:'#5a96ff',str:1},{az:138,el:26,size:10,color:'#5a96ff',str:1},
+ {az:-92,el:3,size:6,color:'#ff8c32',str:1},{az:0,el:3,size:6,color:'#ff8c32',str:1},
+ {az:92,el:3,size:6,color:'#ff8c32',str:1},{az:178,el:3,size:6,color:'#ff8c32',str:1},
+ {az:0,el:-11,size:34,color:'#281e14',str:1}]};
+
+function renderLights(){
+  const box=$('lights'); box.innerHTML='';
+  LIGHTS.forEach((L,i)=>{
+    const d=document.createElement('div'); d.className='light';
+    d.innerHTML=`<div class="row">
+      <div><label>方位°</label><input type="number" data-k="az" value="${L.az}" min="-180" max="180"></div>
+      <div><label>仰角°</label><input type="number" data-k="el" value="${L.el}" min="-90" max="90"></div>
+      <div><label>大小°</label><input type="number" data-k="size" value="${L.size}" min="1" max="90"></div>
+      <div><label>強度</label><input type="number" data-k="str" value="${L.str}" step="0.1" min="0" max="5"></div>
+      <div><label>顏色</label><input type="color" data-k="color" value="${L.color}"></div>
+      <button class="x" title="刪除">✕</button></div>`;
+    d.querySelectorAll('input').forEach(inp=>inp.oninput=()=>{const k=inp.dataset.k;L[k]=k==='color'?inp.value:+inp.value;schedule();});
+    d.querySelector('button').onclick=()=>{LIGHTS.splice(i,1);renderLights();schedule();};
+    box.appendChild(d);
+  });
+}
+function applyPreset(){ $('cTop').value=PRESET.top;$('cHor').value=PRESET.hor;$('cBot').value=PRESET.bot; LIGHTS=PRESET.lights.map(l=>({...l})); renderLights(); schedule(); }
+
+/* ---- auto from screenshot ---- */
+function autoFromShot(){
+  if(!SHOT){alert;return;}
+  const w=96,h=Math.max(8,Math.round(96*SHOT.height/SHOT.width));
+  const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.drawImage(SHOT,0,0,w,h);
+  const px=g.getImageData(0,0,w,h).data, L=new Float32Array(w*h);
+  for(let i=0;i<w*h;i++)L[i]=0.2126*px[i*4]+0.7152*px[i*4+1]+0.0722*px[i*4+2];
+  const band=(y0,y1)=>{let s=[0,0,0],n=0;for(let y=Math.floor(y0*h);y<Math.max(Math.floor(y0*h)+1,Math.floor(y1*h));y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;s[0]+=px[i];s[1]+=px[i+1];s[2]+=px[i+2];n++;}return s.map(v=>v/n);};
+  const top=band(0,.12),mid=band(.42,.58),bot=band(.88,1);
+  $('cTop').value=rgb2hex(top.map(v=>v*0.7)); $('cHor').value=rgb2hex(mid); $('cBot').value=rgb2hex(bot.map(v=>v*0.7));
+  const fov=+$('fov').value, vfov=fov*h/w, N=+$('nLights').value, used=new Uint8Array(w*h), out=[];
+  const mean=L.reduce((a,b)=>a+b,0)/L.length;
+  for(let k=0;k<N;k++){
+    let best=-1,bv=0;for(let i=0;i<w*h;i++)if(!used[i]&&L[i]>bv){bv=L[i];best=i;}
+    if(best<0||bv<mean*1.35)break;
+    const bx=best%w,by=(best/w)|0; let s=[0,0,0],n=0,ext=0;
+    for(let y=Math.max(0,by-6);y<Math.min(h,by+7);y++)for(let x=Math.max(0,bx-6);x<Math.min(w,bx+7);x++){const i=y*w+x;
+      if(L[i]>bv*0.6){s[0]+=px[i*4];s[1]+=px[i*4+1];s[2]+=px[i*4+2];n++;ext=Math.max(ext,Math.hypot(x-bx,y-by));}}
+    for(let y=Math.max(0,by-8);y<Math.min(h,by+9);y++)for(let x=Math.max(0,bx-8);x<Math.min(w,bx+9);x++)used[y*w+x]=1;
+    const col=s.map(v=>v/n), m=Math.max(...col)||1;
+    out.push({az:Math.round((bx/w-0.5)*fov),el:Math.round((0.5-by/h)*vfov),size:Math.max(4,Math.round((ext+1)/w*fov)),color:rgb2hex(col.map(v=>v/m*255)),str:+(bv/255*1.2).toFixed(1)});
+  }
+  if($('mirrorBack').checked){const back=out.map(l=>({...l,az:l.az>=0?180-l.az:-180-l.az,str:+(l.str*0.7).toFixed(1)}));out.push(...back);}
+  LIGHTS=out; renderLights(); schedule();
+}
+
+/* ---- env generation ---- */
+function buildEnv(){
+  const W=512,H=256, d=new Float32Array(W*H*3);
+  const T=hex2rgb($('cTop').value),Hz=hex2rgb($('cHor').value),Bt=hex2rgb($('cBot').value);
+  const Ls=LIGHTS.map(l=>{const a=l.az*Math.PI/180,e=l.el*Math.PI/180;return{x:Math.cos(e)*Math.sin(a),y:Math.sin(e),z:Math.cos(e)*Math.cos(a),s:Math.max(0.01,l.size*Math.PI/180),c:hex2rgb(l.color).map(v=>v*l.str)}});
+  for(let j=0;j<H;j++){const lat=(0.5-(j+.5)/H)*Math.PI,sl=Math.sin(lat),cl=Math.cos(lat);
+    const g=sl>0?Math.pow(sl,0.6):Math.pow(-sl,0.5), A=sl>0?T:Bt;
+    for(let i=0;i<W;i++){const lon=((i+.5)/W*2-1)*Math.PI,x=cl*Math.sin(lon),z=cl*Math.cos(lon),k=(j*W+i)*3;
+      let r=Hz[0]+(A[0]-Hz[0])*g,gg=Hz[1]+(A[1]-Hz[1])*g,b=Hz[2]+(A[2]-Hz[2])*g;
+      for(const L of Ls){const dot=Math.max(-1,Math.min(1,x*L.x+sl*L.y+z*L.z)),ang=Math.acos(dot),f=Math.exp(-Math.pow(ang/L.s,2));r+=L.c[0]*f;gg+=L.c[1]*f;b+=L.c[2]*f;}
+      d[k]=r;d[k+1]=gg;d[k+2]=b;}}
+  blur(d,W,H,+$('rough').value);
+  ENV={W,H,d};
+}
+function blur(d,W,H,rough){
+  const r=Math.round(rough*W*0.06); if(r<1)return;
+  const tmp=new Float32Array(d.length);
+  for(let pass=0;pass<3;pass++){
+    for(let j=0;j<H;j++){for(let c=0;c<3;c++){let s=0;for(let k=-r;k<=r;k++)s+=d[(j*W+((k+W)%W))*3+c];
+      for(let i=0;i<W;i++){tmp[(j*W+i)*3+c]=s/(2*r+1);s+=d[(j*W+((i+r+1)%W))*3+c]-d[(j*W+((i-r+W)%W))*3+c];}}}
+    for(let i=0;i<W;i++){for(let c=0;c<3;c++){const col=j=>tmp[(Math.min(H-1,Math.max(0,j))*W+i)*3+c];let s=0;for(let k=-r;k<=r;k++)s+=col(k);
+      for(let j=0;j<H;j++){d[(j*W+i)*3+c]=s/(2*r+1);s+=col(j+r+1)-col(j-r);}}}
+  }
+}
+function sampleEnv(x,y,z,out){
+  const lon=Math.atan2(x,z),lat=Math.asin(Math.max(-1,Math.min(1,y)));
+  const u=(lon/Math.PI+1)/2*ENV.W-.5, v=(0.5-lat/Math.PI)*ENV.H-.5;
+  const x0=Math.floor(u),y0=Math.max(0,Math.min(ENV.H-2,Math.floor(v))),fx=u-x0,fy=Math.max(0,Math.min(1,v-y0));
+  const a=((x0%ENV.W)+ENV.W)%ENV.W,b=(a+1)%ENV.W,W=ENV.W,d=ENV.d;
+  for(let c=0;c<3;c++)out[c]=(d[(y0*W+a)*3+c]*(1-fx)+d[(y0*W+b)*3+c]*fx)*(1-fy)+(d[((y0+1)*W+a)*3+c]*(1-fx)+d[((y0+1)*W+b)*3+c]*fx)*fy;
+}
+
+/* ---- outputs ---- */
+function drawLL(cv,Wout){
+  cv.width=Wout;cv.height=Wout/2;const g=cv.getContext('2d'),im=g.createImageData(cv.width,cv.height),o=[0,0,0];
+  for(let j=0;j<cv.height;j++){const lat=(0.5-(j+.5)/cv.height)*Math.PI;for(let i=0;i<cv.width;i++){const lon=((i+.5)/cv.width*2-1)*Math.PI;
+    sampleEnv(Math.cos(lat)*Math.sin(lon),Math.sin(lat),Math.cos(lat)*Math.cos(lon),o);const k=(j*cv.width+i)*4;im.data[k]=o[0];im.data[k+1]=o[1];im.data[k+2]=o[2];im.data[k+3]=255;}}
+  g.putImageData(im,0,0);
+}
+function drawBall(cv,N){
+  cv.width=cv.height=N;const g=cv.getContext('2d'),im=g.createImageData(N,N),o=[0,0,0];
+  let edge=[0,0,0],ne=0;
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const X=(i+.5)/N*2-1,Y=1-(j+.5)/N*2,rr=X*X+Y*Y,k=(j*N+i)*4;
+    if(rr>1){im.data[k+3]=255;continue;}
+    const nz=Math.sqrt(1-rr);sampleEnv(2*nz*X,2*nz*Y,2*nz*nz-1,o);
+    im.data[k]=o[0];im.data[k+1]=o[1];im.data[k+2]=o[2];im.data[k+3]=255;
+    if(rr>0.96){edge[0]+=o[0];edge[1]+=o[1];edge[2]+=o[2];ne++;}}
+  edge=edge.map(v=>v/Math.max(1,ne));
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const X=(i+.5)/N*2-1,Y=1-(j+.5)/N*2;if(X*X+Y*Y>1){const k=(j*N+i)*4;im.data[k]=edge[0];im.data[k+1]=edge[1];im.data[k+2]=edge[2];}}
+  g.putImageData(im,0,0);
+}
+function drawPreview(){
+  const cv=$('cPrev'),g=cv.getContext('2d'),S=cv.width,im=g.createImageData(S,S),o=[0,0,0];
+  const base=hex2rgb($('base').value),tint=+$('tint').value,sc=+$('scale').value,dc=+$('decay').value,al=+$('valpha').value;
+  const bg=[48,50,58];
+  for(let j=0;j<S;j++)for(let i=0;i<S;i++){const k=(j*S+i)*4,X=(i+.5)/S*2.2-1.1,Y=1.1-(j+.5)/S*2.2,rr=X*X+Y*Y;
+    if(rr>1){im.data[k]=bg[0];im.data[k+1]=bg[1];im.data[k+2]=bg[2];im.data[k+3]=255;continue;}
+    const nz=Math.sqrt(1-rr);sampleEnv(2*nz*X,2*nz*Y,2*nz*nz-1,o);
+    const m=sc*al;for(let c=0;c<3;c++)im.data[k+c]=base[c]*tint*(1-dc*m)+o[c]*m;im.data[k+3]=255;}
+  g.putImageData(im,0,0);
+  $('tv').textContent=tint.toFixed(2);$('sv').textContent=sc.toFixed(2);$('dv').textContent=dc.toFixed(2);$('av').textContent=al.toFixed(2);
+  $('unityTxt').textContent=
+`【匯入貼圖】Texture Shape = Cube
+  2:1 經緯圖 → Mapping = Latitude-Longitude Layout (Cylindrical)
+  鏡面球     → Mapping = Mirrored Ball (Spheremap)(要手選,Auto 可能判錯)
+  sRGB = 開、Fixup Edge Seams = 勾、Max Size = 512~1024 → Apply
+
+【材質球】
+  Cube            = 這張環境貼圖
+  CustCube Scale  = ${sc.toFixed(2)}
+  Base Decay Ratio= ${dc.toFixed(2)}
+  Color (HDR)     = 灰階 ${tint.toFixed(2)}(1 = 白色)
+
+【頂點色 Alpha】刃口 / 稜線 1.0、盤面 0.4~0.6、溝槽 0~0.2
+【切 shader 變亮】先把 CustCube Scale 拉到 0 確認,再從 0.3 往上加`;
+}
+let pend=0;
+function schedule(){ if(pend)return; pend=requestAnimationFrame(()=>{pend=0;buildEnv();drawLL($('cLL'),1024);drawBall($('cBall'),512);drawPreview();$('rv').textContent=(+$('rough').value).toFixed(2);}); }
+function download(cv,name){cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();},'image/png');}
+
+$('fShot').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{SHOT=im;autoFromShot();};im.src=URL.createObjectURL(f);};
+$('bAuto').onclick=()=>{if(!SHOT){$('fShot').click();return;}autoFromShot();};
+$('bPreset').onclick=applyPreset;
+$('bAdd').onclick=()=>{LIGHTS.push({az:0,el:20,size:10,color:'#ffffff',str:1});renderLights();schedule();};
+['cTop','cHor','cBot','rough'].forEach(id=>$(id).oninput=schedule);
+['base','tint','scale','decay','valpha'].forEach(id=>$(id).oninput=()=>{if(ENV)drawPreview();});
+$('bDlLL').onclick=()=>{const c=document.createElement('canvas');drawLL(c,+$('llW').value);download(c,`envcube_latlong_${$('llW').value}.png`);};
+$('bDlBall').onclick=()=>{const c=document.createElement('canvas');drawBall(c,+$('ballN').value);download(c,`envcube_ball_${$('ballN').value}.png`);};
+applyPreset();
+</script>
+</body>
+</html>
